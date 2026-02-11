@@ -1,0 +1,151 @@
+[NativeListUnitTestCommandlet]
+HelpCmd=nativelistunittest
+HelpOneLiner=Unit test the native IGA list class
+HelpUsage=nativelistunittest
+
+[Armor]
+armorName=Light
+infoString=[Info not available]
+
+[TribesHUDBase]
+quickKeyText=¼Press '%1' to access quick favorites
+
+[MPCarryable]
+primaryFriendlyObjectiveDesc=Defend your team's carryable
+primaryEnemyObjectiveDesc=Get the enemy carryable
+primaryNeutralObjectiveDesc=Get the carryable
+
+[Equipment]
+infoString=[Info not available]
+
+[Weapon]
+Prompt=Press '%1' to swap your %2 for a %3.
+
+[Vehicle]
+driverPrompt=Enter driver position
+gunnerPrompt=Enter gunner position
+leftGunnerPrompt=Enter left gunner position
+rightGunnerPrompt=Enter right gunner position
+inventoryStationPrompt=Enter Inventory Station position
+fullVehiclePrompt=The vehicle is full
+vehicleProhibitedObjectPrompt=You can't get in while carrying a game object
+flipPrompt=Flip the vehicle
+cannotStealPrompt=You cannot steal an enemy vehicle before it has been used
+enemyOccupiedPrompt=You cannot enter a vehicle that is occupied by the enemy
+enemyInventoryStationPrompt=You cannot use enemy base objects
+heavyAttemptedToPilot=You can't pilot a vehicle when in heavy armor
+
+[Tank]
+localizedName=jump tank
+
+[Pod]
+localizedName=fighter
+
+[Buggy]
+localizedName=rover
+
+[SpawnArray]
+cantUseSpawnTowerMessage=You can't use a spawn tower while carrying a game object.
+
+[stat]
+Acronym=N/A
+
+[ModeInfo]
+protectYourString=Protect your %1
+destroyTheirString=Destroy their %1
+
+[UseableObject]
+Prompt=Press '%1' to use this object
+
+[BaseDeviceAccess]
+PowerDownPrompt=You cannot use this object because the power is down. Repair your generator.
+IsDisabledPrompt=You cannot use this object because it is damaged and needs repairing.
+
+[InventoryStationAccess]
+Prompt=Press '%1' to enter the Inventory Station
+
+[Pack]
+Prompt=Press '%1' to swap your '%4' for a '%3'
+
+[ResupplyStationAccess]
+Prompt=Press '%1' to use the Resupply Station
+
+[ObjectiveInfo]
+Status_Active=Active
+Status_Completed=Completed
+Status_Failed=Failed
+Type_Primary=Primary
+Type_Secondary=Secondary
+
+[MPDeathMessages]
+HimselfText=himself
+HerselfText=herself
+
+[TribesGameMessage]
+ReadyMessage=%1 is ready to start
+NotReadyMessage=%1 is not ready to start
+AwaitingSingleReadyMessage=%1 is holding up the tournament
+AwaitingDoubleReadyMessage=%1 and %2 are holding up the tournament
+AwaitingTripleReadyMessage=%1, %2 and %3 are holding up the tournament
+UnbalancedMessage=The teams aren't balanced.
+
+[SpawnArrayUseableObject]
+Prompt=Press '%1' to access the Spawn Array
+
+[MPCarryableMessages]
+EnergyBarrierCollision=You can't pass through while carrying a carryable.
+cantGrappleAtHome=You can't grapple this carryable when it's at home.
+cantGrappleInField=You can't grapple this carryable.
+
+[TurretEntry]
+promptArmor=Your armor does not allow you to man turrets.
+promptHostile=Members of your team cannot man this turret.
+
+[MPAreaMessages]
+selfEnter=You entered an area.
+selfExit=You exited an area.
+
+[EmergencyStationAccess]
+AlreadyHavePackPrompt=You already have a Repair Pack
+Prompt=Press '%1' to use the Emergency Station
+
+[ExplosionDamageType]
+DeathString=%o was blown up.
+
+[KeyBindings]
+LocalizedCommandString=("Move Forward","Move Backward","Strafe Left","Strafe Right","Use","Fire","Activate Pack","Jetpack/Jump","Ski","Zoom","Cycle Zoom Level","Command Map","Switch to Fallback Weapon","Switch To Weapon 1","Switch To Weapon 2","Switch To Weapon 3","Equip Deployable","Equip Carryable","Next Weapon","Prev Weapon","Throw Grenade","Talk","Team Talk","Quick Chat / Loadout Selection","Jetpack","Jump","Ski/Jump","Drop Weapon","Toggle Behind View","Respawn","Cycle Radar Zoom Level","My Stats","Game Stats","Weapon Stats")
+LocalizedCommandCategories=("Basic","Advanced")
+
+[AssaultShip]
+localizedName=assault ship
+
+[ObjectSpawnUseableObject]
+AlreadyHaveDeployablePrompt=You already have a deployable.
+Prompt=Press '%1' to get the deployable at this station.
+
+[MPCapturePointMessages]
+cantCaptureWhenNotHome=You can't capture when your carryable isn't home.
+
+[MPPersonalStatMessage]
+offenseStr=Offense
+defenseStr=Defense
+styleStr=Style
+
+[MPCheckpoint]
+selfCheckpointObjectiveDesc=Proceed to the next Checkpoint.
+
+[MPTargetMessages]
+targetDestroyed=%1 destroyed one of team %2's targets.
+
+[MPRabbitFlagMessages]
+RabbitFlagPickedUp=A Rabbit flag was picked up.
+RabbitFlagDropped=A Rabbit flag was dropped.
+RabbitKilled=%1 killed a Rabbit!
+
+[MPCheckpointMessages]
+selfPassed=You passed a checkpoint.
+selfFailed=This is not your current checkpoint.
+selfRaceCompleted=You finished the race!  Total time:  %1
+selfLapCompleted=You finished lap %1 of %2.
+globalRaceCompleted=%1 finished the race!  Position:  %1
+

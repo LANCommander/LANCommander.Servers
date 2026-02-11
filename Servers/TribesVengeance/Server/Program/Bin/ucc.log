@@ -1,0 +1,44 @@
+Log: Log file open, 02/10/26 20:02:46
+Init: Version: 63446
+Init: Compiled: Sep 30 2004 14:22:26
+Init: Command line: MP-Fort?game=GameClasses.ModeCTF?maxplayers=32 ini=../Config/main.ini
+Init: Base directory: D:\Repositories\LANCommander.Servers.TribesVengeance\Server\Program\Bin\
+Init: Character set: Unicode
+Init: Found startup configuration: StartupUCC.ini
+Init: Adding FilePath: ..\..\Source\Game\System;..\..\Source\Unreal\System;..\..\Content;..\..\Content\System
+Init: Object subsystem initialized
+Init: Computer: DESKTOPH9MRHLT
+Init: User: Pat
+Init: CPU Page size=4096, Processors=20
+Init: CPU Detected: PentiumPro-class processor (GenuineIntel)
+Init: CPU Features: CMov FPU RDTSC PAE MMX SSE
+Init: CPU Speed=3613.922685 MHz
+Init: Memory total: Phys=2097151K Pagef=4194303K Virt=2097024K
+Init: Working set: 32000 / 159000
+Log: Executing Class Engine.ServerCommandlet
+Log: (Havok): Initializing base system.
+Init: Vengeance engine initialized
+Log: Failed loading package: Can't find file 'Packages.md5'
+Log: WARNING!!! No Packages.md5 file found.
+Critical: appError called:
+Critical: Can't bind to native class IGVisualEffectsSubsystem.VisualEffectsSubsystem
+Exit: Executing UObject::StaticShutdownAfterError
+Critical: UClass::Bind [(Class IGVisualEffectsSubsystem.VisualEffectsSubsystem)]
+Critical: ULinkerLoad::CreateExport [(VisualEffectsSubsystem 44633)]
+Critical: ULinkerLoad::Create
+Critical: UObject::StaticLoadObject [(Core.Class IGVisualEffectsSubsystem.VisualEffectsSubsystem NULL)]
+Critical: UObjectProperty::ImportText [(ClassProperty IGEffectsSystem.EffectsSystem.EffectsSubsystem.EffectsSubsystem)]
+Critical: UClassProperty::ImportText
+Critical: UObject::LoadConfig [(EffectsSystem None)]
+Critical: UClass::Serialize [(Class IGEffectsSystem.EffectsSystem)]
+Critical: LoadObject [(Class IGEffectsSystem.EffectsSystem 6470==6470/66393 6052 418)]
+Critical: ULinkerLoad::Preload
+Critical: PreLoadObjects
+Critical: UObject::EndLoad
+Critical: UObject::LoadPackage
+Critical: UGameEngine::Init
+Critical: UServerCommandlet::Main
+Exit: Exiting.
+Log: Waiting for file streaming thread to finish...
+Uninitialized: Name subsystem shut down
+Uninitialized: Log file closed, 02/10/26 20:02:48

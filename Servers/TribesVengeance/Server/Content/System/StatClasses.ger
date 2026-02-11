@@ -1,0 +1,148 @@
+[StatTeamKill]
+Acronym=TKILL
+Description=Team kills
+personalMessage=You teamkilled %1
+
+[StatHighestSpeed]
+Acronym=HSPD
+Description=Highest sustained speed
+awardDescription=Highest sustained speed
+
+[StatHeadShot]
+Acronym=HS
+Description=Head shots
+awardDescription=Most sniper head shots
+personalMessage=Head shot!
+
+[ExtendedStatMidairDisc]
+Acronym=MA
+Description=Midair discs
+awardDescription=Most midair discs
+personalMessage=You midair disced %1
+
+[ExtendedStatFastExplosive]
+Acronym=FEXP
+Description=High-speed explosive hits
+personalMessage=High-speed explosive hit on %1
+
+[StatDestroyGenerator]
+Acronym=DGEN
+Description=Generators destroyed
+personalMessage=You destroyed their generator
+
+[StatDestroySensor]
+Acronym=DSEN
+Description=Sensors destroyed
+personalMessage=You destroyed their sensor
+
+[StatRepairGenerator]
+Acronym=RGEN
+Description=Generators repaired
+personalMessage=You repaired your generator
+
+[StatRepairSensor]
+Acronym=RSEN
+Description=Sensors repaired
+personalMessage=You repaired your sensor
+
+[flagReturnStat]
+Acronym=FRET
+Description=Flag returns
+awardDescription=Best flag returner
+personalMessage=You returned the flag
+
+[flagCaptureStat]
+Acronym=CAPS
+Description=Flags captured
+awardDescription=Best flag capturer
+personalMessage=You captured the flag
+
+[flagPickupStat]
+Acronym=FP
+Description=Flag pickups
+
+[StatFlagCarrierKill]
+Acronym=FKILL
+Description=Flag carrier kills
+personalMessage=You killed their flag carrier
+
+[StatFlagDefend]
+Acronym=FDEF
+Description=Kills defending your flag
+personalMessage=You defended your flag
+
+[StatFlagAttack]
+Acronym=FATT
+Description=Kills near their flag
+personalMessage=You killed an enemy flag defender
+
+[StatFuelDeposit]
+Acronym=DEP
+Description=Fuel cells deposited
+awardDescription=Most fuel deposited
+personalMessage=You deposited fuel
+
+[StatFuelDepotDefend]
+Acronym=DEPD
+Description=Kills defending fuel depot
+personalMessage=You defended your fuel depot
+
+[killStat]
+awardDescription=Best killer
+personalMessage=You killed %1
+
+[killStatCTF]
+Acronym=KILL
+Description=Kills
+
+[killStatArena]
+Acronym=Kills
+Description=Kills
+
+[suicideStatCTF]
+Acronym=RSPN
+Description=Forced respawns
+
+[StatTargetDestroy]
+Acronym=TARGETS
+
+[StatDefaultRepair]
+Acronym=REP
+Description=Object repaired
+
+[StatTerritoryCapture]
+Acronym=TERC
+Description=Territories captured
+personalMessage=You captured a territory
+
+[StatTerritoryDefend]
+Acronym=TERD
+Description=Kills defending territory
+
+[flagEscortStat]
+Acronym=FESC
+Description=Kills defending flag carrier
+
+[StatBodyBlock]
+Acronym=BB
+Description=Body blocks
+
+[StatGeneratorDefend]
+Acronym=GDEF
+Description=Kills defending generator
+personalMessage=You defended your generator
+
+[StatPlayerDamage]
+Acronym=PDAM
+Description=Raw player damage
+
+[StatFuelDepotAttack]
+Acronym=FATT
+Description=Kills attacking fuel depot
+personalMessage=You killed an enemy fuel defender
+
+[StatBackstabBuckler]
+Acronym=BBB
+Description=Buckler backbreaker
+personalMessage=Buckler backbreaker
+

@@ -1,0 +1,13 @@
+stat simple
+graph clear
+graph addstat="movement total"
+graph addstat="movement contact"
+graph addstat="movement - bsp"
+graph addstat="movement - terrain"
+graph addstat="movement - staticmesh"
+graph addstat="movement + octree"
+graph addstat="movement + model"
+graph addstat="movement + triangle"
+graph addstat="movement touching"
+graph addstat="movement moveactor"
+graph lockscale 10

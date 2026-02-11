@@ -1,0 +1,254 @@
+[Public]
+;Object=(Name=Engine.Console,Class=Class,MetaClass=Engine.Console)
+Object=(Name=Engine.ServerCommandlet,Class=Class,MetaClass=Core.Commandlet)
+Object=(Name=Engine.MasterMD5Commandlet,Class=Class,MetaClass=Core.Commandlet)
+Preferences=(Caption="Spiel-Engine-Einstellungen",Parent="Erweitert",Class=Engine.GameEngine,Category=Settings,Immediate=True)
+Preferences=(Caption="Alternativtasten",Parent="Erweitert",Class=Engine.Input,Immediate=True,Category=Aliases)
+Preferences=(Caption="Ursprüngliche Tastenbelegungen",Parent="Erweitert",Class=Engine.Input,Immediate=True,Category=RawKeys)
+Preferences=(Caption="Treiber",Parent="Erweiterte Optionen",Class=Engine.Engine,Immediate=False,Category=Drivers)
+Preferences=(Caption="Öffentliche-Server-Informationen",Parent="Netzwerkspiele",Class=Engine.GameReplicationInfo,Immediate=True)
+Preferences=(Caption="Spiel-Einstellungen",Parent="Erweiterte Optionen",Class=Engine.GameInfo,Immediate=True)
+
+[Errors]
+NetOpen=Fehler beim Öffnen einer Datei.
+NetWrite=Fehler beim Schreiben in eine Datei.
+NetRefused=Server hat den Versand von '%s' verweigert.
+NetClose=Fehler beim Schließen einer Datei.
+NetSize=Dateigrößenkonflikt
+NetMove=Fehler beim Verschieben einer Datei.
+NetInvalid=Ungültige Dateianforderung erhalten.
+NoDownload=Paket '%s' kann nicht heruntergeladen werden.
+DownloadFailed=Download von Paket '%s' ist fehlgeschlagen: %s.
+RequestDenied=Server hat Datei von bevorstehendem Level angefordert: verweigert.
+ConnectionFailed=Verbindung fehlgeschlagen.
+ChAllocate=Channel konnte nicht zugewiesen werden.
+NetAlready=Netzwerkunterstützung besteht bereits.
+NetListen=Empfangen fehlgeschlagen: Kein Linker-Kontext verfügbar.
+LoadEntry=Eintrag %s kann nicht geladen werden.
+InvalidUrl=Ungültige URL: %s.
+InvalidLink=Ungültiger Link: %s.
+FailedBrowse=Eingabe von %s fehlgeschlagen: %s.
+Listen=Empfangen fehlgeschlagen: %s.
+AbortToEntry=Fehlgeschlagen; Rückkehr zum Eintrag.
+ServerOpen=Server können Netzwerk-URLs nicht öffnen.
+ServerListen=Dedizierter Server kann nicht empfangen: %s.
+Pending=Bevorstehende Verbindung zu '%s' ist fehlgeschlagen; %s.
+LoadPlayerClass=Spielerklasse konnte nicht geladen werden.
+ServerOutdated=Version des Servers ist nicht mehr aktuell.
+ClientOutdated=Sie müssen die jüngsten Patchs einbinden.
+InvalidCDKey=Ihr CD-Code scheint ungültig zu sein. Sie müssen das Spiel neu installieren und Ihren CD-Code eingeben, um das Problem zu beheben.
+ConnectLost=Verbindung unterbrochen.
+DemoFileMissing=Fehlendes Paket '%s' für Demo-Playback.
+DownloadNotAllowed=Download von '%s' nicht gestattet.
+
+[Progress]
+CancelledConnect=Verbindungsversuch abgebrochen.
+RunningNet=%s: %s (%i Spieler)
+NetReceiving=Empfang von '%s': %i/%i.
+NetReceiveOk=%s' erfolgreich empfangen.
+NetSend=%s' wird geschickt.
+NetSending=%s' wird geschickt: %i/%i.
+Connecting=Verbindung wird aufgebaut ...
+Listening=Suche nach Clients läuft ...
+Loading=Ladevorgang läuft ...
+Saving=Speichern läuft ...
+Paused=Von %s unterbrochen.
+ReceiveFile=Empfang von '%s' (Abbrechen mit F10).
+ReceiveOptionalFile=Empfang von optionaler Datei '%s' (Abbrechen mit F10).
+ReceiveSize=%i:%3.1f
+ConnectingText=Empfang läuft (Abbrechen mit F10):
+ConnectingURL=unreal://%s/%s
+SaveFailed=An error occurred while saving the game. Ensure that the drive is not full.
+
+[Console]
+ClassCaption=Standard-Unreal-Konsole
+LoadingMessage=LADEN
+SavingMessage=SPEICHERN
+ConnectingMessage=VERBINDEN
+PausedMessage=PAUSE
+PrecachingMessage=PRECACHING
+ChatChannel=(CHAT)
+TeamChannel=(TEAM) 
+
+[MasterMD5Commandlet]
+HelpCmd=mastermd5
+HelpOneLiner=Die Haupt-MD5-Datenbank manipulieren.
+HelpUsage=mastermd5 [-Option ...] <Parameter>
+HelpWebLink=http://unreal.epicgames.com/servertips.htm
+HelpParm[0]=-c
+HelpDesc[0]=Creates a new MD5 database
+HelpParm[1]=-a 
+HelpDesc[1]=Adds new packages to the database
+HelpParm[2]=-s
+HelpDesc[2]=Show the current database.
+HelpParm[3]=-r
+HelpDesc[3]=Force the revision of all entries to <param>
+[General]
+Upgrade=Um sich auf diesem Server einzuklinken, brauchen Sie das jüngste kostenlose Unreal-Update, das auf der Website von Epic verfügbar ist.
+UpgradeURL=http://www.unreal.com/upgrade
+UpgradeQuestion=Möchten Sie Ihren Webbrowser starten und die Upgrade-Seite jetzt aufrufen?
+Version=Version %i
+
+[Menu]
+HelpMessage=
+MenuList=
+LeftString=Links
+RightString=Rechts
+CenterString=Mitte
+EnabledString=Aktiviert
+DisabledString=Deaktiviert
+HelpMessage[1]="This menu has not yet been implemented."
+YesString=Ja
+NoString=Nein
+
+[Inventory]
+PickupMessage=Ein Objekt aufgenommen.
+M_Activated=" activated"
+M_Selected=" selected"
+M_Deactivated=" deactivated"
+ItemArticle=1
+
+[WarpZoneInfo]
+OtherSideURL=
+
+[GameInfo]
+SwitchLevelMessage=Level wird gewechselt.
+DefaultPlayerName=Spieler
+LeftMessage=" left the game."
+FailedSpawnMessage=Spieler-Akteur konnte nicht wiederbelebt werden.
+FailedPlaceMessage=Startpunkt nicht gefunden (Level benötigt möglicherweise einen "SpielerStart"-Akteur)
+NameChangedMessage=Name geändert in 
+EnteredMessage=" entered the game."
+GameName="Game"
+MaxedOutMessage=Server ist bereits ausgelastet.
+WrongPassword=Das eingetragene Passwort ist nicht korrekt.
+NeedPassword=Sie müssen ein Passwort eintragen, um sich ins Spiel einzuklinken.
+FailedTeamMessage=Kein Team für Spieler gefunden.
+
+[LevelInfo]
+Title=Unbenannt
+
+[Weapon]
+MessageNoAmmo=" has no ammo."
+PickupMessage=Sie haben eine Waffe.
+DeathMessage=%o wurde durch %w von %k eliminiert.
+ItemName=Waffe
+DeathMessage[0]=%o wurde durch %w von %k eliminiert.
+DeathMessage[1]=%o wurde durch %w von %k eliminiert.
+DeathMessage[2]=%o wurde durch %w von %k eliminiert.
+DeathMessage[3]=%o wurde durch %w von %k eliminiert.
+
+[Counter]
+CountMessage=Nur noch %i ...
+CompleteMessage=Abgeschlossen!
+
+[Ammo]
+PickupMessage=Sie haben Munition aufgenommen.
+
+[Pickup]
+ExpireMessage=
+
+[SpecialEvent]
+DamageString=
+
+[DamageType]
+Name=eliminiert
+AltName=eliminiert
+
+[PlayerPawn]
+QuickSaveString=Schnellspeichern
+NoPauseMessage=Spiel kann nicht unterbrochen werden.
+ViewingFrom=Ansicht jetzt aus Perspektive von 
+OwnCamera=eigener Kamera.
+FailedView=Ansicht konnte nicht gewechselt werden.
+CantChangeNameMsg=Sie können Ihren Namen während eines global verbundenen Spiels nicht ändern.
+
+[Pawn]
+NameArticle=" a "
+
+[Spectator]
+MenuName=Zuschauer
+
+[ServerCommandlet]
+HelpCmd=Server
+HelpOneLiner=Netzwerkspiel-Server
+HelpUsage=server map.unr[?game=Spieltyp] [-Option...] [Param=Wert]...
+HelpWebLink=http://unreal.epicgames.com/servertips.htm
+HelpParm[0]=Log
+HelpDesc[0]=Specify the log file to generate
+HelpParm[1]=AllAdmin
+HelpDesc[1]=Give all players admin privelages
+
+[KeyNames]
+Tilde=~
+Up=AUFW
+Right=RTS
+Left=LKS
+Down=ABW
+LeftMouse=ML
+RightMouse=MR
+MiddleMouse=MM
+MouseX=MX
+MouseY=MY
+MouseZ=MZ
+MouseW=MRD
+JoyX=JX
+JoyY=JY
+JoyZ=JZ
+JoyU=JU
+JoyV=JV
+JoySlider1=JOYSLIDER 1
+JoySlider2=JOYSLIDER 2
+MouseWheelUp=RAUW
+MouseWheelDown=RABW
+Joy1=J1
+Joy2=J2
+Joy3=J3
+Joy4=J4
+Joy5=J5
+Joy6=J6
+Joy7=J7
+Joy8=J8
+Joy9=J9
+Joy10=J10
+Joy11=J11
+Joy12=J12
+Joy13=J13
+Joy14=J14
+Joy15=J15
+Joy16=J16
+Space=LEER
+PageUp=SAUFW
+PageDown=SABW
+End=ENDE
+Home=POS1
+Select=SEL
+Print=DR
+Execute=EING
+PrintScrn=SCSH
+Insert=EINF
+Delete=ENTF
+Help=HLFE
+NumPad0=Z0
+NumPad1=Z1
+NumPad2=Z2
+NumPad3=Z3
+NumPad4=Z4
+NumPad5=Z5
+NumPad6=Z6
+NumPad7=Z7
+NumPad8=Z8
+NumPad9=Z9
+GreyStar=Z*
+GreyPlus=Z+
+Separator=ZZ
+GreyMinus=Z-
+NumPadPeriod=Z,
+GreySlash=Z/
+Pause=PA
+CapsLock=UMFS
+Tab=TB
+Enter=ENT
+Shift=UMS
+NumLock=ZF
+Escape=ESC

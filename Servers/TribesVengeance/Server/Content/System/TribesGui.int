@@ -1,0 +1,290 @@
+[TribesPatchCheck]
+PatchCheckingText=Checking for an updated version of Tribes: Vengeance...
+NewVersionText=An updated version of Tribes: Vengeance has been released. You must install an update in order to play online. Would you like to download the update now at the location below?
+UpToDateText=You already have the latest version of Tribes: Vengeance.
+URLFailedText=An error occurred while browsing to the URL: %1
+
+[TribesMissionLoadingMenu]
+connectingText=Connecting to %1... (Press ESC to cancel)
+
+[TribesGUIController]
+HelpStack=("***Component Layout***","  ","(Up Arrow) - Moves the current control up","(Down Arrow) - Moves the current control down","(Left Arrow) - Moves the current control left","(Right Arrow) - Moves the current control right","(-) - Sizes the current control shorter","(=) - Sizes the current control taller","(NUMPAD -) - Sizes the current control thinner","(NUMPAD +) - Sizes the current control thicker","  ","***Information Displays and Toggles***","  ","(H) - Displays this quick help menu","(N) - Displays a list of all available GUI Styles and Fonts","(O) - Displays a list of all pages on the server stack","(M) - Displays the member list for the current control","(B) - Toggles edit mode for the member list","(K) - Toggles Config variables shown in Member Display","(L) - Toggles GUI members shown in Member Display","(G) - Toggles snap to grid on/off","  ","***Component Actions***","  ","(Ctrl + LeftMouse) - Selects the component under the mouse","")
+
+[TribesOptionsVideoPanel]
+DetailChoices=("Low/Off","Medium","High","Ultra-High")
+RenderDetailChoices=("Low","Medium","High","Ultra-High","Custom")
+OnOffChoices=("On","Off")
+SwitchingResText=The screen's resolution will now be changed. If you experience problems, wait 15 seconds and the resolution setting will be restored.
+ResSwitchedText=Press OK to keep this resolution setting.
+ChangesText=Changes to video settings will be lost unless they are applied. Would you like to apply them now?
+
+[TribesOptionsControlsPanel]
+KeyChangeMessage=The %1 command is bound to %2.  Press the new key to change.
+NoBindKeyChangeMessage=Press the key you want to assign to %1.
+
+[TribesMPGameGuidePanel]
+GamespyTimeoutText=Error: a request to the Gamespy service timed out.
+GamespyLoginSuccessText=You successfully logged in to your team.
+BadAuthPasswordText=Team login failed: The password is not correct for that team.
+BadParamText=Team login failed: A bad parameter was sent to the server.
+NoResponse=Team login failed: Unable to get a response from the team login server
+BadServerIdText=Server connection: A bad server id was detected
+noneString=None
+playerCountText=%1 players online
+
+[TribesMPProfilePanel]
+femaleText=FEMALE
+maleText=MALE
+StoredText=STORED
+NotStoredText=NOT STORED
+NotSetText=NOT SET
+needGameSpyLoginString=You need to create a GameSpy login first.
+createProfileText=Enter the name of your new profile
+
+[TribesMPHostPanel]
+BadPassword=The password contains invalid characters. You cannot use spaces or punctuation in the server password.
+
+[TribesMPCommunityPanel]
+SystemLabel=System
+
+[TribesGamespyLogin]
+GamespyConnectingText=Connecting to Gamespy...
+GamespyCreateSuccessText=Your stat-tracking account has been created.
+GamespyLoginSuccessText=You successfully logged in to the stat-tracking service.
+GamespyEmailTakenText=Error: the email you entered has already been registered to another user. Please enter a different email or log-in with your existing account.
+GamespyTimeoutText=Error: a request to the Gamespy service timed out.
+NoGamespyText=Error: could not initialize the Gamespy service.
+BadNickText=The nickname you entered is invalid or contains invalid characters.
+BadEmailText=The email address you entered is invalid.
+BadPasswordText=The password you entered is invalid.
+BadAuthNickText=An account with that nickname was not found. Please enter a valid nickname or create a new account.
+BadAuthEmailText=An account with that email address was not found. Please enter a valid email address or create a new account.
+BadAuthPasswordText=The password is not correct for that account. Please enter the correct password or create a new account.
+PasswordMismatchText=The 'Password' and 'Confirm Password' fields must match.
+GeneralFailureText=There was an error while performing the requested operation.
+
+[TribesIRCPage]
+HasLeftText=%Name% has left %Chan%.
+HasJoinedText=%Name% has joined %Chan%.
+WasKickedByText=%Kicked% was kicked by %Kicker% ( %Reason% ).
+NowKnownAsText=%OldName% is now known as %NewName%.
+quitText=*** %Name% Quit ( %Reason% )
+SetsModeText=*** %Name% sets mode: %mode%.
+NewTopicText=Topic
+
+[TribesIRCChannel]
+OpUserText=Make Op
+HelpUserText=Make Helper
+VoiceUserText=Make Voice
+ReasonText="Reason: "
+MessageUserText=Open Query
+WhoisUserText=Whois
+DeopUserText=Remove Op
+DehelpUserText=Remove Helper
+DevoiceUserText=Remove Voice
+KickUserText=Kick User
+
+[TribesIRCSystem]
+NotInAChannelText=Not in a channel!
+KickedFromText=You were kicked from
+ByText=by
+IsAwayText=is away
+ChooseNewNickText=Choose A New IRC Nickname
+NickInUseText=Nickname Already In Use
+NickInvalidText=Nickname Is Invalid
+LeavePrivateText="CLOSE %ChanName% "
+CloseWindowCaption=LEAVE CHANNEL
+DisconnectCaption=DISCONNECT
+ChangeNickCaption=CHANGE NICK
+InvalidModeText=Invalid parameters for MODE - Syntax: /MODE [#]target [[+|-]modes [Extra Params]]
+InvalidKickText=Invalid parameters for %Cmd% - Syntax: /%Cmd% #ChannelName Nick :[Reason]
+
+[TribesInventorySelectionMenu]
+ArmorText=1 - SELECT ARMOR
+PackText=2 - SELECT PACK
+WeaponText=3 - SELECT WEAPON
+AcceptText=4 - ACCEPT CHANGES & EXIT
+currentLoadoutText=CURRENT LOADOUT
+TitleText=INVENTORY STATION
+
+[TribesIRCPanel]
+ConnectText=CONNECT
+DisconnectText=DISCONNECT
+
+[TribesIRCLink]
+InvalidAddressText=Invalid server address, aborting.
+ErrorBindingText=Error binding local port, aborting.
+ResolveFailedText=Failed to resolve server address, aborting.
+ConnectedText=Connected.
+ConnectingToText=Connecting to
+TimeOutError=Timeout connecting to server.
+InviteString=invites you to join
+
+[TribesInventoryLoadoutButton]
+emptyText=Empty
+
+[TribesInventoryWeaponSlot]
+SlotText=Slot
+
+[HUDChatEntry]
+allText="ALL: "
+teamText="TEAM: "
+
+[TribesMPPlayersPanel]
+unSpectate=UNSPECTATE
+spectate=SPECTATE
+addedBuddyString=You added %1 to your buddy list.
+failedToAddBuddyString=%1 is already in your buddy list.
+joinTeamString=JOIN %1
+forceTeamString=FORCE %1
+startRecordingString=START RECORDING
+stopRecordingString=STOP RECORDING
+muteString=MUTE
+unmuteString=UNMUTE
+
+[TribesMPAdminPanel]
+loginString=ADMIN LOGIN
+logoutString=ADMIN LOGOUT
+tourneyString=TOURNEY MODE
+publicString=PUBLIC MODE
+enableTeamDamageString=ENABLE TEAM DAMAGE
+disableTeamDamageString=DISABLE TEAM DAMAGE
+voteTeamDamageOnString=VOTE TEAM DAMAGE ON
+voteTeamDamageOffString=VOTE TEAM DAMAGE OFF
+voteTourneyString=VOTE TOURNAMENT
+votePublicString=VOTE PUBLIC
+
+[TribesMPStatsPanel]
+defenseString=Defense
+offenseString=Offense
+StyleString=Style
+
+[TribesSPEscapeMenu]
+SaveConfirmText=Do you wish to save the game before exiting?
+ExitConfirmText=Are you sure you wish to exit? Unsaved progress will be lost.
+EndGameConfirmText=Are you sure you wish to end the current game? Unsaved progress will be lost.
+
+[TribesLoadGameMenu]
+DeleteText="Are you sure that you want to delete this savegame?"
+
+[TribesSaveGameMenu]
+EnterNameText=Please enter a name for the savegame
+OverwriteText=Are you sure that you want to overwrite this savegame?
+DeleteText=Are you sure that you want to delete this savegame?
+NewSavegameText=New Savegame...
+
+[TribesOptionsNetworkPanel]
+ConnectionStrings=("Modem","ISDN","Cable/ADSL","LAN/T1")
+
+[TribesHUD]
+FontArrayNames[0]=Engine_res.SmallFont
+FontArrayNames[1]=Engine_res.SmallFont
+FontArrayNames[2]=Engine_res.SmallFont
+FontArrayNames[3]=Engine_res.SmallFont
+FontArrayNames[4]=Engine_res.SmallFont
+FontArrayNames[5]=Engine_res.SmallFont
+FontArrayNames[6]=Engine_res.SmallFont
+FontArrayNames[7]=Engine_res.SmallFont
+FontArrayNames[8]=Engine_res.SmallFont
+
+[LoadoutMenu]
+moreText=More...
+emptyText=[Empty]
+
+[HUDDeployableReticule]
+textTooFar=The deployment point is too far away.
+textBadSurface=You must deploy this item on a flat surface.
+textBlocked=The deployment point is blocked.
+textSameTypeTooNear=The deployment point is too close to another deployable of the same type.
+textInvalidTargetObject=You cannot deploy on that object.
+
+[HUDWeaponIcon]
+textInfiniteAmmo=INF
+
+[TribesMPGameSummaryMenu]
+wonString=Your team won!
+lostString=Your team lost...
+tiedString=The match ended in a tie!
+
+[TribesGamespyTeamLogin]
+GamespyConnectingText=Connecting to Gamespy...
+GamespyCreateSuccessText=Your team has been created.
+GamespyLoginSuccessText=You successfully logged in to your team.
+GamespyTeamTagTakenText=Error: the tag you entered has already been registered to another user.
+GamespyTimeoutText=Error: a request to the Gamespy service timed out.
+NoGamespyText=Error: could not initialize the Gamespy service.
+BadTeamNameText=The team name you entered is invalid.
+BadTeamTagText=The team tag you entered is invalid.
+BadPasswordText=The password you entered is invalid.
+BadAuthTeamTagText=Team login failed: A team with that tag was not found. Please enter a valid team tag or create a new team.
+BadAuthPasswordText=Team login failed: The password is not correct for that team.
+BadParamText=Team login failed: A bad parameter was sent to the server.
+PasswordMismatchText=The 'Password' and 'Confirm Password' fields must match.
+NoResponse=Team login failed: Unable to get a response from the team login server
+BadAuthText=Unable to authenticate profile.
+RegistrationError=Error: unable to register team details.
+
+[TribesCommandHUDScript]
+TitleString=Command Map
+
+[TribesRespawnHUDScript]
+CountdownText=Respawn in %1 seconds¼
+promptText=Use the Number keys to select a spawn point¼
+CancelText=Press '%1' to cancel
+RespawnLimitText=You have reached your respawn limit. You must wait until the next round
+ClickToSeeMapText=Press Fire to see respawn map
+NoMoreFuelText=Your team has run out of fuel.¼You can't spawn until they get more.
+InstantRespawnText=Press Fire to respawn
+RoundStartText=You have %1 seconds to select a spawn point and choose equipment
+TitleString=Respawn Menu
+
+[TribesMPServerFilterMenu]
+noneString=None
+
+[TribesGUIDlg]
+OKText=OK
+YesText=Yes
+ContinueText=Continue
+RetryText=Retry
+IgnoreText=Ignore
+NoText=No
+AbortText=Abort
+CancelText=Cancel
+
+[TribesMPRoundSummaryMenu]
+WonRound=Your team won the round!
+lostRound=Your team lost the round.
+
+[HUDPersonalScores]
+OffenseText=Offense:
+DefenseText=Defense:
+StyleText=Style:
+
+[TribesCountdownHUDScript]
+CountdownText=" seconds until round starts"
+TournamentText=The server is in tournament mode.  Press fire to ready and unready yourself.
+
+[TribesSpectatorHUDScript]
+watchPlayerText=You are watching %1.¼Press Jet to view other players.
+floatText=You are spectating.¼Press Jet to view players.
+
+[TribesAwaitGameStartHUDScript]
+WaitForMorePlayersText=The game will not start until more players have joined.
+WaitForTournamentText=The server is in tournament mode.
+
+[TribesMPHelpMenu]
+MovementText=Tribes is about the freedom of movement.  Press '%1' to use your jetpack and fly into the air.  Your jetpack has a limited amount of energy, but it recharges quickly.  Press '%2' to ski down slopes.  This ability is unlimited but requires practice.
+TeamworkText=Tribes is about teamwork.  Coordinate with your team to maximize your effectiveness.  Press '%1' to chat to your team.  Press and hold '%2' to access a menu of pre-recorded chats.  Press '%3' to see a strategic command map.
+EscapeText=To browse game hints, press '%1' while playing, then click the Hints tab.  To see this message again, press the Help button on the Hints tab.
+
+[TribesDisconnectMenu]
+GenericDisconnectMessage=Rejected by server
+
+[TribesAwaitRoundEndHUDScript]
+watchPlayerText=You are watching %1.¼Press Jet to view other players.
+WaitText=You must wait for this round to end before you can play.
+floatText=You are waiting for the round to end.¼Press Jet to watch other players.
+
+[SpawnPointRadarInfo]
+infoLabel=You Are Here
+

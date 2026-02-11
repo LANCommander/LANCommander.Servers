@@ -1,0 +1,69 @@
+;predefined_events.lst
+;
+;This is the list of EffectEvents that will be triggered in code:
+;
+;File Format:
+;   "EventName: Description"
+
+;[Event]                [Triggered by]              [When it (is)]          [Comments]
+
+
+Spawned:                Actor                       spawned
+
+Alive:                  Actor                       spawned                 Untriggered when it is destroyed
+
+Destroyed:              Actor                       destroyed
+
+PickedUp:               Pickup                      picked up
+
+Triggered:              Actor                       triggered               (ie. this SoundEvent is triggered when the Actor gets a traditional Unreal Trigger() call)
+
+Opening:                Mover                       begins opening
+
+Opened:                 Mover                       finished opening        (Opening is also UnTriggered then)
+
+Closing:                Mover                       begins closing
+
+Closed:                 Mover                       finished closing        (Closing is also UnTriggered then)
+
+Damaged:                Actor                       takes damage
+
+DamagedDead:            Pawn                        takes damage when it is dead
+
+KarmaImpacted:          KActor                      gets an event KImpact() call
+
+Walking:		Character                   walking                 (UnTriggered by other movement effects)	
+
+Running:		Character                   running                 (UnTriggered by other movement effects)	
+
+Sprinting:		Character                   sprinting               (UnTriggered by other movement effects)	
+
+Skiing:			Character                   skiing                  (UnTriggered by other movement effects)	
+
+Thrusting:		Character                   thrusting               (UnTriggered by other movement effects)	
+
+Sliding:		Character                   sliding                 (UnTriggered by other movement effects)	
+
+Stopping:		Character                   stopping                (UnTriggered by other movement effects)	
+
+DamagedByMovement:	Character                   damaged by movement
+
+Hopped:			Character                   hopped
+
+Fired:			Weapon                      fired
+
+FiredEmpty:		Weapon                      tried to fire but it's empty
+
+Equipped:		Weapon                      first equipped
+
+Idle:			Weapon			    equipped but idle
+
+Reloading:		Weapon                      reloading
+
+Reloaded:		Weapon                      reloaded
+
+Hit:			Projectile                  hits something
+
+
+;Please Note: Only specify one Specification for EffectEvents that may be UnTriggered.  This is because otheriwse, the Specification selected to be stopped may not be the same as the one selected to be played.
+

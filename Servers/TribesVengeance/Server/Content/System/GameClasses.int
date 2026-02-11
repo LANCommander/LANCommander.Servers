@@ -1,0 +1,166 @@
+[TeamInfoImperial]
+localizedName=Imperial
+
+[ModeDefault]
+gameHints=("HINT:  Press and hold '%Button bLoadoutSelection%' at an Inventory Station to access quick favorites.  Press '%Use%' to see a full menu.  You can set favorites by accessing the tabs at the top of the full menu.","HINT:  Press and hold '%Button bQuickChat%' to see a list of quick chat categories.  While holding '%Button bQuickChat%', navigate the menus by pressing the associated keys.","HINT:  The Chaingun gradually heats up and becomes less accurate if you hold the trigger down.  It is cooled down by travelling quickly or going through water.","HINT:  Explosive weapons are more effective against vehicles than bullet weapons.","HINT:  Look for Deployable Stations in your base.  Walk up to a station and press '%Use%' to pick up its deployable.  It shows up in your equipment list, and you can then press '%equipDeployable%' to equip it and '%Fire%' to deploy it.","HINT:  Press and hold '%altFire%' to throw a Hand Grenade.  The longer you hold it, the further the grenade will be thrown.  Get more Hand Grenades by visiting an Inventory Station.","HINT:  Different vehicles take different amounts of time to respawn.  A vehicle will respawn at its pad when the pad's posts have sunk all the way into the ground.","HINT:  Visit an Inventory Station to change your armor, get a pack, and pick new weapons.  You're at a disadvantage if you don't take some time to get new equipment.","HINT:  When you kill enemies they drop health kits.  Pick them up to get some health back.","HINT:  Watch your ammo supply.  Get more ammo by walking over dropped weapons, visiting an Inventory Station, or visiting a Resupply Station.","HINT:  You can swap your current weapon with a weapon on the ground by standing over it and pressing '%Use%'.","HINT:  If your team's base has a Sensor it will allow you to see enemies on your radar.  You won't see enemies on your radar if you don't have a Sensor, if your Sensor has been destroyed, or if your power is down.","HINT:  If your team's base has a power Generator, don't let it get destroyed!  None of the equipment in your base will work until your Generator has been repaired.  Destroy the enemy Generator to get an advantage.","HINT:  You can get a Repair Pack from an Emergency Station when the power is out.  Emergency Stations can usually be found in your base on a wall near other equipment. They cannot be damaged or lose power.","HINT:  You can ski across the surface of the water if you're going fast enough at a shallow angle.","HINT:  Press '%Ski%' to ski and '%Jetpack%' to jet.  You can acquire very high speeds by skiing into a valley and jetting up and over the other side.  Do this repeatedly to keep going even faster.","HINT:  You can turn and fire your Spinfusor at your own feet in order to get a quick speed boost at the expense of health.","HINT:  Base equipment is often shielded for extra protection.  When targeting a piece of base equipment, a white bar indicates that it has shields.  Shields automatically regenerate unless the power is out.","HINT:  Shoot an enemy in the head with the Sniper Rifle to deal extra damage.","HINT:  You can press '%Button bZoom%' at any time to zoom in on a target.  This capability is not limited to any particular weapon.","HINT:  You can toggle the zoom level of your radar by pressing '%CycleRadarZoomScale%'.  Use this feature to see more or less detail in your radar.","HINT:  Press and hold '%Button bObjectives%' to display a large overhead map and look at your objectives.","HINT:  Each armor type has a special weapon that only it can use.  Lights have Sniper Rifles, Mediums have Bucklers, and Heavies have Mortars.","HINT:  You can press '%Use%' while at a Spawn Tower in order to instantly teleport to another Spawn Tower.  You can't teleport while carrying a game object.  Spawn Towers can't be destroyed.","HINT:  Be sure to get a Pack from an Inventory Station!  The different Pack types are Energy, Shield, Speed and Repair.  Each Pack gives you a passive ability and an active ability.  Press '%activatePack%' to use the active ability.","HINT:  You can boost the Tank into the air by pressing '%Jetpack%' and you can slide it down hills by pressing '%Ski%'.","HINT:  You can make the Rover go faster by pressing and holding '%Jetpack%', but you have less control while doing so.  Pressing and holding '%Ski%' activates the Rover's hand brake.","HINT:  When you pickup a game object such as a flag, it appears in your equipment list.  Press '%equipCarryable%' to equip it, then press and hold '%Fire%' to throw it.","HINT:  Base equipment's health is divided in two. The left section represents the functional status, the right represents damage. To operate, the equipment requires the left section to be intact. To destroy the equipment, remove the right hand section.","HINT:  The Grappler is a versatile tool. Use it to swing through enclosed spaces, rapidly change direction, snatch dropped equipment, hang from vehicles or latch on to other players.","HINT:  The pilots of the Fighter and Rover can be damaged independently of the vehicles themselves. If you pilot these vehicles, be sure to watch your own health bar as well as that of the vehicle.","HINT:  When manning a vehicle, a manifest is displayed in your HUD. You can instantly switch to any empty position by pressing the position's corresponding number key.","HINT:  The Fighter is the only vehicle that is not damaged by water. The other vehicles will take continuous damage if they are more than half submerged.","HINT:  Some weapons do not use ammunition. The Blaster, Burner and Energy Blade draw from your energy supply instead. The Sniper Rifle uses both energy and ammunition.","HINT:  The Sniper Rifle has limited ammunition, but it also will use up your entire supply of energy with each shot. The more energy you have available for it to use, the more damage it will inflict.","HINT:  Press 'F1' at any time during a game for a Help screen. This will show your current key bindings and describes each element of the HUD.","HINT:  If you hit an obstacle at speed or misjudge a landing, you may receive damage from the collision. Lights are more vulnerable to this kind of damage, Heavies less so.","HINT:  If your team's Rover has been driven off it's pad, or if your team has stolen the enemy's Rover, you will be able to spawn in it. It will appear in the Respawn Menu as a selectable spawn location.","HINT:  You can steal an enemy vehicle, but only if it has been previously used and abandoned by the enemy.","HINT:  Sometimes it is advantageous to respawn at your base even when you have not been killed. Press '%Respawn true%' at any time to open the Respawn Menu, then select a spawn location.","HINT:  The Buckler is a skillful weapon with offensive and defensive capability. Press '%Fire%' to throw it like a guidable boomerang. When held, it will deflect both frontal fire and other players.","HINT:  Try the Repair Pack. Its passive effect will cause you to constantly heal at a slow rate. Activate it with '%activatePack%' to repair nearby objects or players that are on your team.","HINT:  Try the Speed Pack. Its passive effect will allow you to run and shoot slightly faster than normal. Activate it with '%activatePack%' to run and shoot much faster than normal for a short time.","HINT:  Try the Shield Pack. Its passive effect will slightly reduce the amount of damage you receive. Activate it with '%activatePack%' to greatly reduce the amount of damage you receive for a short time.","HINT:  Try the Energy Pack. Its passive effect will slightly increase the rate at which your energy reserve recharges. Activate it with '%activatePack%' for a brief rocket boost.","HINT:  During play, press '%ShowMyStats%' to bring up the details of your achievements in the current game. If you have Stat Tracking turned on in your profile, these will be added to your persistent stats after each match.","HINT:  You can initialize or participate in a vote on the Admin screen, which is accessed by pressing '%ShowAdmin%' during a match.","HINT:  By default, teams are represented in your HUD using relative colors - green is always friendly, red is always enemy. You can change them to absolute team colors by opening the Controls tab of the Options menu.","HINT:  Look for Base Turrets near your bases. There are Mortar, Burner, Sentry and Anti-Aircraft Base Turrets. To function, they must be powered and manned. Enter a turret by walking up to it and pressing '%Use%'.","HINT:  There are five kinds of Deployable: Turret, Mine, Inventory Station, Repairer and Catapult. Think carefully about where you deploy them. A badly placed or unused Deployable is a wasted resource!","HINT:  Friendly Energy Barriers can be moved through, enemy Energy Barriers can not. Neither will allow projectiles, vehicles or players carrying game objects to pass."
+
+[ModeArena]
+GameName=Arena
+GameDescription=Two teams fight for up to 9 rounds.  You have one life per round.  When you die, you're out until the next round.  First team to win 5 rounds wins the match.
+Acronym=Arena
+
+[ModeCTF]
+GameName=Capture the Flag
+GameDescription=Retrieve the enemy team's flag and bring it back to your team's flag stand.  Your flag must be at its stand in order to capture their flag.
+Acronym=CTF
+
+[ModeFuel]
+GameName=Fuel
+GameDescription=Find fuel and bring it back to your team's depot.  First team to fill up their depot wins.  You must stand underneath other depots in order to take fuel from them.  You can only carry 15 fuel cells at a time.
+Acronym=Fuel
+
+[FuelCellDefault]
+localizedName=Fuel
+primaryFriendlyObjectiveDesc=
+primaryEnemyObjectiveDesc=
+primaryNeutralObjectiveDesc=
+
+[FuelDepotDefault]
+localizedName=Fuel depot
+primaryFriendlyObjectiveDesc=Protect your fuel
+primaryEnemyObjectiveDesc=Steal their fuel
+primaryNeutralObjectiveDesc=Extract neutral fuel
+
+[MPFuelCellDenominationFive]
+localizedName=Fuel
+primaryFriendlyObjectiveDesc=
+primaryEnemyObjectiveDesc=
+primaryNeutralObjectiveDesc=
+
+[MPFuelCellDenominationTen]
+localizedName=Fuel
+primaryFriendlyObjectiveDesc=
+primaryEnemyObjectiveDesc=
+primaryNeutralObjectiveDesc=Pickup large fuel cell
+
+[FuelCellPlacedDenominationDefault]
+localizedName=Fuel
+primaryFriendlyObjectiveDesc=
+primaryEnemyObjectiveDesc=
+primaryNeutralObjectiveDesc=
+
+[territory]
+primaryFriendlyObjectiveDesc=Protect your territory
+primaryEnemyObjectiveDesc=Conquer their territory
+primaryNeutralObjectiveDesc=Conquer the territory
+
+[CaptureFlag]
+localizedName=Flag
+primaryFriendlyObjectiveDesc=Defend your team's flag
+primaryEnemyObjectiveDesc=Get the enemy flag
+primaryNeutralObjectiveDesc=Get the flag
+
+[CaptureStand]
+localizedName=Flag stand
+
+[ModeBall]
+GameName=Ball
+GameDescription=Throw a ball into the enemy team's goal to score a point.  The team with the most points wins.
+Acronym=Ball
+
+[ModeRabbit]
+GameName=Rabbit
+GameDescription=Get the flag and keep it away from the other players for as long as possible.
+Acronym=Rabbit
+
+[BallDefault]
+localizedName=Ball
+primaryFriendlyObjectiveDesc=Defend your team's ball
+primaryEnemyObjectiveDesc=Get the enemy ball
+primaryNeutralObjectiveDesc=Get the ball
+
+[GoalDefault]
+localizedName=Goal
+primaryFriendlyObjectiveDesc=Protect your goal
+primaryEnemyObjectiveDesc=Attak their goal
+
+[RabbitFlag]
+localizedName=Flag
+primaryFriendlyObjectiveDesc=Defend your team's rabbit flag
+primaryEnemyObjectiveDesc=Get the enemy rabbit flag
+primaryNeutralObjectiveDesc=Get the flag and keep it
+
+[ModeDuel]
+gameHints=()
+GameName=Duel
+GameDescription=NOT FULLY WORKING.  Spawn in the field with equipment and fight.  Intended to be 1 vs 1.
+Acronym=Duel
+
+[ModeTargets]
+gameHints=()
+GameName=Targets
+GameDescription=Destroy all the other team's targets to win.  Prevent your targets from being destroyed.
+Acronym=Targets
+
+[ModeAll]
+gameHints=()
+Acronym=ALL
+
+[ModeRace]
+gameHints=()
+GameName=Race
+GameDescription=NOT FULLY WORKING.  Race against friends to the finish line.
+Acronym=Race
+
+[TeamInfoBeagle]
+localizedName=Blood Eagle
+
+[TeamInfoAlaxian]
+localizedName=Al-Axian
+
+[TeamInfoPhoenix]
+localizedName=Phoenix
+
+[FuelCellPlacedDenominationTen]
+primaryNeutralObjectiveDesc=Pickup large fuel cell
+
+[ModeTerritories]
+gameHints=()
+GameName=Territories
+GameDescription=Stand near a territory to capture it.  Capture all territories on the map to win.  Capturing a territory allows you to spawn at it.
+Acronym=Territories
+
+[CheckpointTrials]
+localizedName=Checkpoint
+
+[ModeFun]
+gameHints=()
+Acronym=FUN
+
+[CheckpointDefault]
+localizedName=Checkpoint
+
+[ModeDummy]
+gameHints=()
+
+[ModeCollection]
+gameHints=()
+Acronym=Collection
+
+[TeamInfoGlorax]
+localizedName=Glorax
+
+[MPSecondarySensorMessages]
+secondaryMessages=((StringTwo="destroyed",Icon=Texture'GUITribes.InvButtonSensor'))
+
+[MPSecondaryGeneratorMessages]
+secondaryMessages=((StringTwo="destroyed",Icon=Texture'GUITribes.InvButtonGenerator'))
+
+[MPSecondaryBallMessages]
+secondaryMessages=((StringTwo="taken",Icon=Texture'GUITribes.InvButtonBall'),(StringTwo="dropped",Icon=Texture'GUITribes.InvButtonBall'),,,,(StringTwo="scored",Icon=Texture'GUITribes.InvButtonGoal'))
+
+[MPSecondaryContainerMessages]
+secondaryMessages=((StringTwo="now carries %1",Icon=Texture'GUITribes.InvButtonFuelDepot'),(StringTwo="deposited %1",Icon=Texture'GUITribes.InvButtonFuelDepot'))
+
+[MPSecondaryFlagMessages]
+secondaryMessages=((StringTwo="taken",Icon=Texture'GUITribes.invButtonFlagstand'),(StringTwo="dropped",Icon=Texture'GUITribes.InvButtonFlag'),(StringTwo="returned",Icon=Texture'GUITribes.InvButtonFlag'),(StringTwo="captured",Icon=Texture'GUITribes.invButtonFlagstand'))

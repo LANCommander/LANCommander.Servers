@@ -1,0 +1,5 @@
+[MPFlagMessages]
+EnergyBarrierCollision=You can't pass through while carrying a flag.
+cantGrappleAtHome=You can't grapple the flag from its stand.
+cantGrappleInField=You can't grapple the flag.
+

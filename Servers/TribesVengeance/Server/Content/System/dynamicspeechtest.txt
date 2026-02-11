@@ -1,0 +1,4 @@
+ToggleSpeechChannel QuickChat
+ToggleSpeechChannel Scripted
+ToggleSpeechChannelLogging Dynamic
+ToggleSpeechCategoryFrequency
