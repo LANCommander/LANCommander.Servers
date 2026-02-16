@@ -3,8 +3,9 @@
 FROM lancommander/wine:latest-gui
 
 # Server settings
-ENV START_EXE="wine"
-ENV START_ARGS="Program/Bin/Beta_Dedicated_Server.exe MP-REV-CanyonCrusade?game=GameClasses.ModeCTF?maxplayers=32"
+ENV START_EXE="xvfb-run wine Beta_Dedicated_Server.exe"
+ENV START_ARGS="MP-Fort?game=GameClasses.ModeCTF?maxplayers=32"
+ENV SERVER_DOWNLOAD_URL="https://github.com/LANCommander/LANCommander.Servers.TribesVengeance/releases/download/server/Tribes.Vengeance.Dedicated.Server.zip"
 ENV HTTP_FILESERVER_ENABLED="true"
 ENV HTTP_FILESERVER_WEB_ROOT="/config/Merged"
 ENV HTTP_FILESERVER_FILE_PATTERN="^/.*\.(uz2)$"
@@ -14,8 +15,6 @@ ENV HTTP_FILESERVER_FILE_PATTERN="^/.*\.(uz2)$"
 # ----------------------------
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
-    curl \
-    gosu \
     libvulkan1 \
     dbus \
     dbus-user-session \

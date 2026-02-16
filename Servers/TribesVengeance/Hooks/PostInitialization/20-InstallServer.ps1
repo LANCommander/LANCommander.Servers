@@ -10,9 +10,9 @@ if (-not (Test-Path -Path "${Env:SERVER_DIR}/Program/Bin/Beta_Dedicated_Server.e
 
     $downloadUrl = $Env:SERVER_DOWNLOAD_URL
 
-    curl -L --output /tmp/server.zip $downloadUrl
+    Invoke-WebRequest -Uri $downloadUrl -OutFile /tmp/server.zip
 
-    unzip -o /tmp/server.zip -d $Env:SERVER_DIR
+    Expand-Archive -Path /tmp/server.zip -DestinationPath $Env:SERVER_DIR -Force
 } else {
     Write-Log "Server files already exist in ${Env:SERVER_DIR}/Program/Bin, skipping installation."
 }
