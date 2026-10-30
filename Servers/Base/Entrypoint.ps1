@@ -52,16 +52,18 @@ if (-not (Test-Path -Path $Env:WORK_DIR)) {
     Write-Log "Created work directory: $Env:WORK_DIR"
 }
 
+# Chown before mounting: a chown through the merged view copies every lower-dir file up into the
+# overlay dir, duplicating the whole server install and shadowing later updates to it.
+Write-Log "Chowning files to ${runUser}:${runGroup} (${runUid}:${runGid})"
+
+chown -R "${runUser}:${runGroup}" /config
+
 try {
     Mount-Overlay -MountPoint $Env:SERVER_ROOT -LowerDir $Env:SERVER_DIR -UpperDir $Env:OVERLAY_DIR -WorkDir $Env:WORK_DIR -RequireEmptyWorkDir -OverlayOption "xino=on"
     Write-Log "OverlayFS mounted successfully"
 } catch {
     Write-Log -Level Error "Failed to mount OverlayFS: $($_.Exception.Message)"
 }
-
-Write-Log "Chowning files to ${runUser}:${runGroup} (${runUid}:${runGid})"
-
-chown -R "${runUser}:${runGroup}" /config
 
 Invoke-Hook "PostInitialization"
 
