@@ -1,0 +1,37 @@
+#!/bin/sh
+# Start the Far Cry dedicated server (START_EXE).
+#
+# Runs `Bin32/FarCry_WinSV.exe "sv_port <FC_PORT>" [START_ARGS] "SProfile_run <FC_PROFILE>"`
+# under Wine with Xvfb, from the game folder. Each argument is a console command. The profile
+# (Profiles/server/<FC_PROFILE>_server.cfg) is written by the configure hook and starts the map.
+# The server's console is a GUI window, so this script streams its log file, log_WinSV.txt.
+set -e
+
+root="${SERVER_ROOT:-/config/Merged}"
+profile="${FC_PROFILE:-LANCommander}"
+port="${FC_PORT:-49001}"
+
+cd "$root"
+
+if [ ! -f Bin32/FarCry_WinSV.exe ]; then
+    echo "Bin32/FarCry_WinSV.exe not found in $root. Put a Far Cry 1.4 install in /config/Server." >&2
+    exit 1
+fi
+
+if [ ! -f "Profiles/server/${profile}_server.cfg" ]; then
+    echo "Profiles/server/${profile}_server.cfg not found; the server would start without a map." >&2
+    exit 1
+fi
+
+: > log_WinSV.txt
+tail -n +1 -F log_WinSV.txt 2>/dev/null &
+
+# START_ARGS go before the profile so they are set when it loads the map
+set -- "sv_port $port" "$@" "SProfile_run $profile"
+
+printf 'Starting: FarCry_WinSV.exe'
+printf ' "%s"' "$@"
+printf '\nGame port %s/udp, status queries on %s/udp\n' "$port" "$(( port + 123 ))"
+
+export WINE_XVFB="${WINE_XVFB:-true}"
+exec wine-run Bin32/FarCry_WinSV.exe "$@"
