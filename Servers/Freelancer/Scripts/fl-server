@@ -1,0 +1,22 @@
+#!/bin/sh
+# Start the Freelancer dedicated server (START_EXE).
+#
+# FLServer.exe is an MFC GUI program, so it runs under Xvfb (wine-run). It must start from EXE/,
+# because it loads dacomsrv.ini and its DLLs relative to the working directory. /c hosts straight
+# away with the saved FLServer.cfg (written by the ConfigureFreelancer hook) and /p sets the port.
+# The server writes no log or console output.
+set -e
+
+export WINE_WORKDIR="${SERVER_ROOT:-/config/Merged}/EXE"
+
+if [ ! -f "$WINE_WORKDIR/FLServer.exe" ]; then
+    echo "EXE/FLServer.exe not found in ${SERVER_ROOT:-/config/Merged}. Put a Freelancer 1.1 install in /config/Server." >&2
+    exit 1
+fi
+
+# FL_EXTRA_ARGS and START_ARGS are split on whitespace on purpose
+# shellcheck disable=SC2086
+set -- /c "/p${FL_PORT:-2302}" $FL_EXTRA_ARGS "$@"
+
+echo "Starting: FLServer.exe $*"
+exec wine-run FLServer.exe "$@"
