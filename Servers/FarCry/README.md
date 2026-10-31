@@ -91,6 +91,7 @@ The `FC_*` server settings are written into `Profiles/server/<FC_PROFILE>_server
 | `FC_PASSWORD` | Join password (`sv_password`) | |
 | `FC_RCON_PASSWORD` | Remote admin password (`sv_rcon_password`); RCon is off without one | |
 | `FC_PUNKBUSTER` | `sv_punkbuster` | `false` |
+| `FC_LOG_VERBOSITY` | `log_verbosity`. Below `3` the log doesn't show map loads | `3` |
 | `FC_ARCHIVE_URL` | Zip of the game folder, used if `Server/Bin32/FarCry_WinSV.exe` is missing | |
 | `WINE_XVFB` | Run on a virtual display. FarCry_WinSV needs one | `true` |
 | `START_EXE` | Launcher | `/usr/local/bin/farcry-server` |

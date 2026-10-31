@@ -41,7 +41,7 @@ Before the first start, copy a Far Cry 1.4 install, the folder that contains `Bi
 1. `PostInitialization/10-InitializeWinePrefix.ps1` (from the WINE image) creates the Wine prefix in `/config/wineprefix`.
 2. `PostInitialization/20-InstallFarCry.ps1` checks for `Server/Bin32/FarCry_WinSV.exe`. If it's missing and `FC_ARCHIVE_URL` is set, the hook downloads and extracts the archive and remounts the overlay.
 3. `PostInitialization/30-ConfigureFarCry.ps1` writes the non-empty `FC_*` settings into `Profiles/server/<FC_PROFILE>_server.cfg`, and `FC_MAPCYCLE` into `Profiles/server/<FC_PROFILE>_mapcycle.txt`.
-4. `START_EXE` (`/usr/local/bin/farcry-server`) runs `Bin32/FarCry_WinSV.exe "sv_port 49001" [START_ARGS] "SProfile_run LANCommander"` from the game folder under Wine and Xvfb, and streams `log_WinSV.txt` to `docker logs`.
+4. `START_EXE` (`/usr/local/bin/farcry-server`) runs `Bin32/FarCry_WinSV.exe "sv_port 49001" "log_verbosity 3" [START_ARGS] "SProfile_run LANCommander"` from the game folder under Wine and Xvfb, and streams `log_WinSV.txt` to `docker logs`.
 
 Each `FarCry_WinSV.exe` argument is a console command. `SProfile_run` runs the profile and loads `gr_NextMap`. A server that is up ends its log with:
 
@@ -113,4 +113,5 @@ Put `.ps1` scripts in `config/Scripts/Hooks/<HookName>/`.
 - **`ERROR: failed to open bannedip.txt for reading!`**: harmless. It only means no IPs are banned.
 - **`err:vulkan:vulkan_init_once Failed to load libvulkan.so.1`**: harmless; the server runs without Vulkan.
 - **Not in the in-game LAN list**: LAN discovery by broadcast needs the container on the LAN itself (macvlan/ipvlan, or `network_mode: host`). Clients can always join by IP.
+- **The log never shows the map loading**: `FC_LOG_VERBOSITY` is below 3. The server can still be running; check with the status query.
 - **No console commands**: the console only exists in the server's window. Change settings through the environment or the profile and restart, or set `FC_RCON_PASSWORD` and use RCon from a game client (`cl_rcon_serverip`, `cl_rcon_port`, `cl_rcon_password`, then `rcon <command>`).
