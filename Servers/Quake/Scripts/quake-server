@@ -1,0 +1,39 @@
+#!/bin/sh
+# Start the Quake dedicated server (START_EXE).
+#
+# Runs `ironwail -dedicated <QUAKE_MAX_PLAYERS> -port <QUAKE_PORT> -basedir <root>
+# [-game <QUAKE_GAME>] [-protocol <QUAKE_PROTOCOL>] +exec lancommander.cfg +map <QUAKE_MAP>`,
+# so the game data comes from Merged/ and everything the server writes lands in Overlay/.
+# Any START_ARGS are appended before +map.
+set -e
+
+root="${SERVER_ROOT:-/config/Merged}"
+
+cd "$root"
+
+if [ ! -f id1/pak0.pak ]; then
+    echo "id1/pak0.pak not found in $root; copy the Quake id1/ folder (pak0.pak, pak1.pak) into /config/Server" >&2
+    exit 1
+fi
+
+game=
+[ -n "${QUAKE_GAME}" ] && [ "${QUAKE_GAME}" != id1 ] && game="-game ${QUAKE_GAME}"
+
+protocol=
+[ -n "${QUAKE_PROTOCOL}" ] && protocol="-protocol ${QUAKE_PROTOCOL}"
+
+# Ironwail prints the console with printf, which is block-buffered when stdout isn't a terminal,
+# so line-buffer it to see the console in docker logs as it happens
+set -- stdbuf -oL -eL /opt/ironwail/ironwail \
+    -dedicated "${QUAKE_MAX_PLAYERS:-16}" \
+    -port "${QUAKE_PORT:-26000}" \
+    -basedir "$root" \
+    $game \
+    $protocol \
+    +exec lancommander.cfg \
+    "$@" \
+    +map "${QUAKE_MAP:-dm1}"
+
+echo "Starting: $*"
+
+exec "$@"
