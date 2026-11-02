@@ -1,0 +1,24 @@
+#!/bin/sh
+# Start the America's Army 2.8.5 dedicated server (START_EXE).
+#
+# Runs `Server.exe <AA_MODE> <AA_MAP>[?options] ini=<AA_INI> log=server.log` from System/ under
+# Wine. Server settings live in AA_INI (see the 30-ConfigureAmericasArmy hook); any START_ARGS are
+# appended.
+set -e
+
+system="${SERVER_ROOT:-/config/Merged}/System"
+
+if [ ! -f "$system/Server.exe" ]; then
+    echo "System/Server.exe not found in ${SERVER_ROOT:-/config/Merged}. Put an America's Army 2.8.5 install in /config/Server." >&2
+    exit 1
+fi
+
+map="${AA_MAP:-Bridge}"
+case "$map" in *.aao|*.AAO) ;; *) map="$map.aao" ;; esac
+[ -z "$AA_URL_OPTIONS" ] || map="$map?${AA_URL_OPTIONS#\?}"
+
+echo "Starting: Server.exe ${AA_MODE:-LAN} $map ini=${AA_INI:-server.ini} log=server.log $*"
+
+# Server.exe resolves packages and inis relative to its working directory
+export WINE_WORKDIR="$system"
+exec wine-run Server.exe "${AA_MODE:-LAN}" "$map" "ini=${AA_INI:-server.ini}" log=server.log "$@"
