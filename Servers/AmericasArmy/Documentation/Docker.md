@@ -68,7 +68,7 @@ completed loading
 
 ### Server modes
 
-`AA_MODE` is the first `Server.exe` argument. `LAN` lists the server in the LAN browser and needs no authorization. `LANTOURNAMENT` turns on tournament mode (`[AGP_Gameplay.AGP_GameTournament]`), and `LANETA`/`LANETATOURNAMENT` run Instant Action. `GLOBAL` and `TOURNAMENT` register with the official America's Army services, which are gone.
+`AA_MODE` is the first `Server.exe` argument. `LAN` lists the server in the LAN browser and needs no authorization. `LANTOURNAMENT` turns on tournament mode (`[AGP_Gameplay.AGP_GameTournament]`), and `LANETA`/`LANETATOURNAMENT` run Instant Action. `GLOBAL` and `TOURNAMENT` register with the official America's Army services, which are gone: the server times out on the auth server, logs `Reverting server to LAN mode` and then crashes with a general protection fault.
 
 ### Environment Variables
 
@@ -97,6 +97,7 @@ Put `.ps1` scripts in `config/Scripts/Hooks/<HookName>/`.
 ## Troubleshooting
 
 - **Server not in the LAN browser**: the browser finds servers by UDP broadcast, so the container needs its own LAN address (macvlan/ipvlan) or host networking. Joining by IP works through port mapping. With port mapping or NAT, set `AA_GAMESPY_IP` to the address clients should use.
+- **Internet listing / OpenSpy**: not supported. The master server hostnames in `System/IpDrv.dll` (`%s.master.gamespy.com`, `%s.ms%d.gamespy.com`) can be byte-patched to `openspy.net`, but a LAN-mode server never heartbeats (`GameSpy ... Public: 0`), `GLOBAL` mode crashes (see Server modes), and the `.u` packages are encrypted, so the script that sets the public flag can't be changed. OpenSpy also doesn't list `armygame` among its supported games. Clients join by LAN browser or IP.
 - **Clients can't join / version mismatch**: the server reports `gamever 2.8.5.0`. Clients need 2.8.5 with the same maps; `bEnableMapTesting`/`bEnableCodeTesting` compare them.
 - **`Can't find host dms1.americasarmy.com`**: harmless. The server looks for an updated `Tours.ini` on the old official server.
 - **`Player administrator entry "" is not using the correct format`**: harmless; it's the empty `PlayerAdmin` example in the stock ini.
