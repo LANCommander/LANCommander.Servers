@@ -1,0 +1,46 @@
+#!/bin/sh
+# Start the F.E.A.R. dedicated server (START_EXE).
+#
+# Runs `FEARServer.exe -userdirectory <FEAR_USER_DIR> -optionsfile <FEAR_CONFIG>` under Wine with
+# Xvfb. FEARServer is a GUI app; -optionsfile loads <user dir>\ServerOptions\<FEAR_CONFIG>.txt,
+# which the configure hook fills in, and starts hosting without any dialog. The name is given
+# without .txt: the server appends it. The server's console is copied to stdout from its error log
+# (+errorlogfile). Any START_ARGS are appended.
+set -e
+
+root="${SERVER_ROOT:-/config/Merged}"
+cfg="${FEAR_CONFIG:-lancommander}"
+userdir="${FEAR_USER_DIR:-Monolith Productions/FEARCombat}"
+
+cd "$root"
+
+if [ ! -f FEARServer.exe ]; then
+    echo "FEARServer.exe not found in $root. Put a F.E.A.R. install in /config/Server." >&2
+    exit 1
+fi
+
+if [ ! -f "$userdir/ServerOptions/$cfg.txt" ]; then
+    echo "$userdir/ServerOptions/$cfg.txt not found in $root; FEARServer would show 'Unable to start server' and never host." >&2
+    exit 1
+fi
+
+# Windows path of a directory under the merged view (Z: is the Unix root in the Wine prefix)
+winpath() {
+    printf 'Z:%s' "$(cd "$1" && pwd)" | tr '/' '\\'
+}
+
+log="$userdir/fearserver.log"
+: > "$log"
+
+set -- -userdirectory "$(winpath "$userdir")" -optionsfile "$cfg" \
+    +errorlog 1 +alwaysflushlog 1 +errorlogfile "$(winpath "$userdir")\\fearserver.log" "$@"
+
+printf 'Starting: FEARServer.exe %s\n' "$*"
+printf 'Game port and status queries on %s/udp\n' "${FEAR_PORT:-27888}"
+
+# The tail outlives this shell's exec and ends with the container. Lines end in \r\r\n; sed -u
+# doesn't buffer, unlike tr into a pipe.
+tail -n +1 -F "$log" 2>/dev/null | sed -u 's/\r//g' &
+
+export WINE_XVFB="${WINE_XVFB:-true}"
+exec wine-run FEARServer.exe "$@"
