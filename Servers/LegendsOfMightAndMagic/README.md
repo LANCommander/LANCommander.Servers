@@ -10,6 +10,7 @@ The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCom
 - Runs the game's own `LegendServ.exe` dedicated server
 - Native Microsoft DirectPlay installed into the Wine prefix automatically. Wine's builtin DirectPlay can't load the TCP/IP service provider the server uses.
 - Every Host Settings option is an environment variable. LegendServ has no config file or command-line settings, so the image writes the registry and `ROTATION.TXT` and presses OK in the server's dialog for you
+- Players can share a CD key (the digital releases all use the same one): the server's duplicate key check is patched out
 - Map rotation names are checked against the retail maps and `Data/Worlds/*.dat`
 - Current map and player count are logged to `docker logs` (read from the server's GameSpy status port)
 - Supports file overlaying using OverlayFS (no file copying required)
@@ -78,7 +79,7 @@ They are applied on every start. The ranges are the ones the server's dialog acc
 
 | Variable | Dialog field | Values | Default |
 |----------|--------------|--------|---------|
-| `LOMM_SERVER_NAME` | Server Name | text | `Legends of Might and Magic` |
+| `LOMM_SERVER_NAME` | Server Name | text, up to 23 characters | `Legends of Might&Magic` |
 | `LOMM_PASSWORD` | Server Password | text (empty = none) | |
 | `LOMM_MAX_PLAYERS` | Max Players | 1-16 | `16` |
 | `LOMM_MAPS` | Rotation List | comma-separated map names, empty = the 20 retail maps, `config` = keep `ROTATION.TXT` | |
@@ -97,6 +98,7 @@ They are applied on every start. The ranges are the ones the server's dialog acc
 | `LOMM_UPLOAD_BANDWIDTH` | Upload Bandwidth | bytes/s, used with `custom` | |
 | `LOMM_PORT` | Port | UDP port | `29800` |
 | `LOMM_GAMESPY_PORT` | GameSpy Port | UDP port | `29801` |
+| `LOMM_ALLOW_SHARED_CD_KEYS` | | `true`/`false`: patch out the "CD Key in use" check | `true` |
 | `LOMM_ARCHIVE_URL` | | zip of the game folder, used if `Server/LegendServ.exe` is missing | |
 | `LOMM_DIALOG_TIMEOUT` | | seconds to wait for the Host Settings dialog | `120` |
 

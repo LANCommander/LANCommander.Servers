@@ -114,6 +114,9 @@ if ($Env:LOMM_UPLOAD_BANDWIDTH) {
 
 $serverName = "$Env:LOMM_SERVER_NAME".Trim()
 if (-not $serverName) { throw "LOMM_SERVER_NAME can't be empty" }
+if ($serverName.Length -gt 23) {
+    Write-Log -Level Warning "LOMM_SERVER_NAME is longer than 23 characters; the server cuts it to '$($serverName.Substring(0, 23))'"
+}
 
 $reg = [System.Collections.Generic.List[string]]::new()
 $reg.Add('REGEDIT4')

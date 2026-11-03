@@ -22,10 +22,12 @@ ARG DIRECTX_REDIST_SHA256="f6d191e89a963d7cca34f169d30f49eab99c1ed3bb92da73ec436
 #   - LOMM_MAPS is a comma-separated rotation. Empty uses the 20 retail maps; "config" keeps
 #     ROTATION.TXT as it is
 #   - LOMM_CONNECTION_TYPE: 56k, isdn, cable, dsl, t1 or custom (uses LOMM_UPLOAD_BANDWIDTH)
+#   - LOMM_ALLOW_SHARED_CD_KEYS patches Data\object.lto so players with the same CD key can join
+#     (the digital releases all share one key)
 # ----------------------------
 ENV W_CACHE=/opt/winetricks-cache \
     LOMM_ARCHIVE_URL="" \
-    LOMM_SERVER_NAME="Legends of Might and Magic" \
+    LOMM_SERVER_NAME="Legends of Might&Magic" \
     LOMM_PASSWORD="" \
     LOMM_MAX_PLAYERS="16" \
     LOMM_MAPS="" \
@@ -44,6 +46,7 @@ ENV W_CACHE=/opt/winetricks-cache \
     LOMM_UPLOAD_BANDWIDTH="" \
     LOMM_PORT="29800" \
     LOMM_GAMESPY_PORT="29801" \
+    LOMM_ALLOW_SHARED_CD_KEYS="true" \
     WINE_XVFB="true" \
     START_EXE="/usr/local/bin/lomm-server" \
     START_ARGS=""
