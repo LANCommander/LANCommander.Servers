@@ -1,0 +1,57 @@
+#!/bin/sh
+# Start the Medal of Honor: Allied Assault dedicated server (START_EXE).
+#
+# Runs `/opt/openmohaa/omohaaded +set dedicated <1|2> +set net_port <MOHAA_PORT>
+# +set net_gamespy_port <MOHAA_GAMESPY_PORT> +set com_target_game <0|1|2>
+# +set fs_basepath <root> +set fs_homepath <root> <START_ARGS> +exec lancommander.cfg`
+# from the server root, so the game data comes from Merged/ and everything the server writes
+# (configs, logs) lands in Overlay/. lancommander.cfg ends with the `map` command.
+set -e
+
+root="${SERVER_ROOT:-/config/Merged}"
+exe=/opt/openmohaa/omohaaded
+
+cd "$root"
+
+case "$(echo "${MOHAA_GAME:-aa}" | tr '[:upper:]' '[:lower:]')" in
+    aa|0|base|alliedassault)  target=0; dir=main;   pak=main/Pak0.pk3 ;;
+    sh|1|spearhead)           target=1; dir=mainta; pak=mainta/pak1.pk3 ;;
+    bt|2|breakthrough)        target=2; dir=maintt; pak=maintt/pak1.pk3 ;;
+    *) echo "Unknown MOHAA_GAME '$MOHAA_GAME' (use aa, sh or bt)" >&2; exit 1 ;;
+esac
+
+# Pak names differ in case between installs (Pak0.pk3 vs pak0.pk3)
+if [ -z "$(find "$root/main" -maxdepth 1 -iname pak0.pk3 2>/dev/null)" ]; then
+    echo "main/Pak0.pk3 not found in $root; copy the retail main/ folder into /config/Server" >&2
+    exit 1
+fi
+if [ -z "$(find "$root/$dir" -maxdepth 1 -iname "$(basename "$pak")" 2>/dev/null)" ]; then
+    echo "$pak not found in $root; copy the retail $dir/ folder into /config/Server" >&2
+    exit 1
+fi
+
+if [ ! -f "$root/$dir/lancommander.cfg" ]; then
+    echo "$dir/lancommander.cfg not found in $root" >&2
+    exit 1
+fi
+
+# dedicated 1 = LAN only, 2 = internet (heartbeats to the master server)
+dedicated=1
+case "${MOHAA_LAN:-true}" in
+    true|1|yes) ;;
+    *) dedicated=2 ;;
+esac
+
+set -- "$exe" \
+    +set dedicated "$dedicated" \
+    +set net_port "${MOHAA_PORT:-12203}" \
+    +set net_gamespy_port "${MOHAA_GAMESPY_PORT:-12300}" \
+    +set com_target_game "$target" \
+    +set fs_basepath "$root" \
+    +set fs_homepath "$root" \
+    "$@" \
+    +exec lancommander.cfg
+
+echo "Starting: $*"
+
+exec "$@"
