@@ -1,0 +1,160 @@
+#!/bin/sh
+# Start the Global Operations dedicated server (START_EXE).
+#
+# goserver.exe is a GUI program with no command-line settings. It opens a Server Settings dialog
+# filled from Globalops\server.cfg (written by the configure hook), and only hosts once OK is
+# pressed. Cancel quits it. This script runs it under Xvfb, waits for the dialog and presses OK
+# with xdotool.
+#
+# The server's console is a list box in its window, so nothing reaches stdout. Instead the script
+# copies the event log (Globalops\logs\*.log, written when GO_LOG_EVENTS is on) to stdout, and
+# polls the GameSpy status port to report when the server is up. Any START_ARGS are passed to
+# goserver.exe.
+set -e
+
+root="${SERVER_ROOT:-/config/Merged}"
+: "${WINEPREFIX:=/config/wineprefix}"
+export WINEPREFIX
+
+# Re-run inside Xvfb; the script needs the display too, to find the dialog
+if [ -z "${GO_IN_XVFB:-}" ]; then
+    case "${WINE_XVFB:-true}" in
+        false|0|no) use_xvfb=0 ;;
+        auto) if [ -n "${DISPLAY:-}" ]; then use_xvfb=0; else use_xvfb=1; fi ;;
+        *) use_xvfb=1 ;;
+    esac
+    if [ "$use_xvfb" -eq 1 ]; then
+        export GO_IN_XVFB=1
+        exec xvfb-run --auto-servernum \
+            --server-args="-screen 0 ${WINE_XVFB_SCREEN:-1024x768x24}" \
+            "$0" "$@"
+    fi
+fi
+
+cd "$root"
+
+if [ ! -f goserver.exe ]; then
+    echo "goserver.exe not found in $root. Put a Global Operations 4.0a install in /config/Server." >&2
+    exit 1
+fi
+
+query_port=28672
+logs="$root/Globalops/logs"
+mkdir -p "$logs"
+marker="$(mktemp)"
+
+printf 'Starting: goserver.exe %s\n' "$*"
+wine goserver.exe "$@" &
+game_pid=$!
+tail_pid=""
+
+stop() {
+    [ -n "$tail_pid" ] && kill "$tail_pid" 2>/dev/null || true
+    wineserver -k 2>/dev/null || true
+    kill "$game_pid" 2>/dev/null || true
+    rm -f "$marker"
+}
+trap 'stop; exit 0' TERM INT
+
+fail() {
+    echo "$1" >&2
+    stop
+    exit 1
+}
+
+# Names of the server's top-level windows, without Wine's IME helpers
+windows() {
+    xdotool search --name '.' 2>/dev/null | while read -r id; do
+        xdotool getwindowname "$id" 2>/dev/null || true
+    done | grep -v -x -e 'Default IME' -e '' || true
+}
+
+dialog() {
+    xdotool search --name '^Server Settings$' 2>/dev/null | head -n 1
+}
+
+# --- Wait for the Server Settings dialog ---
+timeout="${GO_DIALOG_TIMEOUT:-120}"
+waited=0
+until [ -n "$(dialog)" ]; do
+    kill -0 "$game_pid" 2>/dev/null || fail "goserver.exe exited before showing its Server Settings dialog."
+    waited=$((waited + 1))
+    [ "$waited" -lt "$timeout" ] || fail "goserver.exe didn't show its Server Settings dialog within ${timeout}s. Windows: $(windows | tr '\n' ';')"
+    sleep 1
+done
+
+# Let the dialog finish filling in its controls. It opens with the focus in the Server Name field,
+# where Enter presses the default button, OK.
+sleep 2
+xdotool key --window "$(dialog)" Return 2>/dev/null
+
+# --- Wait for the dialog to close ---
+waited=0
+while [ -n "$(dialog)" ]; do
+    kill -0 "$game_pid" 2>/dev/null || fail "goserver.exe exited from the Server Settings dialog."
+    waited=$((waited + 1))
+    if [ "$waited" -ge 30 ]; then
+        others="$(windows | grep -v -x 'Server Settings' | tr '\n' ' ')"
+        fail "goserver.exe didn't accept its Server Settings. Open windows: ${others:-none}."
+    fi
+    sleep 1
+done
+
+echo "Server Settings accepted; game port 27888/udp, GameSpy status on ${query_port}/udp"
+
+# --- Copy the event log to stdout ---
+# The server can start a new log file while it runs, so follow the newest one. The files have CRLF
+# line ends; one unbuffered sed strips them for every tail, through a FIFO, so each tail can be killed directly.
+follow_logs() {
+    fifo="$(mktemp -u)"
+    mkfifo "$fifo"
+    exec 3<>"$fifo"
+    rm -f "$fifo"
+    sed -u 's/\r$//' <&3 &
+    strip_pid=$!
+    tail_child=""
+    trap 'kill $tail_child $strip_pid 2>/dev/null; exit 0' TERM
+    current=""
+    while :; do
+        newest="$(find "$logs" -maxdepth 1 -type f -iname '*.log' -newer "$marker" -printf '%T@ %p\n' 2>/dev/null | sort -n | tail -n 1 | cut -d' ' -f2-)"
+        if [ -n "$newest" ] && [ "$newest" != "$current" ]; then
+            [ -n "$tail_child" ] && kill "$tail_child" 2>/dev/null || true
+            current="$newest"
+            tail -n +1 -F "$current" >&3 2>/dev/null &
+            tail_child=$!
+        fi
+        sleep 5 &
+        wait $! || true
+    done
+}
+follow_logs &
+tail_pid=$!
+
+# --- Report when the server answers queries ---
+field() {
+    printf '%s' "$1" | awk -v key="$2" -F'\\' '{ for (i = 2; i < NF; i += 2) if ($i == key) { print $(i + 1); exit } }'
+}
+
+up=0
+started=$(date +%s)
+while kill -0 "$game_pid" 2>/dev/null; do
+    if [ "$up" -eq 0 ]; then
+        reply="$(printf '\\status\\' | nc -u -w 1 127.0.0.1 "$query_port" 2>/dev/null || true)"
+        if [ -n "$reply" ]; then
+            echo "Server is up: $(field "$reply" hostname), map $(field "$reply" mapname), $(field "$reply" numplayers)/$(field "$reply" maxplayers) players"
+            up=1
+        elif [ $(( $(date +%s) - started )) -gt 120 ]; then
+            echo "Warning: no GameSpy status reply on ${query_port}/udp after 120s; the world may have failed to load. Windows: $(windows | tr '\n' ';')" >&2
+            started=$(date +%s)
+        fi
+    fi
+    sleep 5 &
+    wait $! || true
+done
+
+status=0
+wait "$game_pid" || status=$?
+kill "$tail_pid" 2>/dev/null || true
+rm -f "$marker"
+echo "goserver.exe exited with status $status"
+exit "$status"
