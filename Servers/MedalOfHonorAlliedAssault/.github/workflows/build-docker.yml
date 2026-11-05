@@ -1,4 +1,4 @@
-name: Build & Push Medal of Honor: Allied Assault Server (Docker Hub)
+name: "Build & Push Medal of Honor: Allied Assault Server (Docker Hub)"
 
 on:
   workflow_dispatch:
