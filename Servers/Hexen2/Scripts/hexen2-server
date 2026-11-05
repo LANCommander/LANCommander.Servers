@@ -1,0 +1,46 @@
+#!/bin/sh
+# Start the Hexen II dedicated server (START_EXE).
+#
+# Runs `h2ded -dedicated <HEXEN2_MAX_PLAYERS> -port <HEXEN2_PORT> -basedir <root>
+# [-portals] [-game <HEXEN2_GAME>] [-protocol <HEXEN2_PROTOCOL>] +exec lancommander.cfg
+# +map <HEXEN2_MAP>` from <root>, so the game data comes from Merged/ and everything the server
+# writes lands in Overlay/. h2ded execs server.cfg by itself before the command line runs.
+# Any START_ARGS are appended before +map.
+set -e
+
+root="${SERVER_ROOT:-/config/Merged}"
+
+cd "$root"
+
+if [ ! -f data1/pak0.pak ]; then
+    echo "data1/pak0.pak not found in $root; copy the Hexen II data1/ folder (pak0.pak, pak1.pak) into /config/Server" >&2
+    exit 1
+fi
+
+portals=
+case "${HEXEN2_PORTALS}" in
+    1|true|yes) portals="-portals" ;;
+esac
+
+game=
+[ -n "${HEXEN2_GAME}" ] && [ "${HEXEN2_GAME}" != data1 ] && game="-game ${HEXEN2_GAME}"
+
+protocol=
+[ -n "${HEXEN2_PROTOCOL}" ] && protocol="-protocol ${HEXEN2_PROTOCOL}"
+
+# h2ded prints the console with printf, which is block-buffered when stdout isn't a terminal,
+# so line-buffer it to see the console in docker logs as it happens
+set -- stdbuf -oL -eL /opt/uhexen2/h2ded \
+    -dedicated "${HEXEN2_MAX_PLAYERS:-16}" \
+    -port "${HEXEN2_PORT:-26900}" \
+    -basedir "$root" \
+    $portals \
+    $game \
+    $protocol \
+    +exec lancommander.cfg \
+    "$@" \
+    +map "${HEXEN2_MAP:-ravdm1}"
+
+echo "Starting: $*"
+
+exec "$@"
