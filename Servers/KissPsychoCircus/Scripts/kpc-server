@@ -1,0 +1,66 @@
+#!/bin/sh
+# Start the Kiss: Psycho Circus - The Nightmare Child dedicated server (START_EXE).
+#
+# Runs `Dedicated.exe -exec <KPC_CONFIG>` from the game folder under Wine. Dedicated.exe reads its
+# commands with ReadConsoleInput, which only works on a real console, and a game only starts after
+# the "start" command. So the server runs on a pty (script), its console input comes from the FIFO
+# /tmp/kpc/console, and this script types "start" shortly after the server prints "Ready.".
+# Send more console commands with `kpc-console <command>` (docker exec).
+#
+# Any START_ARGS are appended to the Dedicated.exe command line.
+set -e
+
+root="${SERVER_ROOT:-/config/Merged}"
+config="${KPC_CONFIG:-lancommander.cfg}"
+# In its own directory: fs.protected_fifos stops root (docker exec) from opening another user's
+# FIFO in sticky /tmp
+console=/tmp/kpc/console
+
+if [ ! -f "$root/Dedicated.exe" ]; then
+    echo "Dedicated.exe not found in $root. Put a Kiss: Psycho Circus 1.13 install in /config/Server." >&2
+    exit 1
+fi
+
+# Written by the 30-ConfigureKissPsychoCircus hook (Dedicated.exe that sleeps between frames)
+exe=Dedicated.exe
+if [ -f "$root/Dedicated-lancommander.exe" ]; then
+    exe=Dedicated-lancommander.exe
+fi
+
+case "${KPC_GAMESPY:-true}" in
+    false|0|no|off) set -- -nogamespy "$@" ;;
+esac
+set -- -exec "$config" "$@"
+
+# script(1) takes a single command string: quote every argument for sh
+cmd="exec wine-run $exe"
+for arg in "$@"; do
+    cmd="$cmd '$(printf '%s' "$arg" | sed "s/'/'\\\\''/g")'"
+done
+
+echo "Starting: $exe $*"
+
+mkdir -p "${console%/*}"
+rm -f "$console"
+mkfifo -m 0600 "$console"
+# Held open read-write, so the pty never sees EOF when a writer goes away
+exec 3<>"$console"
+
+export WINE_WORKDIR="$root"
+export SHELL=/bin/sh
+
+# Strip terminal escapes and CRs. The console echoes typed commands as ">s>st>sta>...", so keep
+# only the text after the last ">".
+script -qfec "$cmd" /dev/null <&3 \
+    | sed -u -e 's/\x1b\[[0-9;?]*[A-Za-z]//g' -e 's/\r//g' -e '/^>/s/^.*>/> /' \
+    | {
+        started=
+        while IFS= read -r line; do
+            printf '%s\n' "$line"
+            if [ -z "$started" ] && [ "$line" = "Ready." ]; then
+                started=1
+                # Typed right away, the Enter gets lost while the console is still being set up
+                (sleep 2; printf 'start\r' >&3) &
+            fi
+        done
+    }

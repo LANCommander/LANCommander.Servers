@@ -1,0 +1,32 @@
+#!/bin/sh
+# Type a command into the running Kiss: Psycho Circus dedicated server's console, e.g.
+#   docker exec <container> kpc-console say Map change in 1 minute
+#   docker exec <container> kpc-console nextlevel
+# The server's reply shows up in the container log.
+set -e
+
+console=/tmp/kpc/console
+
+if [ "$#" -eq 0 ]; then
+    echo "usage: kpc-console <command> [args...]" >&2
+    exit 64
+fi
+
+if [ ! -p "$console" ]; then
+    echo "$console not found; is the server running (kpc-server)?" >&2
+    exit 1
+fi
+
+# say, msg and kick take one string argument, which needs quotes when it has spaces
+case "$1" in
+    say|msg|kick)
+        command="$1"
+        shift
+        line="$command \"$*\""
+        ;;
+    *)
+        line="$*"
+        ;;
+esac
+
+printf '%s\r' "$line" > "$console"
