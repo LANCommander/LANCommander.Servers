@@ -1,0 +1,35 @@
+#!/bin/sh
+# Start the Thievery dedicated server (START_EXE).
+#
+# Runs `UCC.exe server <map>?game=<class>[?options] ini=<THIEVERY_INI> userini=<THIEVERY_USER_INI>
+# log=server.log` from System/ under Wine, as the mod's ThieveryServer.bat does. Server settings,
+# passwords and the map rotation live in THIEVERY_INI and System/ThieveryMod.ini (see the
+# 30-ConfigureThievery hook); any START_ARGS are appended.
+set -e
+
+system="${SERVER_ROOT:-/config/Merged}/System"
+
+if [ ! -f "$system/UCC.exe" ] || [ ! -f "$system/ThieveryMod.u" ]; then
+    echo "System/UCC.exe or System/ThieveryMod.u not found in ${SERVER_ROOT:-/config/Merged}. Put Unreal Tournament 436 with Thievery 1.7.1 in /config/Server." >&2
+    exit 1
+fi
+
+# Short game type names (same table as the 30-ConfigureThievery hook)
+case "$(printf '%s' "${THIEVERY_GAME_TYPE:-teams}" | tr '[:upper:]' '[:lower:]')" in
+    teams|team|tdm|deathmatch)      game="ThieveryMod.ThieveryDeathMatchPlus" ;;
+    thiefmatch|tm)                  game="ThieveryMod.ThieveryThiefMatch" ;;
+    coop|cooperative)               game="ThieveryMod.ThieveryCooperative" ;;
+    *)                              game="$THIEVERY_GAME_TYPE" ;;
+esac
+
+url="${THIEVERY_MAP:-TH-Theatre}?game=$game"
+[ -z "$THIEVERY_URL_OPTIONS" ] || url="$url?${THIEVERY_URL_OPTIONS#\?}"
+
+ini="ini=${THIEVERY_INI:-Server.ini}"
+userini="userini=${THIEVERY_USER_INI:-ThieveryUser.ini}"
+
+echo "Starting: UCC.exe server $url $ini $userini log=server.log $*"
+
+# UCC resolves packages and inis relative to its working directory
+export WINE_WORKDIR="$system"
+exec wine-run UCC.exe server "$url" "$ini" "$userini" log=server.log "$@"
