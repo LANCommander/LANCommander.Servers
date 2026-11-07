@@ -1,13 +1,14 @@
 # The Elder Scrolls III: Morrowind Server (Docker)
 
-This repository provides a Dockerized multiplayer server for **The Elder Scrolls III: Morrowind**, using [TES3MP](https://tes3mp.com/), the multiplayer fork of [OpenMW](https://openmw.org/). On first start it downloads the official [TES3MP 0.8.1](https://github.com/TES3MP/TES3MP/releases/tag/tes3mp-0.8.1) Linux server package, which holds the server (`tes3mp-server.x86_64`) and its Lua game logic (the CoreScripts). The server doesn't need Morrowind's data files, so you don't need to supply any files. Each player needs their own copy of Morrowind and the TES3MP 0.8.1 client.
+This repository provides a Dockerized multiplayer server for **The Elder Scrolls III: Morrowind**, using [TES3MP](https://tes3mp.com/), the multiplayer fork of [OpenMW](https://openmw.org/). On first start it downloads the official Linux server package of the [TES3MP release](https://github.com/TES3MP/TES3MP/releases) you pick (the latest by default, currently 0.8.1), which holds the server (`tes3mp-server.x86_64`) and its Lua game logic (the CoreScripts). The server doesn't need Morrowind's data files, so you don't need to supply any files. Each player needs their own copy of Morrowind and the TES3MP client of the same version.
 The image builds on [`lancommander/base`](https://github.com/LANCommander/LANCommander.Servers.Base). It supports file overlaying using OverlayFS.
 
 ---
 
 ## Features
 
-- The official TES3MP 0.8.1 Linux server, installed from the release package (sha256-checked) or any TES3MP server package
+- The official TES3MP Linux server: the latest release or the version you choose (`TES3MP_VERSION`), sha256-checked for known versions, or any TES3MP server package
+- Switching versions keeps the world and backs up the old version's edited config and scripts
 - One persistent, shared world: characters, cells, the world state and custom records are saved as JSON under `server/data/` in `Overlay/`
 - The server's name, port, player limit, password and log level, and the most-used CoreScripts settings (game mode, difficulty, console, sharing), are environment variables
 - LAN-only by default; one setting announces it to the official TES3MP master server
@@ -28,6 +29,7 @@ services:
       - ./config:/config
 
     environment:
+      TES3MP_VERSION: "latest"   # or e.g. "0.8.1"
       TES3MP_SERVER_NAME: "My Morrowind Server"
       TES3MP_MAX_PLAYERS: "16"
       TES3MP_PASSWORD: ""
@@ -48,11 +50,15 @@ The TES3MP browser only lists servers from the internet master server; there is 
 
 ## Game Files
 
-On first start `PostInitialization/20-InstallTES3MP.ps1` downloads `TES3MP_SERVER_URL` (11 MB), checks it against `TES3MP_SERVER_SHA256` and unpacks it into `config/Server/` (about 9 MB). The source tarball and the CoreScripts' `.git` folder are left out. It reinstalls only when `TES3MP_SERVER_URL` changes.
+On first start `PostInitialization/20-InstallTES3MP.ps1` downloads the Linux server package of `TES3MP_VERSION` (11 MB) from the TES3MP GitHub releases and unpacks it into `config/Server/` (about 9 MB). The source tarball and the CoreScripts' `.git` folder are left out.
 
-To install from your own copy instead, point `TES3MP_SERVER_URL` at a `.tar.gz` or `.zip` of a Linux TES3MP server (with `tes3mp-server.x86_64` and `server/scripts/serverCore.lua` at its root or in one folder) and clear `TES3MP_SERVER_SHA256`. Or copy the files into `config/Server/` yourself; the hook then leaves them alone.
+- `TES3MP_VERSION=latest` (the default) looks up the newest release that has a Linux x86_64 server package on every start, so a new TES3MP release is installed on the next restart. The newest GitHub release, `tes3mp-0.8.1-vr`, has no server package, so `latest` is currently 0.8.1. If GitHub can't be reached, the installed version keeps running (or 0.8.1 is installed on a fresh volume).
+- A version (`0.8.1`, `0.8.0`, or a release tag like `tes3mp-0.8.1`) pins it. 0.8.1 and 0.8.0 are built into the image with their SHA-256, so they install without the GitHub API and are always hash-checked. Other versions are looked up on GitHub. Versions before 0.8.0 are refused: their server needs libGL, and 0.8 clients can't join them.
+- `TES3MP_SERVER_URL` installs your own `.tar.gz` or `.zip` of a Linux TES3MP server instead (with `tes3mp-server.x86_64` and the CoreScripts at its root or in one folder), checked against `TES3MP_SERVER_SHA256` when that's set. Or copy the files into `config/Server/` yourself; the hook then leaves them alone.
 
-Clients must run the same version: TES3MP 0.8.1 (protocol 10, commit `68954091c5`). They also need the content files listed in `server/data/requiredDataFiles.json`. By default that's the English or Russian `Morrowind.esm`, `Tribunal.esm` and `Bloodmoon.esm`, in that order.
+It reinstalls only when the resolved package changes. When it replaces a different version, it empties `Server/` first and renames the old version's `tes3mp-server-default.cfg` and CoreScripts scripts in `Overlay/` to `<name>.bak-<old version>`, so the new version's files show through. The world in `Overlay/server/data/` is kept, but TES3MP doesn't promise that world data works across versions, so back it up before switching.
+
+Clients must run the same version as the server. LANCommander's Morrowind package is the TES3MP 0.8.1 client (protocol 10, commit `68954091c5`). Pin `TES3MP_VERSION=0.8.1` to keep the server matching it even after a new release. They also need the content files listed in `server/data/requiredDataFiles.json`. By default that's the English or Russian `Morrowind.esm`, `Tribunal.esm` and `Bloodmoon.esm`, in that order.
 
 ## Directory Layout (Host)
 
@@ -77,8 +83,9 @@ The server settings are written into `tes3mp-server-default.cfg` and the CoreScr
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `TES3MP_SERVER_URL` | Package to install TES3MP from (`.tar.gz` or `.zip`, `http(s)://` or `file://`) | the official 0.8.1 Linux server package |
-| `TES3MP_SERVER_SHA256` | Expected SHA-256 of the package; empty skips the check | hash of the 0.8.1 package |
+| `TES3MP_VERSION` | TES3MP release to install: `latest` or a version (`0.8.1`, `0.8.0`, ...; 0.8.0 and newer) | `latest` |
+| `TES3MP_SERVER_URL` | Package to install instead of `TES3MP_VERSION` (`.tar.gz` or `.zip`, `http(s)://` or `file://`) | |
+| `TES3MP_SERVER_SHA256` | Expected SHA-256 of the package. Empty: the built-in hash for 0.8.1/0.8.0, no check otherwise | |
 | `TES3MP_PORT` | `[General] port` | `25565` |
 | `TES3MP_LAN` | `true`: `[MasterServer] enabled = false`, LAN only. `false`: announced to `master.tes3mp.com` | `true` |
 | `TES3MP_MAX_PLAYERS` | `[General] maximumPlayers` | `64` |

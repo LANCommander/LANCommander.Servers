@@ -99,7 +99,7 @@ jobs:
             type=raw,value=latest,enable=${{ steps.vars.outputs.push_latest == 'true' }}
           labels: |
             org.opencontainers.image.title=The Elder Scrolls III: Morrowind Game Server
-            org.opencontainers.image.description=TES3MP 0.8.1 multiplayer server for The Elder Scrolls III: Morrowind (the official Linux build)
+            org.opencontainers.image.description=TES3MP multiplayer server for The Elder Scrolls III: Morrowind (the official Linux build, latest or a chosen version)
             org.opencontainers.image.source=${{ github.repositoryUrl }}
             org.opencontainers.image.revision=${{ github.sha }}
 

@@ -3,16 +3,27 @@
 # Write the TES3MP_* settings into the server's two config files on every start:
 #   - tes3mp-server-default.cfg ([General] port/players/name/password/log level,
 #     [MasterServer] enabled)
-#   - server/scripts/config.lua (CoreScripts: game mode, difficulty, sharing, console, ...)
+#   - <CoreScripts>/scripts/config.lua (game mode, difficulty, sharing, console, ...); the
+#     CoreScripts folder is [Plugins] home in the cfg (server/, or CoreScripts/ in 0.7.0)
 # Only the lines for non-empty settings are changed, so the rest of both files (and your own
 # edits to them in Overlay/) are kept. Both are edited through Merged/, so the edited copies land
 # in Overlay/.
 
 $cfgFile = Join-Path $Env:SERVER_ROOT 'tes3mp-server-default.cfg'
-$luaFile = Join-Path $Env:SERVER_ROOT 'server/scripts/config.lua'
 
-if (-not (Test-Path -Path $cfgFile) -or -not (Test-Path -Path $luaFile)) {
-    Write-Log -Level Error "tes3mp-server-default.cfg or server/scripts/config.lua not found in $Env:SERVER_ROOT; set TES3MP_SERVER_URL or copy TES3MP into $Env:SERVER_DIR"
+if (-not (Test-Path -Path $cfgFile)) {
+    Write-Log -Level Error "tes3mp-server-default.cfg not found in $Env:SERVER_ROOT; set TES3MP_VERSION or TES3MP_SERVER_URL, or copy TES3MP into $Env:SERVER_DIR"
+    return
+}
+
+# The CoreScripts folder is [Plugins] home: ./server since 0.8.0, ./CoreScripts in 0.7.0
+$coreDir = Get-Content -Path $cfgFile | Where-Object { $_ -match '^\s*home\s*=' } | Select-Object -First 1
+$coreDir = if ($coreDir) { ($coreDir -replace '^\s*home\s*=\s*', '').Trim().TrimStart('.').Trim('/') }
+if (-not $coreDir) { $coreDir = 'server' }
+$luaFile = Join-Path $Env:SERVER_ROOT "$coreDir/scripts/config.lua"
+
+if (-not (Test-Path -Path $luaFile)) {
+    Write-Log -Level Error "$coreDir/scripts/config.lua not found in $Env:SERVER_ROOT"
     return
 }
 
@@ -86,7 +97,7 @@ foreach ($section in $ini.Keys) {
 chown "$($Env:UID):$($Env:GID)" $cfgFile
 Write-Log "Wrote TES3MP_* server settings to $cfgFile"
 
-# ---- server/scripts/config.lua (CoreScripts) ------------------------------------------------
+# ---- <CoreScripts>/scripts/config.lua ------------------------------------------------
 
 $lua = [ordered]@{
     'gameMode'            = ConvertTo-LuaString $Env:TES3MP_GAME_MODE

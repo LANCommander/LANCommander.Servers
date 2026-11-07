@@ -5,7 +5,7 @@ ARG BASE_IMAGE=lancommander/base:latest
 FROM ${BASE_IMAGE}
 
 LABEL org.opencontainers.image.title="The Elder Scrolls III: Morrowind Game Server" \
-      org.opencontainers.image.description="TES3MP 0.8.1 multiplayer server for The Elder Scrolls III: Morrowind (the official Linux build)" \
+      org.opencontainers.image.description="TES3MP multiplayer server for The Elder Scrolls III: Morrowind (the official Linux build, latest or a chosen version)" \
       app.lancommander.server.kind="game" \
       app.lancommander.server.game.title="The Elder Scrolls III: Morrowind" \
       app.lancommander.server.external-id.hq="27f61f63-f6eb-4103-a5b2-8d42d7aff9eb" \
@@ -15,16 +15,22 @@ LABEL org.opencontainers.image.title="The Elder Scrolls III: Morrowind Game Serv
 
 # ----------------------------
 # Server settings
-#   - TES3MP_SERVER_URL is the official TES3MP 0.8.1 Linux server package (tes3mp-server.x86_64,
-#     its libraries and the CoreScripts in server/). It is unpacked into /config/Server on first
-#     start and verified against TES3MP_SERVER_SHA256 (empty = no check). The server needs no
+#   - TES3MP_VERSION picks the official TES3MP Linux server package from the GitHub releases:
+#     "latest" (the newest release that has a Linux server, looked up on every start) or a version
+#     such as 0.8.1 or 0.8.0 (0.8.0 and newer are supported). 0.8.1 and 0.8.0 are pinned with
+#     their SHA-256 and install without the GitHub API. Clients must run the same version
+#   - TES3MP_SERVER_URL installs another package instead (.tar.gz or .zip, file:// too), checked
+#     against TES3MP_SERVER_SHA256 when set
+#   - The package (tes3mp-server.x86_64, its libraries and the CoreScripts) is unpacked into
+#     /config/Server on first start and whenever the resolved package changes. The server needs no
 #     Morrowind data files; clients bring their own
 #   - The [General]/[MasterServer] settings are written into tes3mp-server-default.cfg and the
-#     CoreScripts settings into server/scripts/config.lua on every start. Empty settings are
-#     left alone
+#     CoreScripts settings into <CoreScripts>/scripts/config.lua on every start. Empty settings
+#     are left alone
 # ----------------------------
-ENV TES3MP_SERVER_URL="https://github.com/TES3MP/TES3MP/releases/download/tes3mp-0.8.1/tes3mp-server-GNU%2BLinux-x86_64-release-0.8.1-68954091c5-6da3fdea59.tar.gz" \
-    TES3MP_SERVER_SHA256="106a56e32a00ff7a92b574fae0e25671e90a199f509b16d483a8d7da6fc3bcf0" \
+ENV TES3MP_VERSION="latest" \
+    TES3MP_SERVER_URL="" \
+    TES3MP_SERVER_SHA256="" \
     TES3MP_PORT="25565" \
     TES3MP_LAN="true" \
     TES3MP_MAX_PLAYERS="64" \
