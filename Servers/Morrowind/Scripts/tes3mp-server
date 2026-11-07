@@ -1,0 +1,30 @@
+#!/bin/sh
+# Start the TES3MP dedicated server (START_EXE).
+#
+# Runs `./tes3mp-server.x86_64 <START_ARGS>` from the server root with LD_LIBRARY_PATH=./lib, like
+# the package's own tes3mp-server wrapper, but without its tes3mp-prelaunch step (that copies the
+# config and CoreScripts into ~/.config/openmw). The server reads tes3mp-server-default.cfg from
+# the current directory and keeps its world, players and cells in server/data/, so everything it
+# writes lands in Overlay/.
+set -e
+
+root="${SERVER_ROOT:-/config/Merged}"
+
+cd "$root"
+
+if [ ! -f ./tes3mp-server.x86_64 ] || [ ! -f server/scripts/serverCore.lua ]; then
+    echo "tes3mp-server.x86_64 or server/scripts/serverCore.lua not found in $root; set TES3MP_SERVER_URL or copy TES3MP into /config/Server" >&2
+    exit 1
+fi
+
+# The server also loads ~/.config/openmw/tes3mp-server.cfg over the default config and writes its
+# log files next to it. Keep both in Merged/ so they persist and can be edited from Overlay/.
+export XDG_CONFIG_HOME="$root/.config"
+mkdir -p "$XDG_CONFIG_HOME/openmw"
+
+set -- ./tes3mp-server.x86_64 "$@"
+
+echo "Starting: $*"
+
+# Line-buffer the console output so it reaches docker logs straight away
+LD_LIBRARY_PATH="./lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}" exec stdbuf -oL -eL "$@" < /dev/null
