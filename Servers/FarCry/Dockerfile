@@ -4,6 +4,9 @@
 ARG BASE_IMAGE=lancommander/wine:latest
 FROM ${BASE_IMAGE}
 
+# Log files LANCommander shows as consoles under the server's Monitor
+LABEL app.lancommander.server.log.server-log="/config/Overlay/log_WinSV.txt"
+
 # ----------------------------
 # Server settings
 #   - The game files are not downloadable; put a Far Cry 1.4 install (Bin32/FarCry_WinSV.exe,
