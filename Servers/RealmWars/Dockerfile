@@ -10,6 +10,9 @@ LABEL org.opencontainers.image.title="Realm Wars Game Server" \
       app.lancommander.server.game.title="Realm Wars" \
       app.lancommander.server.external-id.hq="107ec5cb-1c35-40d8-b636-2bafdf4a423c"
 
+# Log files LANCommander shows as consoles under the server's Monitor
+LABEL app.lancommander.server.log.console="/config/Overlay/console.log"
+
 # ----------------------------
 # Server settings
 #   - The game files are not downloadable here; put a Realm Wars install (RealmWars.exe, common/,
