@@ -4,6 +4,9 @@
 ARG BASE_IMAGE=lancommander/wine:latest
 FROM ${BASE_IMAGE}
 
+# Log files LANCommander shows as consoles under the server's Monitor
+LABEL app.lancommander.server.log.server-log="/config/Overlay/logs/DashFaction-dedicated-dm.log"
+
 # ----------------------------
 # Server settings
 #   - The game files are not downloadable; put a Red Faction 1.20 NA install with Dash Faction in
