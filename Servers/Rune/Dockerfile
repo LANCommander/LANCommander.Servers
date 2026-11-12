@@ -13,6 +13,9 @@ LABEL org.opencontainers.image.title="Rune Game Server" \
       app.lancommander.server.external-id.steam="210950" \
       app.lancommander.server.external-id.gog="1207660013"
 
+# Log files LANCommander shows as consoles under the server's Monitor
+LABEL app.lancommander.server.log.server-log="/config/Overlay/System/server.log"
+
 # ----------------------------
 # Server settings
 #   - The game files are not downloadable; put a Rune Classic (1.10) install in /config/Server,
