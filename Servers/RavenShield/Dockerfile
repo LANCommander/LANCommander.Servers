@@ -12,6 +12,9 @@ LABEL org.opencontainers.image.title="Rainbow Six 3: Raven Shield Game Server" \
       app.lancommander.server.external-id.igdb="908" \
       app.lancommander.server.external-id.steam="19830"
 
+# Log files LANCommander shows as consoles under the server's Monitor
+LABEL app.lancommander.server.log.server-log="/config/Overlay/system/server.log"
+
 # ----------------------------
 # Server settings
 #   - The game files are not downloadable; put a Raven Shield 1.60 install in /config/Server, or
