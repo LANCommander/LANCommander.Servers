@@ -4,6 +4,9 @@
 ARG BASE_IMAGE=lancommander/wine:latest
 FROM ${BASE_IMAGE}
 
+# Log files LANCommander shows as consoles under the server's Monitor
+LABEL app.lancommander.server.log.server-log="/config/Overlay/System/server.log"
+
 # ----------------------------
 # Server settings
 #   - The game files are not downloadable; put a Deus Ex 1.112fm install in /config/Server, or set
