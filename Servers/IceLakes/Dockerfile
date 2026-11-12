@@ -4,6 +4,9 @@
 ARG BASE_IMAGE=lancommander/steamcmd:latest
 FROM ${BASE_IMAGE}
 
+# Log files LANCommander shows as consoles under the server's Monitor
+LABEL app.lancommander.server.log.server-log="/config/Logs/IceLakes_Server.log"
+
 # SteamCMD settings
 ENV STEAM_APP_ID="460300"
 ENV START_EXE="icelakes-server"
