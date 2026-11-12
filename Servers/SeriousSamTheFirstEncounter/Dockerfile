@@ -4,6 +4,9 @@
 ARG BASE_IMAGE=lancommander/wine:latest
 FROM ${BASE_IMAGE}
 
+# Log files LANCommander shows as consoles under the server's Monitor
+LABEL app.lancommander.server.log.server-log="/config/Overlay/Dedicated_LANCommander.log"
+
 # ----------------------------
 # Server settings
 #   - The game files are not downloadable; put a Serious Sam: The First Encounter 1.05 install in
