@@ -13,6 +13,10 @@ LABEL org.opencontainers.image.title="Giants: Citizen Kabuto Dedicated Server" \
       app.lancommander.server.external-id.steam="557750" \
       app.lancommander.server.external-id.gog="1207658650"
 
+# Log files LANCommander shows as consoles under the server's Monitor
+LABEL app.lancommander.server.log.server-log="/config/wineprefix/drive_c/users/lancommander/AppData/Local/Giants/Giants.log" \
+      app.lancommander.server.log.chat="/config/Overlay/chatlog.txt"
+
 # Native DirectPlay comes from the DirectX February 2010 redist. Wine's builtin dpnet cannot host
 # (IDirectPlay8Server::Host returns E_NOTIMPL, logged by Giants as "Cannot host a multiplayer game
 # (Code 80004001)"), so the redist is cached in the image and installed into the prefix with
