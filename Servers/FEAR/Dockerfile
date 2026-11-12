@@ -4,6 +4,9 @@
 ARG BASE_IMAGE=lancommander/wine:latest
 FROM ${BASE_IMAGE}
 
+# Log files LANCommander shows as consoles under the server's Monitor
+LABEL app.lancommander.server.log.server-log="/config/Overlay/Monolith Productions/FEARCombat/fearserver.log"
+
 # ----------------------------
 # Server settings
 #   - The game files are not downloadable; put a F.E.A.R. Combat (or F.E.A.R.) 1.08 install with
