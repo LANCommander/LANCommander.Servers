@@ -4,6 +4,9 @@
 ARG BASE_IMAGE=lancommander/wine:latest
 FROM ${BASE_IMAGE}
 
+# Log files LANCommander shows as consoles under the server's Monitor
+LABEL app.lancommander.server.log.console="/config/Overlay/da_info/console.log"
+
 # The Double Action Dedicated Server's game content ships only Windows server binaries
 # (dab/bin/server.dll), so the server runs the Windows srcds.exe under Wine.
 
