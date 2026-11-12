@@ -11,6 +11,9 @@ LABEL org.opencontainers.image.title="Starsiege: Tribes Game Server" \
       app.lancommander.server.external-id.hq="e1c7dad7-2361-4986-afe6-101af8cc4a26" \
       app.lancommander.server.external-id.igdb="881"
 
+# Log files LANCommander shows as consoles under the server's Monitor
+LABEL app.lancommander.server.log.console="/config/Overlay/console.log"
+
 # ----------------------------
 # Server settings
 #   - The game files are not downloaded; put a Tribes install (1.40/1.41 recommended) in
