@@ -11,6 +11,9 @@ LABEL org.opencontainers.image.title="Atomic Bomberman Game Server" \
       app.lancommander.server.external-id.hq="8b663561-059e-42b3-8997-f9a85b828628" \
       app.lancommander.server.external-id.igdb="18153"
 
+# Log files LANCommander shows as consoles under the server's Monitor
+LABEL app.lancommander.server.log.server-log="/config/Overlay/.config/fpc_atomic/log/server.log"
+
 # ----------------------------
 # Server settings
 #   - The server is FPC Atomic's atomic_server (https://github.com/PascalCorpsman/fpc_atomic), the
