@@ -4,6 +4,9 @@
 ARG BASE_IMAGE=lancommander/wine:latest
 FROM ${BASE_IMAGE}
 
+# Log files LANCommander shows as consoles under the server's Monitor
+LABEL app.lancommander.server.log.console="/config/Overlay/GameData/console.log"
+
 # ----------------------------
 # Server settings
 #   - The game files are not downloadable; put a Tribes 2 (25034) install in /config/Server, or
