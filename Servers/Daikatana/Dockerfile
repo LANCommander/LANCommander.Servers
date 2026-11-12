@@ -4,6 +4,9 @@
 ARG BASE_IMAGE=lancommander/wine:latest
 FROM ${BASE_IMAGE}
 
+# Log files LANCommander shows as consoles under the server's Monitor
+LABEL app.lancommander.server.log.console="/config/Overlay/data/dk_console.log"
+
 # ----------------------------
 # Server settings
 #   - The game files are not downloadable; put a Daikatana v1.3 install (the folder holding
