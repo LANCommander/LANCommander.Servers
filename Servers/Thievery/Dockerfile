@@ -10,6 +10,9 @@ LABEL org.opencontainers.image.title="Thievery Game Server" \
       app.lancommander.server.game.title="Thievery" \
       app.lancommander.server.external-id.hq="0eaca3b5-72fd-4a60-8005-1aa18ce3a460"
 
+# Log files LANCommander shows as consoles under the server's Monitor
+LABEL app.lancommander.server.log.server-log="/config/Overlay/System/server.log"
+
 # ----------------------------
 # Server settings
 #   - Thievery is a mod for Unreal Tournament (1999, patch 436). Put a UT install with Thievery
