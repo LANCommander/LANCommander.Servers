@@ -4,6 +4,10 @@
 ARG BASE_IMAGE=lancommander/wine:latest
 FROM ${BASE_IMAGE}
 
+# Log files LANCommander shows as consoles under the server's Monitor
+LABEL app.lancommander.server.log.multiplayer-log="/config/Overlay/mp.log" \
+      app.lancommander.server.log.error-log="/config/wineprefix/drive_c/users/lancommander/AppData/Roaming/AquaNox/log.txt"
+
 # Native DirectPlay comes from the DirectX February 2010 redist. Wine's builtin dpnet cannot host
 # (IDirectPlay8Server::Host is a stub), so the redist is cached in the image and installed into the
 # prefix with `winetricks directplay` on first start. Microsoft's own URL is gone; this is the mirror
