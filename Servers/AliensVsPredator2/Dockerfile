@@ -4,6 +4,9 @@
 ARG BASE_IMAGE=lancommander/wine:latest
 FROM ${BASE_IMAGE}
 
+# Log files LANCommander shows as consoles under the server's Monitor
+LABEL app.lancommander.server.log.chat="/config/Overlay/chatlog.txt"
+
 # ----------------------------
 # Server settings
 #   - The game files are not downloadable; put an AvP2 1.0.9.6 install with the Master Server
