@@ -4,6 +4,9 @@
 ARG BASE_IMAGE=lancommander/wine:latest
 FROM ${BASE_IMAGE}
 
+# Log files LANCommander shows as consoles under the server's Monitor
+LABEL app.lancommander.server.log.server-log="/config/wineprefix/drive_c/users/lancommander/Documents/Devastation/server.log"
+
 # ----------------------------
 # Server settings
 #   - The game files are not downloadable; put a Devastation (390) install in /config/Server, or
