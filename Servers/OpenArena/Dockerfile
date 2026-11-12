@@ -34,6 +34,9 @@ LABEL org.opencontainers.image.title="OpenArena Game Server" \
       app.lancommander.server.external-id.hq="5bfb30c6-9778-429c-9a7d-3cf63f364f60" \
       app.lancommander.server.external-id.igdb="77358"
 
+# Log files LANCommander shows as consoles under the server's Monitor
+LABEL app.lancommander.server.log.games-log="/config/Overlay/baseoa/games.log"
+
 # ----------------------------
 # Server settings
 #   - OA_SERVER_URL is the official OpenArena 0.8.8 release zip (game data and oa_ded.x86_64).
