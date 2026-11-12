@@ -4,6 +4,9 @@
 ARG BASE_IMAGE=lancommander/wine:latest
 FROM ${BASE_IMAGE}
 
+# Log files LANCommander shows as consoles under the server's Monitor
+LABEL app.lancommander.server.log.console="/config/Overlay/gesource/console.log"
+
 # GoldenEye: Source ships a Windows server only, so it runs under Wine on top of the Windows build
 # of the Source 2007 Dedicated Server (Steam app 310).
 
