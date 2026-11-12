@@ -4,6 +4,9 @@
 ARG BASE_IMAGE=lancommander/wine:latest
 FROM ${BASE_IMAGE}
 
+# Log files LANCommander shows as consoles under the server's Monitor
+LABEL app.lancommander.server.log.debug-log="/config/Overlay/debug.log"
+
 # ----------------------------
 # Server settings
 #   - The game files are not downloadable; put an OpenJKDF2 install of Jedi Knight
