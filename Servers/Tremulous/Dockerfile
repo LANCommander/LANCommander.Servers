@@ -11,6 +11,9 @@ LABEL org.opencontainers.image.title="Tremulous Game Server" \
       app.lancommander.server.external-id.hq="5d079077-2632-4549-91e1-41f53bd6e1ce" \
       app.lancommander.server.external-id.igdb="93105"
 
+# Log files LANCommander shows as consoles under the server's Monitor
+LABEL app.lancommander.server.log.games-log="/config/Overlay/gpp/games.log"
+
 # ----------------------------
 # Server settings
 #   - TREMULOUS_SERVER_URL is the GrangerHub v1.3.0-alpha.0.15.2 Linux64 release zip (game data and
