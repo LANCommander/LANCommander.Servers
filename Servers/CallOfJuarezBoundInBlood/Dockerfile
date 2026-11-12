@@ -4,6 +4,9 @@
 ARG BASE_IMAGE=lancommander/wine:latest
 FROM ${BASE_IMAGE}
 
+# Log files LANCommander shows as consoles under the server's Monitor
+LABEL app.lancommander.server.log.server-log="/config/Overlay/CoJ2/out/logs/crash.log"
+
 # ----------------------------
 # Server settings
 #   - The server is Techland's official Call of Juarez: Bound in Blood Dedicated Server 1.1.0.0
