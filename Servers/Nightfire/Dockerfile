@@ -4,6 +4,9 @@
 ARG BASE_IMAGE=lancommander/wine:latest
 FROM ${BASE_IMAGE}
 
+# Log files LANCommander shows as consoles under the server's Monitor
+LABEL app.lancommander.server.log.console="/config/Overlay/bond/qconsole.log"
+
 # ----------------------------
 # Server settings
 #   - The game files are not downloadable; put a Nightfire install with the 5.9x community patch
