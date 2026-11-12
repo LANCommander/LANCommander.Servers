@@ -4,6 +4,9 @@
 ARG BASE_IMAGE=lancommander/wine:latest
 FROM ${BASE_IMAGE}
 
+# Log files LANCommander shows as consoles under the server's Monitor
+LABEL app.lancommander.server.log.console="/config/Overlay/console.log"
+
 # ----------------------------
 # Server settings
 #   - The game files are not downloadable; put a Blockland Rebuilt v2.1 install in /config/Server,
