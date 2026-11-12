@@ -4,6 +4,9 @@
 ARG BASE_IMAGE=lancommander/base:latest
 FROM ${BASE_IMAGE}
 
+# Log files LANCommander shows as consoles under the server's Monitor
+LABEL app.lancommander.server.log.games-log="/config/Overlay/main/games_mp.log"
+
 # ----------------------------
 # Server settings
 #   - COD2_SERVER_URL is the official 1.3 Linux dedicated server (cod2_lnxded and the PunkBuster
