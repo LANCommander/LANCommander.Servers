@@ -1,9 +1,9 @@
 #!/bin/sh
 # Start the Red Faction dedicated server (START_EXE).
 #
-# Runs `DashFactionLauncher.exe -game -exe-path <RF.exe> -dedicated <RF_CONFIG> [-lanonly]
-# -win32-console` under Wine. The launcher starts RF, injects Dash Faction and exits, so this
-# script then waits for the Wine session to end. Any START_ARGS are appended.
+# Runs `AlpineFactionLauncher.exe -game -exe-path <RF.exe> -ads <RF_CONFIG>.toml -port <RF_PORT>
+# [-lanonly] -win32-console` under Wine. The launcher starts RF, injects Alpine Faction and exits,
+# so this script then waits for the Wine session to end. Any START_ARGS are appended.
 set -e
 
 root="${SERVER_ROOT:-/config/Merged}"
@@ -12,12 +12,19 @@ export WINEPREFIX
 
 cd "$root"
 
-if [ ! -f DashFactionLauncher.exe ]; then
-    echo "DashFactionLauncher.exe not found in $root. Put a Red Faction install with Dash Faction in /config/Server." >&2
+if [ ! -f AlpineFactionLauncher.exe ]; then
+    echo "AlpineFactionLauncher.exe not found in $root (AF_INSTALL=false needs your own copy in /config/Server)." >&2
     exit 1
 fi
 
-# Dash Faction needs the 1.20 NA executable; installs patched by its installer keep it as RF_120na.exe
+config="${RF_CONFIG:-server}.toml"
+if [ ! -f "$config" ]; then
+    echo "$config not found in $root" >&2
+    exit 1
+fi
+
+# Alpine Faction needs the 1.20 NA executable; installs patched by Dash Faction's installer keep it
+# as RF_120na.exe
 exe="$RF_EXE"
 if [ -z "$exe" ]; then
     if [ -f RF_120na.exe ]; then exe=RF_120na.exe; else exe=RF.exe; fi
@@ -28,20 +35,17 @@ if [ ! -f "$exe" ]; then
     exit 1
 fi
 
-# RF reads its port from the registry; Dash Faction applies it to dedicated servers too
-wine reg add 'HKCU\Software\Volition\Red Faction' /v ForcePort /t REG_DWORD /d "${RF_PORT:-7755}" /f >/dev/null
-
 lanonly=
 case "${RF_LAN_ONLY:-true}" in
     true|1|yes) lanonly=-lanonly ;;
 esac
 
-set -- -game -exe-path "$(winepath -w "$root/$exe")" -dedicated "${RF_CONFIG:-dm}" $lanonly -win32-console "$@"
+set -- -game -exe-path "$(winepath -w "$root/$exe")" -ads "$config" -port "${RF_PORT:-7755}" $lanonly -win32-console "$@"
 
 # printf, not echo: dash's echo treats the \c in Z:\config\... as "stop output"
-printf 'Starting: DashFactionLauncher.exe %s\n' "$*"
+printf 'Starting: AlpineFactionLauncher.exe %s\n' "$*"
 
-wine DashFactionLauncher.exe "$@"
+wine AlpineFactionLauncher.exe "$@"
 
 # The launcher is gone once RF is running; stay up until every Wine process has exited
 trap 'wineserver -k' TERM INT
