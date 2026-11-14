@@ -5,7 +5,8 @@ ARG BASE_IMAGE=lancommander/wine:latest
 FROM ${BASE_IMAGE}
 
 # Log files LANCommander shows as consoles under the server's Monitor
-LABEL app.lancommander.server.log.server-log="/config/Overlay/Game/Game.LOG"
+LABEL app.lancommander.server.log.server-log="/config/Overlay/Game/Game.LOG" \
+      app.lancommander.server.log.patch-log="/config/Overlay/dh2005patch.log"
 
 # Native DirectPlay comes from the DirectX February 2010 redist. Wine's builtin dpnet cannot host
 # (IDirectPlay8Server::Host is a stub), so the redist is cached in the image and installed into the
@@ -45,6 +46,47 @@ ENV W_CACHE=/opt/winetricks-cache \
     DH2005_EXTRA_ARGS="" \
     START_EXE="/usr/local/bin/dh2005-server" \
     START_ARGS=""
+
+# ----------------------------
+# Modern patch (https://github.com/LANCommander/LANCommander.Patches.DeerHunter2005)
+#   - DH2005_PATCH_ENABLED: install dinput8.dll and a generated dh2005patch.ini next to DH2005.exe
+#   - The patch raises the player cap to DH2005_MAX_PLAYERS (up to 64) and sets the animals below
+#   - Empty animal settings keep the patch's defaults
+# ----------------------------
+ENV DH2005_PATCH_ENABLED="true" \
+    DH2005_POPULATION="" \
+    DH2005_POPULATION_BY_SPECIES="" \
+    DH2005_NEARBY_ANIMALS="" \
+    DH2005_NEARBY_SAME_SPECIES="" \
+    DH2005_NEARBY_BY_SPECIES="" \
+    DH2005_ALLOW_RESPAWN_BY_SPECIES="" \
+    DH2005_RESPAWN_DISTANCE="" \
+    DH2005_RESPAWN_DISTANCE_BY_SPECIES=""
+
+# ----------------------------
+# LANCommander match statistics (reported by the patch)
+#   - MATCH_STATS_ENABLED: auto (on when MATCH_STATS_SERVER_URL and MATCH_STATS_TOKEN are set),
+#     true or false
+#   - The token stays in the environment: the ini reads %MATCH_STATS_TOKEN%
+# ----------------------------
+ENV MATCH_STATS_ENABLED="auto" \
+    MATCH_STATS_SERVER_URL="" \
+    MATCH_STATS_TOKEN="" \
+    MATCH_STATS_GAME_ID="" \
+    MATCH_STATS_SERVER_ID="" \
+    MATCH_STATS_REPORTER_NAME="" \
+    MATCH_STATS_RECORD_CHAT=""
+
+ARG DH2005_PATCH_VERSION=1.1.0
+ARG DH2005_PATCH_SHA256=69dcb94a74877991ee7e0bb0b7a1f3a97ff3face88090affa4c6f7aad0de2269
+
+RUN set -eux; \
+    curl -fsSL --retry 8 --retry-delay 15 --retry-all-errors -o /tmp/dh2005patch.zip \
+      "https://github.com/LANCommander/LANCommander.Patches.DeerHunter2005/releases/download/v${DH2005_PATCH_VERSION}/dh2005patch-v${DH2005_PATCH_VERSION}-dinput8.zip"; \
+    echo "${DH2005_PATCH_SHA256}  /tmp/dh2005patch.zip" | sha256sum -c -; \
+    mkdir -p /opt/dh2005patch; \
+    unzip -q -j /tmp/dh2005patch.zip dinput8.dll dh2005patch.ini -d /opt/dh2005patch; \
+    rm /tmp/dh2005patch.zip
 
 RUN set -eux; \
     mkdir -p "${W_CACHE}/directx9"; \

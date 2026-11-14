@@ -47,6 +47,11 @@ opt Disabled_Items "$DH2005_DISABLED_ITEMS"
 [ -z "$DH2005_EXTRA_ARGS" ] || cmdline="$cmdline $DH2005_EXTRA_ARGS"
 [ "$#" -eq 0 ] || cmdline="$cmdline $*"
 
+# The modern patch is dinput8.dll next to DH2005.exe (30-InstallPatch.ps1); Wine prefers its builtin
+if [ -f dinput8.dll ]; then
+    export WINEDLLOVERRIDES="${WINEDLLOVERRIDES:+$WINEDLLOVERRIDES;}dinput8=n,b"
+fi
+
 batch="$WINEPREFIX/drive_c/dh2005-server.bat"
 printf '@echo off\r\n%s\r\n' "$cmdline" > "$batch"
 echo "Starting: $cmdline"

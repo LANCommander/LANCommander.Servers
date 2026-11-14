@@ -11,6 +11,7 @@ The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCom
 - Native Microsoft DirectPlay installed into the Wine prefix automatically. Wine's builtin DirectPlay 8 can't host games.
 - Every server setting is an environment variable, and the image builds the game's `-Setting:"value"` command line
 - The game log (`Game/Game.LOG`) is streamed to `docker logs`
+- The [modern patch](https://github.com/LANCommander/LANCommander.Patches.DeerHunter2005) is installed: up to 64 players, animal population and respawn settings, and LANCommander match statistics
 - Supports file overlaying using OverlayFS (no file copying required)
 
 ## Docker Compose Example
@@ -79,7 +80,7 @@ Each `DH2005_*` setting becomes a `-Name:"value"` argument. Settings left empty 
 | `DH2005_MESSAGE_OF_THE_DAY` | `-Message_of_the_Day` | text | `Welcome! Have fun!` |
 | `DH2005_PASSWORD` | `-Password` | text | |
 | `DH2005_GAME_TYPE` | `-Game_Type` | `BEST_TROPHY`, `MOST_POINTS`, `FIRST_TROPHY` | `BEST_TROPHY` |
-| `DH2005_MAX_PLAYERS` | `-Max_Players` | 1-32 | `16` |
+| `DH2005_MAX_PLAYERS` | `-Max_Players` | 1-64 (above 16 needs the patch) | `16` |
 | `DH2005_LOCATION` | `-Location` | location name, part of the name, or filename | *(game picks)* |
 | `DH2005_SEASON` | `-Season` | `PRE-RUT`, `RUT`, `POST-RUT` | |
 | `DH2005_DIFFICULTY` | `-Difficulty` | `EASY`, `NORMAL`, `EXPERT` | |
@@ -98,6 +99,36 @@ Each `DH2005_*` setting becomes a `-Name:"value"` argument. Settings left empty 
 | `DH2005_EXTRA_ARGS` | | raw text appended to the command line | |
 | `DH2005_ARCHIVE_URL` | | zip of the game folder, used if `Server/DH2005.exe` is missing | |
 
+### Modern patch
+
+`Hooks/PostInitialization/30-InstallPatch.ps1` copies the patch's `dinput8.dll` next to `DH2005.exe` and writes `dh2005patch.ini` from the release's ini (both land in `Overlay/`). The patch logs to `dh2005patch.log`. An ini that the hook didn't write is left alone. On the server, saves stay in `Game/`, and gamepads and rich presence are off.
+
+| Variable | ini key | Default |
+|----------|---------|---------|
+| `DH2005_PATCH_ENABLED` | | `true`. `false` removes `dinput8.dll` |
+| `DH2005_MAX_PLAYERS` | `[Server] MaxPlayers` | the player cap is raised to this value (16-64) |
+| `DH2005_POPULATION` | `[Animals] Population` | `100` (percent) |
+| `DH2005_POPULATION_BY_SPECIES` | `[Animals] PopulationBySpecies` | e.g. `Deer:300, White Squirrel:50` |
+| `DH2005_NEARBY_ANIMALS` | `[Animals] NearbyAnimals` | `0` (the game's 4) |
+| `DH2005_NEARBY_SAME_SPECIES` | `[Animals] NearbySameSpecies` | `0` (the game's 1) |
+| `DH2005_NEARBY_BY_SPECIES` | `[Animals] NearbyBySpecies` | |
+| `DH2005_ALLOW_RESPAWN_BY_SPECIES` | `[Animals] AllowRespawnBySpecies` | e.g. `Deer:1` |
+| `DH2005_RESPAWN_DISTANCE` | `[Animals] RespawnDistance` | `150` (metres) |
+| `DH2005_RESPAWN_DISTANCE_BY_SPECIES` | `[Animals] RespawnDistanceBySpecies` | |
+
+### Match statistics
+
+The patch reports each hunt to LANCommander. `MATCH_STATS_ENABLED` is `auto` (on when `MATCH_STATS_SERVER_URL` and `MATCH_STATS_TOKEN` are set), `true` or `false`.
+
+| Variable | ini key |
+|----------|---------|
+| `MATCH_STATS_SERVER_URL` | `[Stats] ServerUrl` |
+| `MATCH_STATS_TOKEN` | `[Stats] Token`, written as `%MATCH_STATS_TOKEN%` (an access token with the matches:report scope) |
+| `MATCH_STATS_GAME_ID` | `[Stats] GameId` |
+| `MATCH_STATS_SERVER_ID` | `[Stats] ServerId` |
+| `MATCH_STATS_REPORTER_NAME` | `[Stats] ReporterName` |
+| `MATCH_STATS_RECORD_CHAT` | `[Stats] RecordChat` |
+
 `DH2005_DISABLED_ITEMS` categories: `Rifles, Muzzleloaders, Shotguns, Handguns, Bows, Crossbows, Scopes, GPS, Concealment, Horse, ATV, Scents, Calls, Electronic_calls, Food, Attractant, Thermal_vision, Cameras`.
 
 GameSpy no longer exists, so leave `DH2005_PUBLISH_IN_GAMESPY` off. Clients join from the in-game LAN search, or by IP.
@@ -114,7 +145,7 @@ The image is built `FROM lancommander/wine:latest` by default. To build against 
 docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/deerhunter2005:local .
 ```
 
-The DirectX February 2010 redistributable (source of the DirectPlay DLLs) is downloaded at build time and verified by sha256. See `DIRECTX_REDIST_URL` / `DIRECTX_REDIST_SHA256` in the Dockerfile.
+The patch release is downloaded at build time and verified by sha256 (`DH2005_PATCH_VERSION` / `DH2005_PATCH_SHA256`). The DirectX February 2010 redistributable (source of the DirectPlay DLLs) is downloaded at build time and verified by sha256. See `DIRECTX_REDIST_URL` / `DIRECTX_REDIST_SHA256` in the Dockerfile.
 
 ---
 
