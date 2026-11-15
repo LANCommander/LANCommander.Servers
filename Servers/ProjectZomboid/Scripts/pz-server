@@ -1,0 +1,64 @@
+#!/bin/sh
+# Start the Project Zomboid dedicated server (START_EXE).
+#
+# Runs the bundled Java runtime directly instead of start-server.sh, so the JVM heap (PZ_MEMORY)
+# and Steam mode (PZ_STEAM) can be set without editing ProjectZomboid64.json. The classpath and
+# the other JVM options are still read from ProjectZomboid64.json, so game updates that change
+# them keep working. Arguments (START_ARGS) are passed on to the server after the ones built here.
+set -e
+
+cd "${SERVER_ROOT:-/config/Merged}"
+
+if [ ! -x jre64/bin/java ] || [ ! -f ProjectZomboid64.json ]; then
+    echo "jre64/bin/java or ProjectZomboid64.json not found in $(pwd); the install did not finish." >&2
+    exit 1
+fi
+
+cache_dir="${PZ_CACHE_DIR:-/config/Zomboid}"
+mkdir -p "$cache_dir"
+
+# JVM options and main class from ProjectZomboid64.json, one per line
+jvm_args=$(pwsh -NoProfile -NonInteractive -Command '
+    $json = Get-Content -Raw -LiteralPath "ProjectZomboid64.json" | ConvertFrom-Json
+    $memory = $Env:PZ_MEMORY
+    $steam = if ($Env:PZ_STEAM -match "^(0|false|no)$") { "0" } else { "1" }
+    foreach ($arg in $json.vmArgs) {
+        if ($memory -and $arg -match "^-Xm[sx]") { continue }
+        if ($arg -match "^-Dzomboid\.steam=") { continue }
+        $arg
+    }
+    if ($memory) { "-Xms$memory"; "-Xmx$memory" }
+    "-Dzomboid.steam=$steam"
+    "-cp"
+    ($json.classpath -join ":")
+    $json.mainClass -replace "/", "."
+')
+
+server_args="-cachedir=$cache_dir -servername ${PZ_SERVER_NAME:-servertest}"
+if [ -n "$PZ_ADMIN_USERNAME" ]; then
+    server_args="$server_args -adminusername $PZ_ADMIN_USERNAME"
+fi
+case "$PZ_STEAM" in
+    0|false|no) server_args="$server_args -nosteam" ;;
+esac
+if [ -n "$PZ_PORT" ]; then
+    server_args="$server_args -port $PZ_PORT"
+fi
+if [ -n "$PZ_UDP_PORT" ]; then
+    server_args="$server_args -udpport $PZ_UDP_PORT"
+fi
+
+export PATH="$(pwd)/jre64/bin:$PATH"
+export LD_LIBRARY_PATH="$(pwd)/linux64:$(pwd):$(pwd)/jre64/lib/amd64:$(pwd)/jre64/lib:${LD_LIBRARY_PATH}"
+export LD_PRELOAD="${LD_PRELOAD:+$LD_PRELOAD:}libjsig.so"
+
+echo "Starting: java <ProjectZomboid64.json options> $server_args -adminpassword ******** $*"
+
+old_ifs=$IFS
+IFS='
+'
+# shellcheck disable=SC2086
+set -- $jvm_args $(echo "$server_args" | tr ' ' '\n') -adminpassword "${PZ_ADMIN_PASSWORD:-changeme}" "$@"
+IFS=$old_ifs
+
+exec java "$@"
