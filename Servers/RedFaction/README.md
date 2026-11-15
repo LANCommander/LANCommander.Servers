@@ -13,6 +13,7 @@ The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCom
 - The server's name, player limit and passwords are environment variables, written into the server's TOML config
 - LAN-only by default (`-lanonly`), so the server does not register with the internet game tracker
 - The dedicated server console goes to `docker logs`
+- Optional LANCommander match statistics: Alpine Faction's own stats reporting (kills, awards, captures, each player's scoreboard) is sent to LANCommander instead of FactionFiles
 - Supports file overlaying using OverlayFS (no file copying required)
 
 ## Docker Compose Example
@@ -68,6 +69,8 @@ Clients should run the same Alpine Faction version as the server. Dash Faction a
     ├── Overlay/           # Your files, layered on top of Server/ (server.toml, Alpine Faction, logs/ and downloaded levels land here)
     ├── Merged/            # Overlayfs merged view (auto-created, the server runs here)
     ├── wineprefix/        # Wine prefix (auto-created)
+    ├── .interposer/       # Match statistics: the Interposer's logs and undelivered matches (when on)
+    ├── .rf-stats-bridge/  # Match statistics: the stats bridge's certificate authority and certificate, and demos waiting to be uploaded (when on)
     └── Scripts/
         └── Hooks/         # PowerShell scripts run at container lifecycle hooks
 ```
@@ -95,6 +98,25 @@ The settings are written into the top-level keys of `<RF_CONFIG>.toml` on every 
 | `START_EXE` | Launcher | `/usr/local/bin/rf-server` |
 | `START_ARGS` | Appended to the Alpine Faction command line, e.g. `-nodl` or `-log` | |
 
+### Match statistics
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `MATCH_STATS_ENABLED` | `auto`: on when `MATCH_STATS_SERVER_URL` and `MATCH_STATS_TOKEN` are set. `true` or `false` | `auto` |
+| `MATCH_STATS_SERVER_URL` | The LANCommander server, e.g. `http://lancommander.lan:1337`. Only `http://` works | |
+| `MATCH_STATS_TOKEN` | A LANCommander access token with the **Report matches** scope. It isn't written to any file | |
+| `MATCH_STATS_GAME_ID` | The game's id in LANCommander | |
+| `MATCH_STATS_SERVER_ID` | This server's id in LANCommander, if LANCommander manages it | |
+| `MATCH_STATS_REPORTER_NAME` | The name the reports come from | the server name |
+| `MATCH_STATS_MIN_PLAYERS` | Human players who must have been in a game before it is reported | `1` |
+| `MATCH_STATS_DEMOS` | Record each level (`demo_auto_record`) and attach the demo to its match | `true` |
+| `MATCH_STATS_RECORD_BOTS` | Record bots as players | `true` |
+| `MATCH_STATS_RECORD_VOTES` | Record votes as events | `true` |
+| `MATCH_STATS_RECORD_SPAWNS` | Record spawns, with positions, as events | `false` |
+| `MATCH_STATS_RECORD_ITEMS` | Record item pickups as events | `false` |
+
+See [Documentation/Docker.md](Documentation/Docker.md#match-statistics) for how it works.
+
 Game types, limits, rules, votes and the level rotation are set in the TOML config. See [Documentation/Docker.md](Documentation/Docker.md#server-config) and Alpine Faction's [dedicated server config reference](https://github.com/GooberRF/alpinefaction/blob/main/docs/reference/DEDICATED_SERVER_CONFIG.md).
 
 ---
@@ -106,6 +128,8 @@ The image is built `FROM lancommander/wine:latest` by default and downloads the 
 ```bash
 docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/redfaction:local .
 ```
+
+The match statistics bridge (`StatsBridge/`) is built in a Debian 12 stage of the same Dockerfile, with the [LANCommander Interposer](https://github.com/LANCommander/LANCommander.Interposer) release set by `INTERPOSER_VERSION` (default `v1.6.0`).
 
 ---
 
