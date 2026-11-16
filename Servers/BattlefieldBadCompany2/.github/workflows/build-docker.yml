@@ -99,7 +99,7 @@ jobs:
             type=raw,value=latest,enable=${{ steps.vars.outputs.push_latest == 'true' }}
           labels: |
             org.opencontainers.image.title=Battlefield: Bad Company 2 Game Server
-            org.opencontainers.image.description=Dedicated server for Battlefield: Bad Company 2 and Vietnam (Bc2emu R34 under Wine) with a built-in MASE master server
+            org.opencontainers.image.description=Dedicated server for Battlefield: Bad Company 2 and Vietnam (Bc2emu R34 under Wine)
             org.opencontainers.image.source=${{ github.repositoryUrl }}
             org.opencontainers.image.revision=${{ github.sha }}
 

@@ -1,24 +1,22 @@
 # Battlefield: Bad Company 2 Server (Docker)
 
-This repository provides a Dockerized **Battlefield: Bad Company 2** LAN server, for the base game and the Vietnam expansion. EA shut down BFBC2's online services in 2023, so a server needs a replacement master server for logins and the server browser. The image runs both in one container:
+This repository provides a Dockerized **Battlefield: Bad Company 2** LAN server, for the base game and the Vietnam expansion. It runs the **R34 dedicated server** (`Frost.Game.Main_Win32_Final.exe`) from [Bc2emu V0.9](https://sourceforge.net/projects/battlefieldbadcompany2mase/) under Wine, with the emulator's `dinput8.dll` hook.
 
-- the **R34 dedicated server** (`Frost.Game.Main_Win32_Final.exe`) from [Bc2emu V0.9](https://sourceforge.net/projects/battlefieldbadcompany2mase/), under Wine, with the emulator's `dinput8.dll` hook that sends it to the master server
-- the **MASE:BC2** master server emulator, built from source for Linux with the hardening patch from [jkuettner/bfbc2-server](https://codeberg.org/jkuettner/bfbc2-server)
+EA shut down BFBC2's online services in 2023, so the server logs in to and registers with a master server emulator instead, set with `BFBC2_MASTER_SERVER`. The LANCommander server provides one as a plugin; it isn't part of this image.
 
 The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers.WINE). It supports file overlaying using OverlayFS.
 
-Based on [jkuettner/bfbc2-server](https://codeberg.org/jkuettner/bfbc2-server) (maplists, master server patch and settings), which builds on the [battlefieldbadcompany2mase](https://sourceforge.net/projects/battlefieldbadcompany2mase/) project by flyer8472.
+Based on [jkuettner/bfbc2-server](https://codeberg.org/jkuettner/bfbc2-server) (maplists and settings), which builds on the [battlefieldbadcompany2mase](https://sourceforge.net/projects/battlefieldbadcompany2mase/) project by flyer8472.
 
 ---
 
 ## Features
 
 - Server files built into the image (SourceForge download, sha256-pinned); nothing to supply
-- Built-in master server: players point their game at this container, no separate service needed
+- Registers with an external master server (LANCommander's BFBC2 master server plugin)
 - Rush, Conquest, Squad Deathmatch and Squad Rush, for Bad Company 2 and Vietnam
 - Server name, slots, ports, admin password, `vars.*` settings and extra startup commands from environment variables
 - Editable maplists
-- Accounts, personas and stats persist in `config/Master/database/`
 - The server's log in `docker logs`; RCON on all addresses
 - Supports file overlaying using OverlayFS (no file copying required)
 
@@ -30,7 +28,7 @@ services:
     image: lancommander/battlefieldbadcompany2:latest
     container_name: bfbc2
 
-    # The master server tells players and game servers to connect to the address it sees,
+    # The master server lists the game server at the address it sees it connect from,
     # so give the container its own LAN address (macvlan) rather than port mappings
     networks:
       lan:
@@ -39,6 +37,7 @@ services:
       - ./config:/config
 
     environment:
+      BFBC2_MASTER_SERVER: "192.168.1.10"   # the LANCommander server
       BFBC2_MODE: rush
       BFBC2_SERVER_NAME: "Bad Company 2 LAN"
       BFBC2_MAX_PLAYERS: 32
@@ -59,15 +58,15 @@ networks:
 
 ### More game servers
 
-Run more containers with `BFBC2_MASTER_SERVER_ENABLED=false` and `BFBC2_MASTER_SERVER` set to the first container's IP. Every server then shows up in the same server browser.
+Run more containers with the same `BFBC2_MASTER_SERVER`. Every server then shows up in the same server browser.
 
 ---
 
 ## Players
 
-Players need the Bad Company 2 client patched to R11 (Steam/Origin builds are fine), plus `dinput8.dll` and `bfbc2.ini` from the `Crack - Copy to client root` folder of `Bc2emu_V09.rar` in the game folder. In `bfbc2.ini`, set `host=` to this container's IP address, the one in the log line `Starting the master server ... (players: set host=<ip> in bfbc2.ini)`.
+Players need the Bad Company 2 client patched to R11 (Steam/Origin builds are fine), plus `dinput8.dll` and `bfbc2.ini` from the `Crack - Copy to client root` folder of `Bc2emu_V09.rar` in the game folder. In `bfbc2.ini`, set `host=` to the master server's address, the same as `BFBC2_MASTER_SERVER`.
 
-In the game, create a new account with any name and password (3–32 characters, no spaces or special characters; persona names up to 16). MASE stores passwords in plain text, so players should not reuse a real one.
+In the game, create a new account with any name and password (3–32 characters, no spaces or special characters; persona names up to 16). The master server emulator may store passwords in plain text, so players should not reuse a real one.
 
 ## Game Files
 
@@ -83,7 +82,6 @@ The server files are built into the image. On first start they are copied into `
     │   ├── maplists/      # One maplist per mode; edit these
     │   └── Instance/      # ServerOptions.ini, maplist.txt, AdminScripts/Startup.txt (generated)
     ├── Merged/            # Overlayfs merged view (auto-created, the server runs here)
-    ├── Master/            # Master server: config.ini (generated), templates/, database/
     ├── wineprefix/        # Wine prefix (auto-created)
     └── Scripts/
         └── Hooks/         # PowerShell scripts run at container lifecycle hooks
@@ -124,15 +122,7 @@ These are in addition to the [WINE image's variables](https://github.com/LANComm
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `BFBC2_MASTER_SERVER_ENABLED` | Run the master server in this container | `true` |
-| `BFBC2_MASTER_SERVER` | Master server this game server registers with. Empty: this container's own IP | |
-| `BFBC2_MASTER_ALL_STATS_UNLOCKED` | New personas start with every weapon and gadget unlocked | `true` |
-| `BFBC2_MASTER_ALL_VETERAN` | Every player is a veteran (M1 Garand) | `true` |
-| `BFBC2_MASTER_PREMIUM_FOR_ALL` | Every player has the Limited Edition unlocks | `true` |
-| `BFBC2_MASTER_SPECACT_FOR_ALL` | Every player has the SPECACT kits | `false` |
-| `BFBC2_MASTER_VIETNAM_FOR_ALL` | Every player owns Vietnam | `true` |
-| `BFBC2_MASTER_LOG_LEVEL` | Console log level, 0–3 | `1` |
-| `BFBC2_MASTER_DIR` | Master server folder (config, templates, database) | `/config/Master` |
+| `BFBC2_MASTER_SERVER` | **Required.** Address of the master server emulator the server logs in to and registers with, e.g. the LANCommander server | |
 
 ## Ports
 
@@ -140,11 +130,8 @@ These are in addition to the [WINE image's variables](https://github.com/LANComm
 |------|----------|-------------|
 | 19567 | UDP | Game (`BFBC2_PORT`) |
 | 48888 | TCP | Remote admin / RCON (`BFBC2_ADMIN_PORT`) |
-| 18390 | TCP | Master server: player login (Plasma) |
-| 18395 | TCP + UDP | Master server: server browser (Theater) |
-| 19021 | TCP | Master server: game server login (Plasma) |
-| 19026 | TCP | Master server: game server registration (Theater) |
-| 9946 | TCP | Master server: misc requests |
+
+The server connects out to the master server on 19021/tcp and 19026/tcp.
 
 See [Documentation/Docker.md](Documentation/Docker.md) for more detail.
 
@@ -162,6 +149,6 @@ docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/batt
 
 ## License
 
-Battlefield: Bad Company 2, Bc2emu/MASE:BC2 and Wine are distributed under their respective licenses.
-The maplists and the master server hardening patch come from [jkuettner/bfbc2-server](https://codeberg.org/jkuettner/bfbc2-server).
+Battlefield: Bad Company 2, Bc2emu and Wine are distributed under their respective licenses.
+The maplists come from [jkuettner/bfbc2-server](https://codeberg.org/jkuettner/bfbc2-server).
 This repository's own Docker build logic and helper scripts are licensed under MIT.

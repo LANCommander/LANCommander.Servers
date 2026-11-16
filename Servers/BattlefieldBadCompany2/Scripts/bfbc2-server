@@ -1,16 +1,11 @@
 #!/bin/bash
-# Start the Battlefield: Bad Company 2 dedicated server (START_EXE), and the MASE:BC2 master
-# server next to it when BFBC2_MASTER_SERVER_ENABLED is on.
+# Start the Battlefield: Bad Company 2 dedicated server (START_EXE).
 #
 # Written from the BFBC2_* settings on every start:
-#   bfbc2.ini                        the dinput8.dll hook's config: which master server to use
-#   Instance/ServerOptions.ini       name, ports, admin password, slots, BC2/VIETNAM mod
+#   bfbc2.ini                          the dinput8.dll hook's config: which master server to use
+#   Instance/ServerOptions.ini         name, ports, admin password, slots, BC2/VIETNAM mod
 #   Instance/AdminScripts/Startup.txt  vars.* commands, then BFBC2_STARTUP_COMMANDS
-#   Instance/maplist.txt             maplists/<mode>.txt, without comments
-#   $BFBC2_MASTER_DIR/config.ini     the master server's config
-#
-# The two run side by side; when one of them exits, the other is stopped and the container exits
-# with its status, so a restart brings both back and the game server registers again.
+#   Instance/maplist.txt               maplists/<mode>.txt, without comments
 set -euo pipefail
 
 : "${WINEPREFIX:=/config/wineprefix}"
@@ -55,85 +50,12 @@ case "${mode,,}" in
 esac
 case "$maplist" in viet_*) mod=VIETNAM ;; *) mod=BC2 ;; esac
 
-# This container's LAN address: the master server lists a game server at the address it
-# connected from, so the game server must not reach a local master over 127.0.0.1
-own_ip=$(hostname -I 2>/dev/null | awk '{print $1}')
-
-master_enabled=$(bool "${BFBC2_MASTER_SERVER_ENABLED:-true}")
+# The master server emulator (e.g. LANCommander's BFBC2 master server plugin) handles the
+# server's login and lists it in the server browser
 master="${BFBC2_MASTER_SERVER:-}"
 if [ -z "$master" ]; then
-    if [ "$master_enabled" != true ]; then
-        echo "BFBC2_MASTER_SERVER is empty and BFBC2_MASTER_SERVER_ENABLED is off: set the master server's address" >&2
-        exit 1
-    fi
-    master="${own_ip:-127.0.0.1}"
-fi
-
-pids=()
-stop_all() {
-    trap - TERM INT
-    for pid in "${pids[@]}"; do kill -TERM "$pid" 2>/dev/null || true; done
-    WINEPREFIX="$WINEPREFIX" wineserver -k 2>/dev/null || true
-    wait 2>/dev/null || true
-}
-trap 'stop_all; exit 143' TERM INT
-
-# ----------------------------
-# Master server
-# ----------------------------
-if [ "$master_enabled" = true ]; then
-    mdir="${BFBC2_MASTER_DIR:-/config/Master}"
-    mkdir -p "$mdir/database" "$mdir/templates"
-    # Templates the master server serves; edited copies are kept
-    cp -rn /opt/mase/templates/. "$mdir/templates/"
-
-    cat > "$mdir/config.ini" <<EOF
-; Generated from the BFBC2_MASTER_* environment variables on every start
-[debug]
-log_create = false
-log_timestamp = false
-file_log_level = 3
-console_log_level = ${BFBC2_MASTER_LOG_LEVEL:-1}
-display_database_table_info = false
-
-[connection]
-emulator_ip = 0.0.0.0
-misc_port = 9946
-plasma_client_port = 18390
-theater_client_port = 18395
-plasma_server_port = 19021
-theater_server_port = 19026
-http_enabled = false
-
-[emulator]
-override_server_version = ROMEPC784592
-enable_server_filters = false
-all_stats_unlocked = $(bool "${BFBC2_MASTER_ALL_STATS_UNLOCKED:-true}")
-all_are_veteran = $(bool "${BFBC2_MASTER_ALL_VETERAN:-true}")
-premium_for_all = $(bool "${BFBC2_MASTER_PREMIUM_FOR_ALL:-true}")
-specact_for_all = $(bool "${BFBC2_MASTER_SPECACT_FOR_ALL:-false}")
-vietnam_for_all = $(bool "${BFBC2_MASTER_VIETNAM_FOR_ALL:-true}")
-
-[console]
-use_color = false
-window_buffer_size = 300
-message_cut_off_length = 500
-EOF
-
-    echo "Starting the master server in $mdir (players: set host=${own_ip:-<this container IP>} in bfbc2.ini)"
-    ( cd "$mdir" && exec /opt/mase/mase_bc2 < /dev/null ) 2>&1 | sed -u 's/^/[master] /' &
-    pids+=($!)
-
-    # Wait until it accepts game servers
-    for _ in $(seq 1 30); do
-        ss -Hltn 'sport = :19021' | grep -q . && break
-        sleep 1
-    done
-    if ! ss -Hltn 'sport = :19021' | grep -q .; then
-        echo "The master server is not listening on 19021/tcp" >&2
-        stop_all
-        exit 1
-    fi
+    echo "BFBC2_MASTER_SERVER is empty: set it to the address of the BFBC2 master server (e.g. the LANCommander server)" >&2
+    exit 1
 fi
 
 # ----------------------------
@@ -232,14 +154,4 @@ since=$(mktemp)
 ) &
 
 echo "Starting $mode ($mod) server '${BFBC2_SERVER_NAME:-}' on ${BFBC2_PORT:-19567}/udp, master server $master: $exe ${args[*]}"
-wine-run "$exe" "${args[@]}" &
-pids+=($!)
-
-set +e
-wait -n "${pids[@]}"
-status=$?
-set -e
-
-echo "A server process exited ($status); stopping"
-stop_all
-exit "$status"
+exec wine-run "$exe" "${args[@]}"
