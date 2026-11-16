@@ -12,6 +12,7 @@ The image builds on [`lancommander/halflife`](https://github.com/LANCommander/LA
 - Pin or change the mod version with `NS_VERSION`, or point `NS_URL` at any release zip
 - Supports file overlaying using OverlayFS (no file copying required)
 - Optional HTTP file server for `sv_downloadurl` fast downloads
+- Optional [LANCommander match statistics](https://github.com/LANCommander/LANCommander.MatchStatistics.MetaMod) (classic and combat), from the Half-Life image
 
 ## Docker Compose Example
 
@@ -77,6 +78,8 @@ These are in addition to the [Half-Life image's variables](https://github.com/LA
 | `HTTP_FILESERVER_WEB_ROOT` | Directory served by the HTTP file server | `/config/Merged/ns` |
 
 `GAME_MOD` stays `valve`. Natural Selection only needs the base Half-Life content.
+
+Match statistics are turned on with the Half-Life image's `MATCH_STATS_*` variables ([Match Statistics](https://github.com/LANCommander/LANCommander.Servers.HalfLife/blob/main/Documentation/Docker.md#match-statistics)). Metamod-P and the plugin go into `ns/addons/`, and each game on a map is reported as its own match.
 
 The mod is installed during the `PostSteamInstallGame` hook, so it is skipped when `STEAM_APP_UPDATE` is `false`.
 
