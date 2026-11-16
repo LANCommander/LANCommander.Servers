@@ -1,0 +1,38 @@
+#!/bin/sh
+# Start the Wolfenstein (2009) dedicated server (START_EXE).
+#
+# Runs Wolf2MPLite.exe under Wine with Xvfb, the way the game's own serverlauncher.exe does:
+# net_serverDedicated 1, then exec base/lancommander.cfg (written by the configure hook), which
+# sets the server info and starts the map rotation. The server's console is a window, so its
+# console.log (in the Wine prefix, rewritten on every start) is followed to stdout.
+# Any START_ARGS are appended.
+set -e
+
+root="${SERVER_ROOT:-/config/Merged}"
+cd "$root"
+
+if [ ! -f Wolf2MPLite.exe ]; then
+    echo "Wolf2MPLite.exe not found in $root. Put the game's MP folder in /config/Server or set WOLF_ARCHIVE." >&2
+    exit 1
+fi
+
+case "${WOLF_LAN_ONLY:-true}" in
+    1|true|yes|on) lan=1 ;;
+    *) lan=0 ;;
+esac
+
+port="${WOLF_PORT:-27758}"
+
+: "${WINEPREFIX:=/config/wineprefix}"
+log="$WINEPREFIX/drive_c/users/${USER:-lancommander}/Documents/id Software/WolfMP/base/console.log"
+mkdir -p "$(dirname "$log")"
+rm -f "$log"
+tail -n +1 -F "$log" 2>/dev/null | grep --line-buffered -v -E \
+    "^\.\.\.loading '|^WARNING: (file |Couldn't load model|Generating implicit|light '|script/)|strings read from|^\s*$" &
+
+set -- +set net_port "$port" +set net_serverDedicated 1 +set net_LANServer "$lan" +exec lancommander.cfg "$@"
+printf 'Starting: Wolf2MPLite.exe %s\n' "$*"
+printf 'Game port %s/udp\n' "$port"
+
+export WINE_XVFB="${WINE_XVFB:-true}"
+exec wine-run Wolf2MPLite.exe "$@"
