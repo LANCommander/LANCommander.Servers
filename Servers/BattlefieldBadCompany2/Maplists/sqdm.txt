@@ -1,0 +1,9 @@
+SQDM
+levels/mp_006sdm            # Arica Harbour
+levels/bc1_harvest_day_sdm  # Harvest Day
+levels/mp_sp_005sdm         # Heavy Metal
+levels/mp_004sdm            # Isla Inocentes
+levels/mp_009sdm            # Laguna Presa
+levels/mp_008sdm            # Nelson Bay
+levels/bc1_oasis_sdm        # Oasis
+levels/mp_007sdm            # White Pass

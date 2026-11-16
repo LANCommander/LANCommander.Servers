@@ -1,0 +1,245 @@
+#!/bin/bash
+# Start the Battlefield: Bad Company 2 dedicated server (START_EXE), and the MASE:BC2 master
+# server next to it when BFBC2_MASTER_SERVER_ENABLED is on.
+#
+# Written from the BFBC2_* settings on every start:
+#   bfbc2.ini                        the dinput8.dll hook's config: which master server to use
+#   Instance/ServerOptions.ini       name, ports, admin password, slots, BC2/VIETNAM mod
+#   Instance/AdminScripts/Startup.txt  vars.* commands, then BFBC2_STARTUP_COMMANDS
+#   Instance/maplist.txt             maplists/<mode>.txt, without comments
+#   $BFBC2_MASTER_DIR/config.ini     the master server's config
+#
+# The two run side by side; when one of them exits, the other is stopped and the container exits
+# with its status, so a restart brings both back and the game server registers again.
+set -euo pipefail
+
+: "${WINEPREFIX:=/config/wineprefix}"
+root="${SERVER_ROOT:-/config/Merged}"
+exe="Frost.Game.Main_Win32_Final.exe"
+instance="Instance"
+
+cd "$root"
+
+if [ ! -f "$exe" ]; then
+    echo "$exe not found in $root" >&2
+    exit 1
+fi
+
+bool() {
+    case "${1,,}" in
+        true|1|yes|on) echo true ;;
+        *) echo false ;;
+    esac
+}
+
+# Write a file with Windows line endings
+crlf() { sed 's/\r*$/\r/' > "$1"; }
+
+# ----------------------------
+# Game mode -> maplist and mod
+# ----------------------------
+mode="${BFBC2_MODE:-rush}"
+case "${mode,,}" in
+    rush)                    maplist=rush ;;
+    conq|conquest)           maplist=conquest ;;
+    sqdm)                    maplist=sqdm ;;
+    sqrush)                  maplist=sqrush ;;
+    vietrush)                maplist=viet_rush ;;
+    vietconq|vietconquest)   maplist=viet_conquest ;;
+    vietsqdm)                maplist=viet_sqdm ;;
+    vietsqrush)              maplist=viet_sqrush ;;
+    *)
+        echo "BFBC2_MODE must be one of rush, conquest, sqdm, sqrush, vietrush, vietconquest, vietsqdm or vietsqrush (got '$mode')" >&2
+        exit 1
+        ;;
+esac
+case "$maplist" in viet_*) mod=VIETNAM ;; *) mod=BC2 ;; esac
+
+# This container's LAN address: the master server lists a game server at the address it
+# connected from, so the game server must not reach a local master over 127.0.0.1
+own_ip=$(hostname -I 2>/dev/null | awk '{print $1}')
+
+master_enabled=$(bool "${BFBC2_MASTER_SERVER_ENABLED:-true}")
+master="${BFBC2_MASTER_SERVER:-}"
+if [ -z "$master" ]; then
+    if [ "$master_enabled" != true ]; then
+        echo "BFBC2_MASTER_SERVER is empty and BFBC2_MASTER_SERVER_ENABLED is off: set the master server's address" >&2
+        exit 1
+    fi
+    master="${own_ip:-127.0.0.1}"
+fi
+
+pids=()
+stop_all() {
+    trap - TERM INT
+    for pid in "${pids[@]}"; do kill -TERM "$pid" 2>/dev/null || true; done
+    WINEPREFIX="$WINEPREFIX" wineserver -k 2>/dev/null || true
+    wait 2>/dev/null || true
+}
+trap 'stop_all; exit 143' TERM INT
+
+# ----------------------------
+# Master server
+# ----------------------------
+if [ "$master_enabled" = true ]; then
+    mdir="${BFBC2_MASTER_DIR:-/config/Master}"
+    mkdir -p "$mdir/database" "$mdir/templates"
+    # Templates the master server serves; edited copies are kept
+    cp -rn /opt/mase/templates/. "$mdir/templates/"
+
+    cat > "$mdir/config.ini" <<EOF
+; Generated from the BFBC2_MASTER_* environment variables on every start
+[debug]
+log_create = false
+log_timestamp = false
+file_log_level = 3
+console_log_level = ${BFBC2_MASTER_LOG_LEVEL:-1}
+display_database_table_info = false
+
+[connection]
+emulator_ip = 0.0.0.0
+misc_port = 9946
+plasma_client_port = 18390
+theater_client_port = 18395
+plasma_server_port = 19021
+theater_server_port = 19026
+http_enabled = false
+
+[emulator]
+override_server_version = ROMEPC784592
+enable_server_filters = false
+all_stats_unlocked = $(bool "${BFBC2_MASTER_ALL_STATS_UNLOCKED:-true}")
+all_are_veteran = $(bool "${BFBC2_MASTER_ALL_VETERAN:-true}")
+premium_for_all = $(bool "${BFBC2_MASTER_PREMIUM_FOR_ALL:-true}")
+specact_for_all = $(bool "${BFBC2_MASTER_SPECACT_FOR_ALL:-false}")
+vietnam_for_all = $(bool "${BFBC2_MASTER_VIETNAM_FOR_ALL:-true}")
+
+[console]
+use_color = false
+window_buffer_size = 300
+message_cut_off_length = 500
+EOF
+
+    echo "Starting the master server in $mdir (players: set host=${own_ip:-<this container IP>} in bfbc2.ini)"
+    ( cd "$mdir" && exec /opt/mase/mase_bc2 < /dev/null ) 2>&1 | sed -u 's/^/[master] /' &
+    pids+=($!)
+
+    # Wait until it accepts game servers
+    for _ in $(seq 1 30); do
+        ss -Hltn 'sport = :19021' | grep -q . && break
+        sleep 1
+    done
+    if ! ss -Hltn 'sport = :19021' | grep -q .; then
+        echo "The master server is not listening on 19021/tcp" >&2
+        stop_all
+        exit 1
+    fi
+fi
+
+# ----------------------------
+# Game server config
+# ----------------------------
+password="${BFBC2_ADMIN_PASSWORD:-}"
+if [ -z "$password" ]; then
+    password=$(tr -dc 'A-Za-z0-9' < /dev/urandom | head -c 16 || true)
+    echo "BFBC2_ADMIN_PASSWORD is empty; remote admin password for this run: $password"
+fi
+
+crlf bfbc2.ini <<EOF
+[info]
+host=$master
+connect_to_retail=0
+executable_type=auto
+show_console=0
+
+[client]
+reroute_http=0
+
+[server]
+ranking_min_players=1
+deserting_allowed=0
+instant_spawn=0
+unlimited_ammo=0
+health_mode=0
+EOF
+
+mkdir -p "$instance/AdminScripts"
+
+crlf "$instance/ServerOptions.ini" <<EOF
+[Options]
+Name=${BFBC2_SERVER_NAME:-Bad Company 2 Server}
+Port=${BFBC2_PORT:-19567}
+RemoteAdminPort=0.0.0.0:${BFBC2_ADMIN_PORT:-48888}
+RemoteAdminPassword=$password
+PunkBuster=false
+Ranked=$(bool "${BFBC2_RANKED:-true}")
+NumGameClientSlots=${BFBC2_MAX_PLAYERS:-32}
+
+RevisionLevel=8
+RevisionKey=7C0A303E-F4D2-985E-763D-E7C41B1E06A3
+GameModID=$mod
+EOF
+
+{
+    echo "vars.hardCore $(bool "${BFBC2_HARDCORE:-false}")"
+    echo "vars.friendlyFire $(bool "${BFBC2_FRIENDLY_FIRE:-false}")"
+    echo "vars.teamBalance $(bool "${BFBC2_TEAM_BALANCE:-true}")"
+    echo "vars.killCam $(bool "${BFBC2_KILL_CAM:-true}")"
+    echo "vars.miniMap $(bool "${BFBC2_MINIMAP:-true}")"
+    echo "vars.crossHair $(bool "${BFBC2_CROSSHAIR:-true}")"
+    echo "vars.3dSpotting $(bool "${BFBC2_3D_SPOTTING:-true}")"
+    echo "vars.miniMapSpotting $(bool "${BFBC2_MINIMAP_SPOTTING:-true}")"
+    [ -z "${BFBC2_STARTUP_COMMANDS:-}" ] || printf '%s\n' "$BFBC2_STARTUP_COMMANDS"
+} | crlf "$instance/AdminScripts/Startup.txt"
+
+# Default maplists are copied into maplists/ (so into Overlay/) once; edit them there
+mkdir -p maplists
+cp -n /opt/bfbc2/maplists/*.txt maplists/
+sed -e 's/\r//; s/#.*//; s/[[:space:]]*$//' "maplists/$maplist.txt" | grep -v '^$' | crlf "$instance/maplist.txt"
+
+# ----------------------------
+# Game server
+# ----------------------------
+args=(
+    -serverInstancePath "$instance/"
+    -port "${BFBC2_PORT:-19567}"
+    -mapPack2Enabled 1
+    -region "${BFBC2_REGION:-OC}"
+    -heartBeatInterval 20000
+)
+# shellcheck disable=SC2206
+[ -z "${BFBC2_EXTRA_ARGS:-}" ] || args+=($BFBC2_EXTRA_ARGS)
+args+=("$@")
+
+# dinput8.dll next to the exe is the emulator's hook; it loads the native dinput8 from system32
+export WINEDLLOVERRIDES="${WINEDLLOVERRIDES:+$WINEDLLOVERRIDES;}dinput8=n,b"
+
+# The server logs to Instance/RuntimeLog_<COMPUTERNAME>_server.log (Wine's computer name is the
+# container's hostname, upper case) and not to stdout; follow this run's log into docker logs,
+# without the frame timing line it writes every 10 seconds
+since=$(mktemp)
+(
+    for _ in $(seq 1 120); do
+        log=$(find "$instance" -maxdepth 1 -name 'RuntimeLog_*_server.log' -newer "$since" | head -n 1)
+        if [ -n "$log" ]; then
+            rm -f "$since"
+            tail -n +1 -F "$log" 2>/dev/null | sed -u -e 's/\r$//' -e '/GameTimer\.cpp/d'
+            exit 0
+        fi
+        sleep 1
+    done
+    rm -f "$since"
+) &
+
+echo "Starting $mode ($mod) server '${BFBC2_SERVER_NAME:-}' on ${BFBC2_PORT:-19567}/udp, master server $master: $exe ${args[*]}"
+wine-run "$exe" "${args[@]}" &
+pids+=($!)
+
+set +e
+wait -n "${pids[@]}"
+status=$?
+set -e
+
+echo "A server process exited ($status); stopping"
+stop_all
+exit "$status"

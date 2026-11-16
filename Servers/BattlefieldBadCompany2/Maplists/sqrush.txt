@@ -1,0 +1,9 @@
+SQRUSH
+levels/mp_sp_002sr          # Cold War
+levels/bc1_harvest_day_sr   # Harvest Day
+levels/mp_003sr             # Laguna Alta
+levels/mp_009sr             # Laguna Presa
+levels/bc1_oasis_sr         # Oasis
+levels/mp_001sr             # Panama Canal
+levels/mp_012sr             # Port Valdez
+levels/mp_002sr             # Valparaiso

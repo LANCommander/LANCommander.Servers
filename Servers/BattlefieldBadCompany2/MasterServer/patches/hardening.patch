@@ -1,0 +1,931 @@
+diff -ruN --binary a/main.cpp b/main.cpp
+--- a/main.cpp	2026-11-11 07:40:07.046158110 +0100
++++ b/main.cpp	2026-11-11 07:40:07.049720479 +0100
+@@ -17,6 +17,7 @@
+ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)	// not sure if using WinMain gives any advantage in Windows...
+ #endif
+ {
++	int status = 1;
+ 	Config* cfg = new Config();
+ 	if(cfg->loadConfigFile())
+ 	{
+@@ -55,19 +56,29 @@
+ 
+ 			delete cfg;
+ 			debug->simpleNotification(0, DEBUG, "Finished initialization, ready for receiving incoming connections");
+-			io_service.run();
++			for(;;)
++			{
++				try
++				{
++					io_service.run();
++					break;
++				}
++				catch(std::exception& e)
++				{
++					debug->warning(1, DEBUG, "Request failed: %s", e.what());
++				}
++			}
+ 
+ 			if(ClientHTTP)
+ 				delete ClientHTTP;
+ 			if(ClientMisc)
+ 				delete ClientMisc;
++			status = 0;
+ 		}
+ 		catch(std::exception& e)
+ 		{
+ 			//std::cerr << e.what() << std::endl;
+ 			debug->error(DEBUG, "Error: %s", e.what());
+-			cout << "\n\n...Press ENTER to quit..." << endl;
+-			cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+ 		}
+ 		delete db;
+ 		delete debug;
+@@ -76,5 +87,5 @@
+ 	else
+ 		delete cfg;
+ 
+-	return 0;
++	return status;
+ }
+diff -ruN --binary a/source/Framework/Config.cpp b/source/Framework/Config.cpp
+--- a/source/Framework/Config.cpp	2026-11-11 07:40:07.047296691 +0100
++++ b/source/Framework/Config.cpp	2026-11-11 07:40:07.050437417 +0100
+@@ -19,8 +19,6 @@
+ 		if(!storeValues())
+ 		{
+ 			cout << "Failed to load certain values in the config.ini, be sure that EVERY option \nhas a valid value and try it again.\n" << endl;
+-			cout << "...Press ENTER to quit..." << endl;
+-			cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+ 			return false;
+ 		}
+ 		else
+@@ -28,8 +26,7 @@
+ 	}
+ 	else
+ 	{
+-		cout << "Failed to load config.ini\n\n...Press ENTER to quit..." << endl;
+-		cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
++		cout << "Failed to load config.ini" << endl;
+ 		return false;
+ 	}
+ }
+diff -ruN --binary a/source/Framework/Framework.cpp b/source/Framework/Framework.cpp
+--- a/source/Framework/Framework.cpp	2026-11-11 07:40:07.047576187 +0100
++++ b/source/Framework/Framework.cpp	2026-11-11 07:40:07.050437417 +0100
+@@ -88,11 +88,11 @@
+ #if defined (_WIN32)
+ 	SYSTEMTIME st = {0};
+ 	GetLocalTime(&st);
+-	sprintf(str, "\"%s-%02d-%04d %02d%%3a%02d%%3a%02d UTC\"", months[st.wMonth-1], st.wDay, st.wYear, st.wHour, st.wMinute, st.wSecond);
++	snprintf(str, sizeof(str), "\"%s-%02d-%04d %02d%%3a%02d%%3a%02d UTC\"", months[st.wMonth-1], st.wDay, st.wYear, st.wHour, st.wMinute, st.wSecond);
+ #else
+ 	time_t now = time(0);
+ 	struct tm st = *localtime(&now);
+-	sprintf(str, "\"%s-%02d-%04d %02d%%3a%02d%%3a%02d UTC\"", months[st.tm_mon], st.tm_mday, 1900+st.tm_year, st.tm_hour, st.tm_min, st.tm_sec);
++	snprintf(str, sizeof(str), "\"%s-%02d-%04d %02d%%3a%02d%%3a%02d UTC\"", months[st.tm_mon], st.tm_mday, 1900+st.tm_year, st.tm_hour, st.tm_min, st.tm_sec);
+ #endif
+ 	string time = str;
+ 	return time;
+@@ -310,7 +310,7 @@
+ #if defined(_WIN32)
+ #ifndef _DEMO_RELEASE
+ 	char windowTitle[64];
+-	sprintf(windowTitle, "Total Connections: %i - Clients: %i - Servers: %i", totalConnections(), clientConnections(), serverConnections());
++	snprintf(windowTitle, sizeof(windowTitle), "Total Connections: %i - Clients: %i - Servers: %i", totalConnections(), clientConnections(), serverConnections());
+ 	debug->updateTitle(windowTitle);
+ #endif
+ #else
+diff -ruN --binary a/source/Framework/GameClient.cpp b/source/Framework/GameClient.cpp
+--- a/source/Framework/GameClient.cpp	2026-11-11 07:40:07.046986969 +0100
++++ b/source/Framework/GameClient.cpp	2026-11-11 07:40:07.050437417 +0100
+@@ -10,12 +10,15 @@
+ 	this->connectionType = connectionType;
+ 	this->logDatabase = fw->DatabaseLogging();
+ 	database = db;
++	user.id = 0;
+ 	user.data = NULL;
++	persona.id = 0;
+ 	persona.data = NULL;
+ 
+ 	this->isLocal = isLocal;
+ 	this->emuIp = emuIp;
+ 	alreadyLoggedIn = false;
++	loggedIn = false;
+ 	stats_data = NULL;
+ 
+ 	sock_tid = 0;
+@@ -26,7 +29,7 @@
+ {
+ 	if(connectionType == GAME_CLIENT_SSL)
+ 	{
+-		if(user.data && (user.data[USER_ONLINE].compare("1") == 0) && !alreadyLoggedIn)
++		if(loggedIn && user.data && (user.data[USER_ONLINE].compare("1") == 0) && !alreadyLoggedIn)
+ 		{
+ 			user.data[USER_ONLINE] = "0";
+ 			if(persona.data)
+@@ -40,6 +43,54 @@
+ 
+ }
+ 
++// Account fields end up in the \f separated database files and as directory names.
++static bool validAccountField(const string& value)
++{
++	for(size_t i = 0; i < value.size(); i++)
++		if((unsigned char)value[i] < 0x20 || value[i] == 0x7f)
++			return false;
++	return true;
++}
++
++// Failed logins per IP address: after 10 within 10 minutes the address cannot log in until the window has passed.
++static map<string, pair<time_t, int> > loginFailures;
++
++static bool loginBlocked(const char* ip)
++{
++	map<string, pair<time_t, int> >::iterator it = loginFailures.find(ip);
++	if(it == loginFailures.end())
++		return false;
++	if(time(NULL) - it->second.first > 600)
++	{
++		loginFailures.erase(it);
++		return false;
++	}
++	return it->second.second >= 10;
++}
++
++static void loginFailed(const char* ip)
++{
++	if(loginFailures.size() > 100000)
++		loginFailures.clear();
++	pair<time_t, int>& entry = loginFailures[ip];
++	if(entry.second == 0 || time(NULL) - entry.first > 600)
++		entry = make_pair(time(NULL), 0);
++	entry.second++;
++}
++
++bool GameClient::allows(const char* type, const string& txn)
++{
++	bool account = strcmp(type, "acct") == 0;
++	if(account && (txn == "GetCountryList" || txn == "NuGetTos" || txn == "NuAddAccount"))
++		return true;
++	if(account && txn == "NuLogin")
++		return !loggedIn;
++	if(!loggedIn)
++		return false;
++	// persona selection and account calls come before NuLoginPersona, everything else needs a persona
++	return account || (persona.data != NULL && persona.id > 0);
++}
++
+ bool GameClient::acct(list<Packet*>* queue, Packet* packet, string txn, const char* ip)
+ {
+ 	Packet* sendPacket = NULL;
+@@ -73,7 +124,7 @@
+ 			if(end != string::npos)
+ 			{
+ 				string data = countryData.substr(start, end-start);
+-				sprintf(buffer, "countryList.%i.ISOCode", i);
++				snprintf(buffer, sizeof(buffer), "countryList.%i.ISOCode", i);
+ 				sendPacket->SetVar(buffer, data);
+ 
+ 				start = end+1;
+@@ -82,7 +133,7 @@
+ 					end = countryData.size();		//we are at the last line
+ 
+ 				data = countryData.substr(start, end-start);
+-				sprintf(buffer, "countryList.%i.description", i);
++				snprintf(buffer, sizeof(buffer), "countryList.%i.description", i);
+ 				sendPacket->SetVar(buffer, data);
+ 
+ 				if(end != countryData.size())
+@@ -166,7 +217,8 @@
+ 				sendPacket->SetVar("errorContainer.0.value", "TOO_SHORT");
+ 			}
+ 		}	//forbidden chars due to file creation incompatibilities
+-		else if(tempUser.name.find_first_of('/') != string::npos || tempUser.name.find_first_of('\\') != string::npos || tempUser.name.find_first_of('?') != string::npos ||
++		else if(tempUser.name.size() > 96 || !validAccountField(tempUser.name) || !validAccountField(packet->GetVar("password")) ||
++				!validAccountField(packet->GetVar("country")) || tempUser.name.find_first_of('/') != string::npos || tempUser.name.find_first_of('\\') != string::npos || tempUser.name.find_first_of('?') != string::npos ||
+ 				tempUser.name.find_first_of('*') != string::npos || tempUser.name.find_first_of('\"') != string::npos || tempUser.name.find_first_of('|') != string::npos ||
+ 				tempUser.name.find_first_of(':') != string::npos || tempUser.name.find_first_of('<') != string::npos || tempUser.name.find_first_of('>') != string::npos)
+ 		{
+@@ -210,8 +262,8 @@
+ 				tempUser.data = new string[USER_SIZE];
+ 				tempUser.data[PASSWORD] = packet->GetVar("password");
+ 				tempUser.data[COUNTRY] = packet->GetVar("country");
+-				char buffer[12];
+-				sprintf(buffer, "%i-%i-%i", bd_year, bd_month, bd_day);
++				char buffer[40];
++				snprintf(buffer, sizeof(buffer), "%i-%i-%i", bd_year, bd_month, bd_day);
+ 				tempUser.data[BIRTHDAY] = buffer;
+ 				tempUser.data[USER_ONLINE] = "0";
+ 
+@@ -291,12 +343,16 @@
+ 				user.id = -1;
+ 		}
+ 
+-		if(user.id > 0)
++		// ids 1-3 are the game servers\' accounts, which log in on the server port only
++		if(user.id > 3 && loginBlocked(ip))
++			user.id = -1;
++		if(user.id > 3)
+ 		{
+ 			if(user.data[PASSWORD].compare(password) == 0)
+ 			{
+ 				if(user.data[USER_ONLINE].compare("0") == 0)
+ 				{
++					loggedIn = true;
+ 					user_lkey = fw->randomString(27, SEED_DEFAULT);
+ 					user_lkey.append(".");
+ 					user.data[USER_ONLINE] = "1";
+@@ -346,6 +402,7 @@
+ 			}
+ 			else
+ 			{
++				loginFailed(ip);
+ 				sendPacket->SetVar("localizedMessage", "\"The password the user specified is incorrect\"");
+ 				sendPacket->SetVar("errorContainer.[]", "0");
+ 				sendPacket->SetVar("errorCode", "122");
+@@ -355,6 +412,7 @@
+ 		}
+ 		else
+ 		{
++			loginFailed(ip);
+ 			sendPacket->SetVar("localizedMessage", "\"The user was not found\"");
+ 			sendPacket->SetVar("errorContainer.[]", "0");
+ 			sendPacket->SetVar("errorCode", "101");
+@@ -384,7 +442,8 @@
+ 	{
+ 		sendPacket = new Packet("acct", 0x80000000);
+ 		sendPacket->SetVar("TXN", txn);
+-		if(!database->getPersona(packet->GetVar("name"), &persona))
++		list_entry candidate;
++		if(!database->getPersona(packet->GetVar("name"), &candidate) || !candidate.data || candidate.data[USER_ID] != lexical_cast<string>(user.id))
+ 		{
+ 			sendPacket->SetVar("localizedMessage", "\"The user was not found\"");
+ 			sendPacket->SetVar("errorContainer.[]", "0");
+@@ -392,6 +451,7 @@
+ 		}
+ 		else
+ 		{
++			persona = candidate;
+ 			persona_lkey = fw->randomString(27, SEED_DEFAULT);
+ 			persona_lkey.append(".");
+ 			persona.data[PERSONA_ONLINE] = "1";
+@@ -434,7 +494,7 @@
+ 				sendPacket->SetVar("errorContainer.0.value", "TOO_SHORT");
+ 			}
+ 		}	//forbidden chars due to file creation incompatibilities
+-		else if(name.find_first_of('/') != string::npos || name.find_first_of('\\') != string::npos || name.find_first_of('?') != string::npos ||
++		else if(name.size() > 48 || !validAccountField(name) || name.find_first_of('/') != string::npos || name.find_first_of('\\') != string::npos || name.find_first_of('?') != string::npos ||
+ 				name.find_first_of('*') != string::npos || name.find_first_of('\"') != string::npos || name.find_first_of('|') != string::npos ||
+ 				name.find_first_of(':') != string::npos ||name.find_first_of('<') != string::npos || name.find_first_of('>') != string::npos)
+ 		{
+@@ -574,49 +634,49 @@
+ 			if(fw->emuCfg().premium_for_all)
+ 			{
+ 				// need a buffer here to write the entitlement index number because this can vary
+-				sprintf(buffer, "entitlements.%i.grantDate", count);
++				snprintf(buffer, sizeof(buffer), "entitlements.%i.grantDate", count);
+ 				sendPacket->SetVar(buffer, "2010-12-21T22%3a34Z");
+-				sprintf(buffer, "entitlements.%i.statusReasonCode", count);
++				snprintf(buffer, sizeof(buffer), "entitlements.%i.statusReasonCode", count);
+ 				sendPacket->SetVar(buffer, "");
+-				sprintf(buffer, "entitlements.%i.groupName", count);
++				snprintf(buffer, sizeof(buffer), "entitlements.%i.groupName", count);
+ 				sendPacket->SetVar(buffer, groupName);
+-				sprintf(buffer, "entitlements.%i.userId", count);
++				snprintf(buffer, sizeof(buffer), "entitlements.%i.userId", count);
+ 				sendPacket->SetVar(buffer, user.id);
+-				sprintf(buffer, "entitlements.%i.entitlementTag", count);
++				snprintf(buffer, sizeof(buffer), "entitlements.%i.entitlementTag", count);
+ 				sendPacket->SetVar(buffer, "BFBC2%3aPC%3aLimitedEdition");
+-				sprintf(buffer, "entitlements.%i.version", count);
++				snprintf(buffer, sizeof(buffer), "entitlements.%i.version", count);
+ 				sendPacket->SetVar(buffer, "1");
+-				sprintf(buffer, "entitlements.%i.terminationDate", count);
++				snprintf(buffer, sizeof(buffer), "entitlements.%i.terminationDate", count);
+ 				sendPacket->SetVar(buffer, "");
+-				sprintf(buffer, "entitlements.%i.productId", count);
++				snprintf(buffer, sizeof(buffer), "entitlements.%i.productId", count);
+ 				sendPacket->SetVar(buffer, "OFB-BFBC%3a19120");
+-				sprintf(buffer, "entitlements.%i.entitlementId", count);
++				snprintf(buffer, sizeof(buffer), "entitlements.%i.entitlementId", count);
+ 				sendPacket->SetVar(buffer, "3");
+-				sprintf(buffer, "entitlements.%i.status", count);
++				snprintf(buffer, sizeof(buffer), "entitlements.%i.status", count);
+ 				sendPacket->SetVar(buffer, "ACTIVE");
+ 				count++;
+ 			}
+ 			if(fw->emuCfg().specact_for_all)
+ 			{
+-				sprintf(buffer, "entitlements.%i.grantDate", count);
++				snprintf(buffer, sizeof(buffer), "entitlements.%i.grantDate", count);
+ 				sendPacket->SetVar(buffer, "2010-12-21T22%3a34Z");
+-				sprintf(buffer, "entitlements.%i.statusReasonCode", count);
++				snprintf(buffer, sizeof(buffer), "entitlements.%i.statusReasonCode", count);
+ 				sendPacket->SetVar(buffer, "");
+-				sprintf(buffer, "entitlements.%i.groupName", count);
++				snprintf(buffer, sizeof(buffer), "entitlements.%i.groupName", count);
+ 				sendPacket->SetVar(buffer, groupName);
+-				sprintf(buffer, "entitlements.%i.userId", count);
++				snprintf(buffer, sizeof(buffer), "entitlements.%i.userId", count);
+ 				sendPacket->SetVar(buffer, user.id);
+-				sprintf(buffer, "entitlements.%i.entitlementTag", count);
++				snprintf(buffer, sizeof(buffer), "entitlements.%i.entitlementTag", count);
+ 				sendPacket->SetVar(buffer, "BFBC2%3aPC%3aALLKIT");
+-				sprintf(buffer, "entitlements.%i.version", count);
++				snprintf(buffer, sizeof(buffer), "entitlements.%i.version", count);
+ 				sendPacket->SetVar(buffer, "0");
+-				sprintf(buffer, "entitlements.%i.terminationDate", count);
++				snprintf(buffer, sizeof(buffer), "entitlements.%i.terminationDate", count);
+ 				sendPacket->SetVar(buffer, "");
+-				sprintf(buffer, "entitlements.%i.productId", count);
++				snprintf(buffer, sizeof(buffer), "entitlements.%i.productId", count);
+ 				sendPacket->SetVar(buffer, "DR%3a192365600");
+-				sprintf(buffer, "entitlements.%i.entitlementId", count);
++				snprintf(buffer, sizeof(buffer), "entitlements.%i.entitlementId", count);
+ 				sendPacket->SetVar(buffer, "4");
+-				sprintf(buffer, "entitlements.%i.status", count);
++				snprintf(buffer, sizeof(buffer), "entitlements.%i.status", count);
+ 				sendPacket->SetVar(buffer, "ACTIVE");
+ 				count++;
+ 			}
+@@ -1158,20 +1218,20 @@
+ 		sendPacket->SetVar("TXN", txn);
+ 
+ 		string buffer = packet->GetVar("keys.[]");
+-		int count = lexical_cast<int>(buffer);
++		int count = min(lexical_cast<int>(buffer), packet->GetNumberOfKeys());
+ 		sendPacket->SetVar("stats.[]", buffer);
+ 
+ 		char iterBuf[24];
+ 		for(int i = 0; i < count; i++)
+ 		{
+-			sprintf(iterBuf, "keys.%i", i);
++			snprintf(iterBuf, sizeof(iterBuf), "keys.%i", i);
+ 			buffer = packet->GetVar(iterBuf);
+ 			string value = stats_data->getKey(buffer);
+ 
+-			sprintf(iterBuf, "stats.%i.key", i);
++			snprintf(iterBuf, sizeof(iterBuf), "stats.%i.key", i);
+ 			sendPacket->SetVar(iterBuf, buffer);
+ 
+-			sprintf(iterBuf, "stats.%i.value", i);
++			snprintf(iterBuf, sizeof(iterBuf), "stats.%i.value", i);
+ 			sendPacket->SetVar(iterBuf, value);
+ 		}
+ 		delete stats_data;
+@@ -1185,22 +1245,24 @@
+ 		if(packet->GetVar("u.0.ot").compare("1") == 0)// && !fw->emuCfg().override_stats_with_template)
+ 		{
+ 			int playerPersonaId = lexical_cast<int>(packet->GetVar("u.0.o"));
++			if(playerPersonaId != persona.id)	// clients only update their own persona
++				playerPersonaId = -1;
+ 			list_entry result;
+ 
+ 			if(database->getPersona(playerPersonaId, &result))
+ 			{
+ 				Stats* stats_data = new Stats(result.data[USER_EMAIL], result.name);
+-				int count = lexical_cast<int>(packet->GetVar("u.0.s.[]"));
++				int count = min(lexical_cast<int>(packet->GetVar("u.0.s.[]")), packet->GetNumberOfKeys());
+ 				double temp_score = 0.0f;
+-				char buffer[16];
++				char buffer[512];
+ 
+ 				for(int i = 0; i < count; i++)
+ 				{
+-					sprintf(buffer, "u.0.s.%i.k", i);		//is now key name
++					snprintf(buffer, sizeof(buffer), "u.0.s.%i.k", i);		//is now key name
+ 					string key = packet->GetVar(buffer);
+-					sprintf(buffer, "u.0.s.%i.ut", i);
++					snprintf(buffer, sizeof(buffer), "u.0.s.%i.ut", i);
+ 					int updateMethod = lexical_cast<int>(packet->GetVar(buffer));
+-					sprintf(buffer, "u.0.s.%i.v", i);		//is now value of key
++					snprintf(buffer, sizeof(buffer), "u.0.s.%i.v", i);		//is now value of key
+ 					string value = packet->GetVar(buffer);
+ 					string old = stats_data->getKey(key);
+ 
+@@ -1216,10 +1278,10 @@
+ 						}
+ 
+ 						new_value += old_value;
+-						sprintf(buffer, "%.4f", new_value);
++						snprintf(buffer, sizeof(buffer), "%.4f", new_value);
+ 						value = buffer;
+ 					}
+-					strcpy(buffer, old.c_str());
++					snprintf(buffer, sizeof(buffer), "%s", old.c_str());
+ 					debug->notification(3, connectionType, "Updated key %s with value \"%s\", old value=\"%s\", updateMethod=%i", key.c_str(), value.c_str(), buffer, updateMethod);
+ 					stats_data->setKey(key, value, true);
+ 					// normally only webstats related keys are not found
+@@ -1252,7 +1314,7 @@
+ 				{
+ 					double score = atof(stats_data->getKey("score").c_str());
+ 					score += temp_score;
+-					sprintf(buffer, "%.4f", score);
++					snprintf(buffer, sizeof(buffer), "%.4f", score);
+ 					stats_data->setKey("score", buffer);
+ 				}
+ 				stats_data->saveStats();
+@@ -1509,6 +1571,8 @@
+ 			state = SKIP;
+ 	}
+ 
++	else if(!persona.data)	// everything below needs the USER login
++		state = UNKNOWN;
+ 	else if(strcmp(type, "LLST") == 0)		//Lobby List
+ 	{
+ 		sendPacket = new Packet("LLST", 0x00000000);
+@@ -1804,7 +1868,7 @@
+ 					for(int i = 0, pos = 0; pos < (int)serverDescription.size(); i++, pos += 63)	// 63 is max limit of one description "cell"?
+ 					{
+ 						char buffer[24];
+-						sprintf(buffer, "D-ServerDescription%i", i);
++						snprintf(buffer, sizeof(buffer), "D-ServerDescription%i", i);
+ 						int length = 63;
+ 						if(pos+length > (int)serverDescription.size())
+ 							length = serverDescription.size()-pos;
+@@ -1832,11 +1896,11 @@
+ 						playerList.push_back(name);
+ 					}
+ 
+-					char buffer[12];
++					char buffer[40];
+ 					if(i < 10)
+-						sprintf(buffer, "D-pdat0%i", i);
++						snprintf(buffer, sizeof(buffer), "D-pdat0%i", i);
+ 					else
+-						sprintf(buffer, "D-pdat%i", i);
++						snprintf(buffer, sizeof(buffer), "D-pdat%i", i);
+ 					sendPacket->SetVar(buffer, entry);
+ 				}
+ 				queue->push_back(sendPacket);
+@@ -1922,7 +1986,8 @@
+ 			queue->push_back(sendPacket);
+ 			// put a mutex here?
+ 			TcpConnection* server_socket = fw->getServerSocket(gid);
+-			persona.data[PLAYER_ID] = lexical_cast<string>(server_socket->getGameServer()->addPlayerId());	// player_id is a unique id of the player on the server (just a count of all players that connected)
++			if(server_socket && server_socket->getGameServer())
++				persona.data[PLAYER_ID] = lexical_cast<string>(server_socket->getGameServer()->addPlayerId());	// player_id is a unique id of the player on the server (just a count of all players that connected)
+ 			string ticket = fw->randomString(10, SEED_NUMBERS);
+ 
+ 			if(server_socket)
+diff -ruN --binary a/source/Framework/GameClient.h b/source/Framework/GameClient.h
+--- a/source/Framework/GameClient.h	2026-11-11 07:40:07.047057081 +0100
++++ b/source/Framework/GameClient.h	2026-11-11 07:40:07.050437417 +0100
+@@ -28,6 +28,7 @@
+ 		bool isLocal;	// is the client in the same network as the emulator?
+ 		string emuIp;
+ 		bool alreadyLoggedIn;
++		bool loggedIn;	// NuLogin succeeded on this connection
+ 		list<string> playerList;
+ 		void filterGames(Packet* packet, list<int>* filtered);
+ 
+@@ -35,6 +36,8 @@
+ 		GameClient(int connectionType, Database* db, string emuIp, bool isLocal);
+ 		~GameClient();
+ 
++		// Whether a Plasma packet may be handled in the current login state.
++		bool allows(const char* type, const string& txn);
+ 		bool acct(list<Packet*>* queue, Packet* packet, string txn, const char* ip);
+ 		bool asso(list<Packet*>* queue, Packet* packet, string txn);
+ 		bool xmsg(list<Packet*>* queue, Packet* packet, string txn);
+diff -ruN --binary a/source/Framework/GameServer.cpp b/source/Framework/GameServer.cpp
+--- a/source/Framework/GameServer.cpp	2026-11-11 07:40:07.047120540 +0100
++++ b/source/Framework/GameServer.cpp	2026-11-11 07:40:07.050437417 +0100
+@@ -437,20 +437,20 @@
+ 			sendPacket->SetVar("TXN", txn);
+ 
+ 			string buffer = packet->GetVar("keys.[]");
+-			int count = lexical_cast<int>(buffer);
++			int count = min(lexical_cast<int>(buffer), packet->GetNumberOfKeys());
+ 			sendPacket->SetVar("stats.[]", buffer);
+ 
+ 			char iterBuf[24];
+ 			for(int i=0; i < count; i++)
+ 			{
+-				sprintf(iterBuf, "keys.%i", i);
++				snprintf(iterBuf, sizeof(iterBuf), "keys.%i", i);
+ 				buffer = packet->GetVar(iterBuf);
+ 				string value = stats_data->getKey(buffer);
+ 
+-				sprintf(iterBuf, "stats.%i.key", i);
++				snprintf(iterBuf, sizeof(iterBuf), "stats.%i.key", i);
+ 				sendPacket->SetVar(iterBuf, buffer);
+ 
+-				sprintf(iterBuf, "stats.%i.value", i);
++				snprintf(iterBuf, sizeof(iterBuf), "stats.%i.value", i);
+ 				sendPacket->SetVar(iterBuf, value);
+ 			}
+ 			delete stats_data;
+@@ -479,17 +479,17 @@
+ 			if(database->getPersona(playerPersonaId, &result))
+ 			{
+ 				Stats* stats_data = new Stats(result.data[USER_EMAIL], result.name);
+-				int count = lexical_cast<int>(packet->GetVar("u.0.s.[]"));
++				int count = min(lexical_cast<int>(packet->GetVar("u.0.s.[]")), packet->GetNumberOfKeys());
+ 				double temp_score = 0.0f;
+-				char buffer[16];
++				char buffer[512];
+ 
+ 				for(int i = 0; i < count; i++)
+ 				{
+-					sprintf(buffer, "u.0.s.%i.k", i);		//is now key name
++					snprintf(buffer, sizeof(buffer), "u.0.s.%i.k", i);		//is now key name
+ 					string key = packet->GetVar(buffer);
+-					sprintf(buffer, "u.0.s.%i.ut", i);
++					snprintf(buffer, sizeof(buffer), "u.0.s.%i.ut", i);
+ 					int updateMethod = lexical_cast<int>(packet->GetVar(buffer));
+-					sprintf(buffer, "u.0.s.%i.v", i);		//is now value of key
++					snprintf(buffer, sizeof(buffer), "u.0.s.%i.v", i);		//is now value of key
+ 					string value = packet->GetVar(buffer);
+ 					string old = stats_data->getKey(key);
+ 
+@@ -505,10 +505,10 @@
+ 						}
+ 
+ 						new_value += old_value;
+-						sprintf(buffer, "%.4f", new_value);
++						snprintf(buffer, sizeof(buffer), "%.4f", new_value);
+ 						value = buffer;
+ 					}
+-					strcpy(buffer, old.c_str());
++					snprintf(buffer, sizeof(buffer), "%s", old.c_str());
+ 					//debug->notification(3, connectionType, "Updated key %s with value \"%s\", old value=\"%s\", updateMethod=%i", key.c_str(), value.c_str(), buffer, updateMethod);
+ 					stats_data->setKey(key, value, true);
+ 					// normally only webstats related keys are not found
+@@ -541,7 +541,7 @@
+ 				{
+ 					double score = atof(stats_data->getKey("score").c_str());
+ 					score += temp_score;
+-					sprintf(buffer, "%.4f", score);
++					snprintf(buffer, sizeof(buffer), "%.4f", score);
+ 					stats_data->setKey("score", buffer);
+ 				}
+ 				stats_data->saveStats();
+@@ -591,7 +591,7 @@
+ 		sendPacket->SetVar("TXN", txn);
+ 		sendPacket->SetVar("realtime", packet->GetVar("realtime"));
+ 		sendPacket->SetVar("subChar", packet->GetVar("subChar"));
+-		int count = lexical_cast<int>(packet->GetVar("strings.[]"));
++		int count = min(lexical_cast<int>(packet->GetVar("strings.[]")), packet->GetNumberOfKeys());
+ 		sendPacket->SetVar("strings.[]", count);
+ 		for(int i = 0; i < count; i++)
+ 		{
+@@ -797,7 +797,7 @@
+ 			for(int i = 0; i < descriptionCount; i++)
+ 			{
+ 				char buffer[24];
+-				sprintf(buffer, "D-ServerDescription%i", i);
++				snprintf(buffer, sizeof(buffer), "D-ServerDescription%i", i);
+ 				description.append(packet->GetVar(buffer));
+ 			}
+ 			game.gdet[SERVER_DESCRIPTION] = description;
+diff -ruN --binary a/source/Framework/Logger.cpp b/source/Framework/Logger.cpp
+--- a/source/Framework/Logger.cpp	2026-11-11 07:40:07.047240385 +0100
++++ b/source/Framework/Logger.cpp	2026-11-11 07:40:07.050455445 +0100
+@@ -131,7 +131,7 @@
+ 			lt = localtime(&rawtime);
+ 
+ 			char logbuf[24];
+-			sprintf(logbuf, "[%02d.%02d.%d-%02d_%02d_%02d]", lt->tm_mday, lt->tm_mon+1, lt->tm_year+1900, lt->tm_hour, lt->tm_min, lt->tm_sec);
++			snprintf(logbuf, sizeof(logbuf), "[%02d.%02d.%d-%02d_%02d_%02d]", lt->tm_mday, lt->tm_mon+1, lt->tm_year+1900, lt->tm_hour, lt->tm_min, lt->tm_sec);
+ 			filename.append(logbuf);
+ 		}
+ 		filename.append(".log");
+@@ -226,7 +226,7 @@
+ 			lt = localtime(&rawtime);
+ 
+ 			char logbuf[24];
+-			sprintf(logbuf, "[%02d.%02d.%d-%02d_%02d_%02d]", lt->tm_mday, lt->tm_mon+1, lt->tm_year+1900, lt->tm_hour, lt->tm_min, lt->tm_sec);
++			snprintf(logbuf, sizeof(logbuf), "[%02d.%02d.%d-%02d_%02d_%02d]", lt->tm_mday, lt->tm_mon+1, lt->tm_year+1900, lt->tm_hour, lt->tm_min, lt->tm_sec);
+ 			filename.append(logbuf);
+ 		}
+ 		filename.append(".log");
+@@ -259,7 +259,7 @@
+ #if defined(_WIN32)
+ 			SYSTEMTIME st = {0};
+ 			GetLocalTime(&st);
+-			sprintf(logbuf, "[%02d:%02d:%02d.%03d %s] ", st.wHour, st.wMinute, st.wSecond, st.wMilliseconds, fromName);
++			snprintf(logbuf, sizeof(logbuf), "[%02d:%02d:%02d.%03d %s] ", st.wHour, st.wMinute, st.wSecond, st.wMilliseconds, fromName);
+ #else
+ 			struct timeval time;
+ 			struct timezone zone;
+@@ -272,7 +272,7 @@
+ 				hours++;
+ 			minutes %= 60;
+ 			hours %= 24;
+-			sprintf(logbuf, "[%02d:%02d:%02d.%03d %s] ", hours, minutes, sec, msec, fromName);
++			snprintf(logbuf, sizeof(logbuf), "[%02d:%02d:%02d.%03d %s] ", hours, minutes, sec, msec, fromName);
+ #endif
+ 			//Generate the message
+ 
+@@ -281,7 +281,7 @@
+ 			va_end(va_alist);
+ 		}
+ 		else
+-			sprintf(logbuf, "null");
++			snprintf(logbuf, sizeof(logbuf), "null");
+ 
+ 		//Print message into file
+ 		if(logfile && fileNotificationLevel >= level)
+@@ -310,7 +310,7 @@
+ #if defined(_WIN32)
+ 			SYSTEMTIME st = {0};
+ 			GetLocalTime(&st);
+-			sprintf(logbuf, "[%02d:%02d:%02d.%03d %s] ", st.wHour, st.wMinute, st.wSecond, st.wMilliseconds, fromName);
++			snprintf(logbuf, sizeof(logbuf), "[%02d:%02d:%02d.%03d %s] ", st.wHour, st.wMinute, st.wSecond, st.wMilliseconds, fromName);
+ #else
+ 			struct timeval time;
+ 			struct timezone zone;
+@@ -323,11 +323,11 @@
+ 				hours++;
+ 			minutes %= 60;
+ 			hours %= 24;
+-			sprintf(logbuf, "[%02d:%02d:%02d.%03d %s] ", hours, minutes, sec, msec, fromName);
++			snprintf(logbuf, sizeof(logbuf), "[%02d:%02d:%02d.%03d %s] ", hours, minutes, sec, msec, fromName);
+ #endif
+ 		}
+ 		else
+-			sprintf(logbuf, "null");
++			snprintf(logbuf, sizeof(logbuf), "null");
+ 
+ 		string text = logbuf;
+ 		text.append(message);
+@@ -354,7 +354,7 @@
+ #if defined(_WIN32)
+ 		SYSTEMTIME st = {0};
+ 		GetLocalTime(&st);
+-		sprintf(logbuf, "[%02d:%02d:%02d.%03d %s](WARNING) ", st.wHour, st.wMinute, st.wSecond, st.wMilliseconds, fromName);
++		snprintf(logbuf, sizeof(logbuf), "[%02d:%02d:%02d.%03d %s](WARNING) ", st.wHour, st.wMinute, st.wSecond, st.wMilliseconds, fromName);
+ #else
+ 		struct timeval time;
+ 		struct timezone zone;
+@@ -367,7 +367,7 @@
+ 			hours++;
+ 		minutes %= 60;
+ 		hours %= 24;
+-		sprintf(logbuf, "[%02d:%02d:%02d.%03d %s] ", hours, minutes, sec, msec, fromName);
++		snprintf(logbuf, sizeof(logbuf), "[%02d:%02d:%02d.%03d %s] ", hours, minutes, sec, msec, fromName);
+ #endif
+ 		//Generate the message
+ 		va_start(va_alist, message);
+@@ -398,7 +398,7 @@
+ #if defined(_WIN32)
+ 	SYSTEMTIME st = {0};
+ 	GetLocalTime(&st);
+-	sprintf(logbuf, "[%02d:%02d:%02d.%03d %s](ERROR) ", st.wHour, st.wMinute, st.wSecond, st.wMilliseconds, fromName);
++	snprintf(logbuf, sizeof(logbuf), "[%02d:%02d:%02d.%03d %s](ERROR) ", st.wHour, st.wMinute, st.wSecond, st.wMilliseconds, fromName);
+ #else
+ 	struct timeval time;
+ 	struct timezone zone;
+@@ -411,7 +411,7 @@
+ 		hours++;
+ 	minutes %= 60;
+ 	hours %= 24;
+-	sprintf(logbuf, "[%02d:%02d:%02d.%03d %s] ", hours, minutes, sec, msec, fromName);
++	snprintf(logbuf, sizeof(logbuf), "[%02d:%02d:%02d.%03d %s] ", hours, minutes, sec, msec, fromName);
+ #endif
+ 	//Generate the message
+ 	va_start(va_alist, message);
+diff -ruN --binary a/source/Network/Packet.h b/source/Network/Packet.h
+--- a/source/Network/Packet.h	2026-11-11 07:40:07.047878155 +0100
++++ b/source/Network/Packet.h	2026-11-11 07:40:07.051334695 +0100
+@@ -40,3 +40,9 @@
+ 		bool GetValCount();
+ 		bool GetValFirst();
+ };
++
++// A frame is the 12 byte header plus payload; its length must fit into the bytes received.
++inline bool frameLengthValid(int length, int available)
++{
++	return length >= 12 && length <= available;
++}
+diff -ruN --binary a/source/Network/TcpConnection.cpp b/source/Network/TcpConnection.cpp
+--- a/source/Network/TcpConnection.cpp	2026-11-11 07:40:07.047937957 +0100
++++ b/source/Network/TcpConnection.cpp	2026-11-11 07:40:07.051334695 +0100
+@@ -99,7 +99,9 @@
+ 			state = DISCONNECT;
+ 		}
+ 
+-		if(state != SKIP && outgoingQueue.front()->isDelayed())
++		if(state != SKIP && state != DISCONNECT && outgoingQueue.empty())
++			state = SKIP;
++		if(state != SKIP && state != DISCONNECT && outgoingQueue.front()->isDelayed())
+ 		{
+ 			if(delayed_packet)
+ 				debug->warning(1, type, "handle_read() - The delayed packet is not NULL! -> %s", delayed_packet->GetType());
+@@ -347,25 +349,31 @@
+ 	{
+ 		int current_length = 0;
+ 		do{
++			if(received_length - current_length < 12)
++				break;
+ 			char type[HEADER_LENGTH+1];
+ 			memcpy((void*)type, received_data+current_length, HEADER_LENGTH);
++			type[HEADER_LENGTH] = 0;
+ 
+ 			unsigned int type2 = decode(received_data+current_length+4, 4);
+ 			int length = decode(received_data+current_length+8, 4);
+ 
+-			unsigned char* data = new unsigned char[length-12];
+-			memcpy(data, received_data+current_length+12, length-12);
++			if(!frameLengthValid(length, received_length - current_length))
++			{
++				debug->warning(1, this->type, "StoreIncomingData() - invalid packet length %i, dropping the rest", length);
++				break;
++			}
++			string data((const char*)received_data+current_length+12, length-12);
+ 
+ 			//Create the package and add it to the end of the queue
+-			incomingQueue.push_back(new Packet(type, type2, length, (char*)data));
++			incomingQueue.push_back(new Packet(type, type2, length, data.c_str()));
+ 			string packetData = incomingQueue.back()->toString();
+ 			debug->notification(2, this->type, "<-[%s:%i] %s 0x%08x {%s}", remoteIp.c_str(), remotePort, incomingQueue.back()->GetType(), incomingQueue.back()->GetType2(), packetData.c_str());
+ 
+ 			current_length += length;
+-			delete[] data;
+ 			if(current_length != received_length)
+ 				debug->notification(5, this->type, "StoreIncomingData() - we have multiple packets incoming at once");
+-		}while(current_length != received_length);
++		}while(current_length < received_length);
+ 
+ 		if(incomingQueue.empty())
+ 			debug->warning(2, type, "StoreIncomingData() - incoming Queue has no content!");
+diff -ruN --binary a/source/Network/TcpConnectionSSL.cpp b/source/Network/TcpConnectionSSL.cpp
+--- a/source/Network/TcpConnectionSSL.cpp	2026-11-11 07:40:07.048049437 +0100
++++ b/source/Network/TcpConnectionSSL.cpp	2026-11-11 07:40:07.051334695 +0100
+@@ -295,25 +295,31 @@
+ 	{
+ 		int current_length = 0;
+ 		do{
++			if(received_length - current_length < 12)
++				break;
+ 			char type[HEADER_LENGTH+1];
+ 			memcpy((void*)type, received_data+current_length, HEADER_LENGTH);
++			type[HEADER_LENGTH] = 0;
+ 
+ 			unsigned int type2 = decode(received_data+current_length+4, 4);
+ 			int length = decode(received_data+current_length+8, 4);
+ 
+-			unsigned char* data = new unsigned char[length-12];
+-			memcpy(data, received_data+current_length+12, length-12);
++			if(!frameLengthValid(length, received_length - current_length))
++			{
++				debug->warning(1, this->type, "StoreIncomingData() - invalid packet length %i, dropping the rest", length);
++				break;
++			}
++			string data((const char*)received_data+current_length+12, length-12);
+ 
+ 			//Create the package and add it to the end of the queue
+-			incomingQueue.push_back(new Packet(type, type2, length, (char*)data));
++			incomingQueue.push_back(new Packet(type, type2, length, data.c_str()));
+ 			string packetData = incomingQueue.back()->toString();
+ 			debug->notification(2, this->type, "<-[%s:%i] %s 0x%08x {%s}", remoteIp.c_str(), remotePort, incomingQueue.back()->GetType(), incomingQueue.back()->GetType2(), packetData.c_str());
+ 
+ 			current_length += length;
+-			delete[] data;
+ 			if(current_length != received_length)
+ 				debug->warning(4, this->type, "StoreIncomingData() - we have multiple packets incoming at once");
+-		}while(current_length != received_length);
++		}while(current_length < received_length);
+ 	}
+ 	if(incomingQueue.empty())
+ 		debug->warning(2, type, "StoreIncomingData() - incoming Queue has no content!");
+@@ -467,6 +473,11 @@
+ 		char* packet_type = receivedPacket->GetType();
+ 
+ 		do{
++			if(strcmp(packet_type, "fsys") != 0 && !server && !(client && client->allows(packet_type, txn)))
++			{
++				unknown = true;
++				break;
++			}
+ //fsys//
+ 			if(strcmp(packet_type, "fsys") == 0)
+ 			{
+@@ -654,6 +665,13 @@
+ 			// is it safe to assume that the encoded packets are ordered and that there won't be different encoded packets exchanged at the same time?
+ 			size_t size = lexical_cast<int>(buffer);
+ 			encoded_data.append(receivedPacket->GetVar("data"));
++			if(encoded_data.size() > MAX_ENCODED_LENGTH)
++			{
++				debug->warning(1, type, "Encoded packet exceeds %i bytes, disconnecting", MAX_ENCODED_LENGTH);
++				encoded_data.clear();
++				state = DISCONNECT;
++				return;
++			}
+ 
+ 			if(encoded_data.size() >= size)		// all data should be received, decode it
+ 			{
+diff -ruN --binary a/source/Network/TcpServer.cpp b/source/Network/TcpServer.cpp
+--- a/source/Network/TcpServer.cpp	2026-11-11 07:40:07.048188979 +0100
++++ b/source/Network/TcpServer.cpp	2026-11-11 07:40:07.051334695 +0100
+@@ -14,7 +14,7 @@
+ 	if(type == GAME_SERVER_SSL || type == GAME_CLIENT_SSL)
+ 	{
+ 		SSL_CTX_set_cipher_list(context_.native_handle(), "ALL");
+-		SSL_CTX_set_options(context_.native_handle(), SSL_OP_ALL);
++		SSL_CTX_set_options(context_.native_handle(), SSL_OP_ALL | SSL_OP_NO_COMPRESSION);
+ 
+ 		SSL_CTX_use_certificate_ASN1(context_.native_handle(), sizeof(SSL_CERT_X509), SSL_CERT_X509);
+ 		SSL_CTX_use_PrivateKey_ASN1(EVP_PKEY_RSA, context_.native_handle(), SSL_CERT_RSA, sizeof(SSL_CERT_RSA));
+diff -ruN --binary a/source/Network/UdpServer.cpp b/source/Network/UdpServer.cpp
+--- a/source/Network/UdpServer.cpp	2026-11-11 07:40:07.048300890 +0100
++++ b/source/Network/UdpServer.cpp	2026-11-11 07:40:07.051334695 +0100
+@@ -21,13 +21,26 @@
+ 
+ void UdpServer::handle_receive(const system::error_code& error, size_t bytes_transferred)
+ {
++	if(error == asio::error::operation_aborted)
++		return;
+ 	if(!error && bytes_transferred > 0)
+ 	{
+-		ProcessData(DataToPacket(bytes_transferred));
+-		socket_.async_send_to(asio::buffer(send_data, send_data.size()), remote_endpoint_,
++		try
++		{
++			Packet* packet = DataToPacket(bytes_transferred);
++			if(packet)
++			{
++				ProcessData(packet);
++				socket_.async_send_to(asio::buffer(send_data, send_data.size()), remote_endpoint_,
+ 								boost::bind(&UdpServer::handle_send, this, asio::placeholders::error, asio::placeholders::bytes_transferred));
+-		start_receive();
++			}
++		}
++		catch(std::exception& e)
++		{
++			debug->warning(2, type, "UDP - dropped packet: %s", e.what());
++		}
+ 	}
++	start_receive();
+ }
+ 
+ void UdpServer::handle_send(const system::error_code& /*error*/, size_t /*bytes_transferred*/)
+@@ -42,29 +55,21 @@
+ 
+ Packet* UdpServer::DataToPacket(size_t bytes_transferred)
+ {
+-	size_t current_length = 0;
+-	Packet* packet;
+-	do{
+-		char type[HEADER_LENGTH+1];
+-		memcpy((void*)type, received_data+current_length, 4);
+-
+-		unsigned int type2 = decode(received_data+current_length+4, 4);
+-		int length = decode(received_data+current_length+8, 4);
+-
+-		unsigned char* data = new unsigned char[length-12];
+-		memcpy(data, received_data+current_length+12, length-12);
+-
+-		//Create the package and add it to the end of the queue
+-		packet = new Packet(type, type2, length, (char*)data);
+-		string packetData = packet->toString();
+-		debug->notification(3, this->type, "<<[%s] %s 0x%08x {%s}", getRemoteIp().c_str(), packet->GetType(), packet->GetType2(), packetData.c_str());
+-
+-		current_length += length;
+-		delete[] data;
+-		if(current_length != bytes_transferred)
+-			debug->warning(2, this->type, "UDP - We received a group of packets! Keep the log to investigate the packet, need to change implementation for this");
+-	}while(current_length != bytes_transferred);
+-
++	if(bytes_transferred < 12)
++		return NULL;
++	char type[HEADER_LENGTH+1];
++	memcpy((void*)type, received_data, HEADER_LENGTH);
++	type[HEADER_LENGTH] = 0;
++
++	unsigned int type2 = decode(received_data+4, 4);
++	int length = decode(received_data+8, 4);
++	if(!frameLengthValid(length, (int)bytes_transferred))
++		return NULL;
++
++	string data((const char*)received_data+12, length-12);
++	Packet* packet = new Packet(type, type2, length, data.c_str());
++	string packetData = packet->toString();
++	debug->notification(3, this->type, "<<[%s] %s 0x%08x {%s}", getRemoteIp().c_str(), packet->GetType(), packet->GetType2(), packetData.c_str());
+ 	return packet;
+ }
+ 
+diff -ruN --binary a/source/main.h b/source/main.h
+--- a/source/main.h	2026-11-11 07:40:07.046640487 +0100
++++ b/source/main.h	2026-11-11 07:40:07.050117596 +0100
+@@ -9,6 +9,8 @@
+ #endif
+ 
+ #define PACKET_MAX_LENGTH 8192
++// Largest reassembled multi-part packet; real ones (player stats) stay below 100 kB.
++#define MAX_ENCODED_LENGTH 262144
+ #define HEADER_LENGTH 4
+ #define WINDOW_X 102
+ #define WINDOW_Y 36
+@@ -42,6 +44,8 @@
+ };
+ 
+ #include <iostream>
++#include <algorithm>
++#include <map>
+ #include <boost/bind.hpp>
+ #include <boost/asio.hpp>
+ #include <boost/shared_ptr.hpp>
