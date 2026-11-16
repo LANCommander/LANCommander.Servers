@@ -14,6 +14,7 @@ Every GoldSrc game shares the same dedicated server (Steam app `90`), so this im
 - Automatically downloads and updates HLDS via SteamCMD, with retries for app 90's flaky installs
 - Supports file overlaying using OverlayFS (no file copying required)
 - Optional HTTP file server for `sv_downloadurl` fast downloads
+- Optional [LANCommander match statistics](https://github.com/LANCommander/LANCommander.MatchStatistics.MetaMod) through Metamod-P, built in
 
 ## Docker Compose Example
 
@@ -110,6 +111,7 @@ Note that GoldSrc keeps `server.cfg` in the game directory itself (`valve/server
 | `START_ARGS` | Arguments passed to the server | `-game valve -console -port 27015 +maxplayers 16 +map crossfire` |
 | `HTTP_FILESERVER_ENABLED` | Serve game files on port 80 for `sv_downloadurl` | `false` |
 | `HTTP_FILESERVER_WEB_ROOT` | Directory served by the HTTP file server | `/config/Merged/valve` |
+| `MATCH_STATS_SERVER_URL` / `MATCH_STATS_TOKEN` | Report matches to LANCommander. See [Match Statistics](Documentation/Docker.md#match-statistics) for these and the other `MATCH_STATS_*` settings | |
 
 Always include `+map` in `START_ARGS`. Without a map, HLDS starts but never loads a level.
 
