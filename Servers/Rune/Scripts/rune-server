@@ -1,0 +1,32 @@
+#!/bin/sh
+# Start the Rune dedicated server (START_EXE).
+#
+# Runs `UCC.exe server <map>?game=<class>[?options] ini=<RUNE_INI> log=server.log` from System/
+# under Wine. Server settings, passwords and the map rotation live in RUNE_INI (see the
+# 30-ConfigureRune hook); any START_ARGS are appended.
+set -e
+
+system="${SERVER_ROOT:-/config/Merged}/System"
+
+if [ ! -f "$system/UCC.exe" ]; then
+    echo "System/UCC.exe not found in ${SERVER_ROOT:-/config/Merged}. Put a Rune install in /config/Server." >&2
+    exit 1
+fi
+
+# Short game type names (same table as the 30-ConfigureRune hook)
+case "$(printf '%s' "${RUNE_GAME_TYPE:-deathmatch}" | tr '[:upper:]' '[:lower:]')" in
+    deathmatch|dm)          game="RuneI.RuneMultiPlayer" ;;
+    team|teamgame|tdm)      game="RuneI.TeamGame" ;;
+    arena|ar)               game="Arena.ArenaGameInfo" ;;
+    headball|hb)            game="HeadBall.HeadBallGame" ;;
+    *)                      game="$RUNE_GAME_TYPE" ;;
+esac
+
+url="${RUNE_MAP:-DM-Hel}?game=$game"
+[ -z "$RUNE_URL_OPTIONS" ] || url="$url?${RUNE_URL_OPTIONS#\?}"
+
+echo "Starting: UCC.exe server $url ini=${RUNE_INI:-Server.ini} log=server.log $*"
+
+# UCC resolves packages and inis relative to its working directory
+export WINE_WORKDIR="$system"
+exec wine-run UCC.exe server "$url" "ini=${RUNE_INI:-Server.ini}" log=server.log "$@"
