@@ -1,0 +1,30 @@
+#!/bin/sh
+# Start the Soldat dedicated server (START_EXE).
+#
+# Runs `./soldatserver -p <SOLDAT_PORT> <START_ARGS>` from the server root, so the game data comes
+# from Merged/ and everything the server writes (soldat.ini changes, logs/, anti-cheat/) lands in
+# Overlay/. Server settings live in soldat.ini and mapslist.txt (see the 30-ConfigureSoldat hook).
+set -e
+
+root="${SERVER_ROOT:-/config/Merged}"
+
+cd "$root"
+
+if [ ! -f ./soldatserver ]; then
+    echo "soldatserver not found in $root" >&2
+    exit 1
+fi
+
+set -- ./soldatserver -p "${SOLDAT_PORT:-23073}" "$@"
+
+echo "Starting: $*"
+
+# soldatserver block-buffers its console output when stdout isn't a terminal, so docker logs would
+# lag by minutes. script(1) runs it on a pseudo-terminal, which makes the output line-buffered.
+# Arguments are quoted for script's sh -c; logs/consolelog-*.txt has the same output.
+cmd=
+for arg in "$@"; do
+    cmd="$cmd '$(printf '%s' "$arg" | sed "s/'/'\\\\''/g")'"
+done
+
+exec script -qefc "exec$cmd" /dev/null < /dev/null
