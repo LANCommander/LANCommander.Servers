@@ -1,0 +1,50 @@
+#!/bin/sh
+# Start the Giants: Citizen Kabuto dedicated server (START_EXE).
+#
+# Runs `GiantsDedicated.exe -dedicated <GIANTS_GDF_NAME>.gdf` from the game root under Wine and
+# Xvfb, which is what the game's own dedicated.exe setup tool does with "Launch". The .gdf rotation
+# lives in Bin/ (see the 30-ConfigureGiants hook). GiantsDedicated renders the game's 3D UI, so it
+# needs a display (without one it logs "CreateWindowEx failed" and exits), and it renders as fast as
+# it can unless -framelimit caps it.
+#
+# The server prints nothing to stdout; it logs to Giants.log in the Wine user's AppData, which is
+# followed so it shows up in `docker logs`. GIANTS_EXTRA_ARGS and any START_ARGS are appended.
+set -e
+
+root="${SERVER_ROOT:-/config/Merged}"
+gdf="${GIANTS_GDF_NAME:-lancommander}.gdf"
+cd "$root"
+
+if [ ! -f GiantsDedicated.exe ]; then
+    echo "GiantsDedicated.exe not found in $root. Put a Giants: Citizen Kabuto 1.5 install in /config/Server." >&2
+    exit 1
+fi
+
+if [ ! -f "Bin/$gdf" ]; then
+    echo "Server rotation Bin/$gdf not found in $root." >&2
+    exit 1
+fi
+
+case "${GIANTS_MASTER_SERVER:-false}" in
+    true|1|yes|on) master="" ;;
+    *) master="-nomaster" ;;
+esac
+
+# shellcheck disable=SC2086 # GIANTS_EXTRA_ARGS is split on purpose
+set -- -dedicated "$gdf" -port "${GIANTS_PORT:-19711}" -noaudio \
+    ${GIANTS_FRAME_LIMIT:+-framelimit "$GIANTS_FRAME_LIMIT"} $master $GIANTS_EXTRA_ARGS "$@"
+
+echo "Starting: GiantsDedicated.exe $*"
+
+: "${WINEPREFIX:=/config/wineprefix}"
+log="$WINEPREFIX/drive_c/users/$(id -un)/AppData/Local/Giants/Giants.log"
+mkdir -p "$(dirname "$log")"
+tail -n 0 -F "$log" 2>/dev/null &
+
+# Wine doesn't pass SIGTERM on to the game, so `docker stop` would wait out its timeout. Run the
+# server in the background and end it with wineserver -k instead.
+wine-run GiantsDedicated.exe "$@" &
+pid=$!
+trap 'wineserver -k' TERM INT
+wait "$pid" || true
+wait "$pid"
