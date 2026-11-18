@@ -1,0 +1,25 @@
+#!/bin/sh
+# Start the Ice Lakes dedicated server (START_EXE).
+#
+# Runs IceLakes_Server.x86_64 with START_ARGS and writes its log to ICELAKES_LOG_FILE, which is
+# followed to stdout for `docker logs`. `-logFile /dev/stdout` doesn't work here: the server runs
+# as the unprivileged user, can't reopen the entrypoint's root-owned stdout pipe, and silently
+# falls back to ~/.config/unity3d/Player.log.
+set -e
+
+cd "${SERVER_ROOT:-/config/Merged}"
+
+if [ ! -x IceLakes_Server.x86_64 ] || [ ! -f server.cfg ]; then
+    echo "IceLakes_Server.x86_64 or server.cfg not found in $(pwd); the install did not finish." >&2
+    exit 1
+fi
+
+log="${ICELAKES_LOG_FILE:-/config/Logs/IceLakes_Server.log}"
+mkdir -p "$(dirname "$log")"
+: > "$log"
+
+echo "Starting: IceLakes_Server.x86_64 $* -logFile $log"
+
+tail -n +1 -F "$log" 2>/dev/null &
+
+exec ./IceLakes_Server.x86_64 "$@" -logFile "$log"
