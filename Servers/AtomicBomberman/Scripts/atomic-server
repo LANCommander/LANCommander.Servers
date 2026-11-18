@@ -1,0 +1,56 @@
+#!/bin/sh
+# Start the FPC Atomic (Atomic Bomberman) server (START_EXE).
+#
+# Runs `./atomic_server -p <ATOMIC_PORT> -t <ATOMIC_TIMEOUT> [-ai <ATOMIC_AI>] [-l <ATOMIC_LOG_LEVEL>]
+# <START_ARGS>` from the server root. The server finds data/maps/ and libai*.so next to its binary,
+# so they come from Merged/. Its statistics, logs and ai_smart.ini go to the config folder
+# ($XDG_CONFIG_HOME/fpc_atomic), which is put in the server root, so they land in Overlay/.
+set -e
+
+root="${SERVER_ROOT:-/config/Merged}"
+
+cd "$root"
+
+if [ ! -f ./atomic_server ]; then
+    echo "atomic_server not found in $root" >&2
+    exit 1
+fi
+
+export XDG_CONFIG_HOME="$root/.config"
+mkdir -p "$XDG_CONFIG_HOME/fpc_atomic"
+
+# -t 0 keeps the server running when nobody is connected; otherwise it exits after that many ms
+set -- ./atomic_server -p "${ATOMIC_PORT:-5521}" -t "${ATOMIC_TIMEOUT:-0}" \
+    ${ATOMIC_AI:+-ai "$ATOMIC_AI"} \
+    ${ATOMIC_LOG_LEVEL:+-l "$ATOMIC_LOG_LEVEL"} \
+    "$@"
+
+echo "Starting: $*"
+
+# The server writes its console through FPC's crt unit, which hard-wraps lines at 80 columns when
+# stdout isn't a terminal. script(1) runs it on a pseudo-terminal that stty widens, so docker logs
+# gets whole lines (the same lines go to .config/fpc_atomic/log/). Arguments are quoted for
+# script's sh -c.
+cmd=
+for arg in "$@"; do
+    cmd="$cmd '$(printf '%s' "$arg" | sed "s/'/'\\\\''/g")'"
+done
+
+# The server saves stats.txt and Playerstats.csv only when it quits by itself, and its quit command
+# is the ESC key; a signal kills it without saving. So its console input is a FIFO, and on
+# SIGTERM/SIGINT (docker stop) the launcher types ESC into it.
+fifo="$(mktemp -u /tmp/atomic-server-input.XXXXXX)"
+mkfifo "$fifo"
+exec 3<>"$fifo"
+rm -f "$fifo"
+
+script -qefc "stty cols 250 rows 50 2>/dev/null; exec$cmd" /dev/null <&3 &
+pid=$!
+
+trap 'echo "Stopping the server (ESC)"; printf "\033" >&3' TERM INT
+
+status=0
+while kill -0 "$pid" 2>/dev/null; do
+    wait "$pid" && status=0 || status=$?
+done
+exit "$status"
