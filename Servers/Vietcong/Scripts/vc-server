@@ -1,0 +1,33 @@
+#!/bin/sh
+# Start the Vietcong dedicated server (START_EXE).
+#
+# Runs `vcded.exe [-addon <VC_ADDON>] -dedicated <VC_DED_NAME>.ded` from the game root under Wine
+# and Xvfb. vcded is a GUI program: with -dedicated it skips the setup dialog and hosts right away.
+# The .ded file lives in Dedicated/ (see the 30-ConfigureVietcong hook). The server prints nothing to
+# stdout; dev/chatlog.txt is followed so chat and admin messages show up in `docker logs`.
+# VC_EXTRA_ARGS and any START_ARGS are appended.
+set -e
+
+root="${SERVER_ROOT:-/config/Merged}"
+ded="${VC_DED_NAME:-lancommander}.ded"
+cd "$root"
+
+if [ ! -f vcded.exe ]; then
+    echo "vcded.exe not found in $root. Put a Vietcong v1.60 install in /config/Server." >&2
+    exit 1
+fi
+
+if [ ! -f "Dedicated/$ded" ]; then
+    echo "Server definition Dedicated/$ded not found in $root." >&2
+    exit 1
+fi
+
+# shellcheck disable=SC2086 # VC_EXTRA_ARGS is split on purpose
+set -- ${VC_ADDON:+-addon "$VC_ADDON"} -dedicated "$ded" $VC_EXTRA_ARGS "$@"
+
+echo "Starting: vcded.exe $*"
+
+mkdir -p dev
+tail -n 0 -F dev/chatlog.txt 2>/dev/null &
+
+exec wine-run vcded.exe "$@"
