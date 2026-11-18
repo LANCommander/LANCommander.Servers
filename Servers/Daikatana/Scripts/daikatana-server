@@ -1,0 +1,37 @@
+#!/bin/sh
+# Start the Daikatana v1.3 dedicated server (START_EXE).
+#
+# Runs `dk_ded.exe -portable +set dedicated 1 +set port <DAIKATANA_PORT> +set logfile 2
+# +exec lancommander.cfg [START_ARGS] +map <DAIKATANA_MAP>` under Wine and Xvfb. -portable keeps
+# configs, saves and the log in the game's data/ folder instead of the Wine user's Documents, so
+# they land in Overlay/. The server's console is a window on the virtual display, so its log
+# (data/dk_console.log, recreated on every start) is followed to stdout.
+set -e
+
+root="${SERVER_ROOT:-/config/Merged}"
+cd "$root"
+
+if [ ! -f dk_ded.exe ]; then
+    echo "dk_ded.exe not found in $root. Put a Daikatana v1.3 install in /config/Server or set DAIKATANA_ARCHIVE_URL." >&2
+    exit 1
+fi
+
+map=
+[ -n "${DAIKATANA_MAP}" ] && map="+map ${DAIKATANA_MAP}"
+
+set -- dk_ded.exe -portable \
+    +set dedicated 1 \
+    +set port "${DAIKATANA_PORT:-27992}" \
+    +set logfile 2 \
+    +exec lancommander.cfg \
+    "$@" \
+    $map
+
+printf 'Starting: %s\n' "$*"
+
+log=data/dk_console.log
+rm -f "$log"
+tail -n +1 -F "$log" 2>/dev/null &
+
+export WINE_XVFB="${WINE_XVFB:-true}"
+exec wine-run "$@"
