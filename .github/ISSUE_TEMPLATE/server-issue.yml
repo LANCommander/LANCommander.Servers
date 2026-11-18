@@ -1,0 +1,169 @@
+name: Server problem
+description: Something is wrong with one of the game server images (won't start, crashes, can't connect, wrong config, docs)
+labels: ["triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the report. Pick the server first: the issue gets a `server:<Name>` label from it.
+        Please check the image's README (in `Servers/<Name>/` or on Docker Hub) for known quirks before filing.
+
+  - type: dropdown
+    id: server
+    attributes:
+      label: Server
+      description: The directory under `Servers/` (and the prefix of its release tags).
+      options:
+        # BEGIN GENERATED servers (scripts/servers.py generate)
+        - AgeOfChivalry
+        - AliensVsPredator2
+        - AmericasArmy
+        - AquaNox
+        - AtomicBomberman
+        - Base
+        - Battlefield1942
+        - BattlefieldBadCompany2
+        - BattlefieldVietnam
+        - Blockland
+        - CallOfDuty
+        - CallOfDuty2
+        - CallOfDuty4
+        - CallOfJuarezBoundInBlood
+        - Chivalry
+        - CommandAndConquerRenegade
+        - CommandosBehindEnemyLines
+        - CounterStrikeSource
+        - Daikatana
+        - DayOfDefeatSource
+        - DeerHunter2005
+        - DeltaForceBlackHawkDown
+        - DeusEx
+        - Devastation
+        - Doom3
+        - DoubleActionBoogaloo
+        - EliteForce
+        - FarCry
+        - FEAR
+        - FistfulOfFrags
+        - Freelancer
+        - GiantsCitizenKabuto
+        - GlobalOperations
+        - GoldenEyeSource
+        - HalfLife
+        - HalfLife2Deathmatch
+        - Hexen2
+        - IceLakes
+        - JediAcademy
+        - JediKnight
+        - JediOutcast
+        - KingArthursGold
+        - KissPsychoCircus
+        - Left4Dead
+        - Left4Dead2
+        - LegendsOfMightAndMagic
+        - MarvelHeroes
+        - MedalOfHonorAlliedAssault
+        - Minecraft
+        - MobileForces
+        - Morrowind
+        - NaturalSelection
+        - Nightfire
+        - NoOneLivesForever
+        - OpenArena
+        - PiratesVikingsAndKnightsII
+        - PortalKnights
+        - Postal2
+        - ProjectZomboid
+        - Quake
+        - Quake2
+        - Quake3
+        - RavenShield
+        - RealmWars
+        - RedFaction
+        - RTCW
+        - Rune
+        - SeriousSamTheFirstEncounter
+        - Shogo
+        - Soldat
+        - StarWarsBattlefront
+        - StarWarsBattlefront2
+        - StarWarsRepublicCommando
+        - SteamCMD
+        - Thievery
+        - Tremulous
+        - Tribes
+        - Tribes2
+        - TribesVengeance
+        - Tron2
+        - UT2004
+        - Vietcong
+        - WINE
+        - Wolfenstein2009
+        - XIII
+        - Zandronum
+        # END GENERATED servers
+        - Other / not listed
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Kind of problem
+      options:
+        - Server won't start or crashes
+        - Game install / download fails
+        - Clients can't find or join the server
+        - Configuration or environment variable doesn't work
+        - LANCommander integration (match stats, consoles, server listing)
+        - Image build fails
+        - Documentation / README
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: tag
+    attributes:
+      label: Image tag
+      description: The tag you run, e.g. `latest` or `1.0.0`. `docker image inspect --format '{{.Id}}' <image>` helps if you're unsure.
+      placeholder: latest
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What you did, what you expected, and what happened instead.
+    validations:
+      required: true
+
+  - type: textarea
+    id: compose
+    attributes:
+      label: compose.yml / docker run command
+      description: Remove passwords and other secrets.
+      render: yaml
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Container logs
+      description: Output of `docker logs <container>` from the start of the container up to the problem.
+      render: shell
+
+  - type: input
+    id: host
+    attributes:
+      label: Host
+      description: OS, Docker version, and anything unusual about the network (macvlan, host networking, ...).
+      placeholder: Ubuntu 24.04, Docker 27.3, bridge network
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I pulled the latest version of the image (or the version I listed above) and the problem still happens.
+        - label: I searched the existing issues for this server.
