@@ -1,0 +1,108 @@
+# syntax=docker/dockerfile:1.7
+
+# Override to build against a locally built base, e.g. lancommander/wine:local
+ARG BASE_IMAGE=lancommander/wine:latest
+FROM ${BASE_IMAGE}
+
+# Log files LANCommander shows as consoles under the server's Monitor
+LABEL app.lancommander.server.log.console="/config/Overlay/gesource/console.log"
+
+# GoldenEye: Source ships a Windows server only, so it runs under Wine on top of the Windows build
+# of the Source 2007 Dedicated Server (Steam app 310).
+
+# ----------------------------
+# Server settings
+#   - STEAM_*: Source 2007 Dedicated Server, installed with SteamCMD (Windows depot, anonymous)
+#   - GES_ARCHIVE: the official GE:S server archive (7z), as a URL or a path inside the container.
+#     ModDB doesn't allow scripted downloads, so the default is a file you place in /config.
+#   - GES_ARCHIVE_SHA256: checked before extracting; empty skips the check
+#   - GES_*: server settings, passed as +cvar arguments by ges-server
+# ----------------------------
+ENV STEAM_APP_ID="310" \
+    STEAM_APP_UPDATE="true" \
+    STEAM_VALIDATE="false" \
+    STEAM_USERNAME="anonymous" \
+    STEAM_PASSWORD="" \
+    STEAM_BRANCH="" \
+    STEAM_BRANCH_PASSWORD="" \
+    STEAM_INSTALL_ATTEMPTS="3" \
+    GES_ARCHIVE="/config/GoldenEye_Source_v5.0.6_full_server_windows.7z" \
+    GES_ARCHIVE_SHA256="79643189e9d6549e13ed9545d2277cb34bac05fff645d44d9de1f0ab030610d3" \
+    GES_PORT="27015" \
+    GES_MAP="ge_archives" \
+    GES_MAX_PLAYERS="16" \
+    GES_HOSTNAME="GoldenEye: Source Server" \
+    GES_PASSWORD="" \
+    GES_RCON_PASSWORD="" \
+    GES_LAN="1" \
+    GES_SERVER_CFG="server.cfg" \
+    GES_EXTRA_ARGS="" \
+    START_EXE="/usr/local/bin/ges-server" \
+    START_ARGS=""
+
+# ----------------------------
+# SteamCMD (32-bit Linux client, installs the Windows depot) and 7-Zip for the GE:S archive
+# ----------------------------
+RUN set -eux; \
+    apt-get update; \
+    apt-get install --no-install-recommends -y \
+        lib32gcc-s1 \
+        lib32stdc++6 \
+        libc6-i386 \
+        p7zip-full; \
+    apt-get clean; \
+    rm -rf /var/lib/apt/lists/*; \
+    \
+    mkdir -p /opt/steamcmd; \
+    curl -fsSL --retry 3 "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz" \
+      | tar -xz -C /opt/steamcmd; \
+    chmod +x /opt/steamcmd/steamcmd.sh
+
+# ----------------------------
+# SourceMod (Windows builds), installed into gesource/addons by 25-InstallSourceMod.ps1
+# ----------------------------
+ENV INSTALL_SOURCEMOD="true" \
+    GAME_MOD="gesource" \
+    METAMOD_MAJOR_VERSION="1.12" \
+    METAMOD_VERSION="1.12.0-git1229" \
+    SOURCEMOD_MAJOR_VERSION="1.12" \
+    SOURCEMOD_VERSION="1.12.0-git7259"
+
+# ----------------------------
+# LANCommander match statistics (https://github.com/LANCommander/LANCommander.MatchStatistics.SourceMod)
+#   - MATCH_STATS_ENABLED: auto (on when MATCH_STATS_SERVER_URL and MATCH_STATS_TOKEN are set),
+#     true or false. When on, the SourceMod plugin is copied into <GAME_MOD>/addons/sourcemod
+#   - The MATCH_STATS_* settings become lc_* cvars in <GAME_MOD>/cfg/sourcemod/lancommander.cfg.
+#     Empty settings are left out, so they can be set in cfg/sourcemod/sourcemod.cfg instead
+# ----------------------------
+ENV MATCH_STATS_ENABLED="auto" \
+    MATCH_STATS_SERVER_URL="" \
+    MATCH_STATS_TOKEN="" \
+    MATCH_STATS_GAME_ID="" \
+    MATCH_STATS_SERVER_ID="" \
+    MATCH_STATS_REPORTER_NAME="" \
+    MATCH_STATS_MIN_PLAYERS="" \
+    MATCH_STATS_MODE="" \
+    MATCH_STATS_RECORD_BOTS="" \
+    MATCH_STATS_RECORD_CHAT="" \
+    MATCH_STATS_ATTACH_DEMOS=""
+
+ARG MATCH_STATS_VERSION=1.0.0
+ARG MATCH_STATS_SHA256=7cabe64ea1b927702667a9ec60dc87943e524d7a242b31396aebfe637933d177
+
+RUN curl -fsSL --retry 8 --retry-delay 15 --retry-all-errors -o /tmp/match-stats.zip \
+      "https://github.com/LANCommander/LANCommander.MatchStatistics.SourceMod/releases/download/v${MATCH_STATS_VERSION}/LANCommander.SourceMod.MatchStatistics-v${MATCH_STATS_VERSION}.zip" && \
+    echo "${MATCH_STATS_SHA256}  /tmp/match-stats.zip" | sha256sum -c - && \
+    unzip -q /tmp/match-stats.zip 'addons/*' -x 'addons/sourcemod/scripting/*' '*.so' -d /opt/lancommander-stats && \
+    rm /tmp/match-stats.zip
+
+COPY Scripts/ges-server /usr/local/bin/ges-server
+RUN chmod +x /usr/local/bin/ges-server
+
+COPY Hooks/ "${BASE_HOOKS}/"
+
+# 27015/udp: game + server queries. 27015/tcp: RCON.
+EXPOSE 27015/udp 27015/tcp
+
+WORKDIR /config
+ENTRYPOINT ["/usr/local/bin/entrypoint.ps1"]
