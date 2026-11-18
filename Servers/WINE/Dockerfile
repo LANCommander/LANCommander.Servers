@@ -45,9 +45,35 @@ RUN set -eux; \
     echo "deb [signed-by=/etc/apt/keyrings/winehq-archive.key] https://dl.winehq.org/wine-builds/debian bookworm main" \
       > /etc/apt/sources.list.d/winehq.list; \
     \
+    # Stub out hard Wine deps a headless server never loads (Wine dlopen()s them and copes when absent):
+    #   libasound2-plugins -> ffmpeg/x265/Intel media stack, libsane1 -> SNMP + Perl
+    for pkg in libasound2-plugins libsane1; do \
+      for arch in amd64 i386; do \
+        d="/tmp/stub/$pkg-$arch"; mkdir -p "$d/DEBIAN"; \
+        printf 'Package: %s\nVersion: 99:0-stub\nArchitecture: %s\nMulti-Arch: same\nMaintainer: LANCommander\nDescription: empty stub for headless Wine\n' \
+          "$pkg" "$arch" > "$d/DEBIAN/control"; \
+        dpkg-deb -b "$d" "/tmp/stub/$pkg-$arch.deb" >/dev/null; \
+      done; \
+    done; \
+    dpkg -i /tmp/stub/*.deb; \
+    apt-mark hold libasound2-plugins:amd64 libasound2-plugins:i386 libsane1:amd64 libsane1:i386; \
+    \
     apt-get update; \
-    apt-get install -y \
-        winehq-stable; \
+    # No Recommends: they drag in VA/VDPAU/Intel media drivers, ffmpeg/x265 codecs, SANE, i386 LLVM, ...
+    # Keep only the Recommends a headless server can plausibly use, for both architectures.
+    keep="libfreetype6 libfontconfig1 libgnutls30 libkrb5-3 libgssapi-krb5-2 libdbus-1-3 \
+          libpng16-16 libjpeg62-turbo libxslt1.1 libxcomposite1 libxcursor1 libxfixes3 libxi6 \
+          libxinerama1 libxrandr2 libxrender1 libxxf86vm1 libgl1 libgl1-mesa-dri"; \
+    apt-get install --no-install-recommends -y \
+        winehq-stable \
+        $keep $(for p in $keep; do printf '%s:i386 ' "$p"; done); \
+    \
+    # WineHQ builds ship every PE module with full DWARF debug info (~430MB); strip it
+    apt-get install --no-install-recommends -y binutils-mingw-w64-x86-64 binutils-mingw-w64-i686 binutils; \
+    find /opt/wine-stable/lib/wine/x86_64-windows -type f -exec x86_64-w64-mingw32-strip --strip-debug {} +; \
+    find /opt/wine-stable/lib/wine/i386-windows -type f -exec i686-w64-mingw32-strip --strip-debug {} +; \
+    find /opt/wine-stable/lib/wine/*-unix -type f -name '*.so' -exec strip --strip-debug {} +; \
+    apt-get purge -y --auto-remove binutils-mingw-w64-x86-64 binutils-mingw-w64-i686 binutils; \
     \
     # Headless display: many Windows dedicated servers are GUI-subsystem programs (e.g. srcds -console
     # allocates a console window) and exit immediately without an X server
@@ -63,7 +89,7 @@ RUN set -eux; \
     # Cleanup
     apt-get purge -y --auto-remove gnupg; \
     apt-get clean; \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/* /usr/share/man/* /usr/share/info/*
 
 # ----------------------------
 # Winetricks (pinned release)
