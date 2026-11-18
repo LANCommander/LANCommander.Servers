@@ -1,0 +1,18 @@
+#!/usr/bin/env pwsh
+# Announce the server on the LAN the way a client's "Open to LAN" world does: every 1.5 seconds,
+# send "[MOTD]<motd>[/MOTD][AD]<port>[/AD]" to the multicast group 224.0.2.60:4445. Clients list
+# it under "LAN Worlds" in the multiplayer screen and connect to the packet's source address.
+# Started in the background by the 40-StartLanAnnounce hook; stops when the server stops.
+
+$port = if ($Env:MINECRAFT_PORT) { $Env:MINECRAFT_PORT } else { '25565' }
+$motd = if ($Env:MINECRAFT_MOTD) { $Env:MINECRAFT_MOTD } else { 'Minecraft Server' }
+$payload = [System.Text.Encoding]::UTF8.GetBytes("[MOTD]$($motd.Replace('[', '(').Replace(']', ')'))[/MOTD][AD]$port[/AD]")
+
+$client = [System.Net.Sockets.UdpClient]::new()
+$client.Client.SetSocketOption([System.Net.Sockets.SocketOptionLevel]::IP, [System.Net.Sockets.SocketOptionName]::MulticastTimeToLive, 1)
+$target = [System.Net.IPEndPoint]::new([System.Net.IPAddress]::Parse('224.0.2.60'), 4445)
+
+while ($true) {
+    try { [void]$client.Send($payload, $payload.Length, $target) } catch { }
+    Start-Sleep -Milliseconds 1500
+}
