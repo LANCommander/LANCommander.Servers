@@ -1,0 +1,33 @@
+--- a/engine/hexen2/server/sys_unix.c
++++ b/engine/hexen2/server/sys_unix.c
+@@ -391,10 +391,17 @@
+ {
+ 	static char	con_text[256];
+ 	static int	textlen;
++	static qboolean	stdin_eof;
+ 	char		c;
+ 	fd_set		set;
+ 	struct timeval	timeout;
+ 
++	/* stdin is /dev/null or closed (e.g. under docker without -i):
++	 * select() always reports it readable and read() returns 0, so
++	 * stop polling it instead of spinning on garbage input. */
++	if (stdin_eof)
++		return NULL;
++
+ 	FD_ZERO (&set);
+ 	FD_SET (0, &set);	// stdin
+ 	timeout.tv_sec = 0;
+@@ -402,7 +409,11 @@
+ 
+ 	while (select (1, &set, NULL, NULL, &timeout))
+ 	{
+-		read (0, &c, 1);
++		if (read (0, &c, 1) <= 0)
++		{
++			stdin_eof = true;
++			break;
++		}
+ 		if (c == '\n' || c == '\r')
+ 		{
+ 			con_text[textlen] = '\0';
