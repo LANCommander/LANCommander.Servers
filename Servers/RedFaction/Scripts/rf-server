@@ -1,0 +1,102 @@
+#!/bin/sh
+# Start the Red Faction dedicated server (START_EXE).
+#
+# Runs `AlpineFactionLauncher.exe -game -exe-path <RF.exe> -ads <RF_CONFIG>.toml -port <RF_PORT>
+# [-lanonly] -win32-console` under Wine. The launcher starts RF, injects Alpine Faction and exits,
+# so this script then waits for the Wine session to end. Any START_ARGS are appended.
+#
+# With LANCommander match statistics on (hook 40 leaves /etc/rf-stats-bridge/enabled), it first
+# starts rf-stats-bridge, which takes Alpine Faction's FactionFiles stats reports and sends them
+# to LANCommander, and stops it once the game has exited.
+set -e
+
+root="${SERVER_ROOT:-/config/Merged}"
+: "${WINEPREFIX:=/config/wineprefix}"
+export WINEPREFIX
+
+cd "$root"
+
+if [ ! -f AlpineFactionLauncher.exe ]; then
+    echo "AlpineFactionLauncher.exe not found in $root (AF_INSTALL=false needs your own copy in /config/Server)." >&2
+    exit 1
+fi
+
+config="${RF_CONFIG:-server}.toml"
+if [ ! -f "$config" ]; then
+    echo "$config not found in $root" >&2
+    exit 1
+fi
+
+# Alpine Faction needs the 1.20 NA executable; installs patched by Dash Faction's installer keep it
+# as RF_120na.exe
+exe="$RF_EXE"
+if [ -z "$exe" ]; then
+    if [ -f RF_120na.exe ]; then exe=RF_120na.exe; else exe=RF.exe; fi
+fi
+
+if [ ! -f "$exe" ]; then
+    echo "$exe not found in $root" >&2
+    exit 1
+fi
+
+lanonly=
+case "${RF_LAN_ONLY:-true}" in
+    true|1|yes) lanonly=-lanonly ;;
+esac
+
+set -- -game -exe-path "$(winepath -w "$root/$exe")" -ads "$config" -port "${RF_PORT:-7755}" $lanonly -win32-console "$@"
+
+bridge=
+if [ -f /etc/rf-stats-bridge/enabled ]; then
+    ready=/tmp/rf-stats-bridge.ready
+    rm -f "$ready"
+
+    # The Interposer keeps its logs and the matches not delivered yet in /config/.interposer/
+    INTERPOSER_BASE_DIRECTORY="${CONFIG_DIR:-/config}" \
+    INTERPOSER_CONFIG='Logging: {Matches: true}' \
+    RF_STATS_BRIDGE_CERT="${CONFIG_DIR:-/config}/.rf-stats-bridge/server.crt" \
+    RF_STATS_BRIDGE_KEY="${CONFIG_DIR:-/config}/.rf-stats-bridge/server.key" \
+    RF_STATS_BRIDGE_READY="$ready" \
+    RF_STATS_BRIDGE_DEMOS="$(cat /etc/rf-stats-bridge/demos 2>/dev/null)" \
+        rf-stats-bridge &
+    bridge=$!
+
+    # Alpine Faction asks for its session key as it starts; have the bridge listening by then
+    i=0
+    while [ ! -f "$ready" ] && [ $i -lt 50 ] && kill -0 "$bridge" 2>/dev/null; do
+        sleep 0.1
+        i=$((i + 1))
+    done
+
+    if [ ! -f "$ready" ]; then
+        echo "rf-stats-bridge did not start; Alpine Faction's stats will not reach LANCommander" >&2
+    fi
+fi
+
+stop_bridge() {
+    if [ -n "$bridge" ]; then
+        kill -TERM "$bridge" 2>/dev/null || true
+        wait "$bridge" 2>/dev/null || true
+        bridge=
+    fi
+}
+
+# printf, not echo: dash's echo treats the \c in Z:\config\... as "stop output"
+printf 'Starting: AlpineFactionLauncher.exe %s\n' "$*"
+
+set +e
+wine AlpineFactionLauncher.exe "$@"
+status=$?
+
+# The launcher is gone once RF is running; stay up until every Wine process has exited
+trap 'wineserver -k' TERM INT
+wineserver -w &
+waiter=$!
+# A trapped signal interrupts wait; keep waiting for Wine to finish exiting
+while kill -0 "$waiter" 2>/dev/null; do
+    wait "$waiter"
+done
+
+# The bridge ends the game in progress, if any, and gives the Interposer a moment to deliver it
+stop_bridge
+exit $status

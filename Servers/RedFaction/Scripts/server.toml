@@ -1,0 +1,100 @@
+# Alpine Faction dedicated server config (ADS)
+#
+# Copied to <RF_CONFIG>.toml in the game folder on first start; edit that copy (it lives in
+# Overlay/). server_name, max_players, password and rcon_password are rewritten from the RF_*
+# environment variables on every start when those are set.
+#
+# Reference: https://github.com/GooberRF/alpinefaction/blob/main/docs/reference/DEDICATED_SERVER_CONFIG.md
+# Builder:   https://dedi.alpinefaction.com
+
+# ---- Server settings (must come before the first [table]) ----
+server_name = "Red Faction Server"
+max_players = 16
+password = ""
+rcon_password = ""
+dynamic_rotation = false        # true shuffles the rotation
+upnp = false
+
+[vote_level]
+enabled = true                  # "vote level <map> [game type]" in chat
+
+[vote_next]
+enabled = true
+
+[vote_restart]
+enabled = true
+
+[vote_extend]
+enabled = true
+
+# ---- Rules for every level; a [[levels]] entry can override any of them ----
+[base]
+game_type = "DM"
+time_limit = 600                # seconds
+individual_kill_limit = 30      # DM
+team_kill_limit = 100           # TDM
+cap_limit = 5                   # CTF
+gg_score_limit = 30             # Gun Game
+geo_limit = 128
+fall_damage = true
+balance_teams = true
+
+# ---- Rotation, played in order. game_type in [levels.rules] picks the mode per level ----
+# Game types: DM, TDM, CTF, KOTH, DC, REV, RUN, ESC, BAG, TBAG, PIT, WO, GG, SAL, SCAV, PAY.
+# The stock maps are dm01-dm20 (no dm11/dm18) and ctf01-ctf07. Levels that aren't installed are
+# downloaded from FactionFiles at startup (needs internet), e.g. KOTH/DC maps.
+# Modes added by Alpine Faction (everything but DM, TDM and CTF) need Alpine Faction clients.
+
+[[levels]]
+filename = "dm02"               # DM, from [base]
+
+[[levels]]
+filename = "ctf01"
+[levels.rules]
+game_type = "CTF"
+
+[[levels]]
+filename = "dm06"
+[levels.rules]
+game_type = "TDM"
+
+[[levels]]
+filename = "dm10"
+[levels.rules]
+game_type = "GG"
+
+[[levels]]
+filename = "dm15"
+
+[[levels]]
+filename = "ctf02"
+[levels.rules]
+game_type = "CTF"
+
+[[levels]]
+filename = "dm03"
+[levels.rules]
+game_type = "TDM"
+
+[[levels]]
+filename = "dm19"
+[levels.rules]
+game_type = "GG"
+
+[[levels]]
+filename = "dm07"
+
+[[levels]]
+filename = "ctf03"
+[levels.rules]
+game_type = "CTF"
+
+[[levels]]
+filename = "dm13"
+[levels.rules]
+game_type = "TDM"
+
+[[levels]]
+filename = "dm17"
+[levels.rules]
+game_type = "GG"
