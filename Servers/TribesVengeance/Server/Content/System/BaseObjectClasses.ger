@@ -1,0 +1,60 @@
+[BaseInventoryStation]
+localizedName=Inventory Station
+
+[BaseEmergency]
+localizedName=Emergency Station
+
+[BaseCatapult]
+localizedName=Catapult
+
+[BaseTurretMortar]
+localizedName=Mortar Turret
+
+[BaseTurretBurner]
+localizedName=Burner Turret
+
+[BaseTurretAntiAir]
+localizedName=Anti-Air Turret
+
+[BaseSensor]
+localizedName=Sensor
+
+[BasePowerGenerator]
+localizedName=Power Generator
+
+[BaseTurretSentry]
+localizedName=Sentry Turret
+
+[BaseResupply]
+localizedName=Resupply Station
+
+[BaseSpawnTower]
+localizedName=Spawn Tower
+
+[BaseDeployableSpawnTurret]
+localizedName=Deployable Turret
+
+[BaseDeployableSpawnInventoryStation]
+localizedName=Deployable Inventory
+
+[BaseDeployableSpawnCatapult]
+localizedName=Deployable Catapult
+
+[BaseObjectVehicleSpawnFighter]
+localizedName=Fighter Pad
+
+[BaseDeployableSpawnRepairer]
+localizedName=Deployable Repairer
+
+[BaseDeployableSpawnShockMine]
+localizedName=Deployable Mine
+
+[BaseObjectVehicleSpawnAssaultShip]
+localizedName=Assalt Ship Pad
+
+[BaseObjectVehicleSpawnTank]
+localizedName=Tank Pad
+
+[BaseObjectVehicleSpawnBuggy]
+localizedName=Rover Pad
+

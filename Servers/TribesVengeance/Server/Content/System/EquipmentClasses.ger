@@ -1,0 +1,85 @@
+[WeaponEnergyBlade]
+localizedName=Energieklinge
+infoString=Short-range melee weapon which uses energy each time it is fired.
+
+[WeaponSpinfusor]
+localizedName=SPINFUSOR
+infoString=Single-shot, direct-fire projectile weapon. Projectile explodes on impact.
+
+[WeaponChaingun]
+localizedName=CHAINGUN
+infoString=Rapid-fire projectile weapon.  Overheats if fired for too long.
+
+[WeaponBlaster]
+localizedName=BLASTER
+infoString=Close-range energy weapon that fires multiple bolts. Projectiles bounce off surfaces.
+
+[WeaponGrenadeLauncher]
+localizedName=GREN. LAUNCHER
+infoString=Single-shot parabolic projectile weapon that fires explosive grenades.
+
+[WeaponRocketPod]
+localizedName=ROCKET POD
+infoString=Multi-shot weapon that fires a pod of 6 rockets. Rockets can be guided once fired.
+
+[WeaponBurner]
+localizedName=BURNER
+infoString=Energy weapon that fires a ball of plasma. Projectile explodes on impact, setting fire to a small area.
+
+[WeaponGrappler]
+localizedName=GRAPPLER
+infoString="Single-shot device designed to increase mobility. Fires a cable that attaches to targets. "
+
+[WeaponSniperRifle]
+localizedName=SNIPER RIFLE
+infoString=Long-range weapon that uses energy and ammunition. Does more damage when more energy is used.
+
+[WeaponBuckler]
+localizedName=BUCKLER
+infoString=Defensive weapon that acts as a forward facing shield when equipped. Projectile can be guided once fired.
+
+[WeaponMortar]
+localizedName=MORTAR
+infoString=Single-shot, long range, parabolic projectile weapon that fires explosive shells.
+
+[PackEnergy]
+localizedName=ENERGY PACK
+infoString=Passive effect increases the user's energy recharge rate.  Active effect provides the user with a sudden boost of acceleration.
+
+[PackShield]
+localizedName=SHIELD PACK
+infoString=Passive effect slightly reduces damage to the user.  Active effect greatly reduces damage.
+
+[PackRepair]
+localizedName=REPAIR PACK
+infoString=Passive effect slowly heals the user.  Active effect quickly repairs allies and objects within range.
+
+[PackSpeed]
+localizedName=SPEED PACK
+infoString=Passive effect increases the user's running speed.  Active effect decreases the reload time of equipped weapons.
+
+[WeaponHandGrenade]
+localizedName=Hand Grenade
+infoString=Individually thrown grenade with a timed fuse. Throw can be charged to increase range.
+
+[ArmorLight]
+infoString=Provides high mobility but little protection from damage.  Only armour that can use the Sniper Rifle.
+
+[ArmorHeavy]
+armorName=Heavy
+infoString=Provides limited mobility but high protection from damage. Only armour that can use the Mortar.
+
+[ArmorMedium]
+armorName=Mittel
+infoString=Provides medium mobility and protection from damage. Only armour that can use the Buckler.
+
+[ConsumableHealth]
+infoString=Replaces part of the users health up to their maximum capacity
+
+[ConsumableHealthMP]
+localizedName=Health Kit
+
+[JetpackPickup]
+localizedName=Jet Pack
+infoString=Provides the user with the ablity to fly for short distances.
+

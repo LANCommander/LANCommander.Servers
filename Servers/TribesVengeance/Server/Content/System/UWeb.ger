@@ -1,0 +1,7 @@
+[Public]
+Preferences=(Caption="Web-Server",Parent="Netzwerkspiele",Class=UWeb.WebServer)
+
+[WebServer]
+ClassCaption="Webserver"
+
+

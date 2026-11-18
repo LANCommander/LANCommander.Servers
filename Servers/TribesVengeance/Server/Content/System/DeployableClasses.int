@@ -1,0 +1,15 @@
+[DeployedRepairer]
+localizedName=Deployed Repairer
+
+[DeployedCatapult]
+localizedName=Deployed Catapult
+
+[DeployedInventoryStation]
+localizedName=Deployed Inventory Station
+
+[DeployedTurret]
+localizedName=Deployed Turret
+
+[DeployedShockMine]
+localizedName=Mine
+

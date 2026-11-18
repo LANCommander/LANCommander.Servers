@@ -1,0 +1,22 @@
+[VehicleBuggy]
+driverPrompt=Press '%1' to enter driver position
+gunnerPrompt=Press '%1' to enter gunner position
+inventoryStationPrompt=Press '%1' to access inventory station
+fullVehiclePrompt=You cannot enter because the Rover is full
+
+[VehiclePod]
+driverPrompt=Press '%1' to enter driver position
+fullVehiclePrompt=Someone is already driving this Fighter
+
+[VehicleAssaultShip]
+driverPrompt=Press '%1' to enter driver position
+gunnerPrompt=Press '%1' to enter gunner position
+leftGunnerPrompt=Press '%1' to enter left gunner position
+rightGunnerPrompt=Press '%1' to enter right gunner position
+fullVehiclePrompt=You cannot enter because the Assault ship is full
+
+[VehicleTank]
+driverPrompt=Press '%1' to enter driver position
+gunnerPrompt=Press '%1' to enter gunner position
+fullVehiclePrompt=You cannot enter because the Tank is full
+

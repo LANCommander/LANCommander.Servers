@@ -1,0 +1,96 @@
+[AdminIni]
+Msg_PlayerList=Player List:
+Msg_FinishGameEditFirst=You must finish your Game Edit before restarting the map
+Msg_FinishGameRestart=You must finish your Game Edit before changing or restarting the map
+Msg_GameNoSupportBots=The current Game Type does not support Bots
+Msg_StatsNoBots=Cannot control bots when Worlds Stats are enabled
+Msg_NextMapNotFound=Next Map Not Found, Restarting Same Map
+Msg_ChangingMapTo=Changing Map to %NextMap%
+Msg_PlayerBanned=%Player% has been Banned from this server
+Msg_SessionBanned=%Player% has been Banned for this match
+Msg_PlayerKicked=%Player% has been kicked
+Msg_NoBotGameFull=Cannot add a bot, Game is full
+Msg_NoAddNamedBot=Can Only Add Named Bots once the Match has Started
+Msg_NoBotsPlaying=No Bots are currently playing
+Msg_SetBotNeedVal=This Command Requires a Numeric Value between 0 and 32
+Msg_MutNeedGameEdit=You must use 'Game Edit' command before 'Mutators' commands
+Msg_NoMutatorInUse=No Mutators in use
+Msg_NoUnusedMuts=Found No Unused Mutators
+Msg_AddedMutator=Added '%Mutator%' To Used Mutator List
+Msg_ErrAddingMutator=Error Adding '%Mutator%'To Used Mutator List
+Msg_RemovedMutator=Removed '%Mutator%' From Used Mutator List
+Msg_ErrRemovingMutator=Error Removing '%Mutator%' From Used Mutator List
+Msg_MapListNeedGameEdit=You must use 'Game Edit' command before 'MapList' command
+Msg_MapRotationList=List of maps in rotation for %Game%
+Msg_NoMapInRotation=No Maps in rotation list
+Msg_NoMapsAdded=No Maps Added to the List
+Msg_AddedMapToList=Added '%Map%' To Map Rotation List
+Msg_NoMapsRemoved=No Maps Removed from the List
+Msg_RemovedMapFromList=Removed '%Map%' From Map Rotation List
+Msg_NoMapsFound=No Maps were Found
+Msg_MapIsInRotation=Map '%Map%' Is In Map Rotation List
+Msg_MapNotInRotation=Map '%Map%' Is Not In Map Rotation List
+Msg_MustEndGameEdit=You must end your Game Edit first
+Msg_EditingClass=Editing %Class%
+Msg_EditFailed=Failed Starting To Edit
+Msg_AlreadyEdited=Game Already being edited by Someone Else
+Msg_NotEditing=You are not editing Game Settings, use 'Game Edit' first
+Msg_EditingCompleted=Editing Completed
+Msg_EditingCancelled=Editing Cancelled
+Msg_UnknownParam=Unknown Parameter : %Value%
+Msg_NoParamsFound=No Parameters found!
+Msg_ParamModified=Modification SuccessFull
+Msg_ParamNotModified=Could not Modify Parameter
+Msg_PlayerSpectified=%Player% has been put into spectator mode
+Msg_TimeLimitChanged=The time limit has been changed to %Value%
+Msg_TourneyModeEnabled=Tournament mode has been enabled
+Msg_TourneyModeDisabled=Tournament mode has been disabled
+Msg_ForceStart=The match has been forced to start
+Msg_TeamDamageChanged=Team damage has been set to %Value%
+
+[TribesKickPrivs]
+LoadMsg=Kick and Ban Privileges Loaded
+MainPrivs=K
+SubPrivs=Kp|Kb|Ko
+Tags[0]=Kick/Ban
+Tags[1]=Kick Players
+Tags[2]=Ban Players
+Tags[3]=Kick Bots
+
+[TribesGamePrivs]
+LoadMsg=Maps & Game Privileges Loaded
+MainPrivs=M
+SubPrivs=Mr|Mt|Mm|Ml|Ms|Mu|Mb
+Tags[0]=Maps/Game Settings
+Tags[1]=Restart Map
+Tags[2]=Change Game Type
+Tags[3]=Change Map
+Tags[4]=Manages Map Rotation
+Tags[5]=Game Settings
+Tags[6]=Select Mutators
+Tags[7]=Add/Remove Bots
+
+[TribesUserGroupPrivs]
+LoadMsg=Admins & Groups Management Loaded
+MainPrivs=A|G
+SubPrivs=Al|Aa|Ae|Ag|Am|Gl|Ga|Ge
+Tags[0]=Users
+Tags[1]=List Admins
+Tags[2]=Add/Remove Admins
+Tags[3]=Edit Admins
+Tags[4]=Assign Groups
+Tags[5]=Make Managers
+Tags[6]=Groups
+Tags[7]=List Groups
+Tags[8]=Add/Remove Groups
+Tags[9]=Edit Groups
+
+[TribesExtraPrivs]
+LoadMsg=Extra Privileges Loaded
+MainPrivs=X
+SubPrivs=Xb|Xc|Xp
+Tags[0]=Miscellaneous
+Tags[1]=Manage IP Policies
+Tags[2]=Use Console
+Tags[3]=Player List
+

@@ -1,0 +1,3952 @@
+[TribesMPQuickPlayPanel_NYILabel]
+Caption=Not yet implemented...
+
+[TribesMPGameGuidePanel_JoinButton]
+Caption=JOIN GAME
+Hint=Connect to the currently selected server
+
+[TribesMPGameGuidePanel_RefreshAllButton]
+Caption=REFRESH ALL
+Hint=Refresh all visible servers
+
+[TribesMPGameGuidePanel_BuddyListButton]
+Caption=BUDDIES
+Hint=Manage your buddy list
+
+[TribesMPGameGuidePanel_BrowserBox_FavsIcon_Button]
+Caption=*
+
+[TribesMPGameGuidePanel_BrowserBox_ServerName_Button]
+Caption=SERVER NAME
+
+[TribesMPGameGuidePanel_BrowserBox_Info_Button]
+Caption=DETAILS
+
+[TribesMPGameGuidePanel_BrowserBox_Players_Button]
+Caption=#
+
+[TribesMPGameGuidePanel_BrowserBox_Ping_Button]
+Caption=PING
+
+[TribesMPGameGuidePanel_EditFiltersButton]
+Caption=MANAGE FILTERS
+Hint=Edit your custom filters
+
+[TribesMPGameGuidePanel_ViewInfoButton]
+Caption=VIEW INFO
+Hint=View more information about the currently selected server
+
+[TribesMPGameGuidePanel_MarkFavoriteButton]
+Caption=MARK FAVORITE
+Hint=Mark the currently selected server as a favorite
+
+[TribesMPGameGuidePanel_FilterLabel]
+Caption=Filter:
+
+[TribesMPGameGuidePanel_ModificationLabel]
+Caption=Modification:
+
+[TribesMPGameGuidePanel_BuddyFilterLabel]
+Caption=SHOW BUDDIES ONLY
+
+[TribesMPGameGuidePanel_LANFIlterLabel]
+Caption=SHOW LAN SERVERS ONLY
+
+[TribesMPGameGuidePanel_FavFilterLabel]
+Caption=SHOW FAVORITES ONLY
+
+[TribesMPGameGuidePanel_PatchButton]
+Caption=CHECK FOR UPDATE
+Hint=Refresh all visible servers
+
+[TribesMPGameGuidePanel_ServerCountLabel]
+Caption=2 / 2
+
+[TribesMPGameGuidePanel_PlayerCountLabel]
+Caption=2 players online
+
+[TribesMPProfilePanel_NewProfileButton]
+Caption=CREATE
+
+[TribesMPProfilePanel_DeleteProfileButton]
+Caption=DELETE
+
+[TribesMPProfilePanel_FavoritesButton]
+Caption=EDIT LOADOUTS
+
+[TribesMPProfilePanel_GenderLabel]
+Caption=GENDER:
+
+[TribesMPProfilePanel_playernamedatalabel]
+Caption=KeeKee
+
+[TribesMPProfilePanel_VOICECHAT PROFILE]
+Caption=VOICE:
+
+[TribesMPProfilePanel_CreateGamespy]
+Caption=CREATE GAMESPY ACCOUNT
+
+[TribesMPProfilePanel_UseGameSpyLabel]
+Caption=ENABLE GAMESPY STAT TRACKING
+
+[TribesMPProfilePanel_GamespyEmailLabel]
+Caption=NOT SET
+
+[TribesMPProfilePanel_SaveGamespyLabel]
+Caption=REMEMBER PASSWORD
+
+[TribesMPProfilePanel_statusernamelabel]
+Caption=EMAIL ADDRESS:
+
+[TribesMPProfilePanel_teamlabel]
+Caption=ENABLE TEAM MEMBERSHIP
+
+[TribesMPProfilePanel_StatLoginButton]
+Caption=LOGIN NOW
+
+[TribesMPProfilePanel_TeamLoginButton]
+Caption=JOIN TEAM NOW
+
+[TribesMPProfilePanel_CreateTeamButton]
+Caption=CREATE TEAM
+
+[TribesMPProfilePanel_TeamLoginLabel]
+Caption=TEAM TAG:
+
+[TribesMPProfilePanel_TeamPasswordLabel]
+Caption=TEAM NAME:
+
+[TribesMPProfilePanel_RememberTeamPasswordLabel]
+Caption=REMEMBER PASSWORD
+
+[TribesMPProfilePanel_TeamNameDataLabel]
+Caption=NOT SET
+
+[TribesMPProfilePanel_TeamLoginDataLabel]
+Caption=NOT SET
+
+[TribesMPProfilePanel_LoadoutsButton]
+Caption=EDIT LOADOUTS
+
+[TribesMPProfilePanel_selectprofilelabel]
+Caption=LOAD PROFILE:
+
+[TribesMPProfilePanel_selectedtitle]
+Caption=CURRENT PROFILE:
+
+[TribesMPCommunityPanel_SystemChannelButton]
+Caption=SYSTEM
+
+[TribesMPCommunityPanel_DefaultChannelButton]
+Caption=#channel
+
+[TribesMPCommunityPanel_ConnectButton]
+Caption=CONNECT
+
+[TribesMPCommunityPanel_DisconnectButton]
+Caption=DISCONNECT
+
+[TribesMPHostPanel_MapLabel]
+Caption=MAP
+
+[TribesMPHostPanel_GameTypeLabel]
+Caption=GAME TYPE
+
+[TribesMPHostPanel_StartButton]
+Caption=START SERVER
+Hint=Start a listen server
+
+[TribesMPHostPanel_PasswordLabel]
+Caption=GAME PASSWORD:
+
+[TribesMPHostPanel_ServerNameLabel]
+Caption=SERVER NAME:
+
+[TribesMPHostPanel_GameDescriptionDataLabel]
+Caption=Two teams fight for up to 10 rounds.  You have one life per round.  When you die, you're out until the next round.  First team to win 5 rounds wins the match.
+
+[TribesMPHostPanel_DedicatedLabel]
+Caption=DEDICATED:
+
+[TribesMPHostPanel_AdvancedButton]
+Caption=ADVANCED
+Hint=Access advanced options
+
+[TribesMPRecordingsPanel_PlayButton]
+Caption=PLAY
+
+[TribesMPRecordingsPanel_demoListBox_Name_Button]
+Caption=NAME
+
+[TribesMPRecordingsPanel_demoListBox_PlayerName_Button]
+Caption=RECORDED BY
+
+[TribesMPRecordingsPanel_demoListBox_MapName_Button]
+Caption=MAP
+
+[TribesMPRecordingsPanel_demoListBox_GameType_Button]
+Caption=MODE
+
+[TribesMPRecordingsPanel_demoListBox_TimeStamp_Button]
+Caption=TIME
+
+[TribesMultiplayerMenu_GameGuideButton]
+Caption=JOIN
+
+[TribesMultiplayerMenu_ProfileButton]
+Caption=PROFILE
+
+[TribesMultiplayerMenu_HostButton]
+Caption=HOST
+
+[TribesMultiplayerMenu_GamespyJoin]
+Caption=JOIN
+
+[TribesMultiplayerMenu_MainMenuButton]
+Caption=MAIN MENU
+
+[TribesMultiplayerMenu_QuitButton]
+Caption=QUIT
+
+[TribesMultiplayerMenu_multiplayertitle]
+Caption=MULTIPLAYER
+
+[TribesMultiplayerMenu_CommunityButton]
+Caption=CHAT
+
+[TribesMultiplayerMenu_TRIBESMULTPLAYERMENU_RECORDINGSTABBUTTON]
+Caption=RECORDINGS
+
+[GUILabel0]
+Caption=Not yet implemented...
+
+[GUIButton4]
+Caption=*
+
+[GUIButton5]
+Caption=SERVER NAME
+
+[GUIButton6]
+Caption=DETAILS
+
+[GUIButton7]
+Caption=#
+
+[GUIButton8]
+Caption=PING
+
+[GUIButton9]
+Caption=JOIN GAME
+Hint=Connect to the currently selected server
+
+[GUIButton10]
+Caption=REFRESH ALL
+Hint=Refresh all visible servers
+
+[GUIButton11]
+Caption=BUDDIES
+Hint=Manage your buddy list
+
+[GUIButton12]
+Caption=MANAGE FILTERS
+Hint=Edit your custom filters
+
+[GUIButton13]
+Caption=VIEW INFO
+Hint=View more information about the currently selected server
+
+[GUIButton14]
+Caption=MARK FAVORITE
+Hint=Mark the currently selected server as a favorite
+
+[GUILabel1]
+Caption=Filter:
+
+[GUILabel2]
+Caption=Modification:
+
+[GUILabel3]
+Caption=SHOW BUDDIES ONLY
+
+[GUILabel4]
+Caption=SHOW LAN SERVERS ONLY
+
+[GUILabel5]
+Caption=SHOW FAVORITES ONLY
+
+[GUILabel6]
+Caption=2 / 2
+
+[GUILabel7]
+Caption=2 players online
+
+[GUIButton15]
+Caption=CHECK FOR UPDATE
+Hint=Refresh all visible servers
+
+[GUIButton16]
+Caption=CREATE
+
+[GUIButton17]
+Caption=DELETE
+
+[GUIButton18]
+Caption=EDIT LOADOUTS
+
+[GUILabel8]
+Caption=GENDER:
+
+[GUILabel9]
+Caption=KeeKee
+
+[GUILabel10]
+Caption=VOICE:
+
+[GUIButton19]
+Caption=CREATE STAT LOGIN
+
+[GUIButton20]
+Caption=LOGIN NOW
+
+[GUIButton21]
+Caption=JOIN TEAM NOW
+
+[GUIButton22]
+Caption=CREATE TEAM
+
+[GUILabel11]
+Caption=ENABLE STAT TRACKING
+
+[GUILabel12]
+Caption=ENABLE TEAM MEMBERSHIP
+
+[GUILabel13]
+Caption=NOT SET
+
+[GUILabel14]
+Caption=NOT SET
+
+[GUILabel15]
+Caption=REMEMBER PASSWORD
+
+[GUILabel16]
+Caption=REMEMBER PASSWORD
+
+[GUILabel17]
+Caption=EMAIL ADDRESS:
+
+[GUILabel18]
+Caption=TEAM TAG:
+
+[GUILabel19]
+Caption=TEAM NAME:
+
+[GUILabel20]
+Caption=LOAD PROFILE:
+
+[GUILabel21]
+Caption=CURRENT PROFILE:
+
+[GUIButton23]
+Caption=EDIT LOADOUTS
+
+[GUILabel22]
+Caption=NOT SET
+
+[GUIButton24]
+Caption=SYSTEM
+
+[GUIButton25]
+Caption=#channel
+
+[GUIButton26]
+Caption=CONNECT
+
+[GUIButton27]
+Caption=DISCONNECT
+
+[GUILabel23]
+Caption=MAP
+
+[GUILabel24]
+Caption=GAME TYPE
+
+[GUIButton28]
+Caption=START SERVER
+Hint=Start a listen server
+
+[GUILabel25]
+Caption=GAME PASSWORD:
+
+[GUILabel26]
+Caption=SERVER NAME:
+
+[GUILabel27]
+Caption=Two teams fight for up to 10 rounds.  You have one life per round.  When you die, you're out until the next round.  First team to win 5 rounds wins the match.
+
+[GUILabel28]
+Caption=DEDICATED:
+
+[GUIButton29]
+Caption=ADVANCED
+Hint=Access advanced options
+
+[GUIButton30]
+Caption=NAME
+
+[GUIButton31]
+Caption=RECORDED BY
+
+[GUIButton32]
+Caption=MAP
+
+[GUIButton33]
+Caption=MODE
+
+[GUIButton34]
+Caption=TIME
+
+[GUIButton35]
+Caption=PLAY
+
+[GUIButton36]
+Caption=JOIN
+
+[GUIButton37]
+Caption=PROFILE
+
+[GUIButton38]
+Caption=CHAT
+
+[GUIButton39]
+Caption=HOST
+
+[GUIButton40]
+Caption=MAIN MENU
+
+[GUIButton41]
+Caption=JOIN
+
+[GUIButton42]
+Caption=QUIT
+
+[GUIButton43]
+Caption=RECORDINGS
+
+[GUILabel29]
+Caption=MULTIPLAYER
+
+[TribesMPEscapeMenu_ReturnToMenuButton]
+Caption=DISCONNECT
+Hint=Disconnect from this server and return to the main menu
+
+[TribesMPEscapeMenu_ResumeButton]
+Caption=" RESUME GAME"
+Hint=Close this window and keep playing
+
+[TribesMPEscapeMenu_OptionsButton]
+Caption=OPTIONS
+Hint=Access game options
+
+[TribesMPEscapeMenu_QuitButton]
+Caption=QUIT
+Hint=Quit the game and return to desktop
+
+[TribesMPEscapeMenu_PlayersButton]
+Caption=PLAYERS
+
+[TribesMPPlayersPanel_TeamOneList_Name_Button]
+Caption=Imperial
+
+[TribesMPPlayersPanel_TeamOneList_Score_Button]
+Caption=Score
+
+[TribesMPPlayersPanel_TeamOneList_Ping_Button]
+Caption=Ping
+
+[TribesMPPlayersPanel_TeamTwoList_Name_Button]
+Caption=Blood Eagle
+
+[TribesMPPlayersPanel_TeamTwoList_Score_Button]
+Caption=Score
+
+[TribesMPPlayersPanel_TeamTwoList_Ping_Button]
+Caption=Ping
+
+[TribesMPPlayersPanel_SpectatorList_Name_Button]
+Caption=Spectators
+
+[TribesMPPlayersPanel_SpectatorList_Ping_Button]
+Caption=Ping
+
+[TribesMPPlayersPanel_ChangeTeamButton]
+Caption=CHANGE TEAMS
+
+[TribesMPPlayersPanel_SpectateButton]
+Caption=SPECTATE
+
+[TribesMPPlayersPanel_VoteToKickButton]
+Caption=VOTE TO KICK
+
+[TribesMPPlayersPanel_AddBuddyButton]
+Caption=ADD BUDDY
+
+[TribesMPPlayersPanel_BanButton]
+Caption=BAN
+
+[TribesMPPlayersPanel_KickButton]
+Caption=KICK
+
+[TribesMPPlayersPanel_SpectifyButton]
+Caption=SPECTIFY
+
+[TribesMPPlayersPanel_TeamChangeBjtton]
+Caption=TEAMCHANGE
+
+[TribesMPPlayersPanel_GrantAdminButton]
+Caption=GRANT ADMIN
+
+[TribesMPPlayersPanel_VoteAdminButton]
+Caption=VOTE ADMIN
+
+[TribesMPPlayersPanel_MuteButton]
+Caption=MUTE
+
+[TribesMPPlayersPanel_JoinTeamOneButton]
+Caption=JOIN Blood Eagle
+
+[TribesMPPlayersPanel_JoinTeamTwoButton]
+Caption=JOIN Imperial
+
+[TribesMPPlayersPanel_ForceTeamOneButton]
+Caption=FORCE Blood Eagle
+
+[TribesMPPlayersPanel_ForceTeamTwoButton]
+Caption=FORCE Imperial
+
+[TribesMPPlayersPanel_RecordButton]
+Caption=START RECORDING
+
+[TribesMPStatsPanel_StatsList_Rank_Button]
+Caption=RANK
+
+[TribesMPStatsPanel_StatsList_Name_Button]
+Caption=NAME
+
+[TribesMPStatsPanel_StatsList_Number_Button]
+Caption=#
+
+[TribesMPStatsPanel_StatsList_Equation_Button]
+Caption=WORTH
+
+[TribesMPStatsPanel_StatsList_Total_Button]
+Caption=POINTS
+
+[TribesMPStatsPanel_OffenseLabel]
+Caption=Offense Points:
+
+[TribesMPStatsPanel_DefenseLabel]
+Caption=Defense Points:
+
+[TribesMPStatsPanel_StyleLabel]
+Caption=Style Points:
+
+[TribesMPStatsPanel_TotalLabel]
+Caption=TOTAL POINTS:
+
+[TribesMPStatsPanel_OffenseDataLabel]
+Caption=0
+
+[TribesMPStatsPanel_DefenseDataLabel]
+Caption=0
+
+[TribesMPStatsPanel_StyleDataLabel]
+Caption=0
+
+[TribesMPStatsPanel_TotalDataLabel]
+Caption=0
+
+[TribesMPAdminPanel_SwitchButton]
+Caption=SWITCH MAPS
+Hint=Switch the server to the currently selected game type and map
+
+[TribesMPAdminPanel_RestartButton]
+Caption=RESTART MAP
+Hint=Restart the current map
+
+[TribesMPAdminPanel_TimeLimitLabel]
+Caption=TIME LIMIT:
+
+[TribesMPAdminPanel_GameTypeLabel]
+Caption=GAME TYPE
+
+[TribesMPAdminPanel_MapLabel]
+Caption=MAP
+
+[TribesMPAdminPanel_UpdateButton]
+Caption=UPDATE
+Hint=Update the server with the specified parameters
+
+[TribesMPAdminPanel_VoteChangeButton]
+Caption=VOTE MAP CHANGE
+
+[TribesMPAdminPanel_TourneyModeButton]
+Caption=TOURNEY MODE
+
+[TribesMPAdminPanel_VoteTourneyButton]
+Caption=VOTE TOURNAMENT
+
+[TribesMPAdminPanel_ForceStartButton]
+Caption=FORCE START
+
+[TribesMPAdminPanel_LoginButton]
+Caption=ADMIN LOGIN
+
+[TribesMPAdminPanel_TeamDamageButton]
+Caption=DISABLE TEAM DAMAGE
+Hint=Switch the server to the currently selected game type and map
+
+[TribesMPAdminPanel_VoteTEamDamageButton]
+Caption=VOTE TEAM DAMAGE OFF
+
+[TribesMPHintsPanel_NextButton]
+Caption=NEXT
+
+[TribesMPHintsPanel_PrevButton]
+Caption=PREVIOUS
+
+[TribesMPHintsPanel_HelpButton]
+Caption=HELP
+
+[TribesMPHintsPanel_HintLabel]
+Caption=HINT:  When you kill an enemy he drops a health kit.  Pick it up to get some health back.
+
+[TribesMPEscapeMenu_StatsButton]
+Caption=MY STATS
+
+[TribesMPEscapeMenu_AdminButton]
+Caption=ADMIN
+
+[TribesMPEscapeMenu_HintsButton]
+Caption=HINTS
+
+[TribesMPEscapeMenu_ServerLabel]
+Caption=SERVER NAME:
+
+[TribesMPEscapeMenu_EmailLabel]
+Caption=SERVER EMAIL:
+
+[TribesMPEscapeMenu_ServerDataLabel]
+Caption=Another TV Server
+
+[GUIButton44]
+Caption=PLAYERS
+
+[GUIButton46]
+Caption=Blood Eagle
+
+[GUIButton47]
+Caption=Score
+
+[GUIButton48]
+Caption=Ping
+
+[GUIButton49]
+Caption=CHANGE TEAMS
+
+[GUIButton51]
+Caption=Imperial
+
+[GUIButton52]
+Caption=Score
+
+[GUIButton53]
+Caption=Ping
+
+[GUIButton54]
+Caption=SPECTATE
+
+[GUIButton55]
+Caption=START RECORDING
+
+[GUIButton56]
+Caption=Spectators
+
+[GUIButton57]
+Caption=Ping
+
+[GUIButton58]
+Caption=VOTE TO KICK
+
+[GUIButton59]
+Caption=VOTE ADMIN
+
+[GUIButton60]
+Caption=ADD BUDDY
+
+[GUIButton61]
+Caption=MUTE
+
+[GUIButton62]
+Caption=BAN
+
+[GUIButton63]
+Caption=KICK
+
+[GUIButton64]
+Caption=JOIN Blood Eagle
+
+[GUIButton65]
+Caption=JOIN Imperial
+
+[GUIButton66]
+Caption=SPECTIFY
+
+[GUIButton67]
+Caption=FORCE Blood Eagle
+
+[GUIButton68]
+Caption=FORCE Imperial
+
+[GUIButton69]
+Caption=TEAMCHANGE
+
+[GUIButton70]
+Caption=GRANT ADMIN
+
+[GUIButton71]
+Caption=RANK
+
+[GUIButton72]
+Caption=NAME
+
+[GUIButton73]
+Caption=#
+
+[GUIButton74]
+Caption=WORTH
+
+[GUIButton75]
+Caption=POINTS
+
+[GUILabel30]
+Caption=Offense Points:
+
+[GUILabel31]
+Caption=Defense Points:
+
+[GUILabel32]
+Caption=Style Points:
+
+[GUILabel33]
+Caption=TOTAL POINTS:
+
+[GUILabel34]
+Caption=0
+
+[GUILabel35]
+Caption=0
+
+[GUILabel36]
+Caption=0
+
+[GUILabel37]
+Caption=0
+
+[GUIButton76]
+Caption=SWITCH MAPS
+Hint=Switch the server to the currently selected game type and map
+
+[GUIButton77]
+Caption=RESTART MAP
+Hint=Restart the current map
+
+[GUILabel38]
+Caption=TIME LIMIT:
+
+[GUILabel39]
+Caption=GAME TYPE
+
+[GUILabel40]
+Caption=MAP
+
+[GUIButton78]
+Caption=UPDATE
+Hint=Update the server with the specified parameters
+
+[GUIButton79]
+Caption=VOTE MAP CHANGE
+
+[GUIButton80]
+Caption=TOURNEY MODE
+
+[GUIButton81]
+Caption=VOTE TOURNAMENT
+
+[GUIButton82]
+Caption=FORCE START
+
+[GUIButton83]
+Caption=ADMIN LOGIN
+
+[GUIButton84]
+Caption=DISABLE TEAM DAMAGE
+Hint=Switch the server to the currently selected game type and map
+
+[GUIButton85]
+Caption=VOTE TEAM DAMAGE OFF
+
+[GUIButton86]
+Caption=NEXT
+
+[GUIButton87]
+Caption=PREVIOUS
+
+[GUIButton88]
+Caption=HELP
+
+[GUILabel41]
+Caption=HINT:  When you kill an enemy he drops a health kit.  Pick it up to get some health back.
+
+[GUIButton89]
+Caption=DISCONNECT
+Hint=Disconnect from this server and return to the main menu
+
+[GUIButton90]
+Caption=" RESUME GAME"
+Hint=Close this window and keep playing
+
+[GUIButton91]
+Caption=OPTIONS
+Hint=Access game options
+
+[GUIButton92]
+Caption=QUIT
+Hint=Quit the game and return to desktop
+
+[GUIButton93]
+Caption=ADMIN
+
+[GUIButton94]
+Caption=HINTS
+
+[GUILabel42]
+Caption=SERVER NAME:
+
+[GUIButton95]
+Caption=MY STATS
+
+[GUILabel43]
+Caption=SERVER EMAIL:
+
+[GUILabel44]
+Caption=Another TV Server
+
+[GUILabel45]
+Caption=Not provided
+
+[TribesSPEscapeMenu_SaveGameButton]
+Caption=SAVE GAME
+
+[TribesSPEscapeMenu_LoadGameButton]
+Caption=LOAD GAME
+
+[TribesSPEscapeMenu_RestartButton]
+Caption=RESTART
+
+[TribesSPEscapeMenu_OptionsButton]
+Caption=OPTIONS
+
+[TribesSPEscapeMenu_QuitButton]
+Caption=QUIT TO MAIN MENU
+
+[TribesSPEscapeMenu_ReturnButton]
+Caption=RETURN TO GAME
+
+[TribesSPEscapeMenu_ExitGameButton]
+Caption=EXIT TRIBES
+
+[GUIButton96]
+Caption=SAVE GAME
+
+[GUIButton97]
+Caption=LOAD GAME
+
+[GUIButton98]
+Caption=RESTART
+
+[GUIButton99]
+Caption=OPTIONS
+
+[GUIButton100]
+Caption=QUIT TO MAIN MENU
+
+[GUIButton101]
+Caption=RETURN TO GAME
+
+[GUIButton102]
+Caption=EXIT TRIBES
+
+[TribesOptionsMenu_AudioButton]
+Caption=AUDIO
+
+[TribesOptionsMenu_VideoButton]
+Caption=VIDEO
+
+[TribesOptionsMenu_ControlsButton]
+Caption=CONTROLS
+
+[TribesOptionsMenu_RestoreDefaultsButton]
+Caption=DEFAULTS
+
+[TribesOptionsMenu_DoneButton]
+Caption=DONE
+
+[TribesOptionsMenu_OptionsLabel]
+Caption=OPTIONS
+
+[TribesOptionsVideoPanel_ResolutionLabel]
+Caption=RESOLUTION
+
+[TribesOptionsVideoPanel_DetailLabel]
+Caption=DETAIL LEVEL
+
+[TribesOptionsVideoPanel_BrightnessLabel]
+Caption=BRIGHTNESS
+
+[TribesOptionsVideoPanel_ContrastLabel]
+Caption=CONTRAST
+
+[TribesOptionsVideoPanel_GammaLabel]
+Caption=GAMMA
+
+[TribesOptionsVideoPanel_ApplyButton]
+Caption=APPLY
+
+[TribesOptionsVideoPanel_BumpMapLabel]
+Caption=BUMP MAP DETAIL
+
+[TribesOptionsVideoPanel_DynamicShadowLabel]
+Caption=DYNAMIC SHADOW DETAIL
+
+[TribesOptionsVideoPanel_GlowLabel]
+Caption=GLOW DETAIL
+
+[TribesOptionsVideoPanel_TexLabel]
+Caption=TEXTURE DETAIL
+
+[TribesOptionsVideoPanel_DECOLABEL]
+Caption=TERRAIN DECO LAYERS
+
+[TribesOptionsVideoPanel_MacroLabel]
+Caption=TERRAIN MACRO TEXTURE
+
+[TribesOptionsVideoPanel_FluidLabel]
+Caption=FLUID SURFACE DETAIL
+
+[TribesOptionsVideoPanel_FogLabel]
+Caption=FOGGING DISTANCE
+
+[TribesOptionsVideoPanel_worldLabel]
+Caption=WORLD DETAIL
+
+[TribesOptionsVideoPanel_REsTitle]
+Caption=BASIC VIDEO OPTIONS
+
+[TribesOptionsVideoPanel_advanceddetailtitle]
+Caption=ADVANCED DETAIL SETTINGS
+
+[TribesOptionsVideoPanel_pixelshaderslabel]
+Caption=v2.0 PIXEL SHADERS
+
+[TribesOptionsAudioPanel_MusicVolumeLabel]
+Caption=MUSIC VOLUME
+
+[TribesOptionsAudioPanel_SoundVolumeLabel]
+Caption=SOUND VOLUME
+
+[TribesOptionsAudioPanel_Use3DLabel]
+Caption=USE 3D SOUND
+
+[TribesOptionsAudioPanel_DefaultLabel]
+Caption=USE DEFAULT SOUND DRIVER
+
+[TribesOptionsAudioPanel_CompatibilityLabel]
+Caption=COMPATIBILITY MODE
+
+[TribesOptionsAudioPanel_ReverseLabel]
+Caption=REVERSE STEREO
+
+[TribesOptionsAudioPanel_LowLabel]
+Caption=LOW QUALITY
+
+[TribesOptionsAudioPanel_SpeechLabel]
+Caption=SPEECH VOLUME
+
+[TribesOptionsAudioPanel_VOLUMETITLE]
+Caption=VOLUME
+
+[TribesOptionsAudioPanel_settingstitle]
+Caption=SOUND QUALITY
+
+[TribesOptionsAudioPanel_CHATWINDOWLABEL]
+Caption=SHOW SUBTITLES
+
+[TribesOptionsControlsPanel_SelectKeyButton]
+Caption=SELECT KEY
+
+[TribesOptionsControlsPanel_MouseSensitivityLabel]
+Caption=MOUSE SENSITIVITY
+
+[TribesOptionsControlsPanel_InvertMouseLabel]
+Caption=INVERT MOUSE Y AXIS
+
+[TribesOptionsControlsPanel_KeyBindingBox_Functions_Button]
+Caption=FUNCTION
+
+[TribesOptionsControlsPanel_KeyBindingBox_MappedKey_Button]
+Caption=PRIMARY
+
+[TribesOptionsControlsPanel_KeyBindingBox_MappXySecondary_Button]
+Caption=SECONDARY
+
+[TribesOptionsControlsPanel_teamlable]
+Caption=TEAM COLORED RADAR ID
+
+[TribesOptionsNetworkPanel_ConnectionSpeedLabel]
+Caption=CONNECTION SPEED:
+
+[TribesOptionsNetworkPanel_DynamicNetspeedLabel]
+Caption=ADJUST CONNECTION SPEED WHILE PLAYING
+
+[TribesOptionsMenu_OptionsTabControl_LowLabel]
+Caption=LOW QUALITY
+
+[TribesOptionsMenu_optionstitle]
+Caption=OPTIONS
+
+[TribesOptionsMenu_MainMenuButton]
+Caption=MAIN MENU
+
+[TribesOptionsMenu_NetworkButton]
+Caption=NETWORK
+
+[GUIButton103]
+Caption=VIDEO
+
+[GUILabel46]
+Caption=LOW QUALITY
+
+[GUILabel47]
+Caption=DYNAMIC SHADOW DETAIL
+
+[GUILabel48]
+Caption=GLOW DETAIL
+
+[GUILabel49]
+Caption=TEXTURE DETAIL
+
+[GUILabel50]
+Caption=TERRAIN DECO LAYERS
+
+[GUILabel51]
+Caption=FLUID SURFACE DETAIL
+
+[GUILabel52]
+Caption=FOGGING DISTANCE
+
+[GUILabel53]
+Caption=WORLD DETAIL
+
+[GUILabel54]
+Caption=TERRAIN MACRO TEXTURE
+
+[GUILabel55]
+Caption=RESOLUTION
+
+[GUILabel56]
+Caption=DETAIL LEVEL
+
+[GUILabel57]
+Caption=BRIGHTNESS
+
+[GUILabel58]
+Caption=CONTRAST
+
+[GUILabel59]
+Caption=GAMMA
+
+[GUIButton104]
+Caption=APPLY
+
+[GUILabel60]
+Caption=BASIC VIDEO OPTIONS
+
+[GUILabel61]
+Caption=ADVANCED DETAIL SETTINGS
+
+[GUILabel62]
+Caption=BUMP MAP DETAIL
+
+[GUILabel63]
+Caption=v2.0 PIXEL SHADERS
+
+[GUILabel64]
+Caption=MUSIC VOLUME
+
+[GUILabel65]
+Caption=SOUND VOLUME
+
+[GUILabel66]
+Caption=USE 3D SOUND
+
+[GUILabel67]
+Caption=USE DEFAULT SOUND DRIVER
+
+[GUILabel68]
+Caption=COMPATIBILITY MODE
+
+[GUILabel69]
+Caption=REVERSE STEREO
+
+[GUILabel70]
+Caption=VOLUME
+
+[GUILabel71]
+Caption=SOUND QUALITY
+
+[GUILabel72]
+Caption=SHOW SUBTITLES
+
+[GUILabel73]
+Caption=LOW QUALITY
+
+[GUILabel74]
+Caption=SPEECH VOLUME
+
+[GUIButton105]
+Caption=FUNCTION
+
+[GUIButton106]
+Caption=PRIMARY
+
+[GUIButton107]
+Caption=SECONDARY
+
+[GUIButton108]
+Caption=SELECT KEY
+
+[GUILabel75]
+Caption=MOUSE SENSITIVITY
+
+[GUILabel76]
+Caption=INVERT MOUSE Y AXIS
+
+[GUILabel77]
+Caption=TEAM COLORED RADAR ID
+
+[GUILabel78]
+Caption=CONNECTION SPEED:
+
+[GUILabel79]
+Caption=ADJUST CONNECTION SPEED WHILE PLAYING
+
+[GUIButton109]
+Caption=AUDIO
+
+[GUIButton110]
+Caption=CONTROLS
+
+[GUIButton111]
+Caption=DEFAULTS
+
+[GUIButton112]
+Caption=DONE
+
+[GUIButton113]
+Caption=MAIN MENU
+
+[GUIButton114]
+Caption=NETWORK
+
+[GUILabel80]
+Caption=OPTIONS
+
+[GUILabel81]
+Caption=OPTIONS
+
+[TribesInventorySelectionMenu_SelectWeaponLabel]
+Caption=3 - SELECT WEAPON
+
+[TribesInventorySelectionMenu_SelectArmorLabel]
+Caption=1 - SELECT ARMOUR
+
+[TribesInventorySelectionMenu_SelectPackLabel]
+Caption=2 - SELECT PACK
+
+[TribesInventorySelectionMenu_DoneButton]
+Caption=ACCEPT CHANGES AND EXIT
+
+[TribesInventorySelectionMenu_ResetButton]
+Caption=RESET LOADOUT
+
+[TribesInventorySelectionMenu_PreviousSkinButton]
+Caption=PREVIOUS SKIN
+
+[TribesInventorySelectionMenu_NextSkinButton]
+Caption=NEXT SKIN
+
+[TribesInventorySelectionMenu_inventorytitle]
+Caption=INVENTORY STATION
+
+[GUIButton121]
+Caption=ACCEPT CHANGES AND EXIT
+
+[GUILabel82]
+Caption=3 - SELECT WEAPON
+
+[GUILabel83]
+Caption=1 - SELECT ARMOUR
+
+[GUILabel84]
+Caption=2 - SELECT PACK
+
+[GUIButton124]
+Caption=RESET LOADOUT
+
+[GUILabel86]
+Caption=INVENTORY STATION
+
+[GUIButton125]
+Caption=PREVIOUS SKIN
+
+[GUIButton126]
+Caption=NEXT SKIN
+
+[CurrentLoadoutTab]
+Caption=CURRENT LOADOUT
+
+[TribesInventoryLoadoutButton0]
+Caption=CURRENT LOADOUT
+
+[LoadoutButton0]
+Caption=Empty
+
+[TribesInventoryLoadoutButton1]
+Caption=Empty
+
+[LoadoutButton1]
+Caption=Empty
+
+[TribesInventoryLoadoutButton2]
+Caption=Empty
+
+[LoadoutButton2]
+Caption=Empty
+
+[TribesInventoryLoadoutButton3]
+Caption=Empty
+
+[LoadoutButton3]
+Caption=Empty
+
+[TribesInventoryLoadoutButton4]
+Caption=Empty
+
+[LoadoutButton4]
+Caption=Empty
+
+[TribesInventoryLoadoutButton5]
+Caption=Empty
+
+[LoadoutButton5]
+Caption=Empty
+
+[TribesInventoryLoadoutButton6]
+Caption=Empty
+
+[LoadoutButton6]
+Caption=Empty
+
+[TribesInventoryLoadoutButton7]
+Caption=Empty
+
+[LoadoutButton7]
+Caption=Empty
+
+[TribesInventoryLoadoutButton8]
+Caption=Empty
+
+[LoadoutButton8]
+Caption=Empty
+
+[TribesInventoryLoadoutButton9]
+Caption=Empty
+
+[LoadoutButton9]
+Caption=Empty
+
+[TribesInventoryLoadoutButton10]
+Caption=Empty
+
+[LoadoutButton10]
+Caption=Empty
+
+[TribesInventoryLoadoutButton11]
+Caption=Empty
+
+[LoadoutButton11]
+Caption=Empty
+
+[TribesInventoryLoadoutButton12]
+Caption=Empty
+
+[LoadoutButton12]
+Caption=Empty
+
+[TribesInventoryLoadoutButton13]
+Caption=Empty
+
+[LoadoutButton13]
+Caption=Empty
+
+[TribesInventoryLoadoutButton14]
+Caption=Empty
+
+[LoadoutButton14]
+Caption=Empty
+
+[TribesInventoryLoadoutButton15]
+Caption=Empty
+
+[LoadoutButton15]
+Caption=Empty
+
+[TribesInventoryLoadoutButton16]
+Caption=Empty
+
+[LoadoutButton16]
+Caption=Empty
+
+[TribesInventoryLoadoutButton17]
+Caption=Empty
+
+[LoadoutButton17]
+Caption=Empty
+
+[TribesInventoryLoadoutButton18]
+Caption=Empty
+
+[LoadoutButton18]
+Caption=Empty
+
+[TribesInventoryLoadoutButton19]
+Caption=Empty
+
+[LoadoutButton19]
+Caption=Empty
+
+[TribesInventoryLoadoutButton20]
+Caption=Empty
+
+[LoadoutButton20]
+Caption=Empty
+
+[TribesInventoryLoadoutButton21]
+Caption=Empty
+
+[LoadoutButton21]
+Caption=Empty
+
+[TribesInventoryLoadoutButton22]
+Caption=Empty
+
+[LoadoutButton22]
+Caption=Empty
+
+[TribesInventoryLoadoutButton23]
+Caption=Empty
+
+[TribesInventoryLoadoutButton24]
+Caption=CURRENT LOADOUT
+
+[TribesInventoryLoadoutButton25]
+Caption=Empty
+
+[TribesInventoryLoadoutButton26]
+Caption=Empty
+
+[TribesInventoryLoadoutButton27]
+Caption=Empty
+
+[TribesInventoryLoadoutButton28]
+Caption=Empty
+
+[TribesInventoryLoadoutButton29]
+Caption=Empty
+
+[TribesInventoryLoadoutButton30]
+Caption=Empty
+
+[TribesInventoryLoadoutButton31]
+Caption=Empty
+
+[CombatRoleLight]
+Caption=Light
+
+[TribesInventoryArmorButton0]
+Caption=Light
+
+[CombatRoleMedium]
+Caption=Medium
+
+[TribesInventoryArmorButton1]
+Caption=Medium
+
+[CombatRoleHeavy]
+Caption=Heavy
+
+[TribesInventoryArmorButton2]
+Caption=Heavy
+
+[TribesInventoryArmorButton3]
+Caption=Light
+
+[TribesInventoryArmorButton4]
+Caption=Medium
+
+[TribesInventoryArmorButton5]
+Caption=Heavy
+
+[WeaponSlot0_GUIButton]
+Caption=Slot 1
+
+[GUIButton127]
+Caption=Slot 1
+
+[GUIButton128]
+Caption=Slot 1
+
+[WeaponSlot0_GUILabel]
+Caption=Slot 1
+
+[GUILabel89]
+Caption=Slot 1
+
+[GUILabel90]
+Caption=Slot 1
+
+[weaponSlot1_GUIButton]
+Caption=Slot 2
+
+[GUIButton129]
+Caption=Slot 2
+
+[GUIButton130]
+Caption=Slot 2
+
+[weaponSlot1_GUILabel]
+Caption=Slot 2
+
+[GUILabel91]
+Caption=Slot 2
+
+[GUILabel92]
+Caption=Slot 2
+
+[weaponSlot2_GUIButton]
+Caption=Slot 3
+
+[GUIButton131]
+Caption=Slot 3
+
+[GUIButton132]
+Caption=Slot 3
+
+[weaponSlot2_GUILabel]
+Caption=Slot 3
+
+[GUILabel93]
+Caption=Slot 3
+
+[GUILabel94]
+Caption=Slot 3
+
+[weaponSlot3_GUIButton]
+Caption=Slot 1
+
+[GUIButton133]
+Caption=Slot 1
+
+[GUIButton134]
+Caption=Slot 1
+
+[weaponSlot3_GUILabel]
+Caption=Slot 1
+
+[GUILabel95]
+Caption=Slot 1
+
+[GUILabel96]
+Caption=Slot 1
+
+[weaponSlot4_GUIButton]
+Caption=Slot 1
+
+[GUIButton135]
+Caption=Slot 1
+
+[GUIButton136]
+Caption=Slot 1
+
+[weaponSlot4_GUILabel]
+Caption=Slot 1
+
+[GUILabel97]
+Caption=Slot 1
+
+[GUILabel98]
+Caption=Slot 1
+
+[weaponSlot5_GUIButton]
+Caption=Slot 1
+
+[GUIButton137]
+Caption=Slot 1
+
+[GUIButton138]
+Caption=Slot 1
+
+[weaponSlot5_GUILabel]
+Caption=Slot 1
+
+[GUILabel99]
+Caption=Slot 1
+
+[GUILabel100]
+Caption=Slot 1
+
+[weaponSlot6_GUIButton]
+Caption=Slot 1
+
+[GUIButton139]
+Caption=Slot 1
+
+[GUIButton140]
+Caption=Slot 1
+
+[weaponSlot6_GUILabel]
+Caption=Slot 1
+
+[GUILabel101]
+Caption=Slot 1
+
+[GUILabel102]
+Caption=Slot 1
+
+[weaponSlot7_GUIButton]
+Caption=Slot 1
+
+[GUIButton141]
+Caption=Slot 1
+
+[GUIButton142]
+Caption=Slot 1
+
+[weaponSlot7_GUILabel]
+Caption=Slot 1
+
+[GUILabel103]
+Caption=Slot 1
+
+[GUILabel104]
+Caption=Slot 1
+
+[weaponSlot8_GUIButton]
+Caption=Slot 1
+
+[GUIButton143]
+Caption=Slot 1
+
+[GUIButton144]
+Caption=Slot 1
+
+[weaponSlot8_GUILabel]
+Caption=Slot 1
+
+[GUILabel105]
+Caption=Slot 1
+
+[GUILabel106]
+Caption=Slot 1
+
+[weaponSlot9_GUIButton]
+Caption=Slot 1
+
+[GUIButton145]
+Caption=Slot 1
+
+[GUIButton146]
+Caption=Slot 1
+
+[weaponSlot9_GUILabel]
+Caption=Slot 1
+
+[GUILabel107]
+Caption=Slot 1
+
+[GUILabel108]
+Caption=Slot 1
+
+[GUIButton147]
+Caption=Slot 1
+
+[GUILabel109]
+Caption=Slot 1
+
+[GUIButton148]
+Caption=Slot 2
+
+[GUILabel110]
+Caption=Slot 2
+
+[GUIButton149]
+Caption=Slot 3
+
+[GUILabel111]
+Caption=Slot 3
+
+[WeaponSpinfusor]
+Caption=SPINFUSOR
+
+[TribesInventoryWeaponButton0]
+Caption=SPINFUSOR
+
+[WeaponChaingun]
+Caption=CHAINGUN
+
+[TribesInventoryWeaponButton1]
+Caption=CHAINGUN
+
+[WeaponBlaster]
+Caption=BLASTER
+
+[TribesInventoryWeaponButton2]
+Caption=BLASTER
+
+[WeaponGrenadeLauncher]
+Caption=GREN. LAUNCHER
+
+[TribesInventoryWeaponButton3]
+Caption=GREN. LAUNCHER
+
+[WeaponRocketPod]
+Caption=ROCKET POD
+
+[TribesInventoryWeaponButton4]
+Caption=ROCKET POD
+
+[WeaponBurner]
+Caption=BURNER
+
+[TribesInventoryWeaponButton5]
+Caption=BURNER
+
+[WeaponGrappler]
+Caption=GRAPPLER
+
+[TribesInventoryWeaponButton6]
+Caption=GRAPPLER
+
+[WeaponSniperRifle]
+Caption=SNIPER RIFLE
+
+[TribesInventoryWeaponButton7]
+Caption=SNIPER RIFLE
+
+[WeaponBuckler]
+Caption=BUCKLER
+
+[TribesInventoryWeaponButton8]
+Caption=BUCKLER
+
+[WeaponMortar]
+Caption=MORTAR
+
+[TribesInventoryWeaponButton9]
+Caption=MORTAR
+
+[TribesInventoryWeaponButton10]
+Caption=SPINFUSOR
+
+[TribesInventoryWeaponButton11]
+Caption=CHAINGUN
+
+[TribesInventoryWeaponButton12]
+Caption=BLASTER
+
+[TribesInventoryWeaponButton13]
+Caption=GREN. LAUNCHER
+
+[TribesInventoryWeaponButton14]
+Caption=ROCKET POD
+
+[TribesInventoryWeaponButton15]
+Caption=BURNER
+
+[TribesInventoryWeaponButton16]
+Caption=GRAPPLER
+
+[TribesInventoryWeaponButton17]
+Caption=SNIPER RIFLE
+
+[TribesInventoryWeaponButton18]
+Caption=BUCKLER
+
+[TribesInventoryWeaponButton19]
+Caption=MORTAR
+
+[PackEnergy]
+Caption=ENERGY PACK
+
+[TribesInventoryPackButton0]
+Caption=ENERGY PACK
+
+[PackShield]
+Caption=SHIELD PACK
+
+[TribesInventoryPackButton1]
+Caption=SHIELD PACK
+
+[PackRepair]
+Caption=REPAIR PACK
+
+[TribesInventoryPackButton2]
+Caption=REPAIR PACK
+
+[PackSpeed]
+Caption=SPEED PACK
+
+[TribesInventoryPackButton3]
+Caption=SPEED PACK
+
+[TribesInventoryPackButton4]
+Caption=ENERGY PACK
+
+[TribesInventoryPackButton5]
+Caption=SHIELD PACK
+
+[TribesInventoryPackButton6]
+Caption=REPAIR PACK
+
+[TribesInventoryPackButton7]
+Caption=SPEED PACK
+
+[TribesMainMenu_newgamebutton]
+Caption=NEW GAME
+
+[TribesMainMenu_LoadGameButton]
+Caption=LOAD GAME
+
+[TribesMainMenu_MultiplayerButton]
+Caption=MULTIPLAYER
+
+[TribesMainMenu_OptionsButton]
+Caption=OPTIONS
+
+[TribesMainMenu_QuitButton]
+Caption=QUIT
+
+[TribesMainMenu_DebugLoadMapButton]
+Caption=DEBUG LOAD
+
+[TribesMainMenu_ContinueButton]
+Caption=CONTINUE
+
+[TribesMainMenu_CreditsButton]
+Caption=CREDITS
+
+[GUIButton150]
+Caption=NEW GAME
+
+[GUIButton151]
+Caption=CONTINUE
+
+[GUIButton152]
+Caption=LOAD GAME
+
+[GUIButton153]
+Caption=MULTIPLAYER
+
+[GUIButton154]
+Caption=OPTIONS
+
+[GUIButton155]
+Caption=DEBUG LOAD
+
+[GUIButton156]
+Caption=CREDITS
+
+[GUIButton157]
+Caption=QUIT
+
+[TribesPatchCheck_YesButton]
+Caption=YES
+
+[TribesPatchCheck_NoButton]
+Caption=NO
+
+[TribesPatchCheck_StatusLabel]
+Caption=You already have the latest version of Tribes: Vengeance.
+
+[TribesPatchCheck_OKButton]
+Caption=OK
+
+[GUIButton158]
+Caption=YES
+
+[GUIButton159]
+Caption=NO
+
+[GUILabel112]
+Caption=You already have the latest version of Tribes: Vengeance.
+
+[GUIButton160]
+Caption=OK
+
+[TribesMissionLoadingMenu_LoadingLabel]
+Caption=LOADING...
+
+[TribesMissionLoadingMenu_MapTitleLabel]
+Caption=Untitled
+
+[GUILabel114]
+Caption=LOADING...
+
+[GUILabel115]
+Caption=Untitled
+
+[TribesMPServerPropertiesMenu_DoneButton]
+Caption=DONE
+
+[TribesMPServerPropertiesMenu_ServerNameLabel]
+Caption=SERVER NAME:
+
+[TribesMPServerPropertiesMenu_MapLabel]
+Caption=MAP:
+
+[TribesMPServerPropertiesMenu_IPAddressLabel]
+Caption=IP ADDRESS:
+
+[TribesMPServerPropertiesMenu_VersionLabel]
+Caption=VERSION:
+
+[TribesMPServerPropertiesMenu_PingLabel]
+Caption=PING:
+
+[TribesMPServerPropertiesMenu_TeamOneNameLabel]
+Caption=Phoenix
+
+[TribesMPServerPropertiesMenu_TeamTwoNameLabel]
+Caption=Blood Eagle
+
+[TribesMPServerPropertiesMenu_TeamOneScoreLabel]
+Caption=0
+
+[TribesMPServerPropertiesMenu_TeamTwoScoreLabel]
+Caption=0
+
+[TribesMPServerPropertiesMenu_PlayerList_Name_Button]
+Caption=PLAYER
+
+[TribesMPServerPropertiesMenu_PlayerList_Ping_Button]
+Caption=PING
+
+[TribesMPServerPropertiesMenu_PlayerList_Score_Button]
+Caption=SCORE
+
+[TribesMPServerPropertiesMenu_PlayerListTwo_Name_Button]
+Caption=PLAYER
+
+[TribesMPServerPropertiesMenu_PlayerListTwo_Ping_Button]
+Caption=PING
+
+[TribesMPServerPropertiesMenu_PlayerListTwo_Score_Button]
+Caption=SCORE
+
+[TribesMPServerPropertiesMenu_RefreshButton]
+Caption=REFRESH
+
+[TribesMPServerPropertiesMenu_GameTypeLabel]
+Caption=GAME TYPE:
+
+[TribesMPServerPropertiesMenu_ServerNameDataLabel]
+Caption=
+
+[TribesMPServerPropertiesMenu_IPAddressDataLabel]
+Caption=
+
+[TribesMPServerPropertiesMenu_VersionDataLabel]
+Caption=
+
+[TribesMPServerPropertiesMenu_MapDataLabel]
+Caption=
+
+[TribesMPServerPropertiesMenu_GameTypeDataLabel]
+Caption=
+
+[TribesMPServerPropertiesMenu_ConnectButton]
+Caption=CONNECT
+
+[TribesMPServerPropertiesMenu_AdminEmailLabel]
+Caption=EMAIL:
+
+[GUIButton161]
+Caption=PLAYER
+
+[GUIButton162]
+Caption=PING
+
+[GUIButton163]
+Caption=SCORE
+
+[GUIButton164]
+Caption=PLAYER
+
+[GUIButton165]
+Caption=PING
+
+[GUIButton166]
+Caption=SCORE
+
+[GUIButton167]
+Caption=DONE
+
+[GUILabel118]
+Caption=SERVER NAME:
+
+[GUILabel119]
+Caption=MAP:
+
+[GUILabel120]
+Caption=IP ADDRESS:
+
+[GUILabel121]
+Caption=VERSION:
+
+[GUILabel122]
+Caption=PING:
+
+[GUILabel123]
+Caption=Phoenix
+
+[GUILabel124]
+Caption=Blood Eagle
+
+[GUILabel125]
+Caption=0
+
+[GUILabel126]
+Caption=0
+
+[GUIButton168]
+Caption=REFRESH
+
+[GUILabel127]
+Caption=GAME TYPE:
+
+[GUILabel128]
+Caption=Mini-Sprinkle
+
+[GUILabel129]
+Caption=216.127.253.77:7777
+
+[GUILabel130]
+Caption=55256
+
+[GUILabel131]
+Caption=281
+
+[GUILabel132]
+Caption=Cavern
+
+[GUILabel133]
+Caption=CTF
+
+[GUIButton169]
+Caption=CONNECT
+
+[GUILabel134]
+Caption=EMAIL:
+
+[TribesGamespyLogin_ActionButton]
+Caption=LOGIN
+
+[TribesGamespyLogin_CancelButton]
+Caption=CANCEL
+
+[TribesGamespyLogin_LabelEmail]
+Caption=EMAIL:
+
+[TribesGamespyLogin_LabelPassword]
+Caption=PASSWORD:
+
+[TribesGamespyLogin_Title]
+Caption=LOGIN TO STAT TRACKING PROFILE
+
+[GUIButton170]
+Caption=LOGIN
+
+[GUIButton171]
+Caption=CANCEL
+
+[GUILabel136]
+Caption=EMAIL:
+
+[GUILabel137]
+Caption=PASSWORD:
+
+[GUILabel138]
+Caption=LOGIN TO STAT TRACKING PROFILE
+
+[TribesSaveGameMenu_TitleLabel]
+Caption=SAVE GAME
+
+[TribesSaveGameMenu_CancelButton]
+Caption=CANCEL
+
+[TribesSaveGameMenu_GameListBox_Name_Button]
+Caption=NAME
+
+[TribesSaveGameMenu_SaveButton]
+Caption=SAVE
+
+[TribesSaveGameMenu_DeleteButton]
+Caption=DELETE
+
+[GUIButton172]
+Caption=NAME
+
+[GUIButton173]
+Caption=CANCEL
+
+[GUILabel139]
+Caption=SAVE GAME
+
+[GUIButton174]
+Caption=SAVE
+
+[GUIButton175]
+Caption=DELETE
+
+[TribesDefaultTextEntryPopup_OKButton]
+Caption=OK
+
+[TribesDefaultTextEntryPopup_CancelButton]
+Caption=Cancel
+
+[TribesDefaultTextEntryPopup_TitleLabel]
+Caption="Enter the name of your new profile "
+
+[GUIButton176]
+Caption=OK
+
+[GUIButton177]
+Caption=Cancel
+
+[GUILabel140]
+Caption="Enter the name of your new profile "
+
+[TribesHelpScreen_firekeylabel]
+Caption=FIRE:
+
+[TribesHelpScreen_FIREKEYDisplay]
+Caption=J1
+
+[TribesHelpScreen_fallbackkeylabel]
+Caption=FALLBACKWEAPON:
+
+[TribesHelpScreen_fallbackkeydisplay]
+Caption=`
+
+[TribesHelpScreen_Weapononelabel]
+Caption=WEAPON ONE:
+
+[TribesHelpScreen_WEAPONONEKEYDISPLAY]
+Caption=1
+
+[TribesHelpScreen_WEAPON2label]
+Caption=WEAPON TWO:
+
+[TribesHelpScreen_WEapontwokeydisplay]
+Caption=2
+
+[TribesHelpScreen_WeaponthreeLabel]
+Caption=WEAPON THREE:
+
+[TribesHelpScreen_weaponthreekeydisplay]
+Caption=3
+
+[TribesHelpScreen_throwgrenadelabel]
+Caption=THROW GRENADE:
+
+[TribesHelpScreen_throwgrenadekeydisplay]
+Caption=E
+
+[TribesHelpScreen_Usepackkeylabel]
+Caption=USE PACK:
+
+[TribesHelpScreen_usepackkeydisplay]
+Caption=Q
+
+[TribesHelpScreen_usekeylabel]
+Caption=USE:
+
+[TribesHelpScreen_usekeydisplay]
+Caption=F
+
+[TribesHelpScreen_commandmapkeylabel]
+Caption=COMMAND MAP:
+
+[TribesHelpScreen_commandmapkeydisplay]
+Caption=C
+
+[TribesHelpScreen_jetpackkeylabel]
+Caption=JETPACK:
+
+[TribesHelpScreen_jetpackkeydisplay]
+Caption=RM
+
+[TribesHelpScreen_skikeylabel]
+Caption=SKI:
+
+[TribesHelpScreen_skikeydisplay]
+Caption=ES
+
+[TribesHelpScreen_forwardkeylabel]
+Caption=FORWARD:
+
+[TribesHelpScreen_forwardkeydisplay]
+Caption=LM
+
+[TribesHelpScreen_backkeylabel]
+Caption=BACK:
+
+[TribesHelpScreen_backkeydisplay]
+Caption=DW
+
+[TribesHelpScreen_leftkeylabel]
+Caption=LEFT:
+
+[TribesHelpScreen_leftkeydisplay]
+Caption=LF
+
+[TribesHelpScreen_rightkeylabel]
+Caption=RIGHT:
+
+[TribesHelpScreen_rightkeydisplay]
+Caption=RT
+
+[TribesHelpScreen_helpscreentitle]
+Caption=TRIBES VENGEANCE HELP SCREEN
+
+[TribesHelpScreen_controlstitle]
+Caption=CURRENT CONTROLS
+
+[GUILabel141]
+Caption=FIRE:
+
+[GUILabel142]
+Caption=J1
+
+[GUILabel143]
+Caption=FALLBACKWEAPON:
+
+[GUILabel144]
+Caption=`
+
+[GUILabel145]
+Caption=WEAPON ONE:
+
+[GUILabel146]
+Caption=1
+
+[GUILabel147]
+Caption=WEAPON TWO:
+
+[GUILabel148]
+Caption=2
+
+[GUILabel149]
+Caption=WEAPON THREE:
+
+[GUILabel150]
+Caption=3
+
+[GUILabel151]
+Caption=THROW GRENADE:
+
+[GUILabel152]
+Caption=E
+
+[GUILabel153]
+Caption=USE PACK:
+
+[GUILabel154]
+Caption=Q
+
+[GUILabel155]
+Caption=USE:
+
+[GUILabel156]
+Caption=F
+
+[GUILabel157]
+Caption=COMMAND MAP:
+
+[GUILabel158]
+Caption=C
+
+[GUILabel159]
+Caption=JETPACK:
+
+[GUILabel160]
+Caption=RM
+
+[GUILabel161]
+Caption=SKI:
+
+[GUILabel162]
+Caption=ES
+
+[GUILabel163]
+Caption=FORWARD:
+
+[GUILabel164]
+Caption=LM
+
+[GUILabel165]
+Caption=BACK:
+
+[GUILabel166]
+Caption=DW
+
+[GUILabel167]
+Caption=LEFT:
+
+[GUILabel168]
+Caption=LF
+
+[GUILabel169]
+Caption=RIGHT:
+
+[GUILabel170]
+Caption=RT
+
+[GUILabel171]
+Caption=TRIBES VENGEANCE HELP SCREEN
+
+[GUILabel172]
+Caption=CURRENT CONTROLS
+
+[TribesMPServerConfigMenu_TitleLabel]
+Caption=ADVANCED SERVER CONFIGURATION
+
+[TribesMPServerConfigMenu_GameTypeLabel]
+Caption=GAME TYPE
+
+[TribesMPServerConfigMenu_LoadedMapLabel]
+Caption=MAP SCHEDULE
+
+[TribesMPServerConfigMenu_AvailableMapListLabel]
+Caption=AVAILABLE MAPS
+
+[TribesMPServerConfigMenu_AddButton]
+Caption=>
+Hint=Add selected available map
+
+[TribesMPServerConfigMenu_AddAllButton]
+Caption=> >
+Hint=Add all available maps
+
+[TribesMPServerConfigMenu_RemoveButton]
+Caption=<
+Hint=Remove selected map from the schedule
+
+[TribesMPServerConfigMenu_RemoveAllButton]
+Caption=< <
+Hint=Remove all maps from the schedule
+
+[TribesMPServerConfigMenu_UpButton]
+Caption=MOVE UP
+Hint=Move the selected map up in the schedule
+
+[TribesMPServerConfigMenu_DownButton]
+Caption=MOVE DOWN
+Hint=Move the selected map down in the schedule
+
+[TribesMPServerConfigMenu_AdvertiseLabel]
+Caption=ADVERTISE ON GAMESPY
+
+[TribesMPServerConfigMenu_StatLabel]
+Caption=ENABLE GAMESPY STAT LOGGING
+
+[TribesMPServerConfigMenu_AdminLabel]
+Caption=ADMIN LOGIN:
+
+[TribesMPServerConfigMenu_AdminEmailLabel]
+Caption=ADMIN EMAIL:
+
+[TribesMPServerConfigMenu_AdminPasswordLabel]
+Caption=ADMIN PASSWORD:
+
+[TribesMPServerConfigMenu_MaxPlayerLabel]
+Caption=MAX PLAYERS:
+
+[TribesMPServerConfigMenu_TimeLimitLabel]
+Caption=TIME LIMIT:
+
+[TribesMPServerConfigMenu_WebadminLabel]
+Caption=ENABLE WEBADMIN ON PORT:
+
+[TribesMPServerConfigMenu_DoneButton]
+Caption=DONE
+
+[TribesMPServerConfigMenu_CancelButton]
+Caption=CANCEL
+
+[TribesMPServerConfigMenu_adminsettingstitle]
+Caption=ADMINISTRATOR SETTINGS
+
+[GUIButton178]
+Caption=DONE
+
+[GUIButton179]
+Caption=CANCEL
+
+[GUILabel173]
+Caption=ADVANCED SERVER CONFIGURATION
+
+[GUILabel174]
+Caption=GAME TYPE
+
+[GUILabel175]
+Caption=MAP SCHEDULE
+
+[GUILabel176]
+Caption=AVAILABLE MAPS
+
+[GUIButton180]
+Caption=>
+Hint=Add selected available map
+
+[GUIButton181]
+Caption=> >
+Hint=Add all available maps
+
+[GUIButton182]
+Caption=<
+Hint=Remove selected map from the schedule
+
+[GUIButton183]
+Caption=< <
+Hint=Remove all maps from the schedule
+
+[GUIButton184]
+Caption=MOVE UP
+Hint=Move the selected map up in the schedule
+
+[GUIButton185]
+Caption=MOVE DOWN
+Hint=Move the selected map down in the schedule
+
+[GUILabel177]
+Caption=ADVERTISE ON GAMESPY
+
+[GUILabel178]
+Caption=ENABLE GAMESPY STAT LOGGING
+
+[GUILabel179]
+Caption=ADMIN LOGIN:
+
+[GUILabel180]
+Caption=ADMIN EMAIL:
+
+[GUILabel181]
+Caption=ADMIN PASSWORD:
+
+[GUILabel182]
+Caption=MAX PLAYERS:
+
+[GUILabel183]
+Caption=TIME LIMIT:
+
+[GUILabel184]
+Caption=ENABLE WEBADMIN ON PORT:
+
+[GUILabel185]
+Caption=ADMINISTRATOR SETTINGS
+
+[TribesCreditsMenu_BackButton]
+Caption=CANCEL
+
+[GUIButton186]
+Caption=CANCEL
+
+[TribesCreditsMenu_0_Label]
+Caption=TRIBES VENGEANCE
+
+[GUILabel186]
+Caption=TRIBES VENGEANCE
+
+[TribesCreditsMenu_2_Label]
+Caption=Developed by Irrational Games(TM)
+
+[GUILabel188]
+Caption=Developed by Irrational Games
+
+[TribesCreditsMenu_4_Label]
+Caption=[u]Alphabetical list of main contributors[\u]
+
+[GUILabel190]
+Caption=[u]Alphabetical list of main contributors[\u]
+
+[GUILabel191]
+Caption=Alex Boylan                 	Artist
+
+[TribesCreditsMenu_6_Label]
+Caption=Alex Boylan - Artist
+
+[GUILabel192]
+Caption=Alex Luddy                  	Programmer
+
+[TribesCreditsMenu_7_Label]
+Caption=Alex Luddy - Programmer
+
+[GUILabel193]
+Caption=Andrew James                	Lead Artist
+
+[TribesCreditsMenu_8_Label]
+Caption=Andrew James - Lead Artist
+
+[GUILabel194]
+Caption=Andrew Orman                	Designer
+
+[TribesCreditsMenu_9_Label]
+Caption=Andrew Orman - Designer
+
+[GUILabel195]
+Caption=Ben Hutchings               	Senior Animator
+
+[TribesCreditsMenu_10_Label]
+Caption=Ben Hutchings - Senior Animator
+
+[GUILabel196]
+Caption=Ben Lee                     	Art Director
+
+[TribesCreditsMenu_11_Label]
+Caption=Ben Lee - Art Director
+
+[GUILabel197]
+Caption=Brendan George              	Artist
+
+[TribesCreditsMenu_12_Label]
+Caption=Brendan George - Artist
+
+[GUILabel198]
+Caption=Brendon Kirk			Quality Assurance
+
+[TribesCreditsMenu_13_Label]
+Caption=Brendon Kirk - Quality Assurance
+
+[GUILabel199]
+Caption=Daniel Keating                  	Artist
+
+[TribesCreditsMenu_14_Label]
+Caption=Daniel Keating - Artist
+
+[GUILabel200]
+Caption=David Beswick                  	Programmer
+
+[TribesCreditsMenu_15_Label]
+Caption=David Beswick - Programmer
+
+[GUILabel201]
+Caption=Dean Tate                      	Designer
+
+[TribesCreditsMenu_16_Label]
+Caption=Dean Tate - Designer
+
+[GUILabel202]
+Caption=Edward Orman                	Lead Designer
+
+[TribesCreditsMenu_17_Label]
+Caption=Edward Orman - Lead Designer
+
+[GUILabel203]
+Caption=Eric Brosius                    	Sound and Music
+
+[TribesCreditsMenu_18_Label]
+Caption=Eric Brosius - Sound and Music
+
+[GUILabel204]
+Caption=Glenn Fiedler                   	Senior Programmer
+
+[TribesCreditsMenu_19_Label]
+Caption=Glenn Fiedler - Senior Programmer
+
+[GUILabel205]
+Caption=James Sharpe                  	Artist
+
+[TribesCreditsMenu_20_Label]
+Caption=James Sharpe - Artist
+
+[GUILabel206]
+Caption=Jay Kyburz                     	Lead Level Designer
+
+[TribesCreditsMenu_21_Label]
+Caption=Jay Kyburz - Lead Level Designer
+
+[GUILabel207]
+Caption=John Travers                   	Artist
+
+[TribesCreditsMenu_22_Label]
+Caption=John Travers - Artist
+
+[GUILabel208]
+Caption=Jonathan Chey                	Managing Director, Designer
+
+[TribesCreditsMenu_23_Label]
+Caption=Jonathan Chey - Managing Director, Designer
+
+[GUILabel209]
+Caption=Jonathan Pelling              	Designer
+
+[TribesCreditsMenu_24_Label]
+Caption=Jonathan Pelling - Designer
+
+[GUILabel210]
+Caption=Ken Levine                    	Biz guy, Writer
+
+[TribesCreditsMenu_25_Label]
+Caption=Ken Levine - Biz guy, Writer
+
+[GUILabel211]
+Caption=Mahala Harris                  	Office Manager
+
+[TribesCreditsMenu_26_Label]
+Caption=Mahala Harris - Office Manager
+
+[GUILabel212]
+Caption=Marc Atkin                   	Senior Programmer
+
+[TribesCreditsMenu_27_Label]
+Caption=Marc Atkin - Senior Programmer
+
+[GUILabel213]
+Caption=Michael Blake                 	Artist
+
+[TribesCreditsMenu_28_Label]
+Caption=Michael Blake - Artist
+
+[GUILabel214]
+Caption=Michael Johnston             	Senior Designer, Programmer
+
+[TribesCreditsMenu_29_Label]
+Caption=Michael Johnston - Senior Designer, Programmer
+
+[GUILabel215]
+Caption=Paul Dennison               	Programmer
+
+[TribesCreditsMenu_30_Label]
+Caption=Paul Dennison - Programmer
+
+[GUILabel216]
+Caption=Phil Sullivan                	Assistant Producer
+
+[TribesCreditsMenu_31_Label]
+Caption=Phil Sullivan - Assistant Producer
+
+[GUILabel217]
+Caption=Rowan Wyborn                   	Lead Programmer
+
+[TribesCreditsMenu_32_Label]
+Caption=Rowan Wyborn - Lead Programmer
+
+[GUILabel218]
+Caption=Russell Jacobson               	Quality Assurance
+
+[TribesCreditsMenu_33_Label]
+Caption=Russell Jacobson - Quality Assurance
+
+[GUILabel219]
+Caption=Ryan Lancaster                 	Programmer
+
+[TribesCreditsMenu_34_Label]
+Caption=Ryan Lancaster - Programmer
+
+[GUILabel220]
+Caption=Stephen Chey			Operations Manager
+
+[TribesCreditsMenu_35_Label]
+Caption=Stephen Chey - Operations Manager
+
+[GUILabel221]
+Caption=Tony Oakden                   	Producer
+
+[TribesCreditsMenu_36_Label]
+Caption=Tony Oakden - Producer
+
+[GUILabel222]
+Caption=[u]Alphabetical list of secondary contributors[\u]
+
+[GUILabel223]
+Caption=Andrew Smith 			Designer
+
+[TribesCreditsMenu_38_Label]
+Caption=[u]Alphabetical list of secondary contributors[\u]
+
+[GUILabel224]
+Caption="Anthony Clare                 	Artist "
+
+[GUILabel225]
+Caption=Carlos Cuello			Programmer
+
+[TribesCreditsMenu_40_Label]
+Caption=Andrew Smith - Designer
+
+[GUILabel226]
+Caption=Christopher Kline			Programmer
+
+[TribesCreditsMenu_41_Label]
+Caption="Anthony Clare - Artist "
+
+[GUILabel227]
+Caption=Christian Martinez              	Art contractor
+
+[TribesCreditsMenu_42_Label]
+Caption=Carlos Cuello - Programmer
+
+[GUILabel228]
+Caption=Codality, Inc.                  	Design contractor
+
+[TribesCreditsMenu_43_Label]
+Caption=Christopher Kline - Programmer
+
+[GUILabel229]
+Caption=Dan Kaplan				Programmer
+
+[TribesCreditsMenu_44_Label]
+Caption=Christian Martinez - Art contractor
+
+[GUILabel230]
+Caption=Darren Lafreniere			Programmer
+
+[TribesCreditsMenu_45_Label]
+Caption=Codality, Inc. - Design contractor
+
+[GUILabel231]
+Caption=Henry Kaufman			Programmer
+
+[TribesCreditsMenu_46_Label]
+Caption=Dan Kaplan - Programmer
+
+[GUILabel232]
+Caption=John Abercrombie			Programmer
+
+[TribesCreditsMenu_47_Label]
+Caption=Darren Lafreniere - Programmer
+
+[GUILabel233]
+Caption=Karl Burdack                    	Programmer
+
+[TribesCreditsMenu_48_Label]
+Caption=Henry Kaufman - Programmer
+
+[GUILabel234]
+Caption=Kevin Lockitt			Designer
+
+[TribesCreditsMenu_49_Label]
+Caption=John Abercrombie - Programmer
+
+[GUILabel235]
+Caption=Michael James			Programmer
+
+[TribesCreditsMenu_50_Label]
+Caption=Karl Burdack - Programmer
+
+[GUILabel236]
+Caption=" Sylvia Chong                    	Artist"
+
+[TribesCreditsMenu_51_Label]
+Caption=Kevin Lockitt - Designer
+
+[GUILabel237]
+Caption=" Terrance Cohen			Programmer"
+
+[TribesCreditsMenu_52_Label]
+Caption=Michael James - Programmer
+
+[GUILabel238]
+Caption="[u]Irrational Games would like to give special thanks to[\u] "
+
+[TribesCreditsMenu_53_Label]
+Caption=" Sylvia Chong - Artist"
+
+[TribesCreditsMenu_54_Label]
+Caption=" Terrance Cohen - Programmer"
+
+[GUILabel240]
+Caption=Peter Phillips (Endeavour Consulting)
+
+[GUILabel241]
+Caption=Fred Fierst and the staff of Fierst, Pucci and Kinder
+
+[TribesCreditsMenu_56_Label]
+Caption="[u]Irrational Games(TM) would like to give special thanks to[\u] "
+
+[GUILabel242]
+Caption=Dave Grenewetzki
+
+[GUILabel243]
+Caption=Brian Benincasa and the Microsoft Tech guys
+
+[TribesCreditsMenu_58_Label]
+Caption=Peter Phillips (Endeavour Consulting)
+
+[GUILabel244]
+Caption=Havok, nVidia and ATI
+
+[TribesCreditsMenu_59_Label]
+Caption=Fred Fierst and the staff of Fierst, Pucci and Kinder
+
+[GUILabel245]
+Caption=Epic
+
+[TribesCreditsMenu_60_Label]
+Caption=Dave Grenewetzki
+
+[GUILabel246]
+Caption=Stephen Barrass and Matt Adcock (CSIRO)
+
+[TribesCreditsMenu_61_Label]
+Caption=Brian Benincasa and the Microsoft Tech guys
+
+[GUILabel247]
+Caption=All of the beta testers
+
+[TribesCreditsMenu_62_Label]
+Caption=Havok, nVidia and ATI
+
+[GUILabel248]
+Caption=The Canberra Games Festival
+
+[TribesCreditsMenu_63_Label]
+Caption=Epic
+
+[GUILabel249]
+Caption=Game Arena, Homelan and 5150 for hosting servers during closed and open beta
+
+[TribesCreditsMenu_64_Label]
+Caption=Stephen Barrass and Matt Adcock (CSIRO)
+
+[GUILabel250]
+Caption=Tribal War (for all their help in testing this product but particularly for the 4 cases of VB)
+
+[TribesCreditsMenu_65_Label]
+Caption=All of the beta testers
+
+[GUILabel251]
+Caption=bittah.com
+
+[TribesCreditsMenu_66_Label]
+Caption=The Canberra Games Festival
+
+[GUILabel252]
+Caption=kronic250
+
+[TribesCreditsMenu_67_Label]
+Caption=Game Arena, Homelan and 5150 for hosting servers during closed and open beta
+
+[GUILabel253]
+Caption=Meredith Levine
+
+[TribesCreditsMenu_68_Label]
+Caption=Tribal War (for all their help in testing this product but particularly for the 4 cases of VB)
+
+[GUILabel254]
+Caption="Allison Meany for the constant flow of delicious muffins "
+
+[TribesCreditsMenu_69_Label]
+Caption=bittah.com
+
+[GUILabel255]
+Caption=Da Cellinis for providing the recommended daily intake of caffeine
+
+[TribesCreditsMenu_70_Label]
+Caption=kronic250
+
+[GUILabel256]
+Caption=All the wives, partners, children and ferrets, who have been extremely patient during the development of this title.
+
+[TribesCreditsMenu_71_Label]
+Caption=Meredith Levine
+
+[TribesCreditsMenu_72_Label]
+Caption="Allison Meany for the constant flow of delicious muffins "
+
+[GUILabel258]
+Caption=[u]Publishing by Vivendi Universal Games[\u]
+
+[TribesCreditsMenu_73_Label]
+Caption=Da Cellinis for providing the recommended daily intake of caffeine
+
+[GUILabel259]
+Caption=[u]Bellevue, Washington Team:[\u]
+
+[TribesCreditsMenu_74_Label]
+Caption=All the wives, partners, children and ferrets,
+
+[GUILabel260]
+Caption=Chris Mahnken               	Producer
+
+[TribesCreditsMenu_75_Label]
+Caption=who have been extremely patient during the development of this title.
+
+[GUILabel261]
+Caption=Mike Jacob                     	Executive Producer
+
+[GUILabel262]
+Caption=Katrina Quan                   	Associate Producer
+
+[TribesCreditsMenu_77_Label]
+Caption=[u]Publishing by Vivendi Universal Games[\u]
+
+[GUILabel263]
+Caption=Kelly Zmak                     	VP of Development
+
+[GUILabel264]
+Caption=Gary Stevens                   	QA Director
+
+[TribesCreditsMenu_79_Label]
+Caption=[u]Bellevue, Washington Team:[\u]
+
+[GUILabel265]
+Caption=Chad Martin                    	QA Project Lead
+
+[GUILabel266]
+Caption=Tharlie Richardson           	Assistant QA Lead
+
+[TribesCreditsMenu_81_Label]
+Caption=Chris Mahnken - Producer
+
+[GUILabel267]
+Caption=Mike Racioppi                 	QA Tester
+
+[TribesCreditsMenu_82_Label]
+Caption=Mike Jacob - Executive Producer
+
+[GUILabel268]
+Caption=Isaac Aubrey                   	QA Tester
+
+[TribesCreditsMenu_83_Label]
+Caption=Katrina Quan - Associate Producer
+
+[GUILabel269]
+Caption=Aaron Denke                   	QA Tester
+
+[TribesCreditsMenu_84_Label]
+Caption=Kelly Zmak - VP of Development
+
+[GUILabel270]
+Caption=Carter McBee                   	QA Tester
+
+[TribesCreditsMenu_85_Label]
+Caption=Gary Stevens - QA Director
+
+[GUILabel271]
+Caption=Abhi Behl                      	QA Tester
+
+[TribesCreditsMenu_86_Label]
+Caption=Chad Martin - QA Project Lead
+
+[GUILabel272]
+Caption=Jim Gentle                    	QA Tester
+
+[TribesCreditsMenu_87_Label]
+Caption=Tharlie Richardson - Assistant QA Lead
+
+[GUILabel273]
+Caption=Chris Mason                    	QA Tester
+
+[TribesCreditsMenu_88_Label]
+Caption=Mike Racioppi - QA Tester
+
+[GUILabel274]
+Caption=Sue Lowe                       	Sierra CPC Lead
+
+[TribesCreditsMenu_89_Label]
+Caption=Isaac Aubrey - QA Tester
+
+[GUILabel275]
+Caption=Conan Chamberlain         		CPC Tester
+
+[TribesCreditsMenu_90_Label]
+Caption=Aaron Denke - QA Tester
+
+[GUILabel276]
+Caption=Jason Furler                   	CPC Tester
+
+[TribesCreditsMenu_91_Label]
+Caption=Carter McBee - QA Tester
+
+[GUILabel277]
+Caption=Niko Simonson                 	CPC Tester
+
+[TribesCreditsMenu_92_Label]
+Caption=Abhi Behl - QA Tester
+
+[GUILabel278]
+Caption=[u]Los Angeles, California Team:[\u]
+
+[TribesCreditsMenu_93_Label]
+Caption=Jim Gentle - QA Tester
+
+[GUILabel279]
+Caption=Michael Pole                   	Senior VP of Development
+
+[TribesCreditsMenu_94_Label]
+Caption=Chris Mason - QA Tester
+
+[GUILabel280]
+Caption=Bruce Hack                     	CEO
+
+[TribesCreditsMenu_95_Label]
+Caption=Sue Lowe - Sierra CPC Lead
+
+[GUILabel281]
+Caption=Adam Kahn                     	PR
+
+[TribesCreditsMenu_96_Label]
+Caption=Conan Chamberlain - CPC Tester
+
+[GUILabel282]
+Caption=Patrick Dillon                 	Marketing
+
+[TribesCreditsMenu_97_Label]
+Caption=Jason Furler - CPC Tester
+
+[GUILabel283]
+Caption=[u]Special thanks:[\u]
+
+[TribesCreditsMenu_98_Label]
+Caption=Niko Simonson - CPC Tester
+
+[GUILabel284]
+Caption=Angela Mendez, Julie Pitt, Script guys, Sound guys, Rebekah Mahnken, Marweas, Colosus, Yogi, Sir Lucius, Ben Reed, Cows with Guns
+
+[GUILabel285]
+Caption=" "
+
+[TribesCreditsMenu_100_Label]
+Caption=[u]Los Angeles, California Team:[\u]
+
+[GUILabel287]
+Caption="Havok.com(tm); (c)Copyright 1999-2003 Havok.com Inc. (and its Licensors).  "
+
+[TribesCreditsMenu_102_Label]
+Caption=Michael Pole - Senior VP of Development
+
+[GUILabel288]
+Caption=All rights reserved.  See www.havok.com for details.
+
+[TribesCreditsMenu_103_Label]
+Caption=Bruce Hack - CEO
+
+[TribesCreditsMenu_104_Label]
+Caption=Adam Kahn - PR
+
+[GUILabel290]
+Caption=This product contains software technology licensed from GameSpy Industries, Inc.
+
+[TribesCreditsMenu_105_Label]
+Caption=Patrick Dillon - Marketing
+
+[GUILabel291]
+Caption=(c) 1999-2004 GameSpy Industries, Inc. GameSpy and the "Powered by GameSpy"
+
+[GUILabel292]
+Caption=design are trademarks of GameSpy Industries, Inc. All rights reserved.
+
+[TribesCreditsMenu_107_Label]
+Caption=[u]Special thanks:[\u]
+
+[GUILabel293]
+Caption=Copyright (c) 2004 Irrational Games and its licensors.  All rights reserved.
+
+[TribesCreditsMenu_109_Label]
+Caption=Angela Mendez, Julie Pitt, Script guys, Sound guys, Rebekah Mahnken,
+
+[GUILabel295]
+Caption=[u]Marketing[\u]
+
+[TribesCreditsMenu_110_Label]
+Caption=Marweas, Colosus, Yogi, Sir Lucius, Ben Reed, Cows with Guns
+
+[GUILabel297]
+Caption=VP of Marketing
+
+[TribesCreditsMenu_112_Label]
+Caption="Havok.com(tm); (c)Copyright 1999-2003 Havok.com Inc. (and its Licensors).  "
+
+[GUILabel298]
+Caption=Anthony Crouts
+
+[TribesCreditsMenu_113_Label]
+Caption=All rights reserved.  See www.havok.com for details.
+
+[TribesCreditsMenu_114_Label]
+Caption=This product contains software technology licensed from GameSpy Industries, Inc.
+
+[GUILabel300]
+Caption=Senior Brand Manager
+
+[TribesCreditsMenu_115_Label]
+Caption=(c) 1999-2004 GameSpy Industries, Inc. GameSpy and the "Powered by GameSpy"
+
+[GUILabel301]
+Caption=Lauren Faccidomo
+
+[TribesCreditsMenu_116_Label]
+Caption=design are trademarks of GameSpy Industries, Inc. All rights reserved.
+
+[TribesCreditsMenu_117_Label]
+Caption=Copyright (c) 2004 Irrational Games(TM) and its licensors.  All rights reserved.
+
+[GUILabel303]
+Caption=Brand Manager, Europe
+
+[TribesCreditsMenu_118_Label]
+Caption="Developer Modifications Copyright (c) 2004 Irrational Games(TM) "
+
+[GUILabel304]
+Caption=Oscar Morilla
+
+[TribesMPGameSummaryMenu_TeamOneLabel]
+Caption=Blood Eagle
+
+[TribesMPGameSummaryMenu_TeamTwoLabel]
+Caption=Imperial
+
+[TribesMPGameSummaryMenu_TeamOneScore]
+Caption=0
+
+[TribesMPGameSummaryMenu_TeamTwoScore]
+Caption=0
+
+[TribesMPGameSummaryMenu_PlayerList_Name_Button]
+Caption=Name
+
+[TribesMPGameSummaryMenu_PlayerList_Score_Button]
+Caption=Score
+
+[TribesMPGameSummaryMenu_PlayerList_O_Button]
+Caption=O
+Hint=Offensive Points
+
+[TribesMPGameSummaryMenu_PlayerList_D_Button]
+Caption=D
+Hint=Defensive Points
+
+[TribesMPGameSummaryMenu_PlayerList_S_Button]
+Caption=S
+Hint=Style Points
+
+[TribesMPGameSummaryMenu_StatList_Stat_Button]
+Caption=My stats
+
+[TribesMPGameSummaryMenu_StatList_Value_Button]
+Caption=#
+
+[TribesMPGameSummaryMenu_AwardList_Award_Button]
+Caption=Award
+
+[TribesMPGameSummaryMenu_AwardList_Winner_Button]
+Caption=Winner
+
+[TribesMPGameSummaryMenu_AwardList_Value_Button]
+Caption=#
+
+[TribesMPGameSummaryMenu_MPSUMMARYHEADING]
+Caption=The match ended in a tie!
+
+[TribesMPGameSummaryMenu_TeamTwoListBox_Name_Button]
+Caption=Name
+
+[TribesMPGameSummaryMenu_TeamTwoListBox_Score_Button]
+Caption=Score
+
+[TribesMPGameSummaryMenu_TeamTwoListBox_O_Button]
+Caption=O
+Hint=Offensive Points
+
+[TribesMPGameSummaryMenu_TeamTwoListBox_D_Button]
+Caption=D
+Hint=Defensive Points
+
+[TribesMPGameSummaryMenu_TeamTwoListBox_S_Button]
+Caption=S
+Hint=Style Points
+
+[TribesMPGameSummaryMenu_CHATLABEL]
+Caption=CHAT:
+
+[GUIButton187]
+Caption=Name
+
+[GUIButton188]
+Caption=Score
+
+[GUIButton189]
+Caption=O
+Hint=Offensive Points
+
+[GUIButton190]
+Caption=D
+Hint=Defensive Points
+
+[GUIButton191]
+Caption=S
+Hint=Style Points
+
+[GUIButton192]
+Caption=My stats
+
+[GUIButton193]
+Caption=#
+
+[GUIButton194]
+Caption=Award
+
+[GUIButton195]
+Caption=Winner
+
+[GUIButton196]
+Caption=#
+
+[GUIButton197]
+Caption=Name
+
+[GUIButton198]
+Caption=Score
+
+[GUIButton199]
+Caption=O
+Hint=Offensive Points
+
+[GUIButton200]
+Caption=D
+Hint=Defensive Points
+
+[GUIButton201]
+Caption=S
+Hint=Style Points
+
+[GUILabel305]
+Caption=Blood Eagle
+
+[GUILabel306]
+Caption=Imperial
+
+[GUILabel307]
+Caption=0
+
+[GUILabel308]
+Caption=0
+
+[GUILabel309]
+Caption=The match ended in a tie!
+
+[GUILabel310]
+Caption=CHAT:
+
+[TribesGamespyTeamLogin_ActionButton]
+Caption=LOGIN
+
+[TribesGamespyTeamLogin_CancelButton]
+Caption=CANCEL
+
+[TribesGamespyTeamLogin_LabelTeamTag]
+Caption=UNIQUE TAG:
+
+[TribesGamespyTeamLogin_LabelPassword]
+Caption=PASSWORD:
+
+[TribesGamespyTeamLogin_Title]
+Caption=LOGIN TO A TEAM
+
+[GUIButton202]
+Caption=LOGIN
+
+[GUIButton203]
+Caption=CANCEL
+
+[GUILabel311]
+Caption=UNIQUE TAG:
+
+[GUILabel312]
+Caption=PASSWORD:
+
+[GUILabel313]
+Caption=LOGIN TO A TEAM
+
+[TribesMPBuddyMenu_TitleLabel]
+Caption=MANAGE BUDDIES
+
+[TribesMPBuddyMenu_DoneBUtton]
+Caption=DONE
+
+[TribesMPBuddyMenu_AddButton]
+Caption=ADD
+
+[TribesMPBuddyMenu_RemoveButton]
+Caption=REMOVE
+
+[GUILabel314]
+Caption=MANAGE BUDDIES
+
+[GUIButton204]
+Caption=DONE
+
+[GUIButton205]
+Caption=ADD
+
+[GUIButton206]
+Caption=REMOVE
+
+[TribesMPServerFilterMenu_TitleLabel]
+Caption=MANAGE FILTERS
+
+[TribesMPServerFilterMenu_FilterList_Name_Button]
+Caption=NAME
+
+[TribesMPServerFilterMenu_FilterList_Query_Button]
+Caption=QUERY STRING
+
+[TribesMPServerFilterMenu_RemoveButton]
+Caption=REMOVE
+
+[TribesMPServerFilterMenu_AddButton]
+Caption=ADD
+
+[TribesMPServerFilterMenu_DoneButton]
+Caption=DONE
+
+[TribesMPServerFilterMenu_NameLabel]
+Caption=NAME:
+
+[TribesMPServerFilterMenu_QueryLabel]
+Caption=QUERY:
+
+[TribesMPServerFilterMenu_DefaultButton]
+Caption=DEFAULTS
+
+[GUIButton207]
+Caption=NAME
+
+[GUIButton208]
+Caption=QUERY STRING
+
+[GUILabel315]
+Caption=MANAGE FILTERS
+
+[GUIButton209]
+Caption=REMOVE
+
+[GUIButton210]
+Caption=ADD
+
+[GUIButton211]
+Caption=DONE
+
+[GUILabel316]
+Caption=NAME:
+
+[GUILabel317]
+Caption=QUERY:
+
+[GUIButton212]
+Caption=DEFAULTS
+
+[TribesDebugLoadMapMenu_LoadButton]
+Caption=LOAD
+
+[TribesDebugLoadMapMenu_CancelButton]
+Caption=MAIN MENU
+
+[TribesDebugLoadMapMenu_LoadGameBox_Name_Button]
+Caption=NAME
+
+[TribesDebugLoadMapMenu_LoadGameBox_Date_Button]
+Caption=DATE
+
+[TribesDebugLoadMapMenu_LoadGameBox_Time_Button]
+Caption=TIME
+
+[TribesDebugLoadMapMenu_DEBUGLOADTITLE]
+Caption=DEBUG LOAD MENU
+
+[TribesDebugLoadMapMenu_LoadCutsceneButton]
+Caption=LOAD W/CUTSCENE
+
+[GUIButton213]
+Caption=MAIN MENU
+
+[GUIButton214]
+Caption=LOAD
+
+[GUIButton215]
+Caption=NAME
+
+[GUIButton216]
+Caption=DATE
+
+[GUIButton217]
+Caption=TIME
+
+[GUILabel319]
+Caption=DEBUG LOAD MENU
+
+[GUIButton219]
+Caption=LOAD W/CUTSCENE
+
+[TribesAdminLoginPopup_TitleLabel]
+Caption=ADMINISTATOR LOGIN
+
+[TribesAdminLoginPopup_UsernameLabel]
+Caption=USERNAME:
+
+[TribesAdminLoginPopup_PasswordLabel]
+Caption=PASSWORD:
+
+[TribesAdminLoginPopup_LoginButton]
+Caption=LOGIN
+
+[TribesAdminLoginPopup_CancelButton]
+Caption=CANCEL
+
+[TribesAdminLoginPopup_REmemberLabel]
+Caption=REMEMBER LOGIN
+
+[GUILabel320]
+Caption=ADMINISTATOR LOGIN
+
+[GUILabel321]
+Caption=USERNAME:
+
+[GUILabel322]
+Caption=PASSWORD:
+
+[GUIButton220]
+Caption=LOGIN
+
+[GUILabel323]
+Caption=REMEMBER LOGIN
+
+[GUIButton221]
+Caption=CANCEL
+
+[TribesExitMenu_ecommerceButton]
+Caption=E-Commerce
+
+[TribesExitMenu_ProductButton]
+Caption=Product Webpage
+
+[TribesExitMenu_NextButton]
+Caption=NEXT
+
+[TribesExitMenu_ExitButton]
+Caption=NEXT
+
+[GUIButton222]
+Caption=E-Commerce
+
+[GUIButton223]
+Caption=NEXT
+
+[GUIButton224]
+Caption=NEXT
+
+[GUIButton225]
+Caption=Product Webpage
+
+[TribesLoadGameMenu_LoadButton]
+Caption=LOAD
+
+[TribesLoadGameMenu_DeleteButton]
+Caption=DELETE
+
+[TribesLoadGameMenu_CancelButton]
+Caption=MAIN MENU
+
+[TribesLoadGameMenu_LoadGameBox_Name_Button]
+Caption=NAME
+
+[TribesLoadGameMenu_LoadGameBox_Date_Button]
+Caption=DATE
+
+[TribesLoadGameMenu_LoadGameBox_Time_Button]
+Caption=TIME
+
+[TribesLoadGameMenu_loadtitle]
+Caption=LOAD GAME
+
+[TribesLoadGameMenu_Cancel2Button]
+Caption=CANCEL
+
+[GUIButton226]
+Caption=DELETE
+
+[GUIButton227]
+Caption=MAIN MENU
+
+[GUIButton228]
+Caption=CANCEL
+
+[GUIButton229]
+Caption=LOAD
+
+[GUIButton230]
+Caption=NAME
+
+[GUIButton231]
+Caption=DATE
+
+[GUIButton232]
+Caption=TIME
+
+[GUILabel324]
+Caption=LOAD GAME
+
+[TribesGamespyTeamCreate_ActionButton]
+Caption=CREATE
+
+[TribesGamespyTeamCreate_CancelButton]
+Caption=CANCEL
+
+[TribesGamespyTeamCreate_LabelTeamName]
+Caption=TEAM NAME:
+
+[TribesGamespyTeamCreate_LabelPassword]
+Caption=PASSWORD:
+
+[TribesGamespyTeamCreate_labelConfirm]
+Caption=CONFIRM PASSWORD:
+
+[TribesGamespyTeamCreate_LabelTeamTag]
+Caption=UNIQUE TAG:
+
+[TribesGamespyTeamCreate_Title]
+Caption=CREATE A TEAM
+
+[GUIButton233]
+Caption=CREATE
+
+[GUIButton234]
+Caption=CANCEL
+
+[GUILabel325]
+Caption=TEAM NAME:
+
+[GUILabel326]
+Caption=PASSWORD:
+
+[GUILabel327]
+Caption=CONFIRM PASSWORD:
+
+[GUILabel328]
+Caption=UNIQUE TAG:
+
+[GUILabel329]
+Caption=CREATE A TEAM
+
+[TribesMPRoundSummaryMenu_TitleLabel]
+Caption=Round summary:
+
+[TribesMPRoundSummaryMenu_TitleDataLabel]
+Caption=Your team lost the round.
+
+[TribesMPRoundSummaryMenu_TeamOneLabel]
+Caption=Team One Name
+
+[TribesMPRoundSummaryMenu_TeamTwoLabel]
+Caption=Team Two Name
+
+[TribesMPRoundSummaryMenu_TeamOneScoreLabel]
+Caption=0
+
+[TribesMPRoundSummaryMenu_TeamTwoScoreLabel]
+Caption=0
+
+[GUILabel330]
+Caption=Round summary:
+
+[GUILabel331]
+Caption=Your team lost the round.
+
+[GUILabel332]
+Caption=Team One Name
+
+[GUILabel333]
+Caption=Team Two Name
+
+[GUILabel334]
+Caption=0
+
+[GUILabel335]
+Caption=0
+
+[TribesDifficultyMenu_EasyButton]
+Caption=EASY
+
+[TribesDifficultyMenu_NormalButton]
+Caption=NORMAL
+
+[TribesDifficultyMenu_HardButton]
+Caption=HARD
+
+[TribesDifficultyMenu_CancelButton]
+Caption=MAIN MENU
+
+[TribesDifficultyMenu_NEWGAMETITLE]
+Caption=NEW GAME
+
+[TribesDifficultyMenu_DEFAULTCONTROLSL:ABEL]
+Caption=DEFAULT CONTROLS
+
+[TribesDifficultyMenu_TITLES]
+Caption=WEAPONS
+
+[TribesDifficultyMenu_TITLEgame]
+Caption=GAMEPLAY
+
+[TribesDifficultyMenu_firelabel]
+Caption="FIRE: "
+
+[TribesDifficultyMenu_firebind]
+Caption=L MOUSE BUTTON
+
+[TribesDifficultyMenu_energylabel]
+Caption="ENERGY BLADE: "
+
+[TribesDifficultyMenu_energybind]
+Caption=`
+
+[TribesDifficultyMenu_1label]
+Caption="WEAPON 1: "
+
+[TribesDifficultyMenu_1bind]
+Caption=1
+
+[TribesDifficultyMenu_2label]
+Caption="WEAPON 2: "
+
+[TribesDifficultyMenu_2bind]
+Caption=2
+
+[TribesDifficultyMenu_3label]
+Caption="WEAPON 3: "
+
+[TribesDifficultyMenu_3bind]
+Caption=3
+
+[TribesDifficultyMenu_grenadelabel]
+Caption="THROW GRENADE: "
+
+[TribesDifficultyMenu_grenadebind]
+Caption=E
+
+[TribesDifficultyMenu_packlabel]
+Caption="USE PACK: "
+
+[TribesDifficultyMenu_packbind]
+Caption=Q
+
+[TribesDifficultyMenu_uselabel]
+Caption="USE/PICKUP WEAPON: "
+
+[TribesDifficultyMenu_usebind]
+Caption=F
+
+[TribesDifficultyMenu_commandlabel]
+Caption="VIEW COMMAND MAP: "
+
+[TribesDifficultyMenu_commandbind]
+Caption=C
+
+[TribesDifficultyMenu_zoomlabel]
+Caption="ZOOM: "
+
+[TribesDifficultyMenu_zoombind]
+Caption=CTRL
+
+[TribesDifficultyMenu_forwardlabel]
+Caption="MOVE FORWARD: "
+
+[TribesDifficultyMenu_forwardbind]
+Caption=W
+
+[TribesDifficultyMenu_backlabel]
+Caption="MOVE BACK: "
+
+[TribesDifficultyMenu_backbind]
+Caption=S
+
+[TribesDifficultyMenu_leftlabel]
+Caption="MOVE LEFT: "
+
+[TribesDifficultyMenu_leftbind]
+Caption=A
+
+[TribesDifficultyMenu_rightlabel]
+Caption="MOVE RIGHT: "
+
+[TribesDifficultyMenu_rightbind]
+Caption=D
+
+[TribesDifficultyMenu_jetpacklabel]
+Caption="JETPACK: "
+
+[TribesDifficultyMenu_jetpackbind]
+Caption=R MOUSE BUTTON
+
+[TribesDifficultyMenu_skilabel]
+Caption="SKI: "
+
+[TribesDifficultyMenu_skibind]
+Caption=SPACE
+
+[TribesDifficultyMenu_TITLEMOVEMENT]
+Caption=MOVEMENT
+
+[GUIButton235]
+Caption=EASY
+
+[GUIButton236]
+Caption=NORMAL
+
+[GUIButton237]
+Caption=HARD
+
+[GUIButton238]
+Caption=MAIN MENU
+
+[GUILabel336]
+Caption=NEW GAME
+
+[GUILabel337]
+Caption=DEFAULT CONTROLS
+
+[GUILabel338]
+Caption=WEAPONS
+
+[GUILabel339]
+Caption=GAMEPLAY
+
+[GUILabel340]
+Caption="FIRE: "
+
+[GUILabel341]
+Caption=L MOUSE BUTTON
+
+[GUILabel342]
+Caption="ENERGY BLADE: "
+
+[GUILabel343]
+Caption=`
+
+[GUILabel344]
+Caption="WEAPON 1: "
+
+[GUILabel345]
+Caption=1
+
+[GUILabel346]
+Caption="WEAPON 2: "
+
+[GUILabel347]
+Caption=2
+
+[GUILabel348]
+Caption="WEAPON 3: "
+
+[GUILabel349]
+Caption=3
+
+[GUILabel350]
+Caption="THROW GRENADE: "
+
+[GUILabel351]
+Caption=E
+
+[GUILabel352]
+Caption="USE PACK: "
+
+[GUILabel353]
+Caption=Q
+
+[GUILabel354]
+Caption="USE/PICKUP WEAPON: "
+
+[GUILabel355]
+Caption=F
+
+[GUILabel356]
+Caption="VIEW COMMAND MAP: "
+
+[GUILabel357]
+Caption=C
+
+[GUILabel358]
+Caption="ZOOM: "
+
+[GUILabel359]
+Caption=CTRL
+
+[GUILabel360]
+Caption="MOVE FORWARD: "
+
+[GUILabel361]
+Caption=W
+
+[GUILabel362]
+Caption="MOVE BACK: "
+
+[GUILabel363]
+Caption=S
+
+[GUILabel364]
+Caption="MOVE LEFT: "
+
+[GUILabel365]
+Caption=A
+
+[GUILabel366]
+Caption="MOVE RIGHT: "
+
+[GUILabel367]
+Caption=D
+
+[GUILabel368]
+Caption="JETPACK: "
+
+[GUILabel369]
+Caption=R MOUSE BUTTON
+
+[GUILabel370]
+Caption="SKI: "
+
+[GUILabel371]
+Caption=SPACE
+
+[GUILabel372]
+Caption=MOVEMENT
+
+[TribesCommandMenu_ObjectiveLabel]
+Caption=Objectives
+
+[TribesCommandMenu_ObjectiveLabelOne]
+Caption=This is text for an objective.  Objectives can't have too much text.
+
+[TribesCommandMenu_ObjectiveLabelTwo]
+Caption=This is text for an objective.  Objectives can't have too much text.
+
+[TribesCommandMenu_ObjectiveLabelThree]
+Caption=This is text for an objective.  Objectives can't have too much text.
+
+[TribesCommandMenu_ObjectiveLabelFour]
+Caption=This is text for an objective.  Objectives can't have too much text.
+
+[TribesCommandMenu_ObjectiveLabelFive]
+Caption=This is text for an objective.  Objectives can't have too much text.
+
+[TribesCommandMenu_ObjectiveLabelSix]
+Caption=This is text for an objective.  Objectives can't have too much text.
+
+[TribesCommandMenu_ObjectiveLabelSeven]
+Caption=This is text for an objective.  Objectives can't have too much text.
+
+[TribesCommandMenu_MissionTitleLabel]
+Caption=Mission name:
+
+[TribesCommandMenu_DescriptionTitleLabel]
+Caption=Description:
+
+[TribesCommandMenu_MissionLabel]
+Caption=DO NOT LOCALIZE.  Mission name goes here
+
+[TribesCommandMenu_DescriptionLabel]
+Caption=DO NOT LOCALIZE.  Description of the mission goes here.  It should be fairly short but there's enough room here to ramble on a little bit.  Can include mention of very special objectives and crap like that.  Background fiction.  I don't know.
+
+[GUILabel373]
+Caption=Objectives
+
+[GUILabel374]
+Caption=This is text for an objective.  Objectives can't have too much text.
+
+[GUILabel375]
+Caption=This is text for an objective.  Objectives can't have too much text.
+
+[GUILabel376]
+Caption=This is text for an objective.  Objectives can't have too much text.
+
+[GUILabel377]
+Caption=This is text for an objective.  Objectives can't have too much text.
+
+[GUILabel378]
+Caption=This is text for an objective.  Objectives can't have too much text.
+
+[GUILabel379]
+Caption=This is text for an objective.  Objectives can't have too much text.
+
+[GUILabel380]
+Caption=This is text for an objective.  Objectives can't have too much text.
+
+[GUILabel381]
+Caption=Mission name:
+
+[GUILabel382]
+Caption=Description:
+
+[GUILabel383]
+Caption=DO NOT LOCALIZE.  Mission name goes here
+
+[GUILabel384]
+Caption=DO NOT LOCALIZE.  Description of the mission goes here.  It should be fairly short but there's enough room here to ramble on a little bit.  Can include mention of very special objectives and crap like that.  Background fiction.  I don't know.
+
+[TribesReceiveFile_receivefiletitle]
+Caption=RECEIVING FILES
+
+[TribesReceiveFile_receivingtext]
+Caption=Downloading new content please wait
+
+[GUILabel387]
+Caption=RECEIVING FILES
+
+[GUILabel388]
+Caption=Downloading new content please wait
+
+[TribesMPHelpMenu_DoneButton]
+Caption=DONE
+
+[TribesMPHelpMenu_DontShowLabel]
+Caption=DON'T SHOW THIS MESSAGE AGAIN
+
+[TribesMPHelpMenu_TitleLabel]
+Caption=MULTIPLAYER HELP
+
+[TribesMPHelpMenu_TipOneLabel]
+Caption=Changing your equipment in Tribes is critical.  You can change your armor type, get a very powerful pack, and pick new weapons at Inventory Stations.  Look for Inventory Stations in your team's base.
+
+[TribesMPHelpMenu_TipTwoLabel]
+Caption=Tribes is about the freedom of movement.  Press 'RIGHTMOUSE' to use your jetpack and fly into the air.  Your jetpack has a limited amount of energy, but it recharges quickly.  Press 'SPACEBAR' to ski down slopes.  This ability is unlimited but requires practice.
+
+[TribesMPHelpMenu_TipThreeLabel]
+Caption=Tribes is about choosing a role that matches your playing style.  If you don't have fun using a particular equipment combination, try using different equipment.  If you don't have fun going offense, try staying on defense and protecting your base.  If you don't have fun fighting, try using a vehicle or turret, or try deploying equipment that you can find in your team's base.
+
+[TribesMPHelpMenu_TipFourLabel]
+Caption=Tribes is about teamwork.  Coordinate with your team to maximize your effectiveness.  Press 'T' to chat to your team.  Press and hold 'SHIFT' to access a menu of pre-recorded chats.  Press 'C' to see a strategic command map.
+
+[TribesMPHelpMenu_TipFiveLabel]
+Caption=To browse game hints, press 'ESCAPE' while playing, then click the Hints tab.  To see this message again, press the Help button on the Hints tab.
+
+[GUIButton239]
+Caption=DONE
+
+[GUILabel389]
+Caption=DON'T SHOW THIS MESSAGE AGAIN
+
+[GUILabel390]
+Caption=MULTIPLAYER HELP
+
+[GUILabel391]
+Caption=Changing your equipment in Tribes is critical.  You can change your armor type, get a very powerful pack, and pick new weapons at Inventory Stations.  Look for Inventory Stations in your team's base.
+
+[GUILabel392]
+Caption=Tribes is about the freedom of movement.  Press 'RIGHTMOUSE' to use your jetpack and fly into the air.  Your jetpack has a limited amount of energy, but it recharges quickly.  Press 'SPACEBAR' to ski down slopes.  This ability is unlimited but requires practice.
+
+[GUILabel393]
+Caption=Tribes is about choosing a role that matches your playing style.  If you don't have fun using a particular equipment combination, try using different equipment.  If you don't have fun going offense, try staying on defense and protecting your base.  If you don't have fun fighting, try using a vehicle or turret, or try deploying equipment that you can find in your team's base.
+
+[GUILabel394]
+Caption=Tribes is about teamwork.  Coordinate with your team to maximize your effectiveness.  Press 'T' to chat to your team.  Press and hold 'SHIFT' to access a menu of pre-recorded chats.  Press 'C' to see a strategic command map.
+
+[GUILabel395]
+Caption=To browse game hints, press 'ESCAPE' while playing, then click the Hints tab.  To see this message again, press the Help button on the Hints tab.
+
+[TribesKeyMappingPopup_CancelButton]
+Caption=Cancel
+
+[TribesKeyMappingPopup_TitleLabel]
+Caption=Press the key you want to assign to Strafe Right.
+
+[GUIButton240]
+Caption=Cancel
+
+[GUILabel396]
+Caption=Press the key you want to assign to Strafe Right.
+
+[TribesGamespyCreate_ActionButton]
+Caption=CREATE
+
+[TribesGamespyCreate_CancelButton]
+Caption=CANCEL
+
+[TribesGamespyCreate_LabelEmail]
+Caption=EMAIL:
+
+[TribesGamespyCreate_LabelPassword]
+Caption=PASSWORD:
+
+[TribesGamespyCreate_labelConfirm]
+Caption=CONFIRM PASSWORD:
+
+[TribesGamespyCreate_Title]
+Caption=CREATE NEW STAT TRACKING PROFILE
+
+[GUIButton241]
+Caption=CREATE
+
+[GUIButton242]
+Caption=CANCEL
+
+[GUILabel397]
+Caption=EMAIL:
+
+[GUILabel398]
+Caption=PASSWORD:
+
+[GUILabel399]
+Caption=CONFIRM PASSWORD:
+
+[GUILabel400]
+Caption=CREATE NEW STAT TRACKING PROFILE
+
+[TribesDisconnectMenu_TitleLabel]
+Caption=<?int?Engine.Progress.CorruptConnect?>
+
+[TribesDisconnectMenu_ReasonLabel]
+Caption=Rejected by server
+
+[TribesDisconnectMenu_OKButton]
+Caption=OK
+
+[GUILabel401]
+Caption=<?int?Engine.Progress.CorruptConnect?>
+
+[GUILabel402]
+Caption=Rejected by server
+
+[GUIButton243]
+Caption=OK
+

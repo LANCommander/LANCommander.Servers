@@ -1,0 +1,23 @@
+[TribesWebQueryCurrent]
+NoteGamePage=Choose a game type and/or maps then click on the corresponding change button.
+NotePlayersPage=Shows you who is currently playing. You can kick and ban players. Use the checkboxes to choose who gets evicted.
+NoteConsolePage=Here you you tell the players when you intend to make some changes or restart with a different map. You can also see what the players are saying, as long as its not team only messages.
+NoteMutatorsPage=Select which mutators you want to be used when you hit the Restart Server Link
+
+[TribesWebQueryDefaults]
+NoteMapsPage=Manage your maps rotation list by adding them to the right list. You can even decide in which order they will be played.
+NoteRulesPage=Here you can configure how each game type will be loaded when used. Some parameters can affect more than 1 game type.
+NotePolicyPage=Gives you a list of IP and IP range that are currently prevented from accessing this server. You can add new ones and/or remove old ones
+
+[TribesWebQueryAdmins]
+NoteUserHomePage=Welcome to Admins &amp; Groups Management
+NoteAccountPage=Here you can change your password if required. You can also see which privileges were assigned to you by your manager.
+NoteUserAddPage=As an Admin of this server you can add new Admins and give them privileges. Make sure that the password assigned to the new Admin is not easy to hack.
+NoteUserEditPage=As an Admin of this server you can modify informations and privileges for another Admin that you can Manage.
+NoteUsersBrowsePage=Here you can see other Admins that you can manage and modify their privilege and groups assignment.
+NoteGroupAddPage=You can create new groups which will have a common set of privileges. Groups are used to give the same privileges to multiple Admins.
+NoteGroupEditPage=You can modify which privileges were assigned to this group. Note that you can only change privileges that you have yourself.
+NoteGroupsBrowsePage=Here you can see all the groups that you can manage, click on a group name to modify it.
+NoteGroupAccessPage=Here you can decide in which groups the selected admin will be part of. This will decide which base privileges this admin will have.
+NoteMGroupAccessPage=Here you can decide which groups this admin will be able to manage. He will be able to assign other admins to this group.
+

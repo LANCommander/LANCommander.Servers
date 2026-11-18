@@ -1,0 +1,104 @@
+[NativeListUnitTestCommandlet]
+HelpCmd=nativelistunittest
+HelpOneLiner=Einheitentest der ursprünglichen IGA-Listenklasse.
+HelpUsage=nativelistunittest
+
+[Armor]
+armorName=Leicht
+infoString=[keine Info verfügbar]
+
+[MPCarryable]
+primaryFriendlyObjectiveDesc=Das Tragobjekt Ihres Teams verteidigen
+primaryEnemyObjectiveDesc=Das Tragobjekt des Gegners holen
+primaryNeutralObjectiveDesc=Das Tragobjekt holen
+
+[Equipment]
+infoString=[keine Info verfügbar]
+
+[Weapon]
+Prompt=Press '%1' to swap your %2 for a %3.
+
+[Vehicle]
+driverPrompt=**enter driver position
+gunnerPrompt=**enter gunner position
+leftGunnerPrompt=**enter left gunner position
+rightGunnerPrompt=**enter right gunner position
+inventoryStationPrompt=**enter inventory station position
+fullVehiclePrompt=**vehicle is full
+vehicleProhibitedObjectPrompt=you ain't getting in here carrying that
+flipPrompt=flip it
+
+[SpawnArray]
+cantUseSpawnTowerMessage=You can't use a spawn tower while carrying a game object.
+
+[stat]
+Acronym=N/A
+
+[ModeInfo]
+protectYourString=Protect your %1
+destroyTheirString=Destroy their %1
+
+[Pack]
+Prompt=Press '%1' to swap your '%4' for a '%3'
+
+[ObjectiveInfo]
+Status_Active=Aktiv
+Status_Completed=Abgeschlossen
+Status_Failed=Fehlgeschlagen
+Type_Primary=Primär
+Type_Secondary=Sekundär
+
+[MPDeathMessages]
+HimselfText=himself
+HerselfText=herself
+
+[TribesGameMessage]
+ReadyMessage=%1 is ready to start
+NotReadyMessage=%1 is not ready to start
+AwaitingSingleReadyMessage=%1 is holding up the tournament
+AwaitingDoubleReadyMessage=%1 and %2 are holding up the tournament
+AwaitingTripleReadyMessage=%1, %2 and %3 are holding up the tournament
+UnbalancedMessage=The teams aren't balanced.
+
+[MPCarryableMessages]
+EnergyBarrierCollision=You can't pass through while carrying a carryable.
+cantGrappleAtHome=You can't grapple this carryable when it's at home.
+cantGrappleInField=You can't grapple this carryable.
+
+[MPAreaMessages]
+selfEnter=Sie haben einen Bereich betreten.
+selfExit=Sie haben einen Bereich verlassen.
+
+[ExplosionDamageType]
+DeathString=%o wurde gesprengt.
+
+[KeyBindings]
+LocalizedCommandString=("Move Forward","Move Backward","Strafe Left","Strafe Right","Use","Fire","Activate Pack","Jetpack/Jump","Ski/Jump","Zoom","Cycle Zoom Level","Command Screen","Switch To Weapon 1","Switch To Weapon 2","Switch To Weapon 3","Equip Deployable","Equip Carryable","Next Weapon","Prev Weapon","Throw Grenade","Talk","Team Talk","Quick Chat / Loadout Selection","Jetpack","Jump","Ski","Drop Weapon","Toggle Behind View","Respawn","Cycle Radar Zoom Level","My Stats","Game Stats","Weapon Stats")
+LocalizedCommandCategories=("Basic","Advanced")
+
+[MPCheckpoint]
+selfCheckpointObjectiveDesc=Rücken Sie zum nächsten Kontrollpunkt vor.
+
+[MPPersonalStatMessage]
+offenseStr=Offense
+defenseStr=Defense
+styleStr=Style
+
+[MPRabbitFlagMessages]
+RabbitFlagPickedUp=Eine Kaninchenflagge wurde aufgenommen.
+RabbitFlagDropped=Eine Kaninchenflagge wurde abgesetzt.
+RabbitKilled=%1 hat ein Kaninchen getötet!
+
+[MPCapturePointMessages]
+cantCaptureWhenNotHome=You can't capture when your carryable isn't home.
+
+[MPCheckpointMessages]
+selfPassed=Sie haben einen Kontrollpunkt passiert.
+selfFailed=Das ist nicht Ihr aktueller Kontrollpunkt.
+selfRaceCompleted=Sie haben das Rennen abgeschlossen! Gesamtzeit: %1.
+selfLapCompleted=Sie haben Runde %1 von %2 abgeschlossen.
+globalRaceCompleted=%1 hat das Rennen abgeschlossen! Position: %1.
+
+[MPTargetMessages]
+targetDestroyed=%1 hat eins der Ziele von Team %2 zerstört.
+

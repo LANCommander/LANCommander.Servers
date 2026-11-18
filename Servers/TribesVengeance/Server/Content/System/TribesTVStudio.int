@@ -1,0 +1,7 @@
+[Public]
+Object=(Class=Class,MetaClass=Engine.Mutator,Name=UTVStudio.tvsMutator,Description="Enhances spectator options")
+
+[tvsMutator]
+FriendlyName="UTVStudio"
+Description="Add new options for spectators"
+

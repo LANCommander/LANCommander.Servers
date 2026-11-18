@@ -1,0 +1,107 @@
+[TeamInfoImperial]
+localizedName=Imperial
+
+[ModeArena]
+GameName=Arena
+GameDescription=Two teams fight for up to 10 rounds.  When you die, you're out until the next round.  Find equipment lying around the map.  First team to win 5 rounds wins the match.
+
+[CaptureStand]
+localizedName=Flag stand
+
+[CaptureFlag]
+localizedName=Flag
+
+[BallDefault]
+localizedName=Ball
+
+[territory]
+primaryFriendlyObjectiveDesc=Protect your territory
+primaryEnemyObjectiveDesc=Conquer their territory
+primaryNeutralObjectiveDesc=Conquer the territory
+
+[FuelCellDefault]
+localizedName=Fuel
+primaryFriendlyObjectiveDesc=
+primaryEnemyObjectiveDesc=
+primaryNeutralObjectiveDesc=
+
+[FuelCellPlacedDenominationDefault]
+localizedName=Fuel
+primaryFriendlyObjectiveDesc=
+primaryEnemyObjectiveDesc=
+primaryNeutralObjectiveDesc=
+
+[MPFuelCellDenominationTen]
+localizedName=Fuel
+primaryFriendlyObjectiveDesc=
+primaryEnemyObjectiveDesc=
+primaryNeutralObjectiveDesc=Pickup large fuel cell
+
+[FuelDepotDefault]
+localizedName=Fuel depot
+primaryFriendlyObjectiveDesc=Protect your fuel
+primaryEnemyObjectiveDesc=Steal their fuel
+primaryNeutralObjectiveDesc=Extract neutral fuel
+
+[MPFuelCellDenominationFive]
+localizedName=Fuel
+primaryFriendlyObjectiveDesc=
+primaryEnemyObjectiveDesc=
+primaryNeutralObjectiveDesc=
+
+[RabbitFlag]
+localizedName=Flag
+
+[GoalDefault]
+localizedName=Goal
+
+[ModeTargets]
+GameName=Targets
+GameDescription=Destroy all the other team's targets to win.  Prevent your targets from being destroyed.
+
+[ModeDuel]
+GameName=Duel
+GameDescription=NOT FULLY WORKING.  Spawn in the field with equipment and fight.  Intended to be 1 vs 1.
+
+[ModeRace]
+GameName=Race
+GameDescription=NOT FULLY WORKING.  Race against friends to the finish line.
+
+[TeamInfoPhoenix]
+localizedName=Phönix
+
+[ModeRabbit]
+GameName=Rabbit
+GameDescription=Get the flag and keep it away from the other players for as long as possible.
+
+[ModeBall]
+GameName=Ball
+GameDescription=Throw a ball into the enemy team's goal to score a point.  The team with the most points wins.
+
+[TeamInfoBeagle]
+localizedName=Blood Eagle
+
+[ModeCTF]
+GameName=Capture the Flag
+GameDescription=Retrieve the enemy team's flag and bring it back to your team's flag stand.  Your flag must be at its stand in order to capture their flag.
+
+[FuelCellPlacedDenominationTen]
+primaryNeutralObjectiveDesc=Pickup large fuel cell
+
+[ModeTerritories]
+GameName=Territories
+GameDescription=Stand near a territory to capture it.  Capture all territories on the map to win.  Capturing a territory allows you to spawn at it.
+
+[ModeFuel]
+GameName=Fuel
+GameDescription=Find fuel and bring it back to your team's depot.  First team to fill up their depot wins.  You must stand underneath other depots in order to take fuel from them.  You can only carry 15 fuel cells at a time.  When you die you lose 1 fuel cell from your depot.
+
+[CheckpointTrials]
+localizedName=Checkpoint
+
+[CheckpointDefault]
+localizedName=Checkpoint
+
+[TeamInfoGlorax]
+localizedName=Glorax
+

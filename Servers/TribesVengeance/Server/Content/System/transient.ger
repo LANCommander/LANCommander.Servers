@@ -1,0 +1,1558 @@
+[TribesMPQuickPlayPanel_NYILabel]
+Caption=Noch nicht implementiert ...
+
+[TribesMPGameGuidePanel_JoinButton]
+Caption=EINKLINKEN
+Hint=Mit dem zurzeit gewählten Server verbinden.
+
+[TribesMPGameGuidePanel_RefreshAllButton]
+Caption=ALLE AKTUALISIEREN
+Hint=Alle sichtbaren Server aktualisieren.
+
+[TribesMPGameGuidePanel_BuddyListButton]
+Caption=FREUNDE
+Hint=Verwalten Sie Ihre Freundesliste.
+
+[TribesMPGameGuidePanel_BrowserBox]
+ListNames=("Statussymbol","Server-Name","Info","Spieler","Ping")
+
+[TribesMPGameGuidePanel_BrowserBox_ServerName_Button]
+Caption=SERVER-NAME
+
+[TribesMPGameGuidePanel_BrowserBox_Info_Button]
+Caption=DETAILS
+
+[TribesMPGameGuidePanel_BrowserBox_Players_Button]
+Caption=SPIELER
+
+[TribesMPGameGuidePanel_BrowserBox_Ping_Button]
+Caption=PING
+
+[TribesMPGameGuidePanel_EditFiltersButton]
+Caption=FILTER BEARBEITEN
+Hint=Bearbeiten Sie ihre eigenen Filter.
+
+[TribesMPGameGuidePanel_ViewInfoButton]
+Caption=INFOS EINSEHEN
+Hint=Lesen Sie zusätzliche Informationen über den zurzeit gewählten Server nach.
+
+[TribesMPGameGuidePanel_MarkFavoriteButton]
+Caption=FAVORITEN MARKIEREN
+Hint=Den zurzeit gewählten Server als Favoriten markieren.
+
+[TribesMPGameGuidePanel_FilterLabel]
+Caption=Filter:
+
+[TribesMPGameGuidePanel_ModificationLabel]
+Caption=Modifikation:
+
+[TribesMPGameGuidePanel_DebugGamespyLabel]
+Caption=GAMESPY DEBUGGEN
+
+[TribesMPGameGuidePanel_BuddyFilterLabel]
+Caption=NUR FREUNDE ZEIGEN
+
+[TribesMPGameGuidePanel_LANFIlterLabel]
+Caption=NUR LAN-SERVER ZEIGEN
+
+[TribesMPGameGuidePanel_PatchButton]
+Caption=NACH UPDATE SUCHEN
+Hint=Alle sichtbaren Server aktualisieren.
+
+[TribesMPProfilePanel_NewProfileButton]
+Caption=ERSTELLEN
+
+[TribesMPProfilePanel_DeleteProfileButton]
+Caption=LÖSCHEN
+
+[TribesMPProfilePanel_FavoritesButton]
+Caption=AUSRÜSTUNGEN BEARBEITEN
+
+[TribesMPProfilePanel_GenderLabel]
+Caption=GESCHLECHT:
+
+[TribesMPProfilePanel_playernamedatalabel]
+Caption=KeeKee
+
+[TribesMPProfilePanel_VOICECHAT PROFILE]
+Caption=STIMME:
+
+[TribesMPProfilePanel_CreateGamespy]
+Caption=STATISTIKEINTRAG ERSTELLEN
+
+[TribesMPProfilePanel_UseGameSpyLabel]
+Caption=STATISTIKERMITTLUNG AKTIVIEREN
+
+[TribesMPProfilePanel_GamespyEmailLabel]
+Caption=NICHT FESTGELEGT
+
+[TribesMPProfilePanel_SaveGamespyLabel]
+Caption=PASSWORT MERKEN
+
+[TribesMPProfilePanel_statusernamelabel]
+Caption=E-MAIL-ADRESSE:
+
+[TribesMPProfilePanel_teamlabel]
+Caption=TEAM-MITGLIEDSCHAFT AKTIVIEREN
+
+[TribesMPProfilePanel_StatLoginButton]
+Caption=JETZT EINLOGGEN
+
+[TribesMPProfilePanel_TeamLoginButton]
+Caption=JETZT IN TEAM EINKLINKEN
+
+[TribesMPProfilePanel_CreateTeamButton]
+Caption=TEAM ERSTELLEN
+
+[TribesMPProfilePanel_TeamLoginLabel]
+Caption=TEAM-KENNUNG:
+
+[TribesMPProfilePanel_TeamPasswordLabel]
+Caption=TEAM-NAME:
+
+[TribesMPProfilePanel_RememberTeamPasswordLabel]
+Caption=PASSWORT MERKEN
+
+[TribesMPProfilePanel_TeamNameDataLabel]
+Caption=NICHT FESTGELEGT
+
+[TribesMPProfilePanel_TeamLoginDataLabel]
+Caption=NICHT FESTGELEGT
+
+[TribesMPProfilePanel_LoadoutsButton]
+Caption=AUSRÜSTUNGEN BEARBEITEN
+
+[TribesMPProfilePanel_selectprofilelabel]
+Caption=PROFIL LADEN:
+
+[TribesMPProfilePanel_selectedtitle]
+Caption=AKTUELLES PROFIL:
+
+[TribesMPCommunityPanel_SystemChannelButton]
+Caption=SYSTEM
+
+[TribesMPCommunityPanel_DefaultChannelButton]
+Caption=#channel
+
+[TribesMPCommunityPanel_ConnectButton]
+Caption=VERBINDEN
+
+[TribesMPCommunityPanel_DisconnectButton]
+Caption=VERBINDUNG TRENNEN
+
+[TribesMPCommunityPanel_RecordingsButton]
+Caption=AUFZEICHNUNGEN
+
+[TribesMPHostPanel_MapLabel]
+Caption=KARTE
+
+[TribesMPHostPanel_GameTypeLabel]
+Caption=SPIELTYP
+
+[TribesMPHostPanel_StartButton]
+Caption=SERVER STARTEN
+Hint=Einen Empfangs-Server starten
+
+[TribesMPHostPanel_PasswordLabel]
+Caption=SPIELPASSWORT:
+
+[TribesMPHostPanel_ServerNameLabel]
+Caption=SERVER-NAME:
+
+[TribesMPHostPanel_DedicatedLabel]
+Caption=DEDIZIERT:
+
+[TribesMPHostPanel_AdvancedButton]
+Caption=ERWEITERT
+Hint=Zu erweiterten Optionen schalten
+
+[TribesMultiplayerMenu_GameGuideButton]
+Caption=EINKLINKEN
+
+[TribesMultiplayerMenu_ProfileButton]
+Caption=PROFIL
+
+[TribesMultiplayerMenu_HostButton]
+Caption=HOST
+
+[TribesMultiplayerMenu_GamespyJoin]
+Caption=EINKLINKEN
+
+[TribesMultiplayerMenu_MainMenuButton]
+Caption=HAUPTMENÜ
+
+[TribesMultiplayerMenu_QuitButton]
+Caption=BEENDEN
+
+[TribesMultiplayerMenu_multiplayertitle]
+Caption=MULTIPLAYER
+
+[TribesMultiplayerMenu_CommunityButton]
+Caption=CHAT
+
+[GUILabel0]
+Caption=Noch nicht implementiert ...
+
+[GUIMultiColumnListBox0]
+ListNames=("Statussymbol","Server-Name","Info","Spieler","Ping")
+
+[GUIButton3]
+Caption=SERVER-NAME
+
+[GUIButton4]
+Caption=DETAILS
+
+[GUIButton5]
+Caption=SPIELER
+
+[GUIButton6]
+Caption=PING
+
+[GUIButton7]
+Caption=EINKLINKEN
+Hint=Mit dem zurzeit gewählten Server verbinden.
+
+[GUIButton8]
+Caption=ALLE AKTUALISIEREN
+Hint=Alle sichtbaren Server aktualisieren.
+
+[GUIButton9]
+Caption=FREUNDE
+Hint=Verwalten Sie Ihre Freundesliste.
+
+[GUIButton10]
+Caption=FILTER BEARBEITEN
+Hint=Bearbeiten Sie ihre eigenen Filter.
+
+[GUIButton11]
+Caption=INFOS EINSEHEN
+Hint=Lesen Sie zusätzliche Informationen über den zurzeit gewählten Server nach.
+
+[GUIButton12]
+Caption=FAVORITEN MARKIEREN
+Hint=Den zurzeit gewählten Server als Favoriten markieren.
+
+[GUILabel1]
+Caption=Filter:
+
+[GUILabel2]
+Caption=Modifikation:
+
+[GUILabel3]
+Caption=GAMESPY DEBUGGEN
+
+[GUILabel4]
+Caption=NUR FREUNDE ZEIGEN
+
+[GUILabel5]
+Caption=NUR LAN-SERVER ZEIGEN
+
+[GUIButton13]
+Caption=NACH UPDATE SUCHEN
+Hint=Alle sichtbaren Server aktualisieren.
+
+[GUIButton14]
+Caption=ERSTELLEN
+
+[GUIButton15]
+Caption=LÖSCHEN
+
+[GUIButton16]
+Caption=AUSRÜSTUNGEN BEARBEITEN
+
+[GUILabel6]
+Caption=GESCHLECHT:
+
+[GUILabel7]
+Caption=KeeKee
+
+[GUILabel8]
+Caption=STIMME:
+
+[GUIButton17]
+Caption=STATISTIKEINTRAG ERSTELLEN
+
+[GUIButton18]
+Caption=JETZT EINLOGGEN
+
+[GUIButton19]
+Caption=JETZT IN TEAM EINKLINKEN
+
+[GUIButton20]
+Caption=TEAM ERSTELLEN
+
+[GUILabel9]
+Caption=STATISTIKERMITTLUNG AKTIVIEREN
+
+[GUILabel10]
+Caption=TEAM-MITGLIEDSCHAFT AKTIVIEREN
+
+[GUILabel11]
+Caption=NICHT FESTGELEGT
+
+[GUILabel12]
+Caption=NICHT FESTGELEGT
+
+[GUILabel13]
+Caption=PASSWORT MERKEN
+
+[GUILabel14]
+Caption=PASSWORT MERKEN
+
+[GUILabel15]
+Caption=E-MAIL-ADRESSE:
+
+[GUILabel16]
+Caption=TEAM-KENNUNG:
+
+[GUILabel17]
+Caption=TEAM-NAME:
+
+[GUILabel18]
+Caption=PROFIL LADEN:
+
+[GUILabel19]
+Caption=AKTUELLES PROFIL:
+
+[GUIButton21]
+Caption=AUSRÜSTUNGEN BEARBEITEN
+
+[GUILabel20]
+Caption=NICHT FESTGELEGT
+
+[GUIButton22]
+Caption=SYSTEM
+
+[GUIButton23]
+Caption=#channel
+
+[GUIButton24]
+Caption=VERBINDEN
+
+[GUIButton25]
+Caption=VERBINDUNG TRENNEN
+
+[GUIButton26]
+Caption=AUFZEICHNUNGEN
+
+[GUILabel21]
+Caption=KARTE
+
+[GUILabel22]
+Caption=SPIELTYP
+
+[GUIButton27]
+Caption=SERVER STARTEN
+Hint=Einen Empfangs-Server starten
+
+[GUILabel23]
+Caption=SPIELPASSWORT:
+
+[GUILabel24]
+Caption=SERVER-NAME:
+
+[GUILabel27]
+Caption=DEDIZIERT:
+
+[GUIButton28]
+Caption=ERWEITERT
+Hint=Zu erweiterten Optionen schalten
+
+[GUIButton29]
+Caption=EINKLINKEN
+
+[GUIButton30]
+Caption=PROFIL
+
+[GUIButton31]
+Caption=CHAT
+
+[GUIButton32]
+Caption=HOST
+
+[GUIButton33]
+Caption=HAUPTMENÜ
+
+[GUIButton34]
+Caption=EINKLINKEN
+
+[GUIButton35]
+Caption=BEENDEN
+
+[GUILabel28]
+Caption=MULTIPLAYER
+
+[TribesMPEscapeMenu_ReturnToMenuButton]
+Caption=VERBINDUNG TRENNEN
+Hint=Verbindung mit diesem Server trennen und zum Hauptmenü zurückkehren.
+
+[TribesMPEscapeMenu_ResumeButton]
+Caption=" RESUME GAME"
+Hint=Dieses Fenster schließen und weiterspielen.
+
+[TribesMPEscapeMenu_OptionsButton]
+Caption=OPTIONEN
+Hint=Zu den Spiel-Optionen schalten
+
+[TribesMPEscapeMenu_QuitButton]
+Caption=BEENDEN
+Hint=Das Spiel beenden und zum Desktop zurückkehren.
+
+[TribesMPEscapeMenu_PlayersButton]
+Caption=SPIELER
+
+[TribesMPPlayersPanel_TeamOneList]
+ListNames=("Name","Punkte","Ping")
+
+[TribesMPPlayersPanel_TeamOneList_Name_Button]
+Caption=Imperial
+
+[TribesMPPlayersPanel_TeamOneList_Score_Button]
+Caption=Punkte
+
+[TribesMPPlayersPanel_TeamOneList_Ping_Button]
+Caption=Ping
+
+[TribesMPPlayersPanel_TeamTwoList]
+ListNames=("Name","Punkte","Ping")
+
+[TribesMPPlayersPanel_TeamTwoList_Name_Button]
+Caption=Blood Eagle
+
+[TribesMPPlayersPanel_TeamTwoList_Score_Button]
+Caption=Punkte
+
+[TribesMPPlayersPanel_TeamTwoList_Ping_Button]
+Caption=Ping
+
+[TribesMPPlayersPanel_SpectatorList]
+ListNames=("Name","Ping")
+
+[TribesMPPlayersPanel_SpectatorList_Name_Button]
+Caption=Zuschauer
+
+[TribesMPPlayersPanel_SpectatorList_Ping_Button]
+Caption=Ping
+
+[TribesMPPlayersPanel_ChangeTeamButton]
+Caption=TEAMS ÄNDERN
+
+[TribesMPPlayersPanel_SpectateButton]
+Caption=ZUSCHAUEN
+
+[TribesMPPlayersPanel_VoteToKickButton]
+Caption=FÜR HINAUSWURF STIMMEN
+
+[TribesMPPlayersPanel_AddBuddyButton]
+Caption=FREUND HINZUFÜGEN
+
+[TribesMPPlayersPanel_BanButton]
+Caption=VERBANNEN
+
+[TribesMPPlayersPanel_KickButton]
+Caption=HINAUSWERFEN
+
+[TribesMPPlayersPanel_SpectifyButton]
+Caption=ZUM ZUSCHAUEN VERDAMMEN
+
+[TribesMPPlayersPanel_TeamChangeBjtton]
+Caption=TEAMÄNDERUNG
+
+[TribesMPPlayersPanel_GrantAdminButton]
+Caption=ALS ADMIN ZULASSEN
+
+[TribesMPPlayersPanel_VoteAdminButton]
+Caption=FÜR ADMIN STIMMEN
+
+[TribesMPPlayersPanel_MuteButton]
+Caption=STUMM SCHALTEN
+
+[TribesMPPlayersPanel_JoinTeamOneButton]
+Caption=EINKLINKEN BEI Blood Eagle
+
+[TribesMPPlayersPanel_JoinTeamTwoButton]
+Caption=JOIN Imperial
+
+[TribesMPPlayersPanel_ForceTeamOneButton]
+Caption=Blood Eagle ERZWINGEN
+
+[TribesMPPlayersPanel_ForceTeamTwoButton]
+Caption=FORCE Imperial
+
+[TribesMPPlayersPanel_RecordButton]
+Caption=AUFZEICHNUNG STARTEN
+
+[TribesMPStatsPanel_StatsList]
+ListNames=("Rang","Name","Nummer","Gleichung","Gesamt")
+
+[TribesMPStatsPanel_StatsList_Rank_Button]
+Caption=RANG
+
+[TribesMPStatsPanel_StatsList_Name_Button]
+Caption=NAME
+
+[TribesMPStatsPanel_StatsList_Number_Button]
+Caption=#
+
+[TribesMPStatsPanel_StatsList_Equation_Button]
+Caption=WERT
+
+[TribesMPStatsPanel_StatsList_Total_Button]
+Caption=PUNKTE
+
+[TribesMPStatsPanel_OffenseLabel]
+Caption=Offensivpunkte:
+
+[TribesMPStatsPanel_DefenseLabel]
+Caption=Defensivpunkte:
+
+[TribesMPStatsPanel_StyleLabel]
+Caption=Stilpunkte:
+
+[TribesMPStatsPanel_TotalLabel]
+Caption=GESAMTPUNKTE:
+
+[TribesMPStatsPanel_OffenseDataLabel]
+Caption=0
+
+[TribesMPStatsPanel_DefenseDataLabel]
+Caption=0
+
+[TribesMPStatsPanel_StyleDataLabel]
+Caption=0
+
+[TribesMPStatsPanel_TotalDataLabel]
+Caption=0
+
+[TribesMPAdminPanel_SwitchButton]
+Caption=KARTEN WECHSELN
+Hint=Den Server zum zurzeit gewählten Spieltyp und der entsprechenden Karte umschalten.
+
+[TribesMPAdminPanel_RestartButton]
+Caption=KARTE NEU STARTEN
+Hint=Die aktuelle Karte neu starten.
+
+[TribesMPAdminPanel_TimeLimitLabel]
+Caption=ZEIT-LIMIT:
+
+[TribesMPAdminPanel_GameTypeLabel]
+Caption=SPIELTYP
+
+[TribesMPAdminPanel_MapLabel]
+Caption=KARTE
+
+[TribesMPAdminPanel_UpdateButton]
+Caption=AKTUALISIEREN
+Hint=Den Server mit den angegebenen Parametern aktualisieren.
+
+[TribesMPAdminPanel_VoteChangeButton]
+Caption=FÜR KARTENWECHSEL STIMMEN
+
+[TribesMPAdminPanel_TourneyModeButton]
+Caption=TURNIER-MODUS
+
+[TribesMPAdminPanel_VoteTourneyButton]
+Caption=FÜR TURNIER STIMMEN
+
+[TribesMPAdminPanel_ForceStartButton]
+Caption=START ERZWINGEN
+
+[TribesMPAdminPanel_LoginButton]
+Caption=ADMIN-LOGIN
+
+[TribesMPAdminPanel_TeamDamageButton]
+Caption=TEAM-SCHADEN DEAKTIVIEREN
+Hint=Den Server zum zurzeit gewählten Spieltyp und der entsprechenden Karte umschalten.
+
+[TribesMPAdminPanel_VoteTEamDamageButton]
+Caption=FÜR DEAKTIVIERUNG VON TEAM-SCHADEN STIMMEN
+
+[TribesMPEscapeMenu_StatsButton]
+Caption=MEINE STATISTIK
+
+[TribesMPEscapeMenu_AdminButton]
+Caption=ADMINISTRATOR
+
+[TribesMPEscapeMenu_ServerLabel]
+Caption=SERVER-NAME:
+
+[TribesMPEscapeMenu_EmailLabel]
+Caption=SERVER-E-MAIL:
+
+[TribesMPEscapeMenu_ServerDataLabel]
+Caption=Hier Server-Namen eintragen.
+
+[TribesMPEscapeMenu_EmailDataLabel]
+Caption=Nicht gegeben.
+
+[GUIButton36]
+Caption=SPIELER
+
+[GUIMultiColumnListBox1]
+ListNames=("Name","Punkte","Ping")
+
+[GUIButton37]
+Caption=Blood Eagle
+
+[GUIButton38]
+Caption=Punkte
+
+[GUIButton39]
+Caption=Ping
+
+[GUIButton40]
+Caption=TEAMS ÄNDERN
+
+[GUIMultiColumnListBox2]
+ListNames=("Name","Punkte","Ping")
+
+[GUIButton41]
+Caption=Imperial
+
+[GUIButton42]
+Caption=Punkte
+
+[GUIButton43]
+Caption=Ping
+
+[GUIButton44]
+Caption=ZUSCHAUEN
+
+[GUIButton45]
+Caption=AUFZEICHNUNG STARTEN
+
+[GUIMultiColumnListBox3]
+ListNames=("Name","Ping")
+
+[GUIButton46]
+Caption=Zuschauer
+
+[GUIButton47]
+Caption=Ping
+
+[GUIButton48]
+Caption=FÜR HINAUSWURF STIMMEN
+
+[GUIButton49]
+Caption=FÜR ADMIN STIMMEN
+
+[GUIButton50]
+Caption=FREUND HINZUFÜGEN
+
+[GUIButton51]
+Caption=STUMM SCHALTEN
+
+[GUIButton52]
+Caption=VERBANNEN
+
+[GUIButton53]
+Caption=HINAUSWERFEN
+
+[GUIButton54]
+Caption=EINKLINKEN BEI Blood Eagle
+
+[GUIButton55]
+Caption=JOIN Imperial
+
+[GUIButton56]
+Caption=ZUM ZUSCHAUEN VERDAMMEN
+
+[GUIButton57]
+Caption=Blood Eagle ERZWINGEN
+
+[GUIButton58]
+Caption=FORCE Imperial
+
+[GUIButton59]
+Caption=TEAMÄNDERUNG
+
+[GUIButton60]
+Caption=ALS ADMIN ZULASSEN
+
+[GUIMultiColumnListBox4]
+ListNames=("Rang","Name","Nummer","Gleichung","Gesamt")
+
+[GUIButton61]
+Caption=RANG
+
+[GUIButton62]
+Caption=NAME
+
+[GUIButton63]
+Caption=#
+
+[GUIButton64]
+Caption=WERT
+
+[GUIButton65]
+Caption=PUNKTE
+
+[GUILabel29]
+Caption=Offensivpunkte:
+
+[GUILabel30]
+Caption=Defensivpunkte:
+
+[GUILabel31]
+Caption=Stilpunkte:
+
+[GUILabel32]
+Caption=GESAMTPUNKTE:
+
+[GUILabel33]
+Caption=0
+
+[GUILabel34]
+Caption=0
+
+[GUILabel35]
+Caption=0
+
+[GUILabel36]
+Caption=0
+
+[GUIButton66]
+Caption=KARTEN WECHSELN
+Hint=Den Server zum zurzeit gewählten Spieltyp und der entsprechenden Karte umschalten.
+
+[GUIButton67]
+Caption=KARTE NEU STARTEN
+Hint=Die aktuelle Karte neu starten.
+
+[GUILabel37]
+Caption=ZEIT-LIMIT:
+
+[GUILabel38]
+Caption=SPIELTYP
+
+[GUILabel39]
+Caption=KARTE
+
+[GUIButton68]
+Caption=AKTUALISIEREN
+Hint=Den Server mit den angegebenen Parametern aktualisieren.
+
+[GUIButton69]
+Caption=FÜR KARTENWECHSEL STIMMEN
+
+[GUIButton70]
+Caption=TURNIER-MODUS
+
+[GUIButton71]
+Caption=FÜR TURNIER STIMMEN
+
+[GUIButton72]
+Caption=START ERZWINGEN
+
+[GUIButton73]
+Caption=ADMIN-LOGIN
+
+[GUIButton74]
+Caption=TEAM-SCHADEN DEAKTIVIEREN
+Hint=Den Server zum zurzeit gewählten Spieltyp und der entsprechenden Karte umschalten.
+
+[GUIButton75]
+Caption=FÜR DEAKTIVIERUNG VON TEAM-SCHADEN STIMMEN
+
+[GUIButton76]
+Caption=VERBINDUNG TRENNEN
+Hint=Verbindung mit diesem Server trennen und zum Hauptmenü zurückkehren.
+
+[GUIButton77]
+Caption=" RESUME GAME"
+Hint=Dieses Fenster schließen und weiterspielen.
+
+[GUIButton78]
+Caption=OPTIONEN
+Hint=Zu den Spiel-Optionen schalten
+
+[GUIButton79]
+Caption=BEENDEN
+Hint=Das Spiel beenden und zum Desktop zurückkehren.
+
+[GUIButton80]
+Caption=ADMINISTRATOR
+
+[GUILabel40]
+Caption=SERVER-NAME:
+
+[GUIButton81]
+Caption=MEINE STATISTIK
+
+[GUILabel41]
+Caption=SERVER-E-MAIL:
+
+[GUILabel42]
+Caption=Hier Server-Namen eintragen.
+
+[GUILabel43]
+Caption=Nicht gegeben.
+
+[TribesSPEscapeMenu_SaveGameButton]
+Caption=Spiel speichern
+
+[TribesSPEscapeMenu_LoadGameButton]
+Caption=Spiel laden
+
+[TribesSPEscapeMenu_RestartButton]
+Caption=Neu starten
+
+[TribesSPEscapeMenu_OptionsButton]
+Caption=Optionen
+
+[TribesSPEscapeMenu_QuitButton]
+Caption=Beenden und zurück zum Hauptmenü
+
+[TribesSPEscapeMenu_ReturnButton]
+Caption=Zurück ins Spiel
+
+[TribesSPEscapeMenu_ExitGameButton]
+Caption=TRIBES VERLASSEN
+
+[GUIButton82]
+Caption=Spiel speichern
+
+[GUIButton83]
+Caption=Spiel laden
+
+[GUIButton84]
+Caption=Neu starten
+
+[GUIButton85]
+Caption=Optionen
+
+[GUIButton86]
+Caption=Beenden und zurück zum Hauptmenü
+
+[GUIButton87]
+Caption=Zurück ins Spiel
+
+[GUIButton88]
+Caption=TRIBES VERLASSEN
+
+[TribesOptionsMenu_AudioButton]
+Caption=AUDIO
+
+[TribesOptionsMenu_VideoButton]
+Caption=GRAFIK
+
+[TribesOptionsMenu_ControlsButton]
+Caption=STEUERUNG
+
+[TribesOptionsMenu_CreditsButton]
+Caption=MITWIRKENDE
+
+[TribesOptionsMenu_RestoreDefaultsButton]
+Caption=STANDARD
+
+[TribesOptionsMenu_DoneButton]
+Caption=FERTIG
+
+[TribesOptionsMenu_OptionsLabel]
+Caption=OPTIONEN
+
+[TribesOptionsVideoPanel_ResolutionLabel]
+Caption=AUFLÖSUNG
+
+[TribesOptionsVideoPanel_DetailLabel]
+Caption=DETAILSTUFE
+
+[TribesOptionsVideoPanel_BrightnessLabel]
+Caption=HELLIGKEIT
+
+[TribesOptionsVideoPanel_ContrastLabel]
+Caption=KONTRAST
+
+[TribesOptionsVideoPanel_GammaLabel]
+Caption=GAMMA
+
+[TribesOptionsVideoPanel_ApplyButton]
+Caption=ÜBERNEHMEN
+
+[TribesOptionsVideoPanel_BumpMapLabel]
+Caption=KOLLISIONSKARTEN-DETAILS
+
+[TribesOptionsVideoPanel_DynamicShadowLabel]
+Caption=DYNAMISCHE-SCHATTEN-DETAILS
+
+[TribesOptionsVideoPanel_GlowLabel]
+Caption=LEUCHT-DETAILS:
+
+[TribesOptionsVideoPanel_TexLabel]
+Caption=TEXTUR-DETAILS
+
+[TribesOptionsVideoPanel_DECOLABEL]
+Caption=TERRAIN-DEKO-SCHICHTEN
+
+[TribesOptionsVideoPanel_MacroLabel]
+Caption=TERRAIN-MAKRO-TEXTUR
+
+[TribesOptionsVideoPanel_FluidLabel]
+Caption=FLÜSSIGE-OBERFLÄCHEN-DETAILS
+
+[TribesOptionsVideoPanel_FogLabel]
+Caption=FOGGING DISTANCE
+
+[TribesOptionsVideoPanel_worldLabel]
+Caption=WORLD DETAIL
+
+[TribesOptionsVideoPanel_REsTitle]
+Caption=EINFACHE GRAFIK-OPTIONEN
+
+[TribesOptionsVideoPanel_advanceddetailtitle]
+Caption=ERWEITERTE DETAIL-EINSTELLUNGEN
+
+[TribesOptionsAudioPanel_MusicVolumeLabel]
+Caption=LAUTSTÄRKE MUSIK
+
+[TribesOptionsAudioPanel_SoundVolumeLabel]
+Caption=LAUTSTÄRKE SOUND
+
+[TribesOptionsAudioPanel_Use3DLabel]
+Caption=3D-SOUND VERWENDEN
+
+[TribesOptionsAudioPanel_DefaultLabel]
+Caption=STANDARD-SOUNDTREIBER VERWENDEN
+
+[TribesOptionsAudioPanel_UseEAXLabel]
+Caption=EAX VERWENDEN
+
+[TribesOptionsAudioPanel_CompatibilityLabel]
+Caption=KOMPATIBILITÄTS-MODUS
+
+[TribesOptionsAudioPanel_ReverseLabel]
+Caption=UMGEKEHRTES STEREO
+
+[TribesOptionsAudioPanel_LowLabel]
+Caption=GERINGE QUALITÄT
+
+[TribesOptionsAudioPanel_SpeechLabel]
+Caption=LAUTSTÄRKE SPRACHAUSGABE
+
+[TribesOptionsAudioPanel_VOLUMETITLE]
+Caption=LAUTSTÄRKE
+
+[TribesOptionsAudioPanel_settingstitle]
+Caption=SOUNDQUALITÄT
+
+[TribesOptionsControlsPanel_SelectKeyButton]
+Caption=TASTE WÄHLEN
+
+[TribesOptionsControlsPanel_MouseSensitivityLabel]
+Caption=MAUSEMPFINDLICHKEIT
+
+[TribesOptionsControlsPanel_InvertMouseLabel]
+Caption=MAUS-Y-ACHSE UMKEHREN
+
+[TribesOptionsControlsPanel_categorylabel]
+Caption=KATEGORIE:
+
+[TribesOptionsControlsPanel_KeyBindingBox]
+ListNames=("Functions","MappedKey","MappedKeySecondary")
+
+[TribesOptionsControlsPanel_KeyBindingBox_Functions_Button]
+Caption=FUNKTION
+
+[TribesOptionsControlsPanel_KeyBindingBox_MappedKey_Button]
+Caption=PRIMÄR
+
+[TribesOptionsControlsPanel_KeyBindingBox_MappXySecondary_Button]
+Caption=SEKUNDÄR
+
+[TribesOptionsNetworkPanel_ConnectionSpeedLabel]
+Caption=VERBINDUNGSGESCHWINDIGKEIT:
+
+[TribesOptionsNetworkPanel_DynamicNetspeedLabel]
+Caption=VERBINDUNGSGESCHWINDIGKEIT WÄHREND DES SPIELS ANPASSEN
+
+[TribesOptionsCreditsPanel_NYILabel]
+Caption=Irrational Games Australia   www.irrationalgames.com
+
+[TribesOptionsMenu_OptionsTabControl_LowLabel]
+Caption=GERINGE QUALITÄT
+
+[TribesOptionsMenu_optionstitle]
+Caption=OPTIONEN
+
+[TribesOptionsMenu_MainMenuButton]
+Caption=HAUPTMENÜ
+
+[TribesOptionsMenu_NetworkButton]
+Caption=NETZWERK
+
+[GUIButton89]
+Caption=GRAFIK
+
+[GUILabel44]
+Caption=GERINGE QUALITÄT
+
+[GUILabel45]
+Caption=DYNAMISCHE-SCHATTEN-DETAILS
+
+[GUILabel46]
+Caption=LEUCHT-DETAILS:
+
+[GUILabel47]
+Caption=TEXTUR-DETAILS
+
+[GUILabel48]
+Caption=TERRAIN-DEKO-SCHICHTEN
+
+[GUILabel49]
+Caption=FLÜSSIGE-OBERFLÄCHEN-DETAILS
+
+[GUILabel50]
+Caption=FOGGING DISTANCE
+
+[GUILabel51]
+Caption=WORLD DETAIL
+
+[GUILabel52]
+Caption=TERRAIN-MAKRO-TEXTUR
+
+[GUILabel53]
+Caption=AUFLÖSUNG
+
+[GUILabel54]
+Caption=DETAILSTUFE
+
+[GUILabel55]
+Caption=HELLIGKEIT
+
+[GUILabel56]
+Caption=KONTRAST
+
+[GUILabel57]
+Caption=GAMMA
+
+[GUIButton90]
+Caption=ÜBERNEHMEN
+
+[GUILabel58]
+Caption=EINFACHE GRAFIK-OPTIONEN
+
+[GUILabel59]
+Caption=ERWEITERTE DETAIL-EINSTELLUNGEN
+
+[GUILabel60]
+Caption=KOLLISIONSKARTEN-DETAILS
+
+[GUILabel61]
+Caption=LAUTSTÄRKE MUSIK
+
+[GUILabel62]
+Caption=LAUTSTÄRKE SOUND
+
+[GUILabel63]
+Caption=3D-SOUND VERWENDEN
+
+[GUILabel64]
+Caption=STANDARD-SOUNDTREIBER VERWENDEN
+
+[GUILabel65]
+Caption=EAX VERWENDEN
+
+[GUILabel66]
+Caption=KOMPATIBILITÄTS-MODUS
+
+[GUILabel67]
+Caption=UMGEKEHRTES STEREO
+
+[GUILabel68]
+Caption=LAUTSTÄRKE
+
+[GUILabel69]
+Caption=SOUNDQUALITÄT
+
+[GUILabel70]
+Caption=GERINGE QUALITÄT
+
+[GUILabel71]
+Caption=LAUTSTÄRKE SPRACHAUSGABE
+
+[GUIMultiColumnListBox5]
+ListNames=("Functions","MappedKey","MappedKeySecondary")
+
+[GUIButton91]
+Caption=FUNKTION
+
+[GUIButton92]
+Caption=PRIMÄR
+
+[GUIButton93]
+Caption=SEKUNDÄR
+
+[GUIButton94]
+Caption=TASTE WÄHLEN
+
+[GUILabel72]
+Caption=MAUSEMPFINDLICHKEIT
+
+[GUILabel73]
+Caption=MAUS-Y-ACHSE UMKEHREN
+
+[GUILabel74]
+Caption=KATEGORIE:
+
+[GUILabel75]
+Caption=VERBINDUNGSGESCHWINDIGKEIT:
+
+[GUILabel76]
+Caption=VERBINDUNGSGESCHWINDIGKEIT WÄHREND DES SPIELS ANPASSEN
+
+[GUILabel77]
+Caption=Irrational Games Australia   www.irrationalgames.com
+
+[GUIButton95]
+Caption=AUDIO
+
+[GUIButton96]
+Caption=STEUERUNG
+
+[GUIButton97]
+Caption=STANDARD
+
+[GUIButton98]
+Caption=FERTIG
+
+[GUIButton99]
+Caption=HAUPTMENÜ
+
+[GUIButton100]
+Caption=MITWIRKENDE
+
+[GUIButton101]
+Caption=NETZWERK
+
+[GUILabel78]
+Caption=OPTIONEN
+
+[GUILabel79]
+Caption=OPTIONEN
+
+[TribesInventorySelectionMenu_SelectWeaponLabel]
+Caption=3 - WAFFE WÄHLEN
+
+[TribesInventorySelectionMenu_SelectArmorLabel]
+Caption=1 - PANZERUNG WÄHLEN
+
+[TribesInventorySelectionMenu_SelectPackLabel]
+Caption=2 - PACK WÄHLEN
+
+[TribesInventorySelectionMenu_DoneButton]
+Caption=ÄNDERUNGEN ÜBERNEHMEN UND BEREICH VERLASSEN
+
+[TribesInventorySelectionMenu_ResetButton]
+Caption=AUSRÜSTUNG ZURÜCKSETZEN
+
+[TribesInventorySelectionMenu_PreviousSkinButton]
+Caption=VORIGES AUSSEHEN
+
+[TribesInventorySelectionMenu_NextSkinButton]
+Caption=NÄCHSTES AUSSEHEN
+
+[TribesInventorySelectionMenu_inventorytitle]
+Caption=INVENTAR-STATION
+
+[GUIButton108]
+Caption=ÄNDERUNGEN ÜBERNEHMEN UND BEREICH VERLASSEN
+
+[GUILabel80]
+Caption=3 - WAFFE WÄHLEN
+
+[GUILabel81]
+Caption=1 - PANZERUNG WÄHLEN
+
+[GUILabel82]
+Caption=2 - PACK WÄHLEN
+
+[GUIButton111]
+Caption=AUSRÜSTUNG ZURÜCKSETZEN
+
+[GUILabel84]
+Caption=INVENTAR-STATION
+
+[GUIButton112]
+Caption=VORIGES AUSSEHEN
+
+[GUIButton113]
+Caption=NÄCHSTES AUSSEHEN
+
+[CurrentLoadoutTab]
+Caption=CURRENT LOADOUT
+
+[LoadoutButton0]
+Caption=Leer
+
+[LoadoutButton1]
+Caption=Leer
+
+[LoadoutButton2]
+Caption=Leer
+
+[LoadoutButton3]
+Caption=Leer
+
+[LoadoutButton4]
+Caption=Leer
+
+[LoadoutButton5]
+Caption=Leer
+
+[LoadoutButton6]
+Caption=Leer
+
+[LoadoutButton7]
+Caption=Leer
+
+[LoadoutButton8]
+Caption=Leer
+
+[LoadoutButton9]
+Caption=Leer
+
+[LoadoutButton10]
+Caption=Leer
+
+[LoadoutButton11]
+Caption=Leer
+
+[LoadoutButton12]
+Caption=Leer
+
+[LoadoutButton13]
+Caption=Leer
+
+[LoadoutButton14]
+Caption=Leer
+
+[LoadoutButton15]
+Caption=Leer
+
+[LoadoutButton16]
+Caption=Leer
+
+[LoadoutButton17]
+Caption=Leer
+
+[LoadoutButton18]
+Caption=Leer
+
+[LoadoutButton19]
+Caption=Leer
+
+[LoadoutButton20]
+Caption=Leer
+
+[LoadoutButton21]
+Caption=Leer
+
+[LoadoutButton22]
+Caption=Leer
+
+[TribesInventoryLoadoutButton24]
+Caption=CURRENT LOADOUT
+
+[TribesInventoryLoadoutButton25]
+Caption=Leer
+
+[TribesInventoryLoadoutButton26]
+Caption=Leer
+
+[TribesInventoryLoadoutButton27]
+Caption=Leer
+
+[TribesInventoryLoadoutButton28]
+Caption=Leer
+
+[TribesInventoryLoadoutButton29]
+Caption=Leer
+
+[TribesInventoryLoadoutButton30]
+Caption=Leer
+
+[TribesInventoryLoadoutButton31]
+Caption=Leer
+
+[CombatRoleLight]
+Caption=Leicht
+
+[CombatRoleMedium]
+Caption=Mittel
+
+[CombatRoleHeavy]
+Caption=Heavy
+
+[TribesInventoryArmorButton3]
+Caption=Leicht
+
+[TribesInventoryArmorButton4]
+Caption=Mittel
+
+[TribesInventoryArmorButton5]
+Caption=Heavy
+
+[WeaponSlot0_GUIButton]
+Caption=Slot 1
+
+[GUIButton115]
+Caption=Slot 1
+
+[WeaponSlot0_GUILabel]
+Caption=Slot 1
+
+[GUILabel88]
+Caption=Slot 1
+
+[weaponSlot1_GUIButton]
+Caption=Slot 2
+
+[GUIButton117]
+Caption=Slot 1
+
+[weaponSlot1_GUILabel]
+Caption=Slot 2
+
+[GUILabel90]
+Caption=Slot 1
+
+[weaponSlot2_GUIButton]
+Caption=Slot 3
+
+[GUIButton119]
+Caption=Slot 1
+
+[weaponSlot2_GUILabel]
+Caption=Slot 3
+
+[GUILabel92]
+Caption=Slot 1
+
+[weaponSlot3_GUIButton]
+Caption=Slot 1
+
+[GUIButton121]
+Caption=Slot 1
+
+[weaponSlot3_GUILabel]
+Caption=Slot 1
+
+[GUILabel94]
+Caption=Slot 1
+
+[weaponSlot4_GUIButton]
+Caption=Slot 1
+
+[GUIButton123]
+Caption=Slot 1
+
+[weaponSlot4_GUILabel]
+Caption=Slot 1
+
+[GUILabel96]
+Caption=Slot 1
+
+[weaponSlot5_GUIButton]
+Caption=Slot 1
+
+[GUIButton125]
+Caption=Slot 1
+
+[weaponSlot5_GUILabel]
+Caption=Slot 1
+
+[GUILabel98]
+Caption=Slot 1
+
+[weaponSlot6_GUIButton]
+Caption=Slot 1
+
+[GUIButton127]
+Caption=Slot 1
+
+[weaponSlot6_GUILabel]
+Caption=Slot 1
+
+[GUILabel100]
+Caption=Slot 1
+
+[weaponSlot7_GUIButton]
+Caption=Slot 1
+
+[GUIButton129]
+Caption=Slot 1
+
+[weaponSlot7_GUILabel]
+Caption=Slot 1
+
+[GUILabel102]
+Caption=Slot 1
+
+[weaponSlot8_GUIButton]
+Caption=Slot 1
+
+[GUIButton131]
+Caption=Slot 1
+
+[weaponSlot8_GUILabel]
+Caption=Slot 1
+
+[GUILabel104]
+Caption=Slot 1
+
+[weaponSlot9_GUIButton]
+Caption=Slot 1
+
+[GUIButton133]
+Caption=Slot 1
+
+[weaponSlot9_GUILabel]
+Caption=Slot 1
+
+[GUILabel106]
+Caption=Slot 1
+
+[GUIButton134]
+Caption=Slot 1
+
+[GUILabel107]
+Caption=Slot 1
+
+[GUIButton135]
+Caption=Slot 2
+
+[GUILabel108]
+Caption=Slot 2
+
+[GUIButton136]
+Caption=Slot 3
+
+[GUILabel109]
+Caption=Slot 3
+
+[WeaponSpinfusor]
+Caption=SPINFUSOR
+
+[WeaponChaingun]
+Caption=CHAINGUN
+
+[WeaponBlaster]
+Caption=BLASTER
+
+[WeaponGrenadeLauncher]
+Caption=GREN. LAUNCHER
+
+[WeaponRocketPod]
+Caption=ROCKET POD
+
+[WeaponBurner]
+Caption=BURNER
+
+[WeaponGrappler]
+Caption=GRAPPLER
+
+[WeaponSniperRifle]
+Caption=SNIPER RIFLE
+
+[WeaponBuckler]
+Caption=BUCKLER
+
+[WeaponMortar]
+Caption=MORTAR
+
+[TribesInventoryWeaponButton10]
+Caption=SPINFUSOR
+
+[TribesInventoryWeaponButton11]
+Caption=CHAINGUN
+
+[TribesInventoryWeaponButton12]
+Caption=BLASTER
+
+[TribesInventoryWeaponButton13]
+Caption=GREN. LAUNCHER
+
+[TribesInventoryWeaponButton14]
+Caption=ROCKET POD
+
+[TribesInventoryWeaponButton15]
+Caption=BURNER
+
+[TribesInventoryWeaponButton16]
+Caption=GRAPPLER
+
+[TribesInventoryWeaponButton17]
+Caption=SNIPER RIFLE
+
+[TribesInventoryWeaponButton18]
+Caption=BUCKLER
+
+[TribesInventoryWeaponButton19]
+Caption=MORTAR
+
+[PackEnergy]
+Caption=ENERGY PACK
+
+[PackShield]
+Caption=SHIELD PACK
+
+[PackRepair]
+Caption=REPAIR PACK
+
+[PackSpeed]
+Caption=SPEED PACK
+
+[TribesInventoryPackButton4]
+Caption=ENERGY PACK
+
+[TribesInventoryPackButton5]
+Caption=SHIELD PACK
+
+[TribesInventoryPackButton6]
+Caption=REPAIR PACK
+
+[TribesInventoryPackButton7]
+Caption=SPEED PACK
+
+[TribesMainMenu_newgamebutton]
+Caption=NEUES SPIEL
+
+[TribesMainMenu_LoadGameButton]
+Caption=SPIEL LADEN
+
+[TribesMainMenu_MultiplayerButton]
+Caption=MULTIPLAYER
+
+[TribesMainMenu_OptionsButton]
+Caption=OPTIONEN
+
+[TribesMainMenu_QuitButton]
+Caption=BEENDEN
+
+[TribesMainMenu_DebugLoadMapButton]
+Caption=LADEN DEBUGGEN
+
+[TribesMainMenu_ContinueButton]
+Caption=CONTINUE
+
+[GUIButton137]
+Caption=NEUES SPIEL
+
+[GUIButton138]
+Caption=CONTINUE
+
+[GUIButton139]
+Caption=SPIEL LADEN
+
+[GUIButton140]
+Caption=MULTIPLAYER
+
+[GUIButton141]
+Caption=OPTIONEN
+
+[GUIButton142]
+Caption=LADEN DEBUGGEN
+
+[GUIButton143]
+Caption=BEENDEN
+

@@ -1,0 +1,15 @@
+;predefined_contexts.lst
+;
+;This is the list of Contexts under which Effect Events can happen
+; and are passed in code to the Effects System.
+;
+;It is read by the IGEffectsConfigurator and is used to populate the
+; Contexts drop-down list.
+;This file can also be used as documentation for contexts.
+;
+;File Format:
+;   "ContextName: Description"
+
+;[Context]              [Description]
+
+Level_{Label}:          the label of the current level is {Label}

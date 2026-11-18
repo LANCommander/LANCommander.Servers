@@ -1,0 +1,35 @@
+Log: Log file open, 02/10/26 19:51:03
+Init: Version: 63446
+Init: Compiled: Sep 30 2004 14:22:26
+Init: Command line: MP-REF-CanyonCrusade?game=GameClasses.ModeCTF?maxplayers=32 -server
+Init: Base directory: D:\Repositories\LANCommander.Servers.TribesVengeance\Server\Program\Bin\
+Init: Character set: Unicode
+Init: Found startup configuration: Startup.ini
+Init: Adding FilePath: ..\..\Content\System
+Init: Object subsystem initialized
+Init: Computer: DESKTOPH9MRHLT
+Init: User: Pat
+Init: CPU Page size=4096, Processors=20
+Init: CPU Detected: PentiumPro-class processor (GenuineIntel)
+Init: CPU Features: CMov FPU RDTSC PAE MMX SSE
+Init: CPU Speed=3610.775970 MHz
+Init: Memory total: Phys=2097151K Pagef=4194303K Virt=2097024K
+Init: Working set: 32000 / 159000
+Log: BuildLabel: 1.0.1(63446)
+Localization: No localization: Beta_Dedicated_Server.General.Start (int)
+Log: (Havok): Initializing base system.
+Init: Vengeance engine initialized
+Log: Browse: MP-REF-CanyonCrusade?Name=Player?Class=Engine.Pawn?team=255?game=GameClasses.ModeCTF?maxplayers=32
+Log: LoadMap: MP-REF-CanyonCrusade?Name=Player?Class=Engine.Pawn?team=255?game=GameClasses.ModeCTF?maxplayers=32
+Critical: appError called:
+Critical: Failed to enter MP-REF-CanyonCrusade?game=GameClasses.ModeCTF?maxplayers=32: Can't find file 'MP-REF-CanyonCrusade'
+Critical: Windows GetLastError: The system cannot find the file specified. (2)
+Exit: Executing UObject::StaticShutdownAfterError
+Critical: UGameEngine::Init
+Critical: InitEngine
+Log: Exception handler: Flushing debug demo file...
+Log: Exception handler: Flushing log file...
+Exit: Exiting.
+Log: Waiting for file streaming thread to finish...
+Uninitialized: Name subsystem shut down
+Uninitialized: Log file closed, 02/10/26 19:51:05
