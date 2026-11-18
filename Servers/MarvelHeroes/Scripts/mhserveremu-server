@@ -1,0 +1,101 @@
+#!/bin/sh
+# Start MHServerEmu (START_EXE): `dotnet MHServerEmu.dll <START_ARGS>` from the server root.
+#
+# MHServerEmu reads commands (!commands, !server shutdown, ...) from its console. Its input is
+# the FIFO /run/mhserveremu/console, which `mhserveremu-command '<command>'` writes to (e.g. from
+# `docker exec`), plus the container's stdin when one is attached. This script keeps the FIFO
+# open, so the server waits for input instead of reading end-of-file over and over.
+#
+# MHServerEmu only notices it has shut down (`!server shutdown`, from the console, in game, or
+# from the 50-ConsoleAndStopSignal hook on `docker stop`) after its next console read returns, so
+# once it logs "All services shut down" the FIFO is closed and it exits. A SIGTERM or SIGINT that
+# reaches this script is turned into `!server shutdown` as well.
+set -e
+
+root="${SERVER_ROOT:-/config/Merged}"
+cd "$root"
+
+if [ ! -f MHServerEmu.dll ]; then
+    echo "MHServerEmu.dll not found in $root; see the 20-InstallMHServerEmu errors above" >&2
+    exit 1
+fi
+
+for f in Calligraphy.sip mu_cdata.sip; do
+    if [ ! -f "Data/Game/$f" ]; then
+        echo "Data/Game/$f not found in $root. Copy Calligraphy.sip and mu_cdata.sip from a Marvel Heroes Omega 1.52.0.1700 client's Data/Game/ into ${MH_CLIENT_DATA_DIR:-/config/ClientData} and restart" >&2
+        exit 1
+    fi
+done
+
+dir=/run/mhserveremu
+fifo="$dir/console"
+out="$dir/output"
+mkdir -p "$dir" 2>/dev/null || true
+rm -f "$fifo" "$out"
+mkfifo -m 600 "$fifo"
+mkfifo -m 600 "$out"
+
+# Keep the real stdin before the background jobs below get /dev/null for theirs
+exec 4<&0
+
+feeder=
+closed=
+close_console() {
+    if [ -z "$closed" ]; then
+        closed=1
+        [ -n "$feeder" ] && kill "$feeder" 2>/dev/null
+        exec 3>&-
+    fi
+}
+
+stopping=
+shutdown() {
+    if [ -z "$stopping" ] && [ -z "$closed" ]; then
+        stopping=1
+        echo "Stopping: !server shutdown"
+        printf '!server shutdown\n' >&3
+    fi
+}
+
+trap close_console USR1
+trap shutdown TERM INT
+
+echo "Starting: dotnet MHServerEmu.dll $*"
+
+set +e
+
+# Pass the console output through, and tell this script once the server has shut down
+self=$$
+(
+    trap '' TERM INT
+    while IFS= read -r line; do
+        printf '%s\n' "$line"
+        case "$line" in
+            *"[ServerManager] All services shut down"*) kill -USR1 "$self" 2>/dev/null ;;
+        esac
+    done
+) < "$out" &
+filter=$!
+
+# Opening the FIFO for reading waits for the first writer, which is fd 3 below
+dotnet MHServerEmu.dll "$@" < "$fifo" > "$out" &
+server=$!
+exec 3> "$fifo"
+
+if [ "$(readlink /proc/self/fd/4)" != /dev/null ]; then
+    cat <&4 >&3 &
+    feeder=$!
+fi
+exec 4<&-
+
+# A trapped signal interrupts wait; keep waiting for the server to exit
+status=0
+while kill -0 "$server" 2>/dev/null; do
+    wait "$server"
+    status=$?
+done
+
+close_console
+wait "$filter" 2>/dev/null
+rm -f "$fifo" "$out"
+exit $status
