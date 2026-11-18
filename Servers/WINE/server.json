@@ -1,0 +1,8 @@
+{
+  "image": "lancommander/wine",
+  "base": true,
+  "tagSuffixes": [
+    "",
+    "-gui"
+  ]
+}

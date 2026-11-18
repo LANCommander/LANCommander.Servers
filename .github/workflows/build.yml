@@ -1,0 +1,221 @@
+name: Build images
+
+# One workflow for every image in Servers/<Name>/:
+# - pull requests and pushes to main build only the images whose files changed (nothing is pushed)
+# - a <Name>/v<version> tag builds that one image and pushes :<version> and :latest to Docker Hub,
+#   along with its README.md as the Docker Hub description
+# - a README-only change on main updates that image's Docker Hub description without a rebuild
+# - workflow_dispatch builds and pushes any image(s) by name
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+    tags: ["*/v*"]
+  workflow_dispatch:
+    inputs:
+      servers:
+        description: "Server directory names, comma separated (e.g. CounterStrikeSource,HalfLife2Deathmatch), or 'all'"
+        required: true
+      version:
+        description: "Version tag for the image"
+        required: true
+        default: "latest"
+      push_latest:
+        description: "Also push the :latest tag"
+        type: boolean
+        default: true
+      push:
+        description: "Push to Docker Hub (off = build only)"
+        type: boolean
+        default: true
+      platforms:
+        description: "Build platforms (comma-separated)"
+        required: true
+        default: "linux/amd64"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      build: ${{ steps.plan.outputs.build }}
+      docs: ${{ steps.plan.outputs.docs }}
+      push: ${{ steps.plan.outputs.push }}
+      push_latest: ${{ steps.plan.outputs.push_latest }}
+      platforms: ${{ steps.plan.outputs.platforms }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check repository layout
+        run: python3 scripts/servers.py check
+
+      - name: Pick images to build
+        id: plan
+        shell: bash
+        env:
+          EVENT: ${{ github.event_name }}
+          REF_TYPE: ${{ github.ref_type }}
+          REF_NAME: ${{ github.ref_name }}
+          PR_BASE: ${{ github.event.pull_request.base.sha }}
+          PR_HEAD: ${{ github.event.pull_request.head.sha }}
+          BEFORE: ${{ github.event.before }}
+          IN_SERVERS: ${{ inputs.servers }}
+          IN_VERSION: ${{ inputs.version }}
+          IN_PUSH: ${{ inputs.push }}
+          IN_LATEST: ${{ inputs.push_latest }}
+          IN_PLATFORMS: ${{ inputs.platforms }}
+        run: |
+          set -euo pipefail
+          push=false; latest=false; platforms=linux/amd64; docs='[]'
+          case "$EVENT" in
+            pull_request)
+              changed=$(python3 scripts/servers.py changed "$PR_BASE" "$PR_HEAD")
+              build=$(jq -c '[.build[] | .version = "pr"]' <<<"$changed") ;;
+            push)
+              if [[ "$REF_TYPE" == tag ]]; then
+                build=$(python3 scripts/servers.py release "$REF_NAME")
+                push=true; latest=true
+              else
+                changed=$(python3 scripts/servers.py changed "$BEFORE" "$GITHUB_SHA")
+                build=$(jq -c '[.build[] | .version = "main"]' <<<"$changed")
+                docs=$(jq -c '.docs' <<<"$changed")
+              fi ;;
+            workflow_dispatch)
+              build=$(python3 scripts/servers.py dispatch "$IN_SERVERS" "$IN_VERSION")
+              push="$IN_PUSH"; latest="$IN_LATEST"; platforms="$IN_PLATFORMS" ;;
+          esac
+          {
+            echo "build=$build"
+            echo "docs=$docs"
+            echo "push=$push"
+            echo "push_latest=$latest"
+            echo "platforms=$platforms"
+          } >> "$GITHUB_OUTPUT"
+          {
+            echo "### Plan"
+            echo "Push to Docker Hub: \`$push\` (latest: \`$latest\`)"
+            echo
+            echo "Build: $(jq -r 'map(.name) | if length == 0 then "nothing" else join(", ") end' <<<"$build")"
+            echo
+            echo "Docker Hub description only: $(jq -r 'map(.name) | if length == 0 then "nothing" else join(", ") end' <<<"$docs")"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  build:
+    needs: plan
+    if: needs.plan.outputs.build != '[]'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        server: ${{ fromJSON(needs.plan.outputs.build) }}
+    name: ${{ matrix.server.name }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Resolve tags
+        id: tags
+        shell: bash
+        env:
+          SERVER: ${{ toJSON(matrix.server) }}
+          PUSH_LATEST: ${{ needs.plan.outputs.push_latest }}
+        run: |
+          set -euo pipefail
+          image=$(jq -r .image <<<"$SERVER")
+          version=$(jq -r .version <<<"$SERVER")
+          tags=$(jq -r --arg latest "$PUSH_LATEST" '
+              .image as $i | .version as $v
+              | .tagSuffixes[] as $s
+              | ([$v] + (if $latest == "true" then ["latest"] else [] end) | unique)[]
+              | "\($i):\(.)\($s)"' <<<"$SERVER")
+          {
+            echo "tags<<EOF"; echo "$tags"; echo "EOF"
+            echo "image=$image"
+            echo "version=$version"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Set up QEMU
+        if: needs.plan.outputs.platforms != 'linux/amd64'
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Docker Hub
+        if: needs.plan.outputs.push == 'true'
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # Title, description and the app.lancommander.* labels come from the Dockerfile.
+      - name: Build${{ needs.plan.outputs.push == 'true' && ' and push' || '' }}
+        uses: docker/build-push-action@v6
+        with:
+          context: ${{ matrix.server.context }}
+          platforms: ${{ needs.plan.outputs.platforms }}
+          push: ${{ needs.plan.outputs.push == 'true' }}
+          tags: ${{ steps.tags.outputs.tags }}
+          labels: |
+            org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
+            org.opencontainers.image.revision=${{ github.sha }}
+            org.opencontainers.image.version=${{ steps.tags.outputs.version }}
+
+      - name: Render Docker Hub README
+        if: needs.plan.outputs.push == 'true'
+        run: python3 scripts/servers.py hub-readme "${{ matrix.server.name }}" "${{ github.sha }}" > "$RUNNER_TEMP/README.md"
+
+      - name: Update Docker Hub description
+        if: needs.plan.outputs.push == 'true'
+        uses: peter-evans/dockerhub-description@v4
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          repository: ${{ steps.tags.outputs.image }}
+          short-description: ${{ matrix.server.shortDescription }}
+          readme-filepath: ${{ runner.temp }}/README.md
+
+      - name: Summary
+        if: needs.plan.outputs.push == 'true'
+        run: |
+          {
+            echo "Pushed \`${{ steps.tags.outputs.image }}\`:"
+            echo '${{ steps.tags.outputs.tags }}' | sed 's/^/- `/; s/$/`/'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  readme:
+    needs: plan
+    if: needs.plan.outputs.docs != '[]'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        server: ${{ fromJSON(needs.plan.outputs.docs) }}
+    name: README ${{ matrix.server.name }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Render Docker Hub README
+        run: python3 scripts/servers.py hub-readme "${{ matrix.server.name }}" "${{ github.sha }}" > "$RUNNER_TEMP/README.md"
+
+      # Fails for an image that hasn't been published to Docker Hub yet; that's expected.
+      - name: Update Docker Hub description
+        continue-on-error: true
+        uses: peter-evans/dockerhub-description@v4
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          repository: ${{ matrix.server.image }}
+          short-description: ${{ matrix.server.shortDescription }}
+          readme-filepath: ${{ runner.temp }}/README.md

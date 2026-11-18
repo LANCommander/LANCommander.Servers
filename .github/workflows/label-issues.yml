@@ -1,0 +1,30 @@
+name: Label issues by server
+
+# Issues filed with the server issue form get a server:<Name> label from the "Server" dropdown,
+# so they can be filtered per image. Editing the issue to pick another server moves the label.
+
+on:
+  issues:
+    types: [opened, edited]
+
+permissions:
+  issues: write
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const body = context.payload.issue.body || "";
+            const m = body.match(/^### Server\s*\n+\s*([A-Za-z0-9]+)\s*$/m);
+            if (!m) return;
+            const wanted = `server:${m[1]}`;
+            const issue = { owner: context.repo.owner, repo: context.repo.repo, issue_number: context.payload.issue.number };
+            for (const l of context.payload.issue.labels) {
+              if (l.name.startsWith("server:") && l.name !== wanted) {
+                await github.rest.issues.removeLabel({ ...issue, name: l.name });
+              }
+            }
+            await github.rest.issues.addLabels({ ...issue, labels: [wanted] });
