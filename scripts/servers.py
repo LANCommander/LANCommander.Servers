@@ -86,15 +86,13 @@ def git(*args):
 
 
 def cmd_changed(base, head):
-    if not base or set(base) == {"0"}:
-        # New branch or first push: nothing to compare against, so check every image.
-        files = [f"Servers/{n}/Dockerfile" for n in all_names()]
-    else:
-        try:
-            files = git("diff", "--name-only", f"{base}...{head}").splitlines()
-        except subprocess.CalledProcessError:
-            # base isn't in the history (force push): fall back to the head commit's own changes.
-            files = git("diff-tree", "--no-commit-id", "--name-only", "-r", "-m", head).splitlines()
+    try:
+        if not base or set(base) == {"0"}:
+            raise ValueError("no base")  # first push of a branch
+        files = git("diff", "--name-only", f"{base}...{head}").splitlines()
+    except (ValueError, subprocess.CalledProcessError):
+        # No usable base (first push, or a force push dropped it): use the head commit's own changes.
+        files = git("diff-tree", "--no-commit-id", "--name-only", "-r", "-m", head).splitlines()
     build, docs = set(), set()
     for f in files:
         parts = f.split("/", 2)
