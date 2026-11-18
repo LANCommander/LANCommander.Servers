@@ -1,0 +1,25 @@
+services:
+  goldeneyesource:
+    image: lancommander/goldeneyesource:latest
+    container_name: goldeneyesource
+
+    ports:
+      - "27015:27015/udp"
+      - "27015:27015/tcp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      GES_HOSTNAME: "My GoldenEye: Source Server"
+      GES_MAP: "ge_archives"
+      GES_MAX_PLAYERS: "16"
+      GES_RCON_PASSWORD: "changeme"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

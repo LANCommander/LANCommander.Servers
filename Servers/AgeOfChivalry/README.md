@@ -1,6 +1,6 @@
 # Age of Chivalry Server (Docker)
 
-This repository provides a Dockerized **Age of Chivalry** game server suitable for running an AoC server in a clean, reproducible way.  
+This image provides a Dockerized **Age of Chivalry** game server suitable for running an AoC server in a clean, reproducible way.  
 The image is designed for **headless operation**, automatically downloads and updates the game server via SteamCMD (anonymous login, app `17515`), and supports file overlaying using OverlayFS.
 
 ---
@@ -48,6 +48,8 @@ services:
 
     restart: unless-stopped
 ```
+
+The same file is in this directory as [`compose.yml`](compose.yml).
 
 ---
 
@@ -259,4 +261,4 @@ If you encounter permission errors:
 ## License
 
 SteamCMD and game servers are distributed under their respective licenses.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

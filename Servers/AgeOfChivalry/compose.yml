@@ -1,0 +1,30 @@
+services:
+  aoc-server:
+    image: lancommander/ageofchivalry:latest
+    container_name: my-aoc-server
+
+    # Expose game server ports
+    ports:
+      - "27015:27015/udp"  # Game server port
+      - "27015:27015/tcp"  # RCON
+      - "27020:27020/udp"  # SourceTV port (optional)
+
+    # Bind mounts
+    volumes:
+      - ./config:/config      # Game server configuration and overlay directory
+
+    environment:
+      START_ARGS: "-game ageofchivalry -console -norestart -insecure +maxplayers 16 +map aoc_battleground"
+
+    user: root
+
+    # The server only prints its console when stdout is a TTY
+    tty: true
+
+    # For overlayfs support
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

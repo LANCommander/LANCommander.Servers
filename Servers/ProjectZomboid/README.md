@@ -1,6 +1,6 @@
 # Project Zomboid Server (Docker)
 
-This repository provides a Dockerized **Project Zomboid** dedicated server suitable for running a Project Zomboid multiplayer server in a clean, reproducible way.  
+This image provides a Dockerized **Project Zomboid** dedicated server suitable for running a Project Zomboid multiplayer server in a clean, reproducible way.  
 The image is designed for **headless operation**, automatically downloads and updates the game server via SteamCMD (anonymous login, app `380870`), configures the server from environment variables, and supports file overlaying using OverlayFS.
 
 ---
@@ -52,6 +52,8 @@ services:
     stop_grace_period: 30s
     restart: unless-stopped
 ```
+
+The same file is in this directory as [`compose.yml`](compose.yml).
 
 ---
 
@@ -206,4 +208,4 @@ In Steam mode the server waits up to about 40 seconds for Steam when it has no i
 ## License
 
 SteamCMD and game servers are distributed under their respective licenses.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

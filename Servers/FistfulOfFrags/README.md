@@ -1,6 +1,6 @@
 # Fistful of Frags Server (Docker)
 
-This repository provides a Dockerized **Fistful of Frags** game server suitable for running a FoF server in a clean, reproducible way.  
+This image provides a Dockerized **Fistful of Frags** game server suitable for running a FoF server in a clean, reproducible way.  
 The image is designed for **headless operation**, automatically downloads and updates the game server via SteamCMD (anonymous login, app `295230`), supports file overlaying using OverlayFS, and includes optional SourceMod/MetaMod support.
 
 ---
@@ -46,6 +46,8 @@ services:
 
     restart: unless-stopped
 ```
+
+The same file is in this directory as [`compose.yml`](compose.yml).
 
 ---
 
@@ -369,4 +371,4 @@ If you encounter permission errors:
 ## License
 
 SteamCMD and game servers are distributed under their respective licenses.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

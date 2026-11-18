@@ -1,7 +1,7 @@
 # Star Wars: Battlefront II Server (Docker)
 
-This repository provides a Dockerized **Star Wars: Battlefront II** (2005) dedicated server. The game has no Linux server: `BattlefrontII.exe` hosts one itself with `/autonet dedicated`, so the image runs the game's own executable headless under Wine.
-The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers.WINE). It supports file overlaying using OverlayFS.
+This image provides a Dockerized **Star Wars: Battlefront II** (2005) dedicated server. The game has no Linux server: `BattlefrontII.exe` hosts one itself with `/autonet dedicated`, so the image runs the game's own executable headless under Wine.
+The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -41,6 +41,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 The LAN browser works by broadcast, which doesn't cross Docker port mapping. Give the container its own LAN address (macvlan/ipvlan, or `network_mode: host`) so clients can find it. Behind port mapping, clients can't discover it in the LAN browser.
 
 ---
@@ -72,7 +74,7 @@ The image is built and tested with the **GOG v1.1 build that still uses GameSpy 
 
 ## Environment Variables
 
-These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers.WINE#environment).
+These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE#environment).
 
 | Variable | Description | Default |
 |----------|-------------|---------|
@@ -137,7 +139,7 @@ See [Documentation/Docker.md](Documentation/Docker.md) for more detail.
 The image is built `FROM lancommander/wine:latest` by default. To build against a local base image:
 
 ```bash
-docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/starwarsbattlefront2:local .
+docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/starwarsbattlefront2:local Servers/StarWarsBattlefront2
 ```
 
 ---
@@ -145,4 +147,4 @@ docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/star
 ## License
 
 Star Wars: Battlefront II and Wine are distributed under their respective licenses.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

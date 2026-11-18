@@ -1,0 +1,26 @@
+services:
+  tremulous:
+    image: lancommander/tremulous:latest
+    container_name: tremulous
+
+    ports:
+      - "30720:30720/udp"
+      - "30721:30721/udp"
+      - "30722:30722/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      TREMULOUS_SERVER_NAME: "My Tremulous Server"
+      TREMULOUS_MAP: "niveus"
+      TREMULOUS_MAP_LIST: "niveus atcs karith nexus6 transit tremor uncreation arachnid2"
+      TREMULOUS_RCON_PASSWORD: "changeme"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

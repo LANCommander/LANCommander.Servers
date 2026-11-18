@@ -1,0 +1,23 @@
+services:
+  doom3:
+    image: lancommander/doom3:latest
+    container_name: doom3
+
+    ports:
+      - "27666:27666/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      D3_SERVER_NAME: "My Doom 3 Server"
+      D3_MAP: "game/mp/d3dm4"
+      D3_RCON_PASSWORD: "changeme"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

@@ -1,0 +1,31 @@
+services:
+  bfbc2:
+    image: lancommander/battlefieldbadcompany2:latest
+    container_name: bfbc2
+
+    # The master server lists the game server at the address it sees it connect from,
+    # so give the container its own LAN address (macvlan) rather than port mappings
+    networks:
+      lan:
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      BFBC2_MASTER_SERVER: "192.168.1.10"   # the LANCommander server
+      BFBC2_MODE: rush
+      BFBC2_SERVER_NAME: "Bad Company 2 LAN"
+      BFBC2_MAX_PLAYERS: 32
+      BFBC2_ADMIN_PASSWORD: "change-me"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped
+
+networks:
+  lan:
+    external: true

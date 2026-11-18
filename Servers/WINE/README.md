@@ -1,6 +1,6 @@
 # LANCommander WINE Base Image
 
-This repository builds a **LANCommander-compatible Docker image with Wine, Winetricks, and Xvfb** on top of `lancommander/base:latest`.
+This directory builds a **LANCommander-compatible Docker image with Wine, Winetricks, and Xvfb** on top of `lancommander/base:latest`.
 
 It's intended for running **headless Windows dedicated servers** (and other Windows CLI tools) with the usual LANCommander layout: `Server/` + `Overlay/` merged into `/config/Merged` via OverlayFS, hooks in `/config/Scripts/Hooks`, and the server started by the base entrypoint as the unprivileged `lancommander` user.
 
@@ -32,6 +32,8 @@ services:
       - apparmor:unconfined
     restart: unless-stopped
 ```
+
+The same file is in this directory as [`compose.yml`](compose.yml).
 
 `wine-run`:
 
@@ -82,8 +84,11 @@ docker run --rm -it -v "$(pwd)/config:/config" --entrypoint gosu \
 ## Repository layout
 
 ```
-.
+Servers/WINE/
 ├─ Dockerfile
+├─ README.md
+├─ compose.yml
+├─ server.json
 ├─ Scripts/
 │  └─ wine-run                              (installed to /usr/local/bin/wine-run)
 └─ Hooks/
@@ -92,6 +97,6 @@ docker run --rm -it -v "$(pwd)/config:/config" --entrypoint gosu \
 ```
 
 ## License
-This repository contains a Dockerfile and supporting scripts/hooks. License it according to your project needs.
+This directory contains a Dockerfile and supporting scripts/hooks. License it according to your project needs.
 
 Wine and Winetricks are distributed under their respective licenses; consult their upstream projects for details.

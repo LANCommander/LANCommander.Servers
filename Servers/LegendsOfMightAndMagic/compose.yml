@@ -1,0 +1,24 @@
+services:
+  legends:
+    image: lancommander/legendsofmightandmagic:latest
+    container_name: legends
+
+    ports:
+      - "29800:29800/udp"
+      - "29801:29801/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      LOMM_SERVER_NAME: "My Legends Server"
+      LOMM_MAX_PLAYERS: "16"
+      LOMM_MAP_TIME: "20"
+
+    user: root               # the entrypoint mounts OverlayFS, then drops to UID/GID
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

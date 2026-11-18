@@ -1,0 +1,25 @@
+services:
+  fear:
+    image: lancommander/fear:latest
+    container_name: fear
+
+    ports:
+      - "27888:27888/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      FEAR_SERVER_NAME: "My F.E.A.R. Server"
+      FEAR_GAME_TYPE: "deathmatch"
+      FEAR_TIME_LIMIT: "15"
+      FEAR_SCORE_LIMIT: "50"
+      FEAR_SCMD_PASSWORD: "changeme"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

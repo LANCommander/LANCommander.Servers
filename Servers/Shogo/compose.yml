@@ -1,0 +1,25 @@
+services:
+  shogo:
+    image: lancommander/shogo:latest
+    container_name: shogo
+
+    ports:
+      - "27888:27888/udp"
+      - "28037:28037/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      SHOGO_SERVER_NAME: "My Shogo Server"
+      SHOGO_LEVELS: "MCA_12FLOZ,MCA_AVERNUS,MCA_SPIRES"
+      SHOGO_FRAG_LIMIT: "25"
+      SHOGO_TIME_LIMIT: "15"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

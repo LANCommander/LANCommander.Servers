@@ -1,0 +1,32 @@
+services:
+  projectzomboid-server:
+    image: lancommander/projectzomboid:latest
+    container_name: my-projectzomboid-server
+
+    # Expose game server ports
+    ports:
+      - "16261:16261/udp"  # Game traffic
+      - "16262:16262/udp"  # Direct connections
+      - "27015:27015/tcp"  # RCON (optional)
+
+    # Bind mounts
+    volumes:
+      - ./config:/config      # Game server files, configuration and saves
+
+    environment:
+      PZ_SERVER_NAME: "myserver"
+      PZ_ADMIN_PASSWORD: "change-me"
+      PZ_PUBLIC_NAME: "My Project Zomboid Server"
+      PZ_MAX_PLAYERS: "16"
+      PZ_MEMORY: "4g"
+
+    user: root
+
+    # For overlayfs support
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    stop_grace_period: 30s
+    restart: unless-stopped

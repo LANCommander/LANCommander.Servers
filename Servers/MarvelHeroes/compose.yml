@@ -1,0 +1,26 @@
+services:
+  marvelheroes:
+    image: lancommander/marvelheroes:latest
+    container_name: marvelheroes
+
+    ports:
+      - "4306:4306/tcp"
+      - "80:80/tcp"
+      - "443:443/tcp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      MH_PUBLIC_ADDRESS: "192.168.1.50"   # the address clients reach this server at
+      MH_SERVER_NAME: "Marvel Heroes LAN"
+      MH_AUTO_UNLOCK_AVATARS: "true"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    stop_grace_period: 30s
+    restart: unless-stopped

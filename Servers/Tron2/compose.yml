@@ -1,0 +1,23 @@
+services:
+  tron2:
+    image: lancommander/tron2:latest
+    container_name: tron2
+
+    ports:
+      - "27888:27888/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      TRON2_SERVER_NAME: "My Tron 2.0 Server"
+      TRON2_GAME_TYPE: "discarena"
+      TRON2_SCMD_PASSWORD: "changeme"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

@@ -1,0 +1,13 @@
+services:
+  myserver:
+    image: lancommander/wine:latest
+    volumes:
+      - "/data/Servers/My Game:/config"      # Server/ = game files, Overlay/ = your configs
+    environment:
+      START_EXE: wine-run
+      START_ARGS: 'srcds.exe -console -game . -port 27015 +maxplayers 16 +map ctf_3'
+    cap_add:
+      - SYS_ADMIN                             # OverlayFS
+    security_opt:
+      - apparmor:unconfined
+    restart: unless-stopped

@@ -1,7 +1,7 @@
 # Quake Server (Docker)
 
-This repository provides a Dockerized **Quake** (1996) dedicated server. It runs the latest [Ironwail](https://github.com/andrei-drexler/ironwail) release (v0.8.2 as of this writing) in dedicated mode, built from source into the image, with your Quake game data. Mods (`-game`) are supported.
-The image builds on [`lancommander/base`](https://github.com/LANCommander/LANCommander.Servers.Base). It supports file overlaying using OverlayFS.
+This image provides a Dockerized **Quake** (1996) dedicated server. It runs the latest [Ironwail](https://github.com/andrei-drexler/ironwail) release (v0.8.2 as of this writing) in dedicated mode, built from source into the image, with your Quake game data. Mods (`-game`) are supported.
+The image builds on [`lancommander/base`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/Base). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -39,6 +39,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 The in-game LAN browser (Multiplayer → Join a Game → Search for local games) finds servers by broadcast. That needs the container on the LAN itself (macvlan/ipvlan, or `network_mode: host`); with port mapping, clients join by IP (`connect <ip>` in the console).
 
 ---
@@ -67,7 +69,7 @@ Clients need a NetQuake engine that speaks the server's protocol. Ironwail 0.8 u
 
 ## Environment Variables
 
-These are in addition to the [base image's variables](https://github.com/LANCommander/LANCommander.Servers.Base#environment).
+These are in addition to the [base image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/Base#environment-variables).
 The settings are written into `<QUAKE_GAME or id1>/lancommander.cfg` on every start. Settings left empty are left out, so you can set them in `server.cfg` next to it instead.
 
 | Variable | Description | Default |
@@ -110,8 +112,8 @@ The image is built `FROM lancommander/base:latest` by default. A build stage com
 Rebuilding picks up a new Ironwail release on its own: the build fetches GitHub's latest-release info, and a change there invalidates the cached compile step. The version built is in `/opt/ironwail/VERSION` and in the server's startup log.
 
 ```bash
-docker build --build-arg BASE_IMAGE=lancommander/base:local -t lancommander/quake:local .
-docker build --build-arg IRONWAIL_VERSION=v0.8.2 -t lancommander/quake:0.8.2 .
+docker build --build-arg BASE_IMAGE=lancommander/base:local -t lancommander/quake:local Servers/Quake
+docker build --build-arg IRONWAIL_VERSION=v0.8.2 -t lancommander/quake:0.8.2 Servers/Quake
 ```
 
 ---
@@ -119,4 +121,4 @@ docker build --build-arg IRONWAIL_VERSION=v0.8.2 -t lancommander/quake:0.8.2 .
 ## License
 
 Quake is a trademark of id Software. Its game data is not included and is distributed under its own license. Ironwail is GPLv2.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

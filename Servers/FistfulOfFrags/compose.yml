@@ -1,0 +1,28 @@
+services:
+  fof-server:
+    image: lancommander/fistfuloffrags:latest
+    container_name: my-fof-server
+
+    # Expose game server ports
+    ports:
+      - "27015:27015/udp"  # Game server port
+      - "27015:27015/tcp"  # RCON
+      - "27020:27020/udp"  # SourceTV port (optional)
+
+    # Bind mounts
+    volumes:
+      - ./config:/config      # Game server configuration and overlay directory
+
+    environment:
+      START_ARGS: "-game fof -console +maxplayers 20 +map fof_fistful"
+      INSTALL_SOURCEMOD: "true"              # SourceMod/MetaMod (default: true)
+
+    user: root
+
+    # For overlayfs support
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

@@ -1,6 +1,6 @@
 # Call of Duty Dedicated Server (Docker)
 
-This repository provides a Dockerized **Call of Duty dedicated server** suitable for running multiplayer Call of Duty servers in a clean, reproducible way.  
+This image provides a Dockerized **Call of Duty dedicated server** suitable for running multiplayer Call of Duty servers in a clean, reproducible way.  
 The image is designed for **headless operation**, supports bind-mounted mods and configuration, and handles legacy runtime dependencies required by Call of Duty.
 
 ---
@@ -38,6 +38,8 @@ services:
     # Ensure container restarts if the server crashes or host reboots
     restart: unless-stopped
 ```
+
+The same file is in this directory as [`compose.yml`](compose.yml).
 
 ---
 
@@ -215,4 +217,4 @@ docker run --rm -it \
 
 ## License
 Call of Duty is distributed under its own license.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

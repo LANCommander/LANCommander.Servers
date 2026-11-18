@@ -1,6 +1,6 @@
 # Unreal Tournament 2004 Dedicated Server (Docker)
 
-This repository provides a Dockerized **Unreal Tournament 2004 dedicated server** built on the LANCommander base image. The container automatically downloads the dedicated server binaries on first run, supports file overlaying using OverlayFS, and integrates with the LANCommander hook system.
+This image provides a Dockerized **Unreal Tournament 2004 dedicated server** built on the LANCommander base image. The container automatically downloads the dedicated server binaries on first run, supports file overlaying using OverlayFS, and integrates with the LANCommander hook system.
 
 ---
 
@@ -40,6 +40,8 @@ services:
 
     restart: unless-stopped
 ```
+
+The same file is in this directory as [`compose.yml`](compose.yml).
 
 ---
 
@@ -106,4 +108,4 @@ AdminPassword=changeme
 ## License
 
 Unreal Tournament 2004 is distributed under its own license.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

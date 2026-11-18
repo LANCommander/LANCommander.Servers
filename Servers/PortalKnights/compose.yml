@@ -1,0 +1,15 @@
+services:
+  portalknights:
+    image: lancommander/portalknights:latest
+    container_name: portalknights-server
+
+    # Portal Knights uses UDP
+    ports:
+      - "16365:16365/udp"
+
+    # Bind mounts so files appear on the host
+    volumes:
+      - ./config:/config
+
+    # Ensure container restarts if the server crashes or host reboots
+    restart: unless-stopped

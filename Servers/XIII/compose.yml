@@ -1,0 +1,26 @@
+services:
+  xiii:
+    image: lancommander/xiii:latest
+    container_name: xiii
+
+    ports:
+      - "7777:7777/udp"
+      - "7099:7099/udp"
+      - "8777:8777/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      XIII_SERVER_NAME: "My XIII Server"
+      XIII_GAME_TYPE: "dm"
+      XIII_MAP: "DM_Banque"
+      XIII_MAX_PLAYERS: "8"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

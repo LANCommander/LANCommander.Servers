@@ -1,7 +1,7 @@
 # Tron 2.0 Server (Docker)
 
-This repository provides a Dockerized **Tron 2.0** dedicated server. Tron 2.0 (Monolith, 2003) ships a Windows-only stand-alone server, `TRONSrv.exe`, with its 1.042 update. The image runs it under Wine.
-The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers.WINE). It supports file overlaying using OverlayFS.
+This image provides a Dockerized **Tron 2.0** dedicated server. Tron 2.0 (Monolith, 2003) ships a Windows-only stand-alone server, `TRONSrv.exe`, with its 1.042 update. The image runs it under Wine.
+The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -43,6 +43,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 ---
 
 ## Game Files
@@ -72,7 +74,7 @@ The server doesn't need `Movies/`.
 
 ## Environment Variables
 
-These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers.WINE#environment).
+These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE#environment).
 The `TRON2_*` server settings are written into `ServerData\<TRON2_CONFIG>.txt` on every start. Settings left empty are not touched, so you can set them in that file instead. Limits and the map list apply to the section of the selected game type.
 
 | Variable | Description | Default |
@@ -113,7 +115,7 @@ See [Documentation/Docker.md](Documentation/Docker.md) for more detail.
 The image is built `FROM lancommander/wine:latest` by default. To build against a local base image:
 
 ```bash
-docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/tron2:local .
+docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/tron2:local Servers/Tron2
 ```
 
 ---
@@ -121,4 +123,4 @@ docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/tron
 ## License
 
 Tron 2.0 and Wine are distributed under their respective licenses.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

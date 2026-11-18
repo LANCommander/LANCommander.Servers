@@ -1,7 +1,7 @@
 # Hexen II Server (Docker)
 
-This repository provides a Dockerized **Hexen II** (1997) dedicated server. It runs `h2ded`, the dedicated server of [Hammer of Thyrion (uHexen2)](https://github.com/sezero/uhexen2) 1.5.9, built from source into the image, with your Hexen II game data. The Portal of Praevus mission pack and mods (`-game`) are supported.
-The image builds on [`lancommander/base`](https://github.com/LANCommander/LANCommander.Servers.Base). It supports file overlaying using OverlayFS.
+This image provides a Dockerized **Hexen II** (1997) dedicated server. It runs `h2ded`, the dedicated server of [Hammer of Thyrion (uHexen2)](https://github.com/sezero/uhexen2) 1.5.9, built from source into the image, with your Hexen II game data. The Portal of Praevus mission pack and mods (`-game`) are supported.
+The image builds on [`lancommander/base`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/Base). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -39,6 +39,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 The in-game LAN browser (Multiplayer → Join a Game → Search for local games) finds servers by broadcast. That needs the container on the LAN itself (macvlan/ipvlan, or `network_mode: host`); with port mapping, clients join by IP (`connect <ip>` in the console).
 
 ---
@@ -69,7 +71,7 @@ Clients need Hammer of Thyrion (or another engine speaking the same protocol). T
 
 ## Environment Variables
 
-These are in addition to the [base image's variables](https://github.com/LANCommander/LANCommander.Servers.Base#environment).
+These are in addition to the [base image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/Base#environment-variables).
 The settings are written into `<HEXEN2_GAME or data1>/lancommander.cfg` on every start. Settings left empty are left out, so you can set them in `server.cfg` instead.
 
 | Variable | Description | Default |
@@ -114,7 +116,7 @@ The image is built `FROM lancommander/base:latest` by default. A build stage com
 `h2ded` is built without user directories, so everything it writes lands next to the game data in `Overlay/` instead of `~/.hexen2`. [`Patches/h2ded-stdin-eof.patch`](Patches/h2ded-stdin-eof.patch) stops it from busy-reading stdin once it hits end-of-file, which is the case under Docker. The version built is in `/opt/uhexen2/VERSION` and in the server's startup log.
 
 ```bash
-docker build --build-arg BASE_IMAGE=lancommander/base:local -t lancommander/hexen2:local .
+docker build --build-arg BASE_IMAGE=lancommander/base:local -t lancommander/hexen2:local Servers/Hexen2
 ```
 
 ---
@@ -122,4 +124,4 @@ docker build --build-arg BASE_IMAGE=lancommander/base:local -t lancommander/hexe
 ## License
 
 Hexen II is a trademark of Raven Software / id Software. Its game data is not included and is distributed under its own license. Hammer of Thyrion is GPLv2.
-This repository contains only Docker build logic, a source patch and helper scripts licensed under MIT.
+This directory contains only Docker build logic, a source patch and helper scripts licensed under MIT.

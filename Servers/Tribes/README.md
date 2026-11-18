@@ -1,7 +1,7 @@
 # Starsiege: Tribes Server (Docker)
 
-This repository provides a Dockerized **Starsiege: Tribes** dedicated server. Tribes (Dynamix, 1998) has no Linux server, so the image runs the Windows game's own `-dedicated` mode under Wine.
-The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers.WINE). It supports file overlaying using OverlayFS.
+This image provides a Dockerized **Starsiege: Tribes** dedicated server. Tribes (Dynamix, 1998) has no Linux server, so the image runs the Windows game's own `-dedicated` mode under Wine.
+The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -41,6 +41,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 The in-game LAN browser finds servers by broadcast. That needs the container on the LAN itself (macvlan/ipvlan, or `network_mode: host`); with port mapping, clients join by IP.
 
 ---
@@ -69,7 +71,7 @@ Tribes has no official server download. Provide a game install, preferably the c
 
 ## Environment Variables
 
-These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers.WINE#environment).
+These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE#environment).
 The `TRIBES_*` server settings are written to `config/lancommander.cs` on every start, which the game runs (`+exec`) after its own `config/Server/ServerPrefs.cs`. Settings left empty are not touched, so you can set them in `ServerPrefs.cs` instead.
 
 | Variable | Description | Default |
@@ -100,7 +102,7 @@ See [Documentation/Docker.md](Documentation/Docker.md) for more detail.
 The image is built `FROM lancommander/wine:latest` by default. To build against a local base image:
 
 ```bash
-docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/tribes:local .
+docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/tribes:local Servers/Tribes
 ```
 
 ---
@@ -108,4 +110,4 @@ docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/trib
 ## License
 
 Starsiege: Tribes and Wine are distributed under their respective licenses.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

@@ -1,0 +1,22 @@
+services:
+  hexen2:
+    image: lancommander/hexen2:latest
+    container_name: hexen2
+
+    ports:
+      - "26900:26900/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      HEXEN2_SERVER_NAME: "My Hexen II Server"
+      HEXEN2_MAP: "ravdm2"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

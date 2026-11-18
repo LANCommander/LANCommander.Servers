@@ -1,0 +1,27 @@
+services:
+  renegade:
+    image: lancommander/commandandconquerrenegade:latest
+    container_name: renegade
+
+    ports:
+      - "4848:4848/udp"
+      - "3373:3373/udp"
+      - "25300:25300/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      RENEGADE_SERVER_NAME: "My Renegade Server"
+      RENEGADE_GAME_TYPE: "LAN"
+      RENEGADE_MAX_PLAYERS: "32"
+      RENEGADE_TIME_LIMIT: "30"
+      # RENEGADE_ARCHIVE_URL: "https://example.com/renegade.zip"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

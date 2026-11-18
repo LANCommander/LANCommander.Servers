@@ -1,7 +1,7 @@
 # Red Faction Server (Docker)
 
-This repository provides a Dockerized **Red Faction** dedicated server. Red Faction (Volition, 2001) has no Linux server, so the image runs the game's dedicated mode under Wine, through [Alpine Faction](https://github.com/GooberRF/alpinefaction).
-The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers.WINE). It supports file overlaying using OverlayFS.
+This image provides a Dockerized **Red Faction** dedicated server. Red Faction (Volition, 2001) has no Linux server, so the image runs the game's dedicated mode under Wine, through [Alpine Faction](https://github.com/GooberRF/alpinefaction).
+The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -43,6 +43,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 The in-game LAN browser finds servers by broadcast. That needs the container on the LAN itself (macvlan/ipvlan, or `network_mode: host`); with port mapping, clients join by IP.
 
 ---
@@ -79,7 +81,7 @@ Clients should run the same Alpine Faction version as the server. Dash Faction a
 
 ## Environment Variables
 
-These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers.WINE#environment).
+These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE#environment).
 The settings are written into the top-level keys of `<RF_CONFIG>.toml` on every start. Settings left empty are not touched, so you can set them in the file instead.
 
 | Variable | Description | Default |
@@ -126,7 +128,7 @@ Game types, limits, rules, votes and the level rotation are set in the TOML conf
 The image is built `FROM lancommander/wine:latest` by default and downloads the Alpine Faction release set by the `AF_VERSION` build argument (default `1.4.0_Lupin`). To build against a local base image:
 
 ```bash
-docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/redfaction:local .
+docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/redfaction:local Servers/RedFaction
 ```
 
 The match statistics bridge (`StatsBridge/`) is built in a Debian 12 stage of the same Dockerfile, with the [LANCommander Interposer](https://github.com/LANCommander/LANCommander.Interposer) release set by `INTERPOSER_VERSION` (default `v1.6.0`).
@@ -136,4 +138,4 @@ The match statistics bridge (`StatsBridge/`) is built in a Debian 12 stage of th
 ## License
 
 Red Faction, Alpine Faction and Wine are distributed under their respective licenses.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

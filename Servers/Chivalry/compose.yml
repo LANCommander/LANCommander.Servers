@@ -1,0 +1,26 @@
+services:
+  chivalry:
+    image: lancommander/chivalry:latest
+    container_name: chivalry
+
+    ports:
+      - "7777:7777/udp"
+      - "27015:27015/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      CMW_SERVER_NAME: "My Chivalry Server"
+      CMW_MAP: "AOCTO-Hillside_P"
+      CMW_MAPS: "AOCTO-Hillside_P,AOCTO-Stoneshill_P,AOCTO-Darkforest_p,AOCTO-Citadel_p"
+      CMW_MAX_PLAYERS: "32"
+      CMW_ADMIN_PASSWORD: "changeme"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

@@ -1,0 +1,23 @@
+services:
+  tribes:
+    image: lancommander/tribes:latest
+    container_name: tribes
+
+    ports:
+      - "28001:28001/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      TRIBES_MISSION: "Raindance"
+      TRIBES_SERVER_NAME: "My Tribes Server"
+      TRIBES_ADMIN_PASSWORD: "secret"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

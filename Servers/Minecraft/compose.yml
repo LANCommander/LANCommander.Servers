@@ -1,0 +1,27 @@
+services:
+  minecraft:
+    image: lancommander/minecraft:latest
+    container_name: minecraft
+
+    ports:
+      - "25565:25565/tcp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      MINECRAFT_EULA: "true"           # you accept https://aka.ms/MinecraftEULA
+      MINECRAFT_VERSION: "26.2"
+      MINECRAFT_MOTD: "My Minecraft Server"
+      MINECRAFT_OPS: "SomePlayer"
+      MINECRAFT_MEMORY: "4G"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    stdin_open: true                   # console input through the container's stdin
+    stop_grace_period: 30s             # time to save the worlds on docker stop
+    restart: unless-stopped

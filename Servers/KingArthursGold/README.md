@@ -1,7 +1,7 @@
 # King Arthur's Gold Server (Docker)
 
-This repository provides a Dockerized **King Arthur's Gold** dedicated server. King Arthur's Gold (KAG) is a 2013 side-scrolling 2D multiplayer castle-building and combat game by Transhuman Design. The image runs THD's official Linux dedicated server (build 2844, May 2024) from kag2d.com.
-The image builds on [`lancommander/base`](https://github.com/LANCommander/LANCommander.Servers.Base). It supports file overlaying using OverlayFS.
+This image provides a Dockerized **King Arthur's Gold** dedicated server. King Arthur's Gold (KAG) is a 2013 side-scrolling 2D multiplayer castle-building and combat game by Transhuman Design. The image runs THD's official Linux dedicated server (build 2844, May 2024) from kag2d.com.
+The image builds on [`lancommander/base`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/Base). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -43,6 +43,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 ---
 
 ## Server Files
@@ -67,7 +69,7 @@ On first start the server package (`KAG_SERVER_URL`) is downloaded, checked agai
 
 ## Environment Variables
 
-These are in addition to the [base image's variables](https://github.com/LANCommander/LANCommander.Servers.Base#environment-variables).
+These are in addition to the [base image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/Base#environment-variables).
 The settings are written into `autoconfig.cfg` on every start. Settings left empty are not touched, so you can set them in the file instead.
 
 | Variable | Description | Default |
@@ -101,7 +103,7 @@ See [Documentation/Docker.md](Documentation/Docker.md) for more detail.
 The image is built `FROM lancommander/base:latest` by default. To build against a local base image:
 
 ```bash
-docker build --build-arg BASE_IMAGE=lancommander/base:local -t lancommander/kingarthursgold:local .
+docker build --build-arg BASE_IMAGE=lancommander/base:local -t lancommander/kingarthursgold:local Servers/KingArthursGold
 ```
 
 ---
@@ -109,4 +111,4 @@ docker build --build-arg BASE_IMAGE=lancommander/base:local -t lancommander/king
 ## License
 
 King Arthur's Gold is distributed under its own license by Transhuman Design.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

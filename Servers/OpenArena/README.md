@@ -1,7 +1,7 @@
 # OpenArena Server (Docker)
 
-This repository provides a Dockerized **OpenArena** dedicated server. On first start it downloads the official [OpenArena 0.8.8](https://openarena.ws/) release, which holds both the game data and the Linux dedicated server (`oa_ded.x86_64`), so you don't need to supply any files. OpenArena is free software (GPLv2 engine and game code, free content).
-The image builds on [`lancommander/base`](https://github.com/LANCommander/LANCommander.Servers.Base). It supports file overlaying using OverlayFS.
+This image provides a Dockerized **OpenArena** dedicated server. On first start it downloads the official [OpenArena 0.8.8](https://openarena.ws/) release, which holds both the game data and the Linux dedicated server (`oa_ded.x86_64`), so you don't need to supply any files. OpenArena is free software (GPLv2 engine and game code, free content).
+The image builds on [`lancommander/base`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/Base). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -45,6 +45,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 The in-game LAN browser (Multiplayer → Server: Local) finds servers by broadcasting to ports 27960-27963. That needs the container on the LAN itself (macvlan/ipvlan, or `network_mode: host`); with port mapping, clients join by IP (Multiplayer → Specify, or `/connect <ip>` in the console).
 
 ---
@@ -73,7 +75,7 @@ Clients must run the same version: OpenArena 0.8.8 (protocol 71).
 
 ## Environment Variables
 
-These are in addition to the [base image's variables](https://github.com/LANCommander/LANCommander.Servers.Base#environment).
+These are in addition to the [base image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/Base#environment-variables).
 The settings are written into `<OA_GAME or baseoa>/lancommander.cfg` on every start. Settings left empty are left out, so you can set them in `server.cfg` next to it instead.
 
 | Variable | Description | Default |
@@ -164,8 +166,8 @@ once LANCommander can be reached.
 ## Building
 
 ```bash
-docker build -t lancommander/openarena:local .
-docker build --build-arg BASE_IMAGE=lancommander/base:local -t lancommander/openarena:local .
+docker build -t lancommander/openarena:local Servers/OpenArena
+docker build --build-arg BASE_IMAGE=lancommander/base:local -t lancommander/openarena:local Servers/OpenArena
 ```
 
 ---
@@ -173,4 +175,4 @@ docker build --build-arg BASE_IMAGE=lancommander/base:local -t lancommander/open
 ## License
 
 OpenArena is free software: its engine and game code are GPLv2 and its content is under free licenses (see `COPYING` and `CREDITS` in the release). It is downloaded at runtime and not included in the image.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

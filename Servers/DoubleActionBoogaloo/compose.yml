@@ -1,0 +1,25 @@
+services:
+  doubleactionboogaloo:
+    image: lancommander/doubleactionboogaloo:latest
+    container_name: doubleactionboogaloo
+
+    ports:
+      - "27015:27015/udp"
+      - "27015:27015/tcp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      DAB_HOSTNAME: "My Double Action Server"
+      DAB_MAP: "da_cocaine"
+      DAB_MAX_PLAYERS: "16"
+      DAB_RCON_PASSWORD: "changeme"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

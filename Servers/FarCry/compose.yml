@@ -1,0 +1,27 @@
+services:
+  farcry:
+    image: lancommander/farcry:latest
+    container_name: farcry
+
+    ports:
+      - "49001:49001/udp"
+      - "49124:49124/udp"
+      - "5678:5678/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      FC_SERVER_NAME: "My Far Cry Server"
+      FC_GAME_TYPE: "TDM"
+      FC_MAP: "mp_radio"
+      FC_MAPCYCLE: "mp_radio TDM,mp_surf TDM,mp_cliffside TDM"
+      FC_RCON_PASSWORD: "changeme"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

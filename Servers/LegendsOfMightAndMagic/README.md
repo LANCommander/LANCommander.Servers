@@ -1,7 +1,7 @@
 # Legends of Might and Magic Server (Docker)
 
-This repository provides a Dockerized **Legends of Might and Magic** dedicated server. The game has no Linux server, so the image runs the retail Windows dedicated server, `LegendServ.exe` (LithTech, 2001), under Wine.
-The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers.WINE). It supports file overlaying using OverlayFS.
+This image provides a Dockerized **Legends of Might and Magic** dedicated server. The game has no Linux server, so the image runs the retail Windows dedicated server, `LegendServ.exe` (LithTech, 2001), under Wine.
+The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -44,6 +44,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 The game uses DirectPlay, which is LAN-oriented. A network where the container gets its own LAN IP (macvlan/ipvlan, or `network_mode: host`) is more reliable than port mapping, and it's needed for the in-game LAN browser.
 
 ---
@@ -74,7 +76,7 @@ The server and clients should use the same files, including any custom maps in `
 
 ## Environment Variables
 
-These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers.WINE#environment).
+These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE#environment).
 They are applied on every start. The ranges are the ones the server's dialog accepts, and the configure hook rejects anything outside them.
 
 | Variable | Dialog field | Values | Default |
@@ -113,7 +115,7 @@ See [Documentation/Docker.md](Documentation/Docker.md) for more detail.
 The image is built `FROM lancommander/wine:latest` by default. To build against a local base image:
 
 ```bash
-docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/legendsofmightandmagic:local .
+docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/legendsofmightandmagic:local Servers/LegendsOfMightAndMagic
 ```
 
 The DirectX February 2010 redistributable (source of the DirectPlay DLLs) is downloaded at build time and verified by sha256. See `DIRECTX_REDIST_URL` / `DIRECTX_REDIST_SHA256` in the Dockerfile.
@@ -123,4 +125,4 @@ The DirectX February 2010 redistributable (source of the DirectPlay DLLs) is dow
 ## License
 
 Legends of Might and Magic, Wine and the DirectX redistributable are distributed under their respective licenses.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

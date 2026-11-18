@@ -1,0 +1,27 @@
+services:
+  devastation:
+    image: lancommander/devastation:latest
+    container_name: devastation
+
+    ports:
+      - "7777:7777/udp"
+      - "7787:7787/udp"
+      - "7900:7900/udp"
+      - "8777:8777/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      DEVASTATION_SERVER_NAME: "My Devastation Server"
+      DEVASTATION_GAME_TYPE: "territories"
+      DEVASTATION_MAP: "DTT-Union"
+      DEVASTATION_MAX_PLAYERS: "16"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

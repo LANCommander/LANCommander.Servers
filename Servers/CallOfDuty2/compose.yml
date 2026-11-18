@@ -1,0 +1,23 @@
+services:
+  callofduty2:
+    image: lancommander/callofduty2:latest
+    container_name: callofduty2
+
+    ports:
+      - "28960:28960/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      COD2_SERVER_NAME: "My Call of Duty 2 Server"
+      COD2_GAME_TYPE: "tdm"
+      COD2_RCON_PASSWORD: "changeme"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

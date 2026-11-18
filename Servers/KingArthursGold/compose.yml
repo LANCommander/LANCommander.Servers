@@ -1,0 +1,24 @@
+services:
+  kag:
+    image: lancommander/kingarthursgold:latest
+    container_name: kag
+
+    ports:
+      - "50301:50301/udp"
+      - "50301:50301/tcp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      KAG_SERVER_NAME: "My KAG Server"
+      KAG_GAME_MODE: "CTF"
+      KAG_RCON_PASSWORD: "changeme"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

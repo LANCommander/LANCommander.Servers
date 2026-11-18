@@ -1,7 +1,7 @@
 # Call of Duty 2 Server (Docker)
 
-This repository provides a Dockerized **Call of Duty 2** dedicated server. It runs the official 1.3 Linux dedicated server (`cod2_lnxded`) with your retail Call of Duty 2 game data.
-The image builds on [`lancommander/base`](https://github.com/LANCommander/LANCommander.Servers.Base). It supports file overlaying using OverlayFS.
+This image provides a Dockerized **Call of Duty 2** dedicated server. It runs the official 1.3 Linux dedicated server (`cod2_lnxded`) with your retail Call of Duty 2 game data.
+The image builds on [`lancommander/base`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/Base). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -41,6 +41,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 The in-game LAN browser finds servers by broadcast. That needs the container on the LAN itself (macvlan/ipvlan, or `network_mode: host`); with port mapping, clients join by IP (`connect <ip>:28960` in the console).
 
 ---
@@ -67,12 +69,12 @@ On first start the image downloads the Linux server (`cod2_lnxded` and the PunkB
 
 ## Environment Variables
 
-These are in addition to the [base image's variables](https://github.com/LANCommander/LANCommander.Servers.Base#environment).
+These are in addition to the [base image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/Base#environment-variables).
 The settings are written into `<COD2_FS_GAME or main>/lancommander.cfg` on every start. Settings left empty are left out, so you can set them in `server.cfg` instead.
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `COD2_SERVER_URL` | Linux dedicated server package (`.tar.xz`/`.tar.gz`/`.tar.bz2`/`.zip` with `cod2_lnxded` at its root). Changing it reinstalls | this repo's `server-1.3` release |
+| `COD2_SERVER_URL` | Linux dedicated server package (`.tar.xz`/`.tar.gz`/`.tar.bz2`/`.zip` with `cod2_lnxded` at its root). Changing it reinstalls | the [`LANCommander.Servers.CallOfDuty2`](https://github.com/LANCommander/LANCommander.Servers.CallOfDuty2/releases) repo's `server-1.3` release |
 | `COD2_SERVER_SHA256` | Expected SHA256 of the package (empty skips the check) | SHA256 of the `server-1.3` package |
 | `COD2_PORT` | `net_port` (game port) | `28960` |
 | `COD2_LAN` | `true` runs `dedicated 1` (LAN); `false` runs `dedicated 2` (internet, CD key checks against the Activision master server) | `true` |
@@ -107,8 +109,8 @@ See [Documentation/Docker.md](Documentation/Docker.md) for more detail.
 ## Building
 
 ```bash
-docker build -t lancommander/callofduty2:local .
-docker build --build-arg BASE_IMAGE=lancommander/base:local -t lancommander/callofduty2:local .
+docker build -t lancommander/callofduty2:local Servers/CallOfDuty2
+docker build --build-arg BASE_IMAGE=lancommander/base:local -t lancommander/callofduty2:local Servers/CallOfDuty2
 ```
 
 | Build arg | Description | Default |
@@ -120,4 +122,4 @@ docker build --build-arg BASE_IMAGE=lancommander/base:local -t lancommander/call
 ## License
 
 Call of Duty 2 is a trademark of Activision. Its game data is not included and is distributed under its own license.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

@@ -1,0 +1,26 @@
+services:
+  postal2:
+    image: lancommander/postal2:latest
+    container_name: postal2
+
+    ports:
+      - "7777:7777/udp"
+      - "7778:7778/udp"
+      - "8777:8777/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      P2_SERVER_NAME: "My Postal 2 Server"
+      P2_MAP: "MPDGT-Asylum"
+      P2_GAME_TYPE: "MultiGame.xDeathMatch"
+      P2_MAX_PLAYERS: "16"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

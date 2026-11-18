@@ -1,0 +1,23 @@
+services:
+  halflife-server:
+    image: lancommander/halflife:latest
+    container_name: my-halflife-server
+
+    ports:
+      - "27015:27015/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      STEAM_APP_UPDATE: "true"
+      START_ARGS: "-game valve -port 27015 +maxplayers 16 +map crossfire"
+
+    # Overlayfs needs SYS_ADMIN, and the entrypoint must run as root to mount it
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

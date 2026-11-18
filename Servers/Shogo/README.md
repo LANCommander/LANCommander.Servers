@@ -1,7 +1,7 @@
 # Shogo: Mobile Armor Division Server (Docker)
 
-This repository provides a Dockerized **Shogo: Mobile Armor Division** dedicated server. Shogo (Monolith, 1998) ships a Windows-only stand-alone server, `ShogoSrv.exe` (v2.2), which the image runs under Wine.
-The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers.WINE). It supports file overlaying using OverlayFS.
+This image provides a Dockerized **Shogo: Mobile Armor Division** dedicated server. Shogo (Monolith, 1998) ships a Windows-only stand-alone server, `ShogoSrv.exe` (v2.2), which the image runs under Wine.
+The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -43,6 +43,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 ---
 
 ## Game Files
@@ -69,7 +71,7 @@ Shogo is retail software with no public download. You must provide an install pa
 
 ## Environment Variables
 
-These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers.WINE#environment).
+These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE#environment).
 The `SHOGO_*` server settings are written into `SHOGO_CONFIG` on every start. Settings left empty are not touched, so you can set them in that file instead.
 
 | Variable | Description | Default |
@@ -108,7 +110,7 @@ See [Documentation/Docker.md](Documentation/Docker.md) for more detail.
 The image is built `FROM lancommander/wine:latest` by default. To build against a local base image:
 
 ```bash
-docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/shogo:local .
+docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/shogo:local Servers/Shogo
 ```
 
 ---
@@ -116,4 +118,4 @@ docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/shog
 ## License
 
 Shogo: Mobile Armor Division and Wine are distributed under their respective licenses.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

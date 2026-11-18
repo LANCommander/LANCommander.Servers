@@ -1,7 +1,7 @@
 # Freelancer Server (Docker)
 
-This repository provides a Dockerized **Freelancer** dedicated server. Freelancer has no Linux server, so the image runs the retail `FLServer.exe` under Wine.
-The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers.WINE). It supports file overlaying using OverlayFS.
+This image provides a Dockerized **Freelancer** dedicated server. Freelancer has no Linux server, so the image runs the retail `FLServer.exe` under Wine.
+The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -42,6 +42,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 DirectPlay is LAN-oriented and also opens dynamic UDP ports. A network where the container gets its own LAN IP (macvlan/ipvlan, or `network_mode: host`) is more reliable than port mapping.
 
 ---
@@ -73,7 +75,7 @@ Clients must run the same version and data as the server. Mods that change `DATA
 
 ## Environment Variables
 
-These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers.WINE#environment).
+These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE#environment).
 The `FL_*` settings are the fields of FLServer's "Server Configuration" dialog.
 
 | Variable | Description | Default |
@@ -100,7 +102,7 @@ See [Documentation/Docker.md](Documentation/Docker.md) for more detail.
 The image is built `FROM lancommander/wine:latest` by default. To build against a local base image:
 
 ```bash
-docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/freelancer:local .
+docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/freelancer:local Servers/Freelancer
 ```
 
 The DirectX February 2010 redistributable (source of the DirectPlay DLLs) and the Visual C++ 6 redistributable (source of `mfc42.dll`) are downloaded at build time and verified by sha256. See the `*_URL` / `*_SHA256` build arguments in the Dockerfile.
@@ -110,4 +112,4 @@ The DirectX February 2010 redistributable (source of the DirectPlay DLLs) and th
 ## License
 
 Freelancer, Wine and the Microsoft redistributables are distributed under their respective licenses.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

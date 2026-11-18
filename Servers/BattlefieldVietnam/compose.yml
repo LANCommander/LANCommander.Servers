@@ -1,0 +1,24 @@
+services:
+  battlefieldvietnam:
+    image: lancommander/battlefieldvietnam:latest
+    container_name: battlefieldvietnam
+
+    ports:
+      - "15567:15567/udp"
+      - "22000:22000/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      BFV_SERVER_NAME: "My Battlefield Vietnam Server"
+      BFV_MAX_PLAYERS: "32"
+      BFV_MAPS: "Hue,Khe_Sahn,Ia_Drang,Operation_Hastings"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

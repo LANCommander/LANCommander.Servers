@@ -1,0 +1,27 @@
+services:
+  daikatana:
+    image: lancommander/daikatana:latest
+    container_name: daikatana
+
+    ports:
+      - "27992:27992/udp"
+      - "27982:27982/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      DAIKATANA_SERVER_NAME: "My Daikatana Server"
+      DAIKATANA_MODE: "dm"
+      DAIKATANA_MAP: "e1dm1"
+      DAIKATANA_MAPS: "e1dm1 e1dm2 e2dm1 e2dm2 e3dm1 e3dm2 e4dm1 e4dm2"
+      DAIKATANA_TIME_LIMIT: "15"
+      DAIKATANA_RCON_PASSWORD: "changeme"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

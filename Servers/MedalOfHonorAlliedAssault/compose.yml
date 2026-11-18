@@ -1,0 +1,25 @@
+services:
+  mohaa:
+    image: lancommander/medalofhonoralliedassault:latest
+    container_name: mohaa
+
+    ports:
+      - "12203:12203/udp"
+      - "12300:12300/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      MOHAA_GAME: "aa"
+      MOHAA_SERVER_NAME: "My Medal of Honor Server"
+      MOHAA_GAME_TYPE: "tdm"
+      MOHAA_RCON_PASSWORD: "changeme"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

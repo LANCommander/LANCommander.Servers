@@ -1,0 +1,24 @@
+services:
+  globalops:
+    image: lancommander/globaloperations:latest
+    container_name: globalops
+
+    ports:
+      - "27888:27888/udp"
+      - "28672:28672/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      GO_SERVER_NAME: "My Global Operations Server"
+      GO_MAX_PLAYERS: "24"
+      GO_MAPS: "antarctica,mexico,srilanka"
+
+    user: root               # the entrypoint mounts OverlayFS, then drops to UID/GID
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

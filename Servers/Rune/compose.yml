@@ -1,0 +1,26 @@
+services:
+  rune:
+    image: lancommander/rune:latest
+    container_name: rune
+
+    ports:
+      - "7777:7777/udp"
+      - "7778:7778/udp"
+      - "8777:8777/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      RUNE_SERVER_NAME: "My Rune Server"
+      RUNE_GAME_TYPE: "deathmatch"
+      RUNE_MAP: "DM-Hel"
+      RUNE_MAX_PLAYERS: "16"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

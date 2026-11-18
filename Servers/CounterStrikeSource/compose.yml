@@ -1,0 +1,28 @@
+services:
+  css-server:
+    image: lancommander/counterstrikesource:latest
+    container_name: my-css-server
+
+    # Expose game server ports
+    ports:
+      - "27015:27015/udp"  # Game server port
+      - "27020:27020/udp"  # SourceTV port (optional)
+
+    # Bind mounts
+    volumes:
+      - ./config:/config      # Game server configuration and overlay directory
+
+    environment:
+      STEAM_APP_UPDATE: "true"               # Enable automatic updates
+      START_ARGS: "-game cstrike -console +map de_dust2"
+      INSTALL_SOURCEMOD: "true"              # Enable SourceMod installation
+      INSTALL_SOURCEMOD_DEFAULT_PLUGINS: "false"  # Optional: install default plugins
+
+    # For overlayfs support, add one of these:
+    # Option 1: Full privileges (less secure)
+    privileged: true
+    # Option 2: Minimal privileges (recommended)
+    # cap_add:
+    #   - SYS_ADMIN
+
+    restart: unless-stopped

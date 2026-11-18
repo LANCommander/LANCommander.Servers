@@ -1,7 +1,7 @@
 # Star Wars Jedi Knight: Dark Forces II Server (Docker)
 
-This repository provides a Dockerized **Star Wars Jedi Knight: Dark Forces II** dedicated server. The original game (LucasArts, 1997) has no dedicated server. This image runs [OpenJKDF2](https://github.com/shinyquagsire23/OpenJKDF2), the open-source reimplementation of the engine, in its headless dedicated server mode, under Wine.
-The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers.WINE). It supports file overlaying using OverlayFS.
+This image provides a Dockerized **Star Wars Jedi Knight: Dark Forces II** dedicated server. The original game (LucasArts, 1997) has no dedicated server. This image runs [OpenJKDF2](https://github.com/shinyquagsire23/OpenJKDF2), the open-source reimplementation of the engine, in its headless dedicated server mode, under Wine.
+The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -40,6 +40,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 ---
 
 ## Game Files
@@ -66,7 +68,7 @@ Jedi Knight is retail software with no public download. You must provide a Jedi 
 
 ## Environment Variables
 
-These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers.WINE#environment).
+These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE#environment).
 The `JK_*` server settings are written into `registry.json` on every start. Settings left empty are not touched, so you can set them in that file instead.
 
 | Variable | Description | Default |
@@ -106,7 +108,7 @@ See [Documentation/Docker.md](Documentation/Docker.md) for more detail.
 The image is built `FROM lancommander/wine:latest` by default. To build against a local base image:
 
 ```bash
-docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/jediknight:local .
+docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/jediknight:local Servers/JediKnight
 ```
 
 ---
@@ -114,4 +116,4 @@ docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/jedi
 ## License
 
 Star Wars Jedi Knight: Dark Forces II, OpenJKDF2 and Wine are distributed under their respective licenses.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

@@ -1,0 +1,25 @@
+services:
+  tribes2:
+    image: lancommander/tribes2:latest
+    container_name: tribes2
+
+    ports:
+      - "28000:28000/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      T2_MOD: "Classic"
+      T2_MAP: "Katabatic"
+      T2_MISSION_TYPE: "CTF"
+      T2_SERVER_NAME: "My Tribes 2 Server"
+      T2_ADMIN_PASSWORD: "secret"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

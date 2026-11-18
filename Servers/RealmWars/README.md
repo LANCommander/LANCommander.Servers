@@ -1,7 +1,7 @@
 # Realm Wars Server (Docker)
 
-This repository provides a Dockerized **Realm Wars** dedicated server. Realm Wars (GarageGames community project, 2003) is a fantasy first-person team combat game built on the Torque Game Engine. Its server is the Windows game executable run with `-dedicated`; the image runs it under Wine.
-The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers.WINE). It supports file overlaying using OverlayFS.
+This image provides a Dockerized **Realm Wars** dedicated server. Realm Wars (GarageGames community project, 2003) is a fantasy first-person team combat game built on the Torque Game Engine. Its server is the Windows game executable run with `-dedicated`; the image runs it under Wine.
+The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -39,6 +39,8 @@ services:
 
     restart: unless-stopped
 ```
+
+The same file is in this directory as [`compose.yml`](compose.yml).
 
 ---
 
@@ -84,7 +86,7 @@ If the file doesn't exist the launcher lists the missions it finds and exits.
 
 ## Environment Variables
 
-These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers.WINE#environment).
+These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE#environment).
 
 | Variable | Description | Default |
 |----------|-------------|---------|
@@ -116,7 +118,7 @@ See [Documentation/Docker.md](Documentation/Docker.md) for more detail.
 The image is built `FROM lancommander/wine:latest` by default. To build against a local base image:
 
 ```bash
-docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/realmwars:local .
+docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/realmwars:local Servers/RealmWars
 ```
 
 ---
@@ -124,4 +126,4 @@ docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/real
 ## License
 
 Realm Wars and Wine are distributed under their respective licenses.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

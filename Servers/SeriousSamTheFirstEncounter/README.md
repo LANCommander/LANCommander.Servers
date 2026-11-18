@@ -1,7 +1,7 @@
 # Serious Sam: The First Encounter Server (Docker)
 
-This repository provides a Dockerized **Serious Sam: The First Encounter** dedicated server. The game (Croteam, 2001) only ships a Windows dedicated server, so the image runs the retail `Bin/DedicatedServer.exe` (v1.05) under Wine.
-The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers.WINE). It supports file overlaying using OverlayFS.
+This image provides a Dockerized **Serious Sam: The First Encounter** dedicated server. The game (Croteam, 2001) only ships a Windows dedicated server, so the image runs the retail `Bin/DedicatedServer.exe` (v1.05) under Wine.
+The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -44,6 +44,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 The in-game LAN browser finds servers by broadcast. That needs the container on the LAN itself (macvlan/ipvlan, or `network_mode: host`); with port mapping, clients join by IP.
 
 ---
@@ -72,7 +74,7 @@ Serious Sam: The First Encounter is retail software with no public download. You
 
 ## Environment Variables
 
-These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers.WINE#environment).
+These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE#environment).
 The settings are written to `Scripts/Dedicated/<SSAM_CONFIG>/init.ini` on every start. Settings left empty are left out, so the game's defaults apply.
 
 | Variable | Description | Default |
@@ -119,7 +121,7 @@ See [Documentation/Docker.md](Documentation/Docker.md) for more detail.
 The image is built `FROM lancommander/wine:latest` by default. To build against a local base image:
 
 ```bash
-docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/serioussamthefirstencounter:local .
+docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/serioussamthefirstencounter:local Servers/SeriousSamTheFirstEncounter
 ```
 
 ---
@@ -127,4 +129,4 @@ docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/seri
 ## License
 
 Serious Sam: The First Encounter and Wine are distributed under their respective licenses.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

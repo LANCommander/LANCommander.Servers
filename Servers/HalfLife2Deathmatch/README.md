@@ -1,6 +1,6 @@
 # Half-Life 2: Deathmatch Server (Docker)
 
-This repository provides a Dockerized **Half-Life 2: Deathmatch** game server suitable for running a HL2DM server in a clean, reproducible way.  
+This image provides a Dockerized **Half-Life 2: Deathmatch** game server suitable for running a HL2DM server in a clean, reproducible way.  
 The image is designed for **headless operation**, automatically downloads and updates the game server via SteamCMD, supports file overlaying using OverlayFS, and includes optional SourceMod/MetaMod support.
 
 ---
@@ -45,6 +45,8 @@ services:
 
     restart: unless-stopped
 ```
+
+The same file is in this directory as [`compose.yml`](compose.yml).
 
 ---
 
@@ -373,4 +375,4 @@ The container runs as a non-root user (`lancommander`, UID 1337). If you encount
 ## License
 
 SteamCMD and game servers are distributed under their respective licenses.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

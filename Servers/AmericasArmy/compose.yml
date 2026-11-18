@@ -1,0 +1,25 @@
+services:
+  americasarmy:
+    image: lancommander/americasarmy:latest
+    container_name: americasarmy
+
+    ports:
+      - "1716:1716/udp"
+      - "7778:7778/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      AA_SERVER_NAME: "My America's Army Server"
+      AA_MAP: "Bridge"
+      AA_MAPS: "Bridge,Border,Pipeline,SFhospital,Steamroller"
+      AA_ADMIN_PASSWORD: "changeme"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

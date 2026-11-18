@@ -1,7 +1,7 @@
 # Kiss: Psycho Circus - The Nightmare Child Server (Docker)
 
-This repository provides a Dockerized **Kiss: Psycho Circus - The Nightmare Child** dedicated server. The game (Third Law Interactive, 2000; LithTech 1) only ships a Windows dedicated server, so the image runs the retail `Dedicated.exe` (v1.13) under Wine.
-The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers.WINE). It supports file overlaying using OverlayFS.
+This image provides a Dockerized **Kiss: Psycho Circus - The Nightmare Child** dedicated server. The game (Third Law Interactive, 2000; LithTech 1) only ships a Windows dedicated server, so the image runs the retail `Dedicated.exe` (v1.13) under Wine.
+The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -46,6 +46,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 Whether the in-game LAN browser finds the server through port mapping is untested; to be safe, give the container its own LAN address (macvlan/ipvlan) or use `network_mode: host`. Clients can always join by IP.
 
 ---
@@ -74,7 +76,7 @@ Kiss: Psycho Circus is retail software with no public download. You must provide
 
 ## Environment Variables
 
-These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers.WINE#environment).
+These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE#environment).
 The settings are written to `<KPC_CONFIG>` in the game folder on every start. Settings left empty are left out, so the game's defaults apply.
 
 | Variable | Description | Default |
@@ -122,7 +124,7 @@ See [Documentation/Docker.md](Documentation/Docker.md) for more detail.
 The image is built `FROM lancommander/wine:latest` by default. To build against a local base image:
 
 ```bash
-docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/kisspsychocircus:local .
+docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/kisspsychocircus:local Servers/KissPsychoCircus
 ```
 
 ---
@@ -130,4 +132,4 @@ docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/kiss
 ## License
 
 Kiss: Psycho Circus - The Nightmare Child and Wine are distributed under their respective licenses.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

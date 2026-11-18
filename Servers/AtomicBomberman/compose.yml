@@ -1,0 +1,22 @@
+services:
+  atomicbomberman:
+    image: lancommander/atomicbomberman:latest
+    container_name: atomicbomberman
+
+    ports:
+      - "5521:5521/tcp"
+      - "8005:8005/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      ATOMIC_AI: "ai_smart"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

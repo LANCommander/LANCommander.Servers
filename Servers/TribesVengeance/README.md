@@ -1,6 +1,6 @@
 # Tribes: Vengeance Dedicated Server (Docker)
 
-This repository provides a Dockerized **Tribes: Vengeance dedicated server via WINE** suitable for running multiplayer Tribes: Vengeance servers in a clean, reproducible way.  
+This image provides a Dockerized **Tribes: Vengeance dedicated server via WINE** suitable for running multiplayer Tribes: Vengeance servers in a clean, reproducible way.  
 The image is designed for **headless operation**, supports bind-mounted configuration, and handles runtime dependencies required by Tribes: Vengeance.
 
 ---
@@ -29,6 +29,8 @@ services:
     # Ensure container restarts if the server crashes or host reboots
     restart: unless-stopped
 ```
+
+The same file is in this directory as [`compose.yml`](compose.yml).
 
 ---
 
@@ -75,4 +77,4 @@ docker run --rm -it \
 
 ## License
 Tribes: Vengeance is distributed under its own license.
-This repository contains Docker build logic and helper scripts licensed under MIT.
+This directory contains Docker build logic and helper scripts licensed under MIT.

@@ -1,0 +1,26 @@
+services:
+  serioussam:
+    image: lancommander/serioussamthefirstencounter:latest
+    container_name: serioussam
+
+    ports:
+      - "25600:25600/udp"
+      - "25601:25601/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      SSAM_SESSION_NAME: "My Serious Sam Server"
+      SSAM_GAME_MODE: "coop"
+      SSAM_LEVELS: "01_Hatshepsut"
+      SSAM_DIFFICULTY: "normal"
+      SSAM_MAX_PLAYERS: "8"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

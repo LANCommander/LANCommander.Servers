@@ -1,0 +1,23 @@
+services:
+  ut2004:
+    image: lancommander/ut2004:latest
+    container_name: ut2004
+
+    ports:
+      - "7777:7777/udp"  # Game port
+      - "7778:7778/udp"  # Query port
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      # Optional overrides
+      # START_ARGS: "-ini=SystemSettings.ini -ini=UT2004.ini -ini=UT2004Server.ini"
+
+    cap_add:
+      - SYS_ADMIN
+
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

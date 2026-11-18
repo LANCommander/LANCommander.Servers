@@ -1,0 +1,22 @@
+services:
+  quake:
+    image: lancommander/quake:latest
+    container_name: quake
+
+    ports:
+      - "26000:26000/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      QUAKE_SERVER_NAME: "My Quake Server"
+      QUAKE_MAP: "dm4"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

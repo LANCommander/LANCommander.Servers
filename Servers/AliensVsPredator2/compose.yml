@@ -1,0 +1,25 @@
+services:
+  avp2:
+    image: lancommander/aliensvspredator2:latest
+    container_name: avp2
+
+    ports:
+      - "27888:27888/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      AVP2_SERVER_NAME: "My AvP2 Server"
+      AVP2_GAME_TYPE: "deathmatch"
+      AVP2_TIME_LIMIT: "15"
+      AVP2_FRAG_LIMIT: "25"
+      AVP2_CONTROL_PASSWORD: "changeme"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

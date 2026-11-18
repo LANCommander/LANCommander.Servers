@@ -1,0 +1,24 @@
+services:
+  callofduty:
+    image: lancommander/callofduty:latest
+    container_name: callofduty-server
+
+    # Call of Duty uses UDP
+    ports:
+      - "28960:28960/udp"
+
+    # Bind mounts so files appear on the host
+    volumes:
+      - ./config:/config
+
+    environment:
+      # Optional: download mods/maps at startup
+      # EXTRA_MOD_URLS: >
+      #   https://example.com/maps.zip,
+      #   https://example.com/gameplay.pk3
+
+      # Optional overrides
+      # SERVER_ARGS: '+set dedicated 2 +set sv_allowDownload 1 +set sv_dlURL \"\" +set com_hunkmegs 64'
+
+    # Ensure container restarts if the server crashes or host reboots
+    restart: unless-stopped

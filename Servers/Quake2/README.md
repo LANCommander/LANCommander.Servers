@@ -1,7 +1,7 @@
 # Quake II Server (Docker)
 
-This repository provides a Dockerized **Quake II** dedicated server. It runs [Q2PRO](https://github.com/q2pro/q2pro)'s dedicated server (`q2proded`) and its deathmatch/co-op game library, both built from source into the image, plus the [Threewave CTF](https://github.com/yquake2/ctf) game library. You supply the game data. Mods with a Linux game library are supported.
-The image builds on [`lancommander/base`](https://github.com/LANCommander/LANCommander.Servers.Base). It supports file overlaying using OverlayFS.
+This image provides a Dockerized **Quake II** dedicated server. It runs [Q2PRO](https://github.com/q2pro/q2pro)'s dedicated server (`q2proded`) and its deathmatch/co-op game library, both built from source into the image, plus the [Threewave CTF](https://github.com/yquake2/ctf) game library. You supply the game data. Mods with a Linux game library are supported.
+The image builds on [`lancommander/base`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/Base). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -43,6 +43,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 The in-game LAN browser (Multiplayer → Join Network Server → Refresh) finds servers by broadcasting to port 27910. That needs the container on the LAN itself (macvlan/ipvlan, or `network_mode: host`) and the default `QUAKE2_PORT`; with port mapping, clients join by IP (`connect <ip>` in the console).
 
 ---
@@ -71,7 +73,7 @@ Quake II on Linux opens files by their lowercase names, which is how the game da
 
 ## Environment Variables
 
-These are in addition to the [base image's variables](https://github.com/LANCommander/LANCommander.Servers.Base#environment).
+These are in addition to the [base image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/Base#environment-variables).
 The settings are written into `<QUAKE2_GAME or baseq2>/lancommander.cfg` on every start. Settings left empty are left out, so you can set them in `server.cfg` next to it instead.
 
 | Variable | Description | Default |
@@ -118,7 +120,7 @@ The image is built `FROM lancommander/base:latest` by default. A build stage com
 The versions built are in `/opt/q2pro/VERSION`, and the Q2PRO version is in the server's startup log and its `status` reply.
 
 ```bash
-docker build --build-arg BASE_IMAGE=lancommander/base:local -t lancommander/quake2:local .
+docker build --build-arg BASE_IMAGE=lancommander/base:local -t lancommander/quake2:local Servers/Quake2
 ```
 
 ---
@@ -126,4 +128,4 @@ docker build --build-arg BASE_IMAGE=lancommander/base:local -t lancommander/quak
 ## License
 
 Quake II is a trademark of id Software. Its game data is not included and is distributed under its own license. Q2PRO and the CTF game source are GPLv2.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

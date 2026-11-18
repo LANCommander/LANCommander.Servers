@@ -1,6 +1,6 @@
 # Half-Life Dedicated Server (Docker)
 
-This repository provides a Dockerized **Half-Life** (GoldSrc) dedicated server.
+This image provides a Dockerized **Half-Life** (GoldSrc) dedicated server.
 The image is designed for **headless operation**, automatically downloads and updates HLDS via SteamCMD, and supports file overlaying using OverlayFS.
 
 Every GoldSrc game shares the same dedicated server (Steam app `90`), so this image can also run Counter-Strike 1.6, Day of Defeat, Team Fortress Classic, Opposing Force and third-party mods by changing `GAME_MOD` and `START_ARGS`.
@@ -43,6 +43,8 @@ services:
 
     restart: unless-stopped
 ```
+
+The same file is in this directory as [`compose.yml`](compose.yml).
 
 ---
 
@@ -122,4 +124,4 @@ See [Documentation/Docker.md](Documentation/Docker.md) for more detail.
 ## License
 
 SteamCMD and game servers are distributed under their respective licenses.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

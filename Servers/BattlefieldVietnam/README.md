@@ -1,7 +1,7 @@
 # Battlefield Vietnam Server (Docker)
 
-This repository provides a Dockerized **Battlefield Vietnam** dedicated server. It runs DICE's official 1.21 Linux dedicated server (`bfv_linded`), downloaded on first start from this repo's [`server-1.21` release](https://github.com/LANCommander/LANCommander.Servers.BattlefieldVietnam/releases/tag/server-1.21), a mirror of [LinuxGSM](https://linuxgsm.com/servers/bfvserver/)'s package. That package includes the community security patch and the official WW2 mod, and needs no retail game files.
-The image builds on [`lancommander/base`](https://github.com/LANCommander/LANCommander.Servers.Base). It supports file overlaying using OverlayFS.
+This image provides a Dockerized **Battlefield Vietnam** dedicated server. It runs DICE's official 1.21 Linux dedicated server (`bfv_linded`), downloaded on first start from the [`LANCommander.Servers.BattlefieldVietnam`](https://github.com/LANCommander/LANCommander.Servers.BattlefieldVietnam/releases) repo's [`server-1.21` release](https://github.com/LANCommander/LANCommander.Servers.BattlefieldVietnam/releases/tag/server-1.21), a mirror of [LinuxGSM](https://linuxgsm.com/servers/bfvserver/)'s package. That package includes the community security patch and the official WW2 mod, and needs no retail game files.
+The image builds on [`lancommander/base`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/Base). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -41,6 +41,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 The in-game LAN browser finds servers by broadcast. That needs the container on the LAN itself (macvlan/ipvlan, or `network_mode: host`); with port mapping, clients join by IP.
 
 ---
@@ -67,7 +69,7 @@ Clients must run 1.21. The server reads lower-case file names only, so third-par
 
 ## Environment Variables
 
-These are in addition to the [base image's variables](https://github.com/LANCommander/LANCommander.Servers.Base#environment).
+These are in addition to the [base image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/Base#environment-variables).
 The settings are written into `mods/<BFV_MOD>/settings/<BFV_CONFIG>` on every start. Settings left empty are not touched, so you can set them in the file instead.
 
 | Variable | Description | Default |
@@ -100,7 +102,7 @@ See [Documentation/Docker.md](Documentation/Docker.md) for more detail.
 The image is built `FROM lancommander/base:latest` by default. To build against a local base image:
 
 ```bash
-docker build --build-arg BASE_IMAGE=lancommander/base:local -t lancommander/battlefieldvietnam:local .
+docker build --build-arg BASE_IMAGE=lancommander/base:local -t lancommander/battlefieldvietnam:local Servers/BattlefieldVietnam
 ```
 
 ---
@@ -108,4 +110,4 @@ docker build --build-arg BASE_IMAGE=lancommander/base:local -t lancommander/batt
 ## License
 
 Battlefield Vietnam and its dedicated server are distributed under their respective licenses.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

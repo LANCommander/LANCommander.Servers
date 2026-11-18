@@ -1,7 +1,7 @@
 # Atomic Bomberman Server (Docker)
 
-This repository provides a Dockerized **Atomic Bomberman** dedicated server. Atomic Bomberman is Interplay's 1997 PC Bomberman game for up to 10 players. The image runs the server of [FPC Atomic](https://github.com/PascalCorpsman/fpc_atomic), the open-source Free Pascal remake by Uwe Schächterle (PascalCorpsman), which is what LANCommander installs as Atomic Bomberman. It uses the official native Linux build of **FPC Atomic 0.14002**.
-The image builds on [`lancommander/base`](https://github.com/LANCommander/LANCommander.Servers.Base). It supports file overlaying using OverlayFS.
+This image provides a Dockerized **Atomic Bomberman** dedicated server. Atomic Bomberman is Interplay's 1997 PC Bomberman game for up to 10 players. The image runs the server of [FPC Atomic](https://github.com/PascalCorpsman/fpc_atomic), the open-source Free Pascal remake by Uwe Schächterle (PascalCorpsman), which is what LANCommander installs as Atomic Bomberman. It uses the official native Linux build of **FPC Atomic 0.14002**.
+The image builds on [`lancommander/base`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/Base). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -42,6 +42,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 ---
 
 ## Server Files
@@ -68,7 +70,7 @@ The FPC Atomic release files are in the image (`/opt/fpc-atomic`). On first star
 
 ## Environment Variables
 
-These are in addition to the [base image's variables](https://github.com/LANCommander/LANCommander.Servers.Base#environment-variables).
+These are in addition to the [base image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/Base#environment-variables).
 
 | Variable | Description | Default |
 |----------|-------------|---------|
@@ -92,7 +94,7 @@ See [Documentation/Docker.md](Documentation/Docker.md) for more detail.
 The image is built `FROM lancommander/base:latest` by default. To build against a local base image:
 
 ```bash
-docker build --build-arg BASE_IMAGE=lancommander/base:local -t lancommander/atomicbomberman:local .
+docker build --build-arg BASE_IMAGE=lancommander/base:local -t lancommander/atomicbomberman:local Servers/AtomicBomberman
 ```
 
 ---
@@ -100,4 +102,4 @@ docker build --build-arg BASE_IMAGE=lancommander/base:local -t lancommander/atom
 ## License
 
 FPC Atomic is distributed under its own license (Postcardware or a modified LGPL, see its [license.md](https://github.com/PascalCorpsman/fpc_atomic/blob/main/license.md)). Atomic Bomberman's game data belongs to its rights holders and isn't part of this image.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

@@ -1,0 +1,22 @@
+services:
+  redfaction:
+    image: lancommander/redfaction:latest
+    container_name: redfaction
+
+    ports:
+      - "7755:7755/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      RF_SERVER_NAME: "My Red Faction Server"
+      RF_MAX_PLAYERS: "16"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

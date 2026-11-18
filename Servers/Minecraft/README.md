@@ -1,7 +1,7 @@
 # Minecraft Server (Docker)
 
-This repository provides a Dockerized **Minecraft: Java Edition** dedicated server. On start it downloads the server jar for `MINECRAFT_VERSION`: [Paper](https://papermc.io/) (the default), Mojang's vanilla server, or any jar you point it at, plus the plugins you list. It runs on a bundled Eclipse Temurin 25 JRE and defaults to **offline mode**, so LAN clients without Microsoft accounts (such as the LANCommander Minecraft package, which uses the player's LANCommander name) can join.
-The image builds on [`lancommander/base`](https://github.com/LANCommander/LANCommander.Servers.Base). It supports file overlaying using OverlayFS.
+This image provides a Dockerized **Minecraft: Java Edition** dedicated server. On start it downloads the server jar for `MINECRAFT_VERSION`: [Paper](https://papermc.io/) (the default), Mojang's vanilla server, or any jar you point it at, plus the plugins you list. It runs on a bundled Eclipse Temurin 25 JRE and defaults to **offline mode**, so LAN clients without Microsoft accounts (such as the LANCommander Minecraft package, which uses the player's LANCommander name) can join.
+The image builds on [`lancommander/base`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/Base). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -47,6 +47,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 The "LAN Worlds" announcement is multicast, so it only reaches clients when the container is on the LAN itself (macvlan/ipvlan, or `network_mode: host`). With port mapping, clients add the server by IP.
 
 ---
@@ -81,7 +83,7 @@ Clients must run the same Minecraft version as the server (Paper and vanilla don
 
 ## Environment Variables
 
-These are in addition to the [base image's variables](https://github.com/LANCommander/LANCommander.Servers.Base#environment).
+These are in addition to the [base image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/Base#environment-variables).
 The `server.properties` settings are written on every start. Settings left empty leave the key as it is, so you can edit it in `Overlay/server.properties` instead.
 
 | Variable | Description | Default |
@@ -123,8 +125,8 @@ See [Documentation/Docker.md](Documentation/Docker.md) for more detail.
 ## Building
 
 ```bash
-docker build -t lancommander/minecraft:local .
-docker build --build-arg BASE_IMAGE=lancommander/base:local -t lancommander/minecraft:local .
+docker build -t lancommander/minecraft:local Servers/Minecraft
+docker build --build-arg BASE_IMAGE=lancommander/base:local -t lancommander/minecraft:local Servers/Minecraft
 ```
 
 ---
@@ -132,4 +134,4 @@ docker build --build-arg BASE_IMAGE=lancommander/base:local -t lancommander/mine
 ## License
 
 Minecraft is © Mojang Studios / Microsoft; its server is downloaded at runtime under the [Minecraft EULA](https://aka.ms/MinecraftEULA) and isn't included in the image. Paper is GPLv3/MIT. Eclipse Temurin is GPLv2 with the Classpath Exception.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

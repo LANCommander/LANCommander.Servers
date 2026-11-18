@@ -1,0 +1,24 @@
+services:
+  cojbib:
+    image: lancommander/callofjuarezboundinblood:latest
+    container_name: cojbib
+
+    ports:
+      - "27632:27632/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      COJBIB_SERVER_NAME: "My CoJ BiB Server"
+      COJBIB_MODES: "deathmatch,teamdeathmatch"
+      COJBIB_ADMIN_LOGIN: "admin"
+      COJBIB_ADMIN_PASSWORD: "changeme"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

@@ -1,7 +1,7 @@
 # Star Wars: Republic Commando Server (Docker)
 
-This repository provides a Dockerized **Star Wars: Republic Commando** dedicated server. Republic Commando is a 2005 squad-based first-person shooter by LucasArts, built on Unreal Engine 2. The game shipped without a dedicated server tool; the image runs the `UCC.exe server` from SWRCFix (by Leon0628, swrc-modding.net) under Wine.
-The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers.WINE). It supports file overlaying using OverlayFS.
+This image provides a Dockerized **Star Wars: Republic Commando** dedicated server. Republic Commando is a 2005 squad-based first-person shooter by LucasArts, built on Unreal Engine 2. The game shipped without a dedicated server tool; the image runs the `UCC.exe server` from SWRCFix (by Leon0628, swrc-modding.net) under Wine.
+The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -45,6 +45,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 The in-game LAN browser finds servers by broadcast. That needs the container on the LAN itself (macvlan/ipvlan, or `network_mode: host`). With port mapping, clients join by IP.
 
 ---
@@ -75,7 +77,7 @@ The server doesn't need `Movies/`, `Help/` or `Manual.pdf`; an archive install l
 
 ## Environment Variables
 
-These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers.WINE#environment).
+These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE#environment).
 The ini settings are written into `RC_INI` on every start. Settings left empty are not touched, so you can set them in the ini instead.
 
 | Variable | Description | Default |
@@ -127,7 +129,7 @@ See [Documentation/Docker.md](Documentation/Docker.md) for more detail.
 The image is built `FROM lancommander/wine:latest` by default. To build against a local base image:
 
 ```bash
-docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/starwarsrepubliccommando:local .
+docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/starwarsrepubliccommando:local Servers/StarWarsRepublicCommando
 ```
 
 ---
@@ -135,4 +137,4 @@ docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/star
 ## License
 
 Star Wars: Republic Commando, SWRCFix and Wine are distributed under their respective licenses.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

@@ -1,7 +1,7 @@
 # Wolfenstein (2009) Server (Docker)
 
-This repository provides a Dockerized **Wolfenstein** (2009, Raven Software/Endrant Studios) multiplayer dedicated server. The game has no stand-alone server download and no Linux server: the dedicated server is `Wolf2MPLite.exe` in the installed game's `MP` folder (multiplayer 1.2, `WolfMP 1.2.341005`). The image runs it under Wine.
-The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers.WINE). It supports file overlaying using OverlayFS.
+This image provides a Dockerized **Wolfenstein** (2009, Raven Software/Endrant Studios) multiplayer dedicated server. The game has no stand-alone server download and no Linux server: the dedicated server is `Wolf2MPLite.exe` in the installed game's `MP` folder (multiplayer 1.2, `WolfMP 1.2.341005`). The image runs it under Wine.
+The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -42,6 +42,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 ---
 
 ## Game Files
@@ -73,7 +75,7 @@ On first start, if `Server/Wolf2MPLite.exe` doesn't exist, the install hook extr
 
 ## Environment Variables
 
-These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers.WINE#environment).
+These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE#environment).
 On every start the configure hook writes `base/lancommander.cfg` from the `WOLF_*` variables, and the server execs it after its own configs. Set `WOLF_MANAGE_CONFIG=false` to write the file yourself instead.
 
 | Variable | Description | Default |
@@ -110,7 +112,7 @@ See [Documentation/Docker.md](Documentation/Docker.md) for more detail.
 The image is built `FROM lancommander/wine:latest` by default. To build against a local base image:
 
 ```bash
-docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/wolfenstein2009:local .
+docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/wolfenstein2009:local Servers/Wolfenstein2009
 ```
 
 ---
@@ -118,4 +120,4 @@ docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/wolf
 ## License
 
 Wolfenstein and Wine are distributed under their respective licenses.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

@@ -1,0 +1,25 @@
+services:
+  soldat:
+    image: lancommander/soldat:latest
+    container_name: soldat
+
+    ports:
+      - "23073:23073/udp"
+      - "23073:23073/tcp"
+      - "23083:23083/tcp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      SOLDAT_SERVER_NAME: "My Soldat Server"
+      SOLDAT_GAME_TYPE: "ctf"
+      SOLDAT_ADMIN_PASSWORD: "changeme"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

@@ -1,7 +1,7 @@
 # F.E.A.R. Server (Docker)
 
-This repository provides a Dockerized **F.E.A.R.** multiplayer dedicated server. F.E.A.R. (Monolith, 2005) and its free multiplayer release F.E.A.R. Combat ship a Windows-only stand-alone server, `FEARServer.exe`. The image runs the 1.08 build of it under Wine, including the community SEC2 patch when the install has it.
-The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers.WINE). It supports file overlaying using OverlayFS.
+This image provides a Dockerized **F.E.A.R.** multiplayer dedicated server. F.E.A.R. (Monolith, 2005) and its free multiplayer release F.E.A.R. Combat ship a Windows-only stand-alone server, `FEARServer.exe`. The image runs the 1.08 build of it under Wine, including the community SEC2 patch when the install has it.
+The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -45,6 +45,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 ---
 
 ## Game Files
@@ -75,7 +77,7 @@ If the install has the SEC2 patch (a `SEC2/` folder listed in `Default.archcfg`)
 
 ## Environment Variables
 
-These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers.WINE#environment).
+These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE#environment).
 The `FEAR_*` server settings are written into `<FEAR_USER_DIR>/ServerOptions/<FEAR_CONFIG>.txt` on every start. Settings left empty are not touched, so you can set them in that file instead. The name, player count, limits and map list apply to the section of the selected game type.
 
 | Variable | Description | Default |
@@ -112,7 +114,7 @@ See [Documentation/Docker.md](Documentation/Docker.md) for more detail.
 The image is built `FROM lancommander/wine:latest` by default. To build against a local base image:
 
 ```bash
-docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/fear:local .
+docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/fear:local Servers/FEAR
 ```
 
 ---
@@ -120,4 +122,4 @@ docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/fear
 ## License
 
 F.E.A.R., the SEC2 patch and Wine are distributed under their respective licenses.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

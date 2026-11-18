@@ -1,0 +1,23 @@
+services:
+  jediknight:
+    image: lancommander/jediknight:latest
+    container_name: jediknight
+
+    ports:
+      - "27020:27020/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      JK_SERVER_NAME: "My Jedi Knight Server"
+      JK_EPISODE: "JK1MP"
+      JK_MAP: "m2.jkl"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

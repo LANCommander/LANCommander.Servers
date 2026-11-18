@@ -1,0 +1,25 @@
+services:
+  morrowind:
+    image: lancommander/morrowind:latest
+    container_name: morrowind
+
+    ports:
+      - "25565:25565/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      TES3MP_VERSION: "latest"   # or e.g. "0.8.1"
+      TES3MP_SERVER_NAME: "My Morrowind Server"
+      TES3MP_MAX_PLAYERS: "16"
+      TES3MP_PASSWORD: ""
+      TES3MP_GAME_MODE: "Co-op"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

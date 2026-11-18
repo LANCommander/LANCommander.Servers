@@ -1,7 +1,7 @@
 # Aliens vs. Predator 2 Server (Docker)
 
-This repository provides a Dockerized **Aliens vs. Predator 2** dedicated server. AvP2 (Monolith, 2001) ships a Windows-only stand-alone server, `AVP2Serv.exe`. The image runs the Master Server Patch 2.4 build of it, which is in the community 1.0.9.6 installs, under Wine.
-The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers.WINE). It supports file overlaying using OverlayFS.
+This image provides a Dockerized **Aliens vs. Predator 2** dedicated server. AvP2 (Monolith, 2001) ships a Windows-only stand-alone server, `AVP2Serv.exe`. The image runs the Master Server Patch 2.4 build of it, which is in the community 1.0.9.6 installs, under Wine.
+The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -45,6 +45,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 ---
 
 ## Game Files
@@ -74,7 +76,7 @@ The server doesn't need `Movies/`.
 
 ## Environment Variables
 
-These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers.WINE#environment).
+These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE#environment).
 The `AVP2_*` server settings are written into `ServerData\<AVP2_CONFIG>.txt` on every start. Settings left empty are not touched, so you can set them in that file instead. Limits and the map list apply to the section of the selected game type.
 
 | Variable | Description | Default |
@@ -118,7 +120,7 @@ See [Documentation/Docker.md](Documentation/Docker.md) for more detail.
 The image is built `FROM lancommander/wine:latest` by default. To build against a local base image:
 
 ```bash
-docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/aliensvspredator2:local .
+docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/aliensvspredator2:local Servers/AliensVsPredator2
 ```
 
 ---
@@ -126,4 +128,4 @@ docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/alie
 ## License
 
 Aliens vs. Predator 2, the Master Server Patch and Wine are distributed under their respective licenses.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

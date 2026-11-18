@@ -1,7 +1,7 @@
 # Double Action: Boogaloo Server (Docker)
 
-This repository provides a Dockerized **Double Action: Boogaloo** dedicated server. The game content in the Double Action Dedicated Server (Steam app `317800`) ships only Windows server binaries (`dab/bin/server.dll`), so the image runs the Windows `srcds.exe` under Wine.
-The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers.WINE). It supports file overlaying using OverlayFS.
+This image provides a Dockerized **Double Action: Boogaloo** dedicated server. The game content in the Double Action Dedicated Server (Steam app `317800`) ships only Windows server binaries (`dab/bin/server.dll`), so the image runs the Windows `srcds.exe` under Wine.
+The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -43,6 +43,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 ---
 
 ## Game Files
@@ -69,7 +71,7 @@ The app's engine depot is from 2014, but its game content depot (`dab/`) is shar
 
 ## Environment Variables
 
-These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers.WINE#environment).
+These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE#environment).
 
 | Variable | Description | Default |
 |----------|-------------|---------|
@@ -146,7 +148,7 @@ can be reached.
 The image is built `FROM lancommander/wine:latest` by default. To build against a local base image:
 
 ```bash
-docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/doubleactionboogaloo:local .
+docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/doubleactionboogaloo:local Servers/DoubleActionBoogaloo
 ```
 
 ---
@@ -154,4 +156,4 @@ docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/doub
 ## License
 
 Double Action: Boogaloo, the Source Dedicated Server and Wine are distributed under their respective licenses.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

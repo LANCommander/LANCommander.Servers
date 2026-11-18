@@ -1,0 +1,26 @@
+services:
+  openarena:
+    image: lancommander/openarena:latest
+    container_name: openarena
+
+    ports:
+      - "27960:27960/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      OA_SERVER_NAME: "My OpenArena Server"
+      OA_GAME_TYPE: "ctf"
+      OA_MAP: "oa_ctf4ish"
+      OA_MAP_LIST: "oa_ctf4ish ps37ctf2 pul1ctf czest2ctf"
+      OA_BOTS: "2"
+      OA_RCON_PASSWORD: "changeme"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

@@ -1,7 +1,7 @@
 # James Bond 007: Nightfire Server (Docker)
 
-This repository provides a Dockerized **James Bond 007: Nightfire** dedicated server. The PC game (Gearbox, 2002) has no stand-alone server. Its engine runs one with `Bond2.exe -dedicated`. The image runs the 5.9x community patch build (engine 5.9.9.0, with Metamod and AMX Mod X) under Wine.
-The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers.WINE). It supports file overlaying using OverlayFS.
+This image provides a Dockerized **James Bond 007: Nightfire** dedicated server. The PC game (Gearbox, 2002) has no stand-alone server. Its engine runs one with `Bond2.exe -dedicated`. The image runs the 5.9x community patch build (engine 5.9.9.0, with Metamod and AMX Mod X) under Wine.
+The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -45,6 +45,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 ---
 
 ## Game Files
@@ -74,7 +76,7 @@ The server doesn't need `bond/movies/`.
 
 ## Environment Variables
 
-These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers.WINE#environment).
+These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE#environment).
 The `NF_*` server settings are written into `bond/<NF_CONFIG>` on every start. Settings left empty are not written, so you can set them in `bond/server.cfg` instead, which that file execs first.
 
 | Variable | Description | Default |
@@ -114,7 +116,7 @@ See [Documentation/Docker.md](Documentation/Docker.md) for more detail.
 The image is built `FROM lancommander/wine:latest` by default. To build against a local base image:
 
 ```bash
-docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/nightfire:local .
+docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/nightfire:local Servers/Nightfire
 ```
 
 ---
@@ -122,4 +124,4 @@ docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/nigh
 ## License
 
 James Bond 007: Nightfire, the community patch and Wine are distributed under their respective licenses.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

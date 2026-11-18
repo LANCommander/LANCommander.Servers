@@ -1,0 +1,24 @@
+services:
+  quake2:
+    image: lancommander/quake2:latest
+    container_name: quake2
+
+    ports:
+      - "27910:27910/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      QUAKE2_SERVER_NAME: "My Quake II Server"
+      QUAKE2_MAP: "q2dm1"
+      QUAKE2_MAP_LIST: "q2dm1 q2dm2 q2dm3 q2dm8"
+      QUAKE2_RCON_PASSWORD: "changeme"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

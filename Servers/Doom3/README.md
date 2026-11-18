@@ -1,7 +1,7 @@
 # Doom 3 Server (Docker)
 
-This repository provides a Dockerized **Doom 3** dedicated server. It runs the dedicated server of the latest [dhewm3](https://dhewm3.org/) release (`dhewm3ded`, 1.5.5 as of this writing), built from source into the image, with your retail Doom 3 game data. Resurrection of Evil (`d3xp`) is supported.
-The image builds on [`lancommander/base`](https://github.com/LANCommander/LANCommander.Servers.Base). It supports file overlaying using OverlayFS.
+This image provides a Dockerized **Doom 3** dedicated server. It runs the dedicated server of the latest [dhewm3](https://dhewm3.org/) release (`dhewm3ded`, 1.5.5 as of this writing), built from source into the image, with your retail Doom 3 game data. Resurrection of Evil (`d3xp`) is supported.
+The image builds on [`lancommander/base`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/Base). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -40,6 +40,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 The in-game LAN browser finds servers by broadcast. That needs the container on the LAN itself (macvlan/ipvlan, or `network_mode: host`); with port mapping, clients join by IP (`connect <ip>` in the console).
 
 ---
@@ -66,7 +68,7 @@ Clients need dhewm3 1.5.x and the same paks. All 1.5.x releases use the same net
 
 ## Environment Variables
 
-These are in addition to the [base image's variables](https://github.com/LANCommander/LANCommander.Servers.Base#environment).
+These are in addition to the [base image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/Base#environment-variables).
 The settings are written into `<D3_GAME>/lancommander.cfg` on every start. Settings left empty are left out, so you can set them in `<D3_GAME>/server.cfg` instead.
 
 | Variable | Description | Default |
@@ -108,7 +110,7 @@ The image is built `FROM lancommander/base:latest` by default. A build stage com
 Rebuilding picks up a new dhewm3 release on its own: the build fetches GitHub's latest-release info, and a change there invalidates the cached compile step. The version built is in `/opt/dhewm3/VERSION` and in the server's `si_version`.
 
 ```bash
-docker build --build-arg BASE_IMAGE=lancommander/base:local -t lancommander/doom3:local .
+docker build --build-arg BASE_IMAGE=lancommander/base:local -t lancommander/doom3:local Servers/Doom3
 docker build --build-arg DHEWM3_VERSION=1.5.5 \
     --build-arg DHEWM3_SHA256=7e12a41cbf837eb2b7543b623f6d2a28a8a108a9ce55a221233e50a71d781c36 \
     -t lancommander/doom3:1.5.5 .
@@ -119,4 +121,4 @@ docker build --build-arg DHEWM3_VERSION=1.5.5 \
 ## License
 
 Doom 3 is a trademark of id Software. Its game data is not included and is distributed under its own license. dhewm3 is GPLv3.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

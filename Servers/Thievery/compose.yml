@@ -1,0 +1,26 @@
+services:
+  thievery:
+    image: lancommander/thievery:latest
+    container_name: thievery
+
+    ports:
+      - "7777:7777/udp"
+      - "7778:7778/udp"
+      - "8777:8777/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      THIEVERY_SERVER_NAME: "My Thievery Server"
+      THIEVERY_GAME_TYPE: "teams"
+      THIEVERY_MAP: "TH-Theatre"
+      THIEVERY_MAX_PLAYERS: "16"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

@@ -1,0 +1,22 @@
+services:
+  realmwars:
+    image: lancommander/realmwars:latest
+    container_name: realmwars
+
+    ports:
+      - "28000:28000/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      REALMWARS_SERVER_NAME: "My Realm Wars Server"
+      REALMWARS_MISSION: "rw/data/missions/newlands.mis"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

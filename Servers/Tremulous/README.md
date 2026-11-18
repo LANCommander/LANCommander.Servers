@@ -1,7 +1,7 @@
 # Tremulous Server (Docker)
 
-This repository provides a Dockerized **Tremulous** dedicated server. On first start it downloads the [GrangerHub](https://github.com/GrangerHub/tremulous) Tremulous 1.3 release `v1.3.0-alpha.0.15.2`, which holds both the game data and the Linux dedicated server (`tremded`), so you don't need to supply any files. It is the same release the LANCommander Tremulous package is built from. Tremulous is free software (GPLv2 engine and game code, CC-licensed content).
-The image builds on [`lancommander/base`](https://github.com/LANCommander/LANCommander.Servers.Base). It supports file overlaying using OverlayFS.
+This image provides a Dockerized **Tremulous** dedicated server. On first start it downloads the [GrangerHub](https://github.com/GrangerHub/tremulous) Tremulous 1.3 release `v1.3.0-alpha.0.15.2`, which holds both the game data and the Linux dedicated server (`tremded`), so you don't need to supply any files. It is the same release the LANCommander Tremulous package is built from. Tremulous is free software (GPLv2 engine and game code, CC-licensed content).
+The image builds on [`lancommander/base`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/Base). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -45,6 +45,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 The in-game LAN browser finds servers by broadcasting to ports 30720-30723. That needs the container on the LAN itself (macvlan/ipvlan, or `network_mode: host`); with port mapping, clients join by IP (`/connect <ip>` in the console).
 
 ---
@@ -73,7 +75,7 @@ Clients should run the same release (`v1.3.0-alpha.0.15.2`). The Linux release n
 
 ## Environment Variables
 
-These are in addition to the [base image's variables](https://github.com/LANCommander/LANCommander.Servers.Base#environment).
+These are in addition to the [base image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/Base#environment-variables).
 The settings are written into `<TREMULOUS_GAME or gpp>/lancommander.cfg` on every start. Settings left empty are left out, so you can set them in `server.cfg` next to it instead.
 
 | Variable | Description | Default |
@@ -115,8 +117,8 @@ See [Documentation/Docker.md](Documentation/Docker.md) for more detail.
 ## Building
 
 ```bash
-docker build -t lancommander/tremulous:local .
-docker build --build-arg BASE_IMAGE=lancommander/base:local -t lancommander/tremulous:local .
+docker build -t lancommander/tremulous:local Servers/Tremulous
+docker build --build-arg BASE_IMAGE=lancommander/base:local -t lancommander/tremulous:local Servers/Tremulous
 ```
 
 ---
@@ -124,4 +126,4 @@ docker build --build-arg BASE_IMAGE=lancommander/base:local -t lancommander/trem
 ## License
 
 Tremulous is free software: its engine and game code are GPLv2 and its content is under Creative Commons licenses (see `COPYING`, `GPL` and `CC` in the release). It is downloaded at runtime and not included in the image.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

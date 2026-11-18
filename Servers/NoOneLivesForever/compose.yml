@@ -1,0 +1,25 @@
+services:
+  nolf:
+    image: lancommander/noonelivesforever:latest
+    container_name: nolf
+
+    ports:
+      - "27888:27888/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      NOLF_SERVER_NAME: "My NOLF Server"
+      NOLF_GAME_TYPE: "deathmatch"
+      NOLF_LEVELS: "001ThePad_DM,002Rebar_DM,005Unity_DM"
+      NOLF_FRAG_LIMIT: "25"
+      NOLF_TIME_LIMIT: "15"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

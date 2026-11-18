@@ -1,0 +1,22 @@
+services:
+  blockland:
+    image: lancommander/blockland:latest
+    container_name: blockland
+
+    ports:
+      - "28050:28050/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      BLOCKLAND_SERVER_NAME: "My Blockland Server"
+      BLOCKLAND_MAX_PLAYERS: "32"
+      # BLOCKLAND_GAMEMODE: "Add-Ons/GameMode_SpeedKart/gamemode.txt"
+
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

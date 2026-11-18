@@ -1,7 +1,7 @@
 # Deus Ex Server (Docker)
 
-This repository provides a Dockerized **Deus Ex** multiplayer dedicated server (Ion Storm, 2000, Unreal Engine 1, patch 1.112fm). The image runs the retail Windows game's own dedicated server mode, `DeusEx.exe -server`, under Wine.
-The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers.WINE). It supports file overlaying using OverlayFS.
+This image provides a Dockerized **Deus Ex** multiplayer dedicated server (Ion Storm, 2000, Unreal Engine 1, patch 1.112fm). The image runs the retail Windows game's own dedicated server mode, `DeusEx.exe -server`, under Wine.
+The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -46,6 +46,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 The in-game LAN browser finds servers by broadcast. That needs the container on the LAN itself (macvlan/ipvlan, or `network_mode: host`). With port mapping, clients join by IP.
 
 ---
@@ -76,7 +78,7 @@ Deus Ex is retail software with no public download. You must provide a **1.112fm
 
 ## Environment Variables
 
-These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers.WINE#environment).
+These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE#environment).
 The ini settings are written into `DX_INI` on every start. Settings left empty are not touched, so you can set them in the ini instead.
 
 | Variable | Description | Default |
@@ -132,7 +134,7 @@ See [Documentation/Docker.md](Documentation/Docker.md) for more detail.
 The image is built `FROM lancommander/wine:latest` by default. To build against a local base image:
 
 ```bash
-docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/deusex:local .
+docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/deusex:local Servers/DeusEx
 ```
 
 ---
@@ -140,4 +142,4 @@ docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/deus
 ## License
 
 Deus Ex and Wine are distributed under their respective licenses.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

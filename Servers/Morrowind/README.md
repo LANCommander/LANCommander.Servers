@@ -1,7 +1,7 @@
 # The Elder Scrolls III: Morrowind Server (Docker)
 
-This repository provides a Dockerized multiplayer server for **The Elder Scrolls III: Morrowind**, using [TES3MP](https://tes3mp.com/), the multiplayer fork of [OpenMW](https://openmw.org/). On first start it downloads the official Linux server package of the [TES3MP release](https://github.com/TES3MP/TES3MP/releases) you pick (the latest by default, currently 0.8.1), which holds the server (`tes3mp-server.x86_64`) and its Lua game logic (the CoreScripts). The server doesn't need Morrowind's data files, so you don't need to supply any files. Each player needs their own copy of Morrowind and the TES3MP client of the same version.
-The image builds on [`lancommander/base`](https://github.com/LANCommander/LANCommander.Servers.Base). It supports file overlaying using OverlayFS.
+This image provides a Dockerized multiplayer server for **The Elder Scrolls III: Morrowind**, using [TES3MP](https://tes3mp.com/), the multiplayer fork of [OpenMW](https://openmw.org/). On first start it downloads the official Linux server package of the [TES3MP release](https://github.com/TES3MP/TES3MP/releases) you pick (the latest by default, currently 0.8.1), which holds the server (`tes3mp-server.x86_64`) and its Lua game logic (the CoreScripts). The server doesn't need Morrowind's data files, so you don't need to supply any files. Each player needs their own copy of Morrowind and the TES3MP client of the same version.
+The image builds on [`lancommander/base`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/Base). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -44,6 +44,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 The TES3MP browser only lists servers from the internet master server; there is no LAN discovery. On a LAN, players join by address: set `destinationAddress` (and `port`) in `tes3mp-client-default.cfg` next to `tes3mp.exe`, then start `tes3mp.exe`.
 
 ---
@@ -78,7 +80,7 @@ Back up `Overlay/server/data/`; it holds every character and the whole shared wo
 
 ## Environment Variables
 
-These are in addition to the [base image's variables](https://github.com/LANCommander/LANCommander.Servers.Base#environment).
+These are in addition to the [base image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/Base#environment-variables).
 The server settings are written into `tes3mp-server-default.cfg` and the CoreScripts settings into `server/scripts/config.lua` on every start. Settings left empty leave the file's current value alone, so you can edit the files in `Overlay/` instead.
 
 | Variable | Description | Default |
@@ -111,8 +113,8 @@ See [Documentation/Docker.md](Documentation/Docker.md) for more detail.
 ## Building
 
 ```bash
-docker build -t lancommander/morrowind:local .
-docker build --build-arg BASE_IMAGE=lancommander/base:local -t lancommander/morrowind:local .
+docker build -t lancommander/morrowind:local Servers/Morrowind
+docker build --build-arg BASE_IMAGE=lancommander/base:local -t lancommander/morrowind:local Servers/Morrowind
 ```
 
 ---
@@ -120,4 +122,4 @@ docker build --build-arg BASE_IMAGE=lancommander/base:local -t lancommander/morr
 ## License
 
 TES3MP and OpenMW are GPLv3; the CoreScripts are GPLv3 as well. They are downloaded at runtime and not included in the image. The Elder Scrolls III: Morrowind is a trademark of Bethesda Softworks / ZeniMax Media; its game files are not used or distributed by the server.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

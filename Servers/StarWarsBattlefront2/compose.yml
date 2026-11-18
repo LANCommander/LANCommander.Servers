@@ -1,0 +1,24 @@
+services:
+  battlefront2:
+    image: lancommander/starwarsbattlefront2:latest
+    container_name: battlefront2
+
+    ports:
+      - "3658:3658/udp"
+      - "3656:3656/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      SWBF2_SERVER_NAME: "My Battlefront II Server"
+      SWBF2_ADMIN_PASSWORD: "change-me"
+      SWBF2_MAPS: "cor1c_con 250 250; kas2g_ctf; hot1g_hunt; mus1c_con"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

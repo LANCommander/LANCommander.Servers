@@ -1,6 +1,6 @@
 # Portal Knights Dedicated Server (Docker)
 
-This repository provides a Dockerized **Portal Knights dedicated server via WINE** suitable for running multiplayer Portal Knights servers in a clean, reproducible way.  
+This image provides a Dockerized **Portal Knights dedicated server via WINE** suitable for running multiplayer Portal Knights servers in a clean, reproducible way.  
 The image is designed for **headless operation**, supports bind-mounted configuration, and handles runtime dependencies required by Portal Knights.
 
 ---
@@ -28,6 +28,8 @@ services:
     # Ensure container restarts if the server crashes or host reboots
     restart: unless-stopped
 ```
+
+The same file is in this directory as [`compose.yml`](compose.yml).
 
 ---
 
@@ -78,4 +80,4 @@ docker run --rm -it \
 
 ## License
 Portal Knights is distributed under its own license.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

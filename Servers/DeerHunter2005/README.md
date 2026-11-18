@@ -1,7 +1,7 @@
 # Deer Hunter 2005 Server (Docker)
 
-This repository provides a Dockerized **Deer Hunter: The 2005 Season** dedicated server. DH2005 has no Linux server, so the image runs the game's built-in headless dedicated mode (`DH2005.exe -Dedicated_Server:TRUE`) under Wine.
-The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers.WINE). It supports file overlaying using OverlayFS.
+This image provides a Dockerized **Deer Hunter: The 2005 Season** dedicated server. DH2005 has no Linux server, so the image runs the game's built-in headless dedicated mode (`DH2005.exe -Dedicated_Server:TRUE`) under Wine.
+The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -43,6 +43,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 DirectPlay is LAN-oriented and also opens dynamic UDP ports. A network where the container gets its own LAN IP (macvlan/ipvlan, or `network_mode: host`) is more reliable than port mapping.
 
 ---
@@ -71,7 +73,7 @@ Deer Hunter 2005 is retail software with no public download. You must provide a 
 
 ## Environment Variables
 
-These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers.WINE#environment).
+These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE#environment).
 Each `DH2005_*` setting becomes a `-Name:"value"` argument. Settings left empty are not passed, and the game uses its default for them.
 
 | Variable | Argument | Values | Default |
@@ -142,7 +144,7 @@ See [Documentation/Docker.md](Documentation/Docker.md) for more detail.
 The image is built `FROM lancommander/wine:latest` by default. To build against a local base image:
 
 ```bash
-docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/deerhunter2005:local .
+docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/deerhunter2005:local Servers/DeerHunter2005
 ```
 
 The patch release is downloaded at build time and verified by sha256 (`DH2005_PATCH_VERSION` / `DH2005_PATCH_SHA256`). The DirectX February 2010 redistributable (source of the DirectPlay DLLs) is downloaded at build time and verified by sha256. See `DIRECTX_REDIST_URL` / `DIRECTX_REDIST_SHA256` in the Dockerfile.
@@ -152,4 +154,4 @@ The patch release is downloaded at build time and verified by sha256 (`DH2005_PA
 ## License
 
 Deer Hunter 2005, Wine and the DirectX redistributable are distributed under their respective licenses.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

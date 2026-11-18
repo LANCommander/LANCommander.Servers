@@ -1,10 +1,10 @@
 # Battlefield: Bad Company 2 Server (Docker)
 
-This repository provides a Dockerized **Battlefield: Bad Company 2** LAN server, for the base game and the Vietnam expansion. It runs the **R34 dedicated server** (`Frost.Game.Main_Win32_Final.exe`) from [Bc2emu V0.9](https://sourceforge.net/projects/battlefieldbadcompany2mase/) under Wine, with the emulator's `dinput8.dll` hook.
+This image provides a Dockerized **Battlefield: Bad Company 2** LAN server, for the base game and the Vietnam expansion. It runs the **R34 dedicated server** (`Frost.Game.Main_Win32_Final.exe`) from [Bc2emu V0.9](https://sourceforge.net/projects/battlefieldbadcompany2mase/) under Wine, with the emulator's `dinput8.dll` hook.
 
 EA shut down BFBC2's online services in 2023, so the server logs in to and registers with a master server emulator instead, set with `BFBC2_MASTER_SERVER`. The LANCommander server provides one as a plugin; it isn't part of this image.
 
-The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers.WINE). It supports file overlaying using OverlayFS.
+The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE). It supports file overlaying using OverlayFS.
 
 Based on [jkuettner/bfbc2-server](https://codeberg.org/jkuettner/bfbc2-server) (maplists and settings), which builds on the [battlefieldbadcompany2mase](https://sourceforge.net/projects/battlefieldbadcompany2mase/) project by flyer8472.
 
@@ -56,6 +56,8 @@ networks:
     external: true
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 ### More game servers
 
 Run more containers with the same `BFBC2_MASTER_SERVER`. Every server then shows up in the same server browser.
@@ -91,7 +93,7 @@ The server files are built into the image. On first start they are copied into `
 
 ## Environment Variables
 
-These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers.WINE#environment).
+These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE#environment).
 
 ### Game server
 
@@ -142,7 +144,7 @@ See [Documentation/Docker.md](Documentation/Docker.md) for more detail.
 The image is built `FROM lancommander/wine:latest` by default. To build against a local base image:
 
 ```bash
-docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/battlefieldbadcompany2:local .
+docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/battlefieldbadcompany2:local Servers/BattlefieldBadCompany2
 ```
 
 ---
@@ -151,4 +153,4 @@ docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/batt
 
 Battlefield: Bad Company 2, Bc2emu and Wine are distributed under their respective licenses.
 The maplists come from [jkuettner/bfbc2-server](https://codeberg.org/jkuettner/bfbc2-server).
-This repository's own Docker build logic and helper scripts are licensed under MIT.
+This directory's own Docker build logic and helper scripts are licensed under MIT.

@@ -1,7 +1,7 @@
 # Blockland Server (Docker)
 
-This repository provides a Dockerized **Blockland Rebuilt** (v2.1) dedicated server. Blockland has no Linux server, so the image runs the game's own dedicated LAN mode (`BLRebuilt.exe -dedicatedLAN`) under Wine.
-The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers.WINE). It supports file overlaying using OverlayFS.
+This image provides a Dockerized **Blockland Rebuilt** (v2.1) dedicated server. Blockland has no Linux server, so the image runs the game's own dedicated LAN mode (`BLRebuilt.exe -dedicatedLAN`) under Wine.
+The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -40,6 +40,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 Clients find the server from the in-game LAN list, which broadcasts to UDP 28050, 28000 and 28051. If you use port mapping, LAN broadcasts don't reach the container. Give the container its own LAN address (macvlan/ipvlan, or `network_mode: host`) so it shows up in the list. Otherwise clients have to join by IP.
 
 ---
@@ -68,7 +70,7 @@ Blockland is retail software with no public download. You must provide a **Block
 
 ## Environment Variables
 
-These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers.WINE#environment).
+These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE#environment).
 
 | Variable | Description | Default |
 |----------|-------------|---------|
@@ -97,7 +99,7 @@ See [Documentation/Docker.md](Documentation/Docker.md) for more detail.
 The image is built `FROM lancommander/wine:latest` by default. To build against a local base image:
 
 ```bash
-docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/blockland:local .
+docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/blockland:local Servers/Blockland
 ```
 
 ---
@@ -105,4 +107,4 @@ docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/bloc
 ## License
 
 Blockland and Wine are distributed under their respective licenses.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

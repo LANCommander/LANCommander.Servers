@@ -1,7 +1,7 @@
 # Vietcong Server (Docker)
 
-This repository provides a Dockerized **Vietcong** (2003) dedicated server. Vietcong has no Linux server, so the image runs the game's own dedicated server launcher, `vcded.exe -dedicated <file>.ded`, under Wine.
-The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers.WINE). It supports file overlaying using OverlayFS.
+This image provides a Dockerized **Vietcong** (2003) dedicated server. Vietcong has no Linux server, so the image runs the game's own dedicated server launcher, `vcded.exe -dedicated <file>.ded`, under Wine.
+The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -42,6 +42,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 DirectPlay is LAN-oriented and also opens dynamic UDP ports. A network where the container gets its own LAN IP (macvlan/ipvlan, or `network_mode: host`) is more reliable than port mapping.
 
 ---
@@ -72,7 +74,7 @@ Clients must run the same patch level (v1.60, protocol `gamever 198`). Installs 
 
 ## Environment Variables
 
-These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers.WINE#environment).
+These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE#environment).
 The `VC_*` settings are written to `Dedicated/<VC_DED_NAME>.ded` on every start.
 
 | Variable | `.ded` setting | Default |
@@ -131,7 +133,7 @@ See [Documentation/Docker.md](Documentation/Docker.md) for more detail.
 The image is built `FROM lancommander/wine:latest` by default. To build against a local base image:
 
 ```bash
-docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/vietcong:local .
+docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/vietcong:local Servers/Vietcong
 ```
 
 The DirectX February 2010 redistributable (source of the DirectPlay DLLs) is downloaded at build time and verified by sha256. See `DIRECTX_REDIST_URL` / `DIRECTX_REDIST_SHA256` in the Dockerfile.
@@ -141,4 +143,4 @@ The DirectX February 2010 redistributable (source of the DirectPlay DLLs) is dow
 ## License
 
 Vietcong, Wine and the DirectX redistributable are distributed under their respective licenses.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

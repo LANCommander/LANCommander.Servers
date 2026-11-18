@@ -1,7 +1,7 @@
 # Delta Force: Black Hawk Down Server (Docker)
 
-This repository provides a Dockerized **Delta Force: Black Hawk Down** (with the **Team Sabre** expansion) dedicated server. The game has no separate server program: `dfbhd.exe` hosts dedicated games itself. It is Windows-only, so the image runs it under Wine.
-The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers.WINE). It supports file overlaying using OverlayFS.
+This image provides a Dockerized **Delta Force: Black Hawk Down** (with the **Team Sabre** expansion) dedicated server. The game has no separate server program: `dfbhd.exe` hosts dedicated games itself. It is Windows-only, so the image runs it under Wine.
+The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -45,6 +45,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 ---
 
 ## Game Files
@@ -76,7 +78,7 @@ The `autores.bin` format the image writes is specific to v1.5.0.5. Clients must 
 
 ## Environment Variables
 
-These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers.WINE#environment).
+These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE#environment).
 Empty optional settings leave the value in `dfv.cfg` alone.
 
 | Variable | Description | Default |
@@ -122,7 +124,7 @@ See [Documentation/Docker.md](Documentation/Docker.md) for more detail.
 The image is built `FROM lancommander/wine:latest` by default. To build against a local base image:
 
 ```bash
-docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/deltaforceblackhawkdown:local .
+docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/deltaforceblackhawkdown:local Servers/DeltaForceBlackHawkDown
 ```
 
 ---
@@ -130,4 +132,4 @@ docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/delt
 ## License
 
 Delta Force: Black Hawk Down and Wine are distributed under their respective licenses.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

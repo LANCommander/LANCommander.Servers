@@ -1,0 +1,25 @@
+services:
+  dfbhd:
+    image: lancommander/deltaforceblackhawkdown:latest
+    container_name: dfbhd
+
+    ports:
+      - "17479:17479/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      DFBHD_SERVER_NAME: "My Black Hawk Down Server"
+      DFBHD_GAME_TYPE: "tdm"
+      DFBHD_MAPS: "TDMR_01A TDMR_02A TDMR_03A TDMM_01A"
+      DFBHD_MAX_PLAYERS: "32"
+      DFBHD_TIME_LIMIT: "20"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

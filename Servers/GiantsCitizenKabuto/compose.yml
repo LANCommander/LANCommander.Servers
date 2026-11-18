@@ -1,0 +1,22 @@
+services:
+  giants:
+    image: lancommander/giantscitizenkabuto:latest
+    container_name: giants
+
+    ports:
+      - "19711:19711/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      GIANTS_SERVER_NAME: "My Giants Server"
+      GIANTS_ROTATION: "m_3way_l1, DM, MvR; m_mecc_desertsnakes, DM, MvM; m_3way_sunsetbay, DMCap, MvR, time_limit=30"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

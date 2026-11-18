@@ -30,6 +30,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 ## Configuration Options
 
 ### Ports

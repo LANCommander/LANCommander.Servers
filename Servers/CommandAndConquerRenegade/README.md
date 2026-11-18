@@ -1,7 +1,7 @@
 # Command & Conquer: Renegade Server (Docker)
 
-This repository provides a Dockerized **Command & Conquer: Renegade** (2002) dedicated server. It runs the [Tiberian Technologies](https://www.tiberiantechnologies.org/) (TT) server, the community-maintained Free Dedicated Server with the TT patch and SSGM, under Wine. There is no Linux build of the TT server.
-The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers.WINE). It supports file overlaying using OverlayFS.
+This image provides a Dockerized **Command & Conquer: Renegade** (2002) dedicated server. It runs the [Tiberian Technologies](https://www.tiberiantechnologies.org/) (TT) server, the community-maintained Free Dedicated Server with the TT patch and SSGM, under Wine. There is no Linux build of the TT server.
+The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -45,6 +45,8 @@ services:
 
     restart: unless-stopped
 ```
+
+The same file is in this directory as [`compose.yml`](compose.yml).
 
 LAN games are found by broadcast, so a network where the container gets its own LAN IP (macvlan/ipvlan, or `network_mode: host`) works better than port mapping. Players can always connect by IP.
 
@@ -127,13 +129,13 @@ Other settings (SSGM in `ssgm.ini`, anti-cheat in `data/anticheat.ini`, the rest
 ## Building
 
 ```bash
-docker build -t lancommander/commandandconquerrenegade:local .
+docker build -t lancommander/commandandconquerrenegade:local Servers/CommandAndConquerRenegade
 # against a locally built Wine base
-docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/commandandconquerrenegade:local .
+docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/commandandconquerrenegade:local Servers/CommandAndConquerRenegade
 ```
 
 See [Documentation/Docker.md](Documentation/Docker.md) for details and troubleshooting.
 
 ## License
 
-MIT, see [LICENSE](LICENSE). Command & Conquer: Renegade is a trademark of Electronic Arts. The game data is not included.
+MIT, see [LICENSE](../../LICENSE). Command & Conquer: Renegade is a trademark of Electronic Arts. The game data is not included.

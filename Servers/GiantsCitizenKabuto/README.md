@@ -1,7 +1,7 @@
 # Giants: Citizen Kabuto Server (Docker)
 
-This repository provides a Dockerized **Giants: Citizen Kabuto** (2000) dedicated server. Giants has no Linux server, so the image runs the 1.5 community patch's `GiantsDedicated.exe -dedicated <file>.gdf` under Wine.
-The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers.WINE). It supports file overlaying using OverlayFS.
+This image provides a Dockerized **Giants: Citizen Kabuto** (2000) dedicated server. Giants has no Linux server, so the image runs the 1.5 community patch's `GiantsDedicated.exe -dedicated <file>.gdf` under Wine.
+The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -40,6 +40,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 DirectPlay is LAN-oriented and also opens dynamic UDP ports. A network where the container gets its own LAN IP (macvlan/ipvlan, or `network_mode: host`) is more reliable than port mapping.
 
 ---
@@ -71,7 +73,7 @@ Earlier patches have no `GiantsDedicated.exe` (1.4 hosted with `Giants.exe -dedi
 
 ## Environment Variables
 
-These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers.WINE#environment).
+These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE#environment).
 
 ### Server
 
@@ -155,7 +157,7 @@ See [Documentation/Docker.md](Documentation/Docker.md) for more detail.
 The image is built `FROM lancommander/wine:latest` by default. To build against a local base image:
 
 ```bash
-docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/giantscitizenkabuto:local .
+docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/giantscitizenkabuto:local Servers/GiantsCitizenKabuto
 ```
 
 The DirectX February 2010 redistributable (source of the DirectPlay DLLs) is downloaded at build time and verified by sha256. See `DIRECTX_REDIST_URL` / `DIRECTX_REDIST_SHA256` in the Dockerfile.
@@ -165,4 +167,4 @@ The DirectX February 2010 redistributable (source of the DirectPlay DLLs) is dow
 ## License
 
 Giants: Citizen Kabuto, Wine and the DirectX redistributable are distributed under their respective licenses.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

@@ -1,7 +1,7 @@
 # Commandos: Behind Enemy Lines Server (Docker)
 
-This repository provides a Dockerized **Commandos: Behind Enemy Lines** multiplayer server. Commandos (Pyro Studios, 1998) plays cooperative multiplayer through a small Windows-only TCP server that ships with the game, `mpserver.exe`. The image runs it under Wine.
-The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers.WINE). It supports file overlaying using OverlayFS.
+This image provides a Dockerized **Commandos: Behind Enemy Lines** multiplayer server. Commandos (Pyro Studios, 1998) plays cooperative multiplayer through a small Windows-only TCP server that ships with the game, `mpserver.exe`. The image runs it under Wine.
+The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -37,6 +37,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 ---
 
 ## Game Files
@@ -69,7 +71,7 @@ The server prints the container's own IP address at startup. Behind Docker port 
 
 ## Environment Variables
 
-These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers.WINE#environment).
+These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE#environment).
 
 | Variable | Description | Default |
 |----------|-------------|---------|
@@ -96,7 +98,7 @@ See [Documentation/Docker.md](Documentation/Docker.md) for more detail.
 The image is built `FROM lancommander/wine:latest` by default. To build against a local base image:
 
 ```bash
-docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/commandosbehindenemylines:local .
+docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/commandosbehindenemylines:local Servers/CommandosBehindEnemyLines
 ```
 
 ---
@@ -104,4 +106,4 @@ docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/comm
 ## License
 
 Commandos: Behind Enemy Lines and Wine are distributed under their respective licenses.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

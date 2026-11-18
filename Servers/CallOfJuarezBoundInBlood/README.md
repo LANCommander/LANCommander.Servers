@@ -1,7 +1,7 @@
 # Call of Juarez: Bound in Blood Server (Docker)
 
-This repository provides a Dockerized **Call of Juarez: Bound in Blood** dedicated server. Techland released a Windows-only stand-alone server for the game in 2009, the *Call of Juarez: Bound in Blood Dedicated Server 1.1.0.0* (`CoJ2Game_x86_ds.exe`). The image runs it under Wine.
-The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers.WINE). It supports file overlaying using OverlayFS.
+This image provides a Dockerized **Call of Juarez: Bound in Blood** dedicated server. Techland released a Windows-only stand-alone server for the game in 2009, the *Call of Juarez: Bound in Blood Dedicated Server 1.1.0.0* (`CoJ2Game_x86_ds.exe`). The image runs it under Wine.
+The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -43,6 +43,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 ---
 
 ## Game Files
@@ -75,7 +77,7 @@ On first start, if `Server/CoJ2Game_x86_ds.exe` doesn't exist, the install hook 
 
 ## Environment Variables
 
-These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers.WINE#environment).
+These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE#environment).
 On every start the configure hook rewrites the settings part of `CoJ2\DedicatedServerSettings.ini` from the `COJBIB_*` variables. It keeps the file's keyword declarations. Set `COJBIB_MANAGE_CONFIG=false` to edit the file yourself instead.
 
 | Variable | Description | Default |
@@ -112,7 +114,7 @@ See [Documentation/Docker.md](Documentation/Docker.md) for more detail.
 The image is built `FROM lancommander/wine:latest` by default. To build against a local base image:
 
 ```bash
-docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/callofjuarezboundinblood:local .
+docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/callofjuarezboundinblood:local Servers/CallOfJuarezBoundInBlood
 ```
 
 ---
@@ -120,4 +122,4 @@ docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/call
 ## License
 
 Call of Juarez: Bound in Blood, its dedicated server and Wine are distributed under their respective licenses.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

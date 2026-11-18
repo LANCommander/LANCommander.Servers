@@ -1,0 +1,29 @@
+services:
+  icelakes-server:
+    image: lancommander/icelakes:latest
+    container_name: my-icelakes-server
+
+    # Expose game server ports
+    ports:
+      - "13300:13300/udp"  # Game traffic
+      - "27015:27015/udp"  # Server queries / LAN server browser
+      - "8766:8766/udp"    # Steam game server
+
+    # Bind mounts
+    volumes:
+      - ./config:/config      # Game server configuration and overlay directory
+
+    environment:
+      ICELAKES_SERVER_NAME: "My Ice Lakes Server"
+      ICELAKES_MAX_PLAYERS: "16"
+      ICELAKES_ADMIN_PASSWORD: "change-me"
+
+    user: root
+
+    # For overlayfs support
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

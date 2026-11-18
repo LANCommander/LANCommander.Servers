@@ -1,7 +1,7 @@
 # Tribes 2 Server (Docker)
 
-This repository provides a Dockerized **Tribes 2** dedicated server. Tribes 2 (Dynamix, 2001) has a Linux port that is long unmaintained and cannot run the TribesNext-patched game, so the image runs the Windows game's own `-dedicated` mode under Wine.
-The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers.WINE). It supports file overlaying using OverlayFS.
+This image provides a Dockerized **Tribes 2** dedicated server. Tribes 2 (Dynamix, 2001) has a Linux port that is long unmaintained and cannot run the TribesNext-patched game, so the image runs the Windows game's own `-dedicated` mode under Wine.
+The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -43,6 +43,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 The in-game LAN browser finds servers by broadcast. That needs the container on the LAN itself (macvlan/ipvlan, or `network_mode: host`); with port mapping, clients join by IP.
 
 ---
@@ -73,7 +75,7 @@ Clients must run the same mod (`T2_MOD`) in LAN mode, e.g. `Tribes2.exe -nologin
 
 ## Environment Variables
 
-These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers.WINE#environment).
+These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE#environment).
 The `T2_*` server settings are written to `GameData/<T2_MOD>/prefs/lancommander.cs` on every start. That file loads the game's own `prefs/ServerPrefs.cs` first, and settings left empty are not touched, so you can set them in `ServerPrefs.cs` instead.
 
 | Variable | Description | Default |
@@ -106,7 +108,7 @@ See [Documentation/Docker.md](Documentation/Docker.md) for more detail.
 The image is built `FROM lancommander/wine:latest` by default. To build against a local base image:
 
 ```bash
-docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/tribes2:local .
+docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/tribes2:local Servers/Tribes2
 ```
 
 ---
@@ -114,4 +116,4 @@ docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/trib
 ## License
 
 Tribes 2, TribesNext and Wine are distributed under their respective licenses.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

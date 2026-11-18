@@ -1,7 +1,7 @@
 # No One Lives Forever Server (Docker)
 
-This repository provides a Dockerized **The Operative: No One Lives Forever** dedicated server. NOLF (Monolith, 2000) ships a Windows-only dedicated server, `NolfServ.exe` (1.004), which the image runs under Wine.
-The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers.WINE). It supports file overlaying using OverlayFS.
+This image provides a Dockerized **The Operative: No One Lives Forever** dedicated server. NOLF (Monolith, 2000) ships a Windows-only dedicated server, `NolfServ.exe` (1.004), which the image runs under Wine.
+The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -46,6 +46,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 ---
 
 ## Game Files
@@ -72,7 +74,7 @@ No One Lives Forever is retail software with no public download. You must provid
 
 ## Environment Variables
 
-These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers.WINE#environment).
+These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE#environment).
 The `NOLF_*` server settings are written into `NetHost.txt` on every start. Settings left empty are not touched, so you can set them in that file instead.
 
 | Variable | Description | Default |
@@ -122,7 +124,7 @@ See [Documentation/Docker.md](Documentation/Docker.md) for more detail.
 The image is built `FROM lancommander/wine:latest` by default. To build against a local base image:
 
 ```bash
-docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/noonelivesforever:local .
+docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/noonelivesforever:local Servers/NoOneLivesForever
 ```
 
 ---
@@ -130,4 +132,4 @@ docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/noon
 ## License
 
 No One Lives Forever and Wine are distributed under their respective licenses.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

@@ -1,7 +1,7 @@
 # America's Army Server (Docker)
 
-This repository provides a Dockerized **America's Army 2.8.5** dedicated server (U.S. Army, 2009, Unreal Engine 2). The image runs the retail Windows game's `System/Server.exe` under Wine.
-The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers.WINE). It supports file overlaying using OverlayFS.
+This image provides a Dockerized **America's Army 2.8.5** dedicated server (U.S. Army, 2009, Unreal Engine 2). The image runs the retail Windows game's `System/Server.exe` under Wine.
+The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -44,6 +44,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 The in-game LAN browser finds servers by broadcast. That needs the container on the LAN itself (macvlan/ipvlan, or `network_mode: host`). With port mapping, clients join by IP.
 
 ---
@@ -74,7 +76,7 @@ The server doesn't need `Movies/`, `Music/` or `Help/`, but they do no harm.
 
 ## Environment Variables
 
-These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers.WINE#environment).
+These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE#environment).
 The ini settings are written into `AA_INI` on every start. Settings left empty are not touched, so you can set them in the ini instead.
 
 | Variable | Description | Default |
@@ -111,7 +113,7 @@ See [Documentation/Docker.md](Documentation/Docker.md) for more detail.
 The image is built `FROM lancommander/wine:latest` by default. To build against a local base image:
 
 ```bash
-docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/americasarmy:local .
+docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/americasarmy:local Servers/AmericasArmy
 ```
 
 ---
@@ -119,4 +121,4 @@ docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/amer
 ## License
 
 America's Army and Wine are distributed under their respective licenses.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

@@ -1,0 +1,26 @@
+services:
+  mobileforces:
+    image: lancommander/mobileforces:latest
+    container_name: mobileforces
+
+    ports:
+      - "7777:7777/udp"
+      - "7778:7778/udp"
+      - "8777:8777/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      MF_SERVER_NAME: "My Mobile Forces Server"
+      MF_MAP: "mf-Carpark"
+      MF_GAME_TYPE: "RageGame.RageCTF"
+      MF_MAX_PLAYERS: "16"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

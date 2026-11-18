@@ -1,0 +1,25 @@
+services:
+  nightfire:
+    image: lancommander/nightfire:latest
+    container_name: nightfire
+
+    ports:
+      - "26015:26015/udp"
+      - "6550:6550/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      NF_SERVER_NAME: "My Nightfire Server"
+      NF_MAP: "ctf_romania"
+      NF_TIME_LIMIT: "15"
+      NF_RCON_PASSWORD: "changeme"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

@@ -1,0 +1,24 @@
+services:
+  bf1942:
+    image: lancommander/bf1942:latest
+    container_name: bf1942
+
+    ports:
+      - 14567:14567/udp
+      - 4711:4711/tcp   # RCON
+      - 22000:22000/udp # Queries / heartbeats (LAN)
+      - 27900:27900/tcp # Master server heartbeat
+
+    volumes:
+      - "/data/Servers/Battlefield 1942:/config"
+
+    environment:
+      # START_ARGS: "+statusMonitor 1"
+
+    cap_add:
+      - SYS_ADMIN
+
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

@@ -1,0 +1,20 @@
+services:
+  my-server:
+    image: lancommander/base:latest
+    container_name: my-server
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      START_EXE: "./my-server-binary"
+      START_ARGS: "-port 27015"
+
+    # The entrypoint must be root to mount OverlayFS; the server itself runs as UID/GID
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

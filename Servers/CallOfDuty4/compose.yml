@@ -1,0 +1,23 @@
+services:
+  callofduty4:
+    image: lancommander/callofduty4:latest
+    container_name: callofduty4
+
+    ports:
+      - "28960:28960/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      COD4_SERVER_NAME: "My Call of Duty 4 Server"
+      COD4_GAME_TYPE: "war"
+      COD4_RCON_PASSWORD: "changeme"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

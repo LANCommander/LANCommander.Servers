@@ -1,7 +1,7 @@
 # Natural Selection Server (Docker)
 
-This repository provides a Dockerized **Natural Selection** dedicated server. Natural Selection is a Half-Life mod.
-The image builds on [`lancommander/halflife`](https://github.com/LANCommander/LANCommander.Servers.HalfLife). It installs HLDS via SteamCMD, then installs the mod from the community-maintained [ENSL Natural Selection v3.3](https://github.com/ENSL/NS) releases. It supports file overlaying using OverlayFS.
+This image provides a Dockerized **Natural Selection** dedicated server. Natural Selection is a Half-Life mod.
+The image builds on [`lancommander/halflife`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/HalfLife). It installs HLDS via SteamCMD, then installs the mod from the community-maintained [ENSL Natural Selection v3.3](https://github.com/ENSL/NS) releases. It supports file overlaying using OverlayFS.
 
 ---
 
@@ -41,6 +41,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 ---
 
 ## Directory Layout (Host)
@@ -68,7 +70,7 @@ services:
 
 ## Environment Variables
 
-These are in addition to the [Half-Life image's variables](https://github.com/LANCommander/LANCommander.Servers.HalfLife#environment-variables).
+These are in addition to the [Half-Life image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/HalfLife#environment-variables).
 
 | Variable | Description | Default |
 |----------|-------------|---------|
@@ -79,7 +81,7 @@ These are in addition to the [Half-Life image's variables](https://github.com/LA
 
 `GAME_MOD` stays `valve`. Natural Selection only needs the base Half-Life content.
 
-Match statistics are turned on with the Half-Life image's `MATCH_STATS_*` variables ([Match Statistics](https://github.com/LANCommander/LANCommander.Servers.HalfLife/blob/main/Documentation/Docker.md#match-statistics)). Metamod-P and the plugin go into `ns/addons/`, and each game on a map is reported as its own match.
+Match statistics are turned on with the Half-Life image's `MATCH_STATS_*` variables ([Match Statistics](https://github.com/LANCommander/LANCommander.Servers/blob/main/Servers/HalfLife/Documentation/Docker.md#match-statistics)). Metamod-P and the plugin go into `ns/addons/`, and each game on a map is reported as its own match.
 
 The mod is installed during the `PostSteamInstallGame` hook, so it is skipped when `STEAM_APP_UPDATE` is `false`.
 
@@ -92,7 +94,7 @@ See [Documentation/Docker.md](Documentation/Docker.md) for more detail.
 The image is built `FROM lancommander/halflife:latest` by default. To build against a local base image:
 
 ```bash
-docker build --build-arg BASE_IMAGE=lancommander/halflife:local -t lancommander/naturalselection:local .
+docker build --build-arg BASE_IMAGE=lancommander/halflife:local -t lancommander/naturalselection:local Servers/NaturalSelection
 ```
 
 ---
@@ -100,4 +102,4 @@ docker build --build-arg BASE_IMAGE=lancommander/halflife:local -t lancommander/
 ## License
 
 SteamCMD, game servers and Natural Selection are distributed under their respective licenses.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

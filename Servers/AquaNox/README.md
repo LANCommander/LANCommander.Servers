@@ -1,7 +1,7 @@
 # AquaNox Server (Docker)
 
-This repository provides a Dockerized **AquaNox** (2001) dedicated server. AquaNox has no separate server program and no Linux build. The image runs the game in its own dedicated mode, `Aqua.exe -host`, under Wine.
-The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers.WINE). It supports file overlaying using OverlayFS.
+This image provides a Dockerized **AquaNox** (2001) dedicated server. AquaNox has no separate server program and no Linux build. The image runs the game in its own dedicated mode, `Aqua.exe -host`, under Wine.
+The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -43,6 +43,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 DirectPlay is LAN-oriented and also opens dynamic UDP ports. A network where the container gets its own LAN IP (macvlan/ipvlan, or `network_mode: host`) is more reliable than port mapping.
 
 ---
@@ -73,7 +75,7 @@ Clients must run the same version (`gamever 1.18`). Multiplayer in 1.17 and late
 
 ## Environment Variables
 
-These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers.WINE#environment).
+These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE#environment).
 The `AQUANOX_*` settings are written to `ini/<AQUANOX_CONFIG>_si.des` (server) and `ini/<AQUANOX_CONFIG>_gi.des` (game rules) on every start.
 
 | Variable | Setting | Default |
@@ -121,7 +123,7 @@ See [Documentation/Docker.md](Documentation/Docker.md) for more detail.
 The image is built `FROM lancommander/wine:latest` by default. To build against a local base image:
 
 ```bash
-docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/aquanox:local .
+docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/aquanox:local Servers/AquaNox
 ```
 
 The DirectX February 2010 redistributable (source of the DirectPlay DLLs) is downloaded at build time and verified by sha256. See `DIRECTX_REDIST_URL` / `DIRECTX_REDIST_SHA256` in the Dockerfile.
@@ -131,4 +133,4 @@ The DirectX February 2010 redistributable (source of the DirectPlay DLLs) is dow
 ## License
 
 AquaNox, Wine and the DirectX redistributable are distributed under their respective licenses.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

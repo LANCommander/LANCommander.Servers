@@ -1,0 +1,25 @@
+services:
+  republiccommando:
+    image: lancommander/starwarsrepubliccommando:latest
+    container_name: republiccommando
+
+    ports:
+      - "7777:7777/udp"
+      - "11138:11138/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      RC_SERVER_NAME: "My Republic Commando Server"
+      RC_GAME_TYPE: "deathmatch"
+      RC_MAP: "DM_Canyon"
+      RC_MAX_PLAYERS: "16"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

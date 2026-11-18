@@ -1,0 +1,28 @@
+services:
+  deusex:
+    image: lancommander/deusex:latest
+    container_name: deusex
+
+    ports:
+      - "7790:7790/udp"
+      - "7791:7791/udp"
+      - "8777:8777/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      DX_SERVER_NAME: "My Deus Ex Server"
+      DX_MAP: "DXMP_Cathedral"
+      DX_GAME_TYPE: "DeusEx.DeathMatchGame"
+      DX_MAX_PLAYERS: "16"
+      DX_MAPS: "DXMP_Cathedral,DXMP_Smuggler,DXMP_Silo,DXMP_Area51Bunker,DXMP_CMD"
+      DX_MAP_CYCLE: "loop"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

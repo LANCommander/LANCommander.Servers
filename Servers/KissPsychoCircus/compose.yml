@@ -1,0 +1,27 @@
+services:
+  kisspsychocircus:
+    image: lancommander/kisspsychocircus:latest
+    container_name: kisspsychocircus
+
+    ports:
+      - "42972:42972/udp"
+      - "42973:42973/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      KPC_HOSTNAME: "My Psycho Circus Server"
+      KPC_GAME_TYPE: "deathmatch"
+      KPC_MAPS: "PM01,PM02,PM03,PM04,PM05,PM06,PM07,PM08,PM09,PM10"
+      KPC_MAX_PLAYERS: "16"
+      KPC_FRAG_LIMIT: "25"
+      KPC_TIME_LIMIT: "15"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

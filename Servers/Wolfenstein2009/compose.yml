@@ -1,0 +1,23 @@
+services:
+  wolfenstein:
+    image: lancommander/wolfenstein2009:latest
+    container_name: wolfenstein
+
+    ports:
+      - "27758:27758/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      WOLF_SERVER_NAME: "My Wolfenstein Server"
+      WOLF_RULES: "objective"
+      WOLF_MAPS: "mp_bank,mp_canals,mp_manor:tdm"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

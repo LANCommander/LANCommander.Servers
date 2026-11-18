@@ -1,7 +1,7 @@
 # Medal of Honor: Allied Assault Server (Docker)
 
-This repository provides a Dockerized **Medal of Honor: Allied Assault** dedicated server, including the **Spearhead** and **Breakthrough** expansions. It runs [OpenMoHAA](https://github.com/openmoh/openmohaa), an open-source Linux build of the MOH:AA engine that the original game clients (1.11, Spearhead 2.15, Breakthrough 2.40) can join, with your retail game data.
-The image builds on [`lancommander/base`](https://github.com/LANCommander/LANCommander.Servers.Base). It supports file overlaying using OverlayFS.
+This image provides a Dockerized **Medal of Honor: Allied Assault** dedicated server, including the **Spearhead** and **Breakthrough** expansions. It runs [OpenMoHAA](https://github.com/openmoh/openmohaa), an open-source Linux build of the MOH:AA engine that the original game clients (1.11, Spearhead 2.15, Breakthrough 2.40) can join, with your retail game data.
+The image builds on [`lancommander/base`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/Base). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -44,6 +44,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 The in-game LAN search finds servers by broadcast. That needs the container on the LAN itself (macvlan/ipvlan, or `network_mode: host`); with port mapping, clients join by IP (`connect <ip>:12203` in the console).
 
 ---
@@ -70,7 +72,7 @@ Clients play with the original game (1.11 / 2.15 / 2.40) or with OpenMoHAA.
 
 ## Environment Variables
 
-These are in addition to the [base image's variables](https://github.com/LANCommander/LANCommander.Servers.Base#environment).
+These are in addition to the [base image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/Base#environment-variables).
 The settings are written into `<game dir>/lancommander.cfg` on every start, where the game dir is `main`, `mainta` or `maintt`. Settings left empty are left out, so you can set them in `server.cfg` instead.
 
 | Variable | Description | Default |
@@ -112,8 +114,8 @@ See [Documentation/Docker.md](Documentation/Docker.md) for more detail.
 ## Building
 
 ```bash
-docker build -t lancommander/medalofhonoralliedassault:local .
-docker build --build-arg BASE_IMAGE=lancommander/base:local -t lancommander/medalofhonoralliedassault:local .
+docker build -t lancommander/medalofhonoralliedassault:local Servers/MedalOfHonorAlliedAssault
+docker build --build-arg BASE_IMAGE=lancommander/base:local -t lancommander/medalofhonoralliedassault:local Servers/MedalOfHonorAlliedAssault
 ```
 
 | Build arg | Description | Default |
@@ -128,4 +130,4 @@ docker build --build-arg BASE_IMAGE=lancommander/base:local -t lancommander/meda
 
 Medal of Honor is a trademark of Electronic Arts. Its game data is not included and is distributed under its own license.
 OpenMoHAA is licensed under the GPL-2.0 and is downloaded from its GitHub releases at build time.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

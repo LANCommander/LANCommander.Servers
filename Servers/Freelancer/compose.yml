@@ -1,0 +1,24 @@
+services:
+  freelancer:
+    image: lancommander/freelancer:latest
+    container_name: freelancer
+
+    ports:
+      - "2302:2302/udp"
+      - "6073:6073/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      FL_SERVER_NAME: "My Freelancer Server"
+      FL_DESCRIPTION: "Welcome to Sirius"
+      FL_MAX_PLAYERS: "16"
+      FL_PVP: "false"
+
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

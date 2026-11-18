@@ -1,7 +1,7 @@
 # Global Operations Server (Docker)
 
-This repository provides a Dockerized **Global Operations** dedicated server. It runs the game's Windows dedicated server, `goserver.exe` (LithTech, 2002), from the unofficial 4.0a update (server version 1.40), under Wine.
-The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers.WINE). It supports file overlaying using OverlayFS.
+This image provides a Dockerized **Global Operations** dedicated server. It runs the game's Windows dedicated server, `goserver.exe` (LithTech, 2002), from the unofficial 4.0a update (server version 1.40), under Wine.
+The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -42,6 +42,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 A network where the container gets its own LAN IP (macvlan/ipvlan, or `network_mode: host`) is needed for the in-game LAN browser.
 
 ---
@@ -72,7 +74,7 @@ The server and clients should use the same files, including any custom maps in `
 
 ## Environment Variables
 
-These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers.WINE#environment).
+These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE#environment).
 They are written to `Globalops/server.cfg` on every start. **A variable set to an empty string keeps the value already in `server.cfg`.** To clear a text field (e.g. remove a password), set it to a single space.
 
 | Variable | Dialog field | `server.cfg` key | Values | Default |
@@ -124,7 +126,7 @@ See [Documentation/Docker.md](Documentation/Docker.md) for more detail.
 The image is built `FROM lancommander/wine:latest` by default. To build against a local base image:
 
 ```bash
-docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/globaloperations:local .
+docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/globaloperations:local Servers/GlobalOperations
 ```
 
 ---
@@ -132,4 +134,4 @@ docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/glob
 ## License
 
 Global Operations and Wine are distributed under their respective licenses.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

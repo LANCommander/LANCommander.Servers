@@ -1,0 +1,25 @@
+services:
+  aquanox:
+    image: lancommander/aquanox:latest
+    container_name: aquanox
+
+    ports:
+      - "30500:30500/udp"
+      - "30510:30510/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      AQUANOX_SERVER_NAME: "My AquaNox Server"
+      AQUANOX_GAME_TYPE: "dm"
+      AQUANOX_FRAG_LIMIT: "20"
+      AQUANOX_TIME_LIMIT: "10"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

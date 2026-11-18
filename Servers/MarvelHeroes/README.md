@@ -1,7 +1,7 @@
 # Marvel Heroes Server (Docker)
 
-This repository provides a Dockerized server for **Marvel Heroes** (Marvel Heroes Omega, game version 1.52.0.1700), using [MHServerEmu](https://github.com/Crypto137/MHServerEmu), the open-source server emulator. The image carries a pinned MHServerEmu release (1.0.3) and the .NET 10 runtime it needs. In place of the Apache server MHServerEmu ships for Windows, nginx serves `SiteConfig.xml` and the store/news pages and passes logins on to MHServerEmu over HTTPS. MHServerEmu reads the game's data from two files of the game client, which you supply.
-The image builds on [`lancommander/base`](https://github.com/LANCommander/LANCommander.Servers.Base). It supports file overlaying using OverlayFS.
+This image provides a Dockerized server for **Marvel Heroes** (Marvel Heroes Omega, game version 1.52.0.1700), using [MHServerEmu](https://github.com/Crypto137/MHServerEmu), the open-source server emulator. The image carries a pinned MHServerEmu release (1.0.3) and the .NET 10 runtime it needs. In place of the Apache server MHServerEmu ships for Windows, nginx serves `SiteConfig.xml` and the store/news pages and passes logins on to MHServerEmu over HTTPS. MHServerEmu reads the game's data from two files of the game client, which you supply.
+The image builds on [`lancommander/base`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/Base). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -47,6 +47,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 Put `Calligraphy.sip` and `mu_cdata.sip` from the client in `config/ClientData/` before the first start (see [Game Files](#game-files)).
 
 ## Connecting
@@ -89,7 +91,7 @@ Back up `Overlay/Data/Account.db`; it holds every account and character. MHServe
 
 ## Environment Variables
 
-These are in addition to the [base image's variables](https://github.com/LANCommander/LANCommander.Servers.Base#environment).
+These are in addition to the [base image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/Base#environment-variables).
 `PostInitialization/30-ConfigureMHServerEmu.ps1` writes them into `ConfigOverride.ini`, which MHServerEmu reads over `Config.ini`, on every start. Settings left empty leave `Config.ini`'s value in place.
 
 | Variable | Description | Default |
@@ -122,8 +124,8 @@ See [Documentation/Docker.md](Documentation/Docker.md) for more detail.
 ## Building
 
 ```bash
-docker build -t lancommander/marvelheroes:local .
-docker build --build-arg BASE_IMAGE=lancommander/base:local -t lancommander/marvelheroes:local .
+docker build -t lancommander/marvelheroes:local Servers/MarvelHeroes
+docker build --build-arg BASE_IMAGE=lancommander/base:local -t lancommander/marvelheroes:local Servers/MarvelHeroes
 ```
 
 `MHSE_VERSION` and `MHSE_SHA256` build arguments pick another MHServerEmu release.
@@ -133,4 +135,4 @@ docker build --build-arg BASE_IMAGE=lancommander/base:local -t lancommander/marv
 ## License
 
 MHServerEmu is AGPLv3 ([source](https://github.com/Crypto137/MHServerEmu)); its release is downloaded at build time and included unmodified in the image. Marvel Heroes is a trademark of Marvel / Gazillion Entertainment; its game files are not included and must be supplied from your own copy of the game.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

@@ -1,0 +1,22 @@
+services:
+  ns-server:
+    image: lancommander/naturalselection:latest
+    container_name: my-ns-server
+
+    ports:
+      - "27015:27015/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      START_ARGS: "-game ns -port 27015 +maxplayers 24 +map ns_eon"
+
+    # Overlayfs needs SYS_ADMIN, and the entrypoint must run as root to mount it
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

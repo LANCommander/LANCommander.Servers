@@ -1,7 +1,7 @@
 # Chivalry: Medieval Warfare Server (Docker)
 
-This repository provides a Dockerized **Chivalry: Medieval Warfare** dedicated server. It runs the native Linux server (`Binaries/Linux/UDKGameServer-Linux`) from the official dedicated server tool (Steam app 220070, anonymous).
-The image builds on [`lancommander/steamcmd`](https://github.com/LANCommander/LANCommander.Servers.SteamCMD). It supports file overlaying using OverlayFS.
+This image provides a Dockerized **Chivalry: Medieval Warfare** dedicated server. It runs the native Linux server (`Binaries/Linux/UDKGameServer-Linux`) from the official dedicated server tool (Steam app 220070, anonymous).
+The image builds on [`lancommander/steamcmd`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/SteamCMD). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -43,6 +43,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 ---
 
 ## Directory Layout (Host)
@@ -64,7 +66,7 @@ services:
 
 ## Environment Variables
 
-These are in addition to the [SteamCMD image's variables](https://github.com/LANCommander/LANCommander.Servers.SteamCMD).
+These are in addition to the [SteamCMD image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/SteamCMD).
 
 | Variable | Description | Default |
 |----------|-------------|---------|
@@ -99,7 +101,7 @@ See [Documentation/Docker.md](Documentation/Docker.md) for more detail.
 The image is built `FROM lancommander/steamcmd:latest` by default. To build against a local base image:
 
 ```bash
-docker build --build-arg BASE_IMAGE=lancommander/steamcmd:local -t lancommander/chivalry:local .
+docker build --build-arg BASE_IMAGE=lancommander/steamcmd:local -t lancommander/chivalry:local Servers/Chivalry
 ```
 
 ---
@@ -107,4 +109,4 @@ docker build --build-arg BASE_IMAGE=lancommander/steamcmd:local -t lancommander/
 ## License
 
 Chivalry: Medieval Warfare and SteamCMD are distributed under their respective licenses.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

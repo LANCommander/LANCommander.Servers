@@ -1,7 +1,7 @@
 # Soldat Server (Docker)
 
-This repository provides a Dockerized **Soldat** dedicated server. Soldat is a 2002 side-scrolling 2D multiplayer shooter by Michal Marcinkowski. The image runs the official SoldatServer 2.8.2 for game version 1.7.1.1, the non-Steam Linux build from soldat.pl.
-The image builds on [`lancommander/base`](https://github.com/LANCommander/LANCommander.Servers.Base). It supports file overlaying using OverlayFS.
+This image provides a Dockerized **Soldat** dedicated server. Soldat is a 2002 side-scrolling 2D multiplayer shooter by Michal Marcinkowski. The image runs the official SoldatServer 2.8.2 for game version 1.7.1.1, the non-Steam Linux build from soldat.pl.
+The image builds on [`lancommander/base`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/Base). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -44,6 +44,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 ---
 
 ## Server Files
@@ -68,7 +70,7 @@ The Steam release of Soldat uses a different server build (SteamCMD app 638500) 
 
 ## Environment Variables
 
-These are in addition to the [base image's variables](https://github.com/LANCommander/LANCommander.Servers.Base#environment-variables).
+These are in addition to the [base image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/Base#environment-variables).
 The settings are written into `soldat.ini` on every start. Settings left empty are not touched, so you can set them in the ini instead.
 
 | Variable | Description | Default |
@@ -119,7 +121,7 @@ See [Documentation/Docker.md](Documentation/Docker.md) for more detail.
 The image is built `FROM lancommander/base:latest` by default. To build against a local base image:
 
 ```bash
-docker build --build-arg BASE_IMAGE=lancommander/base:local -t lancommander/soldat:local .
+docker build --build-arg BASE_IMAGE=lancommander/base:local -t lancommander/soldat:local Servers/Soldat
 ```
 
 ---
@@ -127,4 +129,4 @@ docker build --build-arg BASE_IMAGE=lancommander/base:local -t lancommander/sold
 ## License
 
 Soldat is distributed under its own license.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

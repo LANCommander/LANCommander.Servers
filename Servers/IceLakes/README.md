@@ -1,6 +1,6 @@
 # Ice Lakes Server (Docker)
 
-This repository provides a Dockerized **Ice Lakes** dedicated server suitable for running an Ice Lakes fishing server in a clean, reproducible way.  
+This image provides a Dockerized **Ice Lakes** dedicated server suitable for running an Ice Lakes fishing server in a clean, reproducible way.  
 The image is designed for **headless operation**, automatically downloads and updates the game server via SteamCMD (anonymous login, app `460300`), configures the server from environment variables, and supports file overlaying using OverlayFS.
 
 ---
@@ -47,6 +47,8 @@ services:
 
     restart: unless-stopped
 ```
+
+The same file is in this directory as [`compose.yml`](compose.yml).
 
 ---
 
@@ -166,4 +168,4 @@ Edit `/config/Overlay/server.cfg`, not `/config/Server/server.cfg`: SteamCMD res
 ## License
 
 SteamCMD and game servers are distributed under their respective licenses.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.

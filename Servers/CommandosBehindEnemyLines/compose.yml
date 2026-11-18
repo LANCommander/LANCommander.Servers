@@ -1,0 +1,19 @@
+services:
+  commandos:
+    image: lancommander/commandosbehindenemylines:latest
+    container_name: commandos
+
+    ports:
+      - "4321:4321/tcp"
+      - "4322:4322/tcp"
+
+    volumes:
+      - ./config:/config
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

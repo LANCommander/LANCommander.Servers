@@ -1,0 +1,24 @@
+services:
+  vietcong:
+    image: lancommander/vietcong:latest
+    container_name: vietcong
+
+    ports:
+      - "5425:5425/udp"
+      - "6073:6073/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      VC_SERVER_NAME: "My Vietcong Server"
+      VC_ADMIN_PASSWORD: "changeme"
+      VC_MISSIONS: "WaterFall, DM, time, 20:00; Arroyo, TDM, time, 20:00; Stream, CTF, points, 5"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

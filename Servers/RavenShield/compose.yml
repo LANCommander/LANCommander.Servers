@@ -1,0 +1,24 @@
+services:
+  ravenshield:
+    image: lancommander/ravenshield:latest
+    container_name: ravenshield
+
+    ports:
+      - "7777:7777/udp"
+      - "8777:8777/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      RVS_SERVER_NAME: "My Raven Shield Server"
+      RVS_MAPS: "Bank:bomb,Airport:teamsurvival,Peaks:survival"
+      RVS_MAX_PLAYERS: "16"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

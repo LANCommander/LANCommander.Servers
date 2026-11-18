@@ -1,0 +1,24 @@
+services:
+  deerhunter2005:
+    image: lancommander/deerhunter2005:latest
+    container_name: deerhunter2005
+
+    ports:
+      - "23459:23459/udp"
+      - "6073:6073/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      DH2005_SERVER_NAME: "My Deer Hunter Server"
+      DH2005_GAME_TYPE: "BEST_TROPHY"
+      DH2005_MAX_PLAYERS: "16"
+      DH2005_SEASON: "RUT"
+
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    restart: unless-stopped

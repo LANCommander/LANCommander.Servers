@@ -1,0 +1,25 @@
+services:
+  zandronum:
+    image: lancommander/zandronum:3.2.1
+    container_name: zandronum-server
+
+    # Zandronum uses UDP
+    ports:
+      - "10666:10666/udp"
+
+    # Bind mounts so files appear on the host
+    volumes:
+      - ./config:/config
+
+    environment:
+      # Optional: download mods/maps at startup
+      # EXTRA_WAD_URLS: >
+      #   https://example.com/maps.zip,
+      #   https://example.com/gameplay.pk3
+
+      # Optional overrides
+      # SERVER_CONFIG: /config/Overlay/server.ini
+      # SERVER_ARGS: '+map map01 +sv_hostname "My Zandronum Server"'
+
+    # Ensure container restarts if the server crashes or host reboots
+    restart: unless-stopped

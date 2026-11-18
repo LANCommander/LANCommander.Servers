@@ -1,7 +1,7 @@
 # Far Cry Server (Docker)
 
-This repository provides a Dockerized **Far Cry** dedicated server. Far Cry (Crytek, 2004) ships a Windows-only dedicated server, `Bin32/FarCry_WinSV.exe` (patch 1.4), which the image runs under Wine.
-The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers.WINE). It supports file overlaying using OverlayFS.
+This image provides a Dockerized **Far Cry** dedicated server. Far Cry (Crytek, 2004) ships a Windows-only dedicated server, `Bin32/FarCry_WinSV.exe` (patch 1.4), which the image runs under Wine.
+The image builds on [`lancommander/wine`](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE). It supports file overlaying using OverlayFS.
 
 ---
 
@@ -45,6 +45,8 @@ services:
     restart: unless-stopped
 ```
 
+The same file is in this directory as [`compose.yml`](compose.yml).
+
 ---
 
 ## Game Files
@@ -71,7 +73,7 @@ Far Cry is retail software with no public download. You must provide an install 
 
 ## Environment Variables
 
-These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers.WINE#environment).
+These are in addition to the [WINE image's variables](https://github.com/LANCommander/LANCommander.Servers/tree/main/Servers/WINE#environment).
 The `FC_*` server settings are written into `Profiles/server/<FC_PROFILE>_server.cfg` on every start. Settings left empty are not touched, so you can set them in that file instead.
 
 | Variable | Description | Default |
@@ -113,7 +115,7 @@ See [Documentation/Docker.md](Documentation/Docker.md) for more detail.
 The image is built `FROM lancommander/wine:latest` by default. To build against a local base image:
 
 ```bash
-docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/farcry:local .
+docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/farcry:local Servers/FarCry
 ```
 
 ---
@@ -121,4 +123,4 @@ docker build --build-arg BASE_IMAGE=lancommander/wine:local -t lancommander/farc
 ## License
 
 Far Cry and Wine are distributed under their respective licenses.
-This repository contains only Docker build logic and helper scripts licensed under MIT.
+This directory contains only Docker build logic and helper scripts licensed under MIT.
