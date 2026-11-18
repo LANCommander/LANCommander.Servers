@@ -1,0 +1,12 @@
+RUSH
+levels/mp_002			    # Valparaiso
+levels/MP_004			    # Isla Inocentes
+levels/mp_005gr 		    # Atacama Desert 
+levels/mp_006			    # Arica Harbour
+levels/mp_007gr	    	    # White Pass
+levels/mp_008			    # Nelson Bay
+levels/mp_009gr		        # Laguna Presa
+levels/mp_012gr		        # Port Valdez
+levels/mp_sp_002gr		    # Cold War
+levels/bc1_harvest_day_gr	# Harvest Day
+levels/bc1_oasis_gr		    # Oasis
