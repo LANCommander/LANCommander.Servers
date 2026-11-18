@@ -1,0 +1,35 @@
+#!/bin/sh
+# Start the No One Lives Forever dedicated server (START_EXE).
+#
+# Runs `NolfServ.exe -nowiz -NetPort <NOLF_PORT>` under Wine with Xvfb. NolfServ is a GUI app:
+# -nowiz skips its setup wizard and reuses the settings in NetHost.txt, which the configure hook
+# fills in. -nowiz is ignored unless another argument follows it, hence -NetPort. The console is a
+# list box in that window, so nothing reaches docker logs; check the server with a GameSpy
+# `\status\` query to the game port. Any START_ARGS are appended.
+set -e
+
+root="${SERVER_ROOT:-/config/Merged}"
+
+cd "$root"
+
+if [ ! -f NolfServ.exe ]; then
+    echo "NolfServ.exe not found in $root. Put a No One Lives Forever install in /config/Server." >&2
+    exit 1
+fi
+
+if [ ! -f NetHost.txt ]; then
+    echo "NetHost.txt not found in $root; without it NolfServ can't start a game." >&2
+    exit 1
+fi
+
+# Every start extracts the rez files' cres.dll to a new NOL*.tmp in the Wine temp folder and
+# never deletes it
+rm -f "${WINEPREFIX:-/config/wineprefix}"/drive_c/users/*/AppData/Local/Temp/NOL*.tmp
+
+set -- -nowiz -NetPort "${NOLF_PORT:-27888}" "$@"
+
+printf 'Starting: NolfServ.exe %s\n' "$*"
+printf 'Game port and status queries on %s/udp\n' "${NOLF_PORT:-27888}"
+
+export WINE_XVFB="${WINE_XVFB:-true}"
+exec wine-run NolfServ.exe "$@"
