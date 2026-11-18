@@ -1,0 +1,31 @@
+#!/bin/sh
+# Start the Jedi Knight: Dark Forces II dedicated server (START_EXE).
+#
+# Runs `openjkdf2-64.exe -headless -dedicatedServer -debug log -verbose <JK_VERBOSE> [START_ARGS]`
+# under Wine with Xvfb, from the game folder. The server reads its settings from registry.json,
+# which the configure hook writes. It has no console output, so this script streams its log file,
+# debug.log.
+set -e
+
+root="${SERVER_ROOT:-/config/Merged}"
+exe="${JK_EXE:-openjkdf2-64.exe}"
+verbose="${JK_VERBOSE:-1}"
+
+cd "$root"
+
+if [ ! -f "$exe" ]; then
+    echo "$exe not found in $root. Put an OpenJKDF2 Jedi Knight install in /config/Server." >&2
+    exit 1
+fi
+
+: > debug.log
+tail -n +1 -F debug.log 2>/dev/null &
+
+set -- -headless -dedicatedServer -debug log -verbose "$verbose" "$@"
+
+printf 'Starting: %s' "$exe"
+printf ' %s' "$@"
+printf '\n'
+
+export WINE_XVFB="${WINE_XVFB:-true}"
+exec wine-run "$exe" "$@"
