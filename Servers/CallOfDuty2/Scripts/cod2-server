@@ -1,0 +1,52 @@
+#!/bin/sh
+# Start the Call of Duty 2 dedicated server (START_EXE).
+#
+# Runs `cod2_lnxded +set dedicated <1|2> +set net_port <COD2_PORT> +set fs_basepath <root>
+# +set fs_homepath <root> [+set fs_game <COD2_FS_GAME>] +set sv_punkbuster <0|1>
+# +exec lancommander.cfg <START_ARGS> +map_rotate` from the server root, so the game data comes
+# from Merged/ and everything the server writes (logs, config_mp.cfg) lands in Overlay/.
+set -e
+
+root="${SERVER_ROOT:-/config/Merged}"
+
+cd "$root"
+
+if [ ! -f ./cod2_lnxded ]; then
+    echo "cod2_lnxded not found in $root" >&2
+    exit 1
+fi
+
+if [ ! -f main/iw_00.iwd ]; then
+    echo "main/iw_00.iwd not found in $root; copy the retail Call of Duty 2 (1.3) main/ folder into /config/Server" >&2
+    exit 1
+fi
+
+# dedicated 1 = LAN only, 2 = internet (heartbeats to the master server, CD key checks)
+dedicated=1
+case "${COD2_LAN:-true}" in
+    true|1|yes) ;;
+    *) dedicated=2 ;;
+esac
+
+pb=0
+case "${COD2_PUNKBUSTER:-0}" in
+    true|1|yes) pb=1 ;;
+esac
+
+mod=
+[ -z "$COD2_FS_GAME" ] || mod="+set fs_game $COD2_FS_GAME"
+
+set -- ./cod2_lnxded \
+    +set dedicated "$dedicated" \
+    +set net_port "${COD2_PORT:-28960}" \
+    +set fs_basepath "$root" \
+    +set fs_homepath "$root" \
+    $mod \
+    +set sv_punkbuster "$pb" \
+    +exec lancommander.cfg \
+    "$@" \
+    +map_rotate
+
+echo "Starting: $*"
+
+exec "$@"
