@@ -1,0 +1,34 @@
+#!/bin/sh
+# Start the King Arthur's Gold dedicated server (START_EXE).
+#
+# Runs `./KAGdedi autostart Scripts/server_autostart.as autoconfig autoconfig.cfg <START_ARGS>`
+# from the server root (what THD's dedicatedserver.sh does), so the game data comes from Merged/
+# and everything the server writes (autoconfig.cfg, Logs/, Cache/, Security/) lands in Overlay/.
+# Server settings live in autoconfig.cfg (see the 30-ConfigureKAG hook).
+set -e
+
+root="${SERVER_ROOT:-/config/Merged}"
+
+cd "$root"
+
+if [ ! -f ./KAGdedi ]; then
+    echo "KAGdedi not found in $root" >&2
+    exit 1
+fi
+
+# libsteam_api.so is in lib/, libJuxta_dedi.so next to KAGdedi
+export LD_LIBRARY_PATH="$root/lib:$root${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+
+set -- ./KAGdedi autostart Scripts/server_autostart.as autoconfig autoconfig.cfg "$@"
+
+echo "Starting: $*"
+
+# KAGdedi block-buffers its console output when stdout isn't a terminal, so docker logs would
+# stay empty for minutes. script(1) runs it on a pseudo-terminal, which makes the output
+# line-buffered. Arguments are quoted for script's sh -c; Logs/console-*.txt has the same output.
+cmd=
+for arg in "$@"; do
+    cmd="$cmd '$(printf '%s' "$arg" | sed "s/'/'\\\\''/g")'"
+done
+
+exec script -qefc "exec$cmd" /dev/null < /dev/null
