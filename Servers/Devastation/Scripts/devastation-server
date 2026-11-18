@@ -1,0 +1,42 @@
+#!/bin/sh
+# Start the Devastation dedicated server (START_EXE).
+#
+# Runs `UCC.exe server <map>?game=<class>[?options] ini=<System/DEVASTATION_INI>` from System/
+# under Wine. Server settings, passwords and the map rotation live in DEVASTATION_INI (see the
+# 30-ConfigureDevastation hook); any START_ARGS are appended.
+#
+# This engine resolves a relative ini= (and log=) against My Documents\Devastation in the Wine
+# prefix, not System/, so the ini is passed as an absolute Z:\ path. log= can't be absolute;
+# server.log lands in My Documents\Devastation.
+set -e
+
+system="${SERVER_ROOT:-/config/Merged}/System"
+
+if [ ! -f "$system/UCC.exe" ]; then
+    echo "System/UCC.exe not found in ${SERVER_ROOT:-/config/Merged}. Put a Devastation install in /config/Server." >&2
+    exit 1
+fi
+
+# Short game type names (same table as the 30-ConfigureDevastation hook)
+case "$(printf '%s' "${DEVASTATION_GAME_TYPE:-territories}" | tr '[:upper:]' '[:lower:]')" in
+    territories|dtt)          game="DTerritories.DTerrGameInfo" ;;
+    ctf)                      game="DTerritories.DCTFGameInfo" ;;
+    streetwar|dm|ddm)         game="DGamePlay.DStreetWarGameInfo" ;;
+    teamstreetwar|tdm)        game="DGamePlay.DTeamStreetWarGI" ;;
+    *)                        game="$DEVASTATION_GAME_TYPE" ;;
+esac
+
+ini="${DEVASTATION_INI:-Server.ini}"
+case "$ini" in
+    [A-Za-z]:*) ;;
+    *) ini="Z:$(printf '%s' "$system/$ini" | tr '/' '\\')" ;;
+esac
+
+url="${DEVASTATION_MAP:-DTT-Union}?game=$game"
+[ -z "$DEVASTATION_URL_OPTIONS" ] || url="$url?${DEVASTATION_URL_OPTIONS#\?}"
+
+printf 'Starting: UCC.exe server %s ini=%s log=server.log %s\n' "$url" "$ini" "$*"
+
+# UCC finds its packages relative to its working directory
+export WINE_WORKDIR="$system"
+exec wine-run UCC.exe server "$url" "ini=$ini" log=server.log "$@"
