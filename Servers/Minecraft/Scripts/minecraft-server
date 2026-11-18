@@ -1,0 +1,71 @@
+#!/bin/sh
+# Start the Minecraft server (START_EXE):
+#   java -Xms<MINECRAFT_MEMORY> -Xmx<MINECRAFT_MEMORY> <MINECRAFT_JVM_ARGS> -jar server.jar --nogui <START_ARGS>
+# from the server root, so everything it writes lands in Overlay/.
+#
+# The console's input is the FIFO /run/minecraft/console, which `minecraft-command '<command>'`
+# writes to (e.g. from `docker exec`), plus the container's stdin when one is attached. This
+# script keeps the FIFO open, so the server waits for input instead of reading end-of-file.
+# A SIGTERM or SIGINT that reaches this script is turned into `stop`, like the
+# 50-ConsoleAndStopSignal hook does for `docker stop`.
+set -e
+
+root="${SERVER_ROOT:-/config/Merged}"
+cd "$root"
+
+if [ ! -f server.jar ]; then
+    echo "server.jar not found in $root; see the 20-InstallMinecraft errors above" >&2
+    exit 1
+fi
+
+dir=/run/minecraft
+fifo="$dir/console"
+mkdir -p "$dir" 2>/dev/null || true
+rm -f "$fifo"
+mkfifo -m 600 "$fifo"
+
+# Keep the real stdin before the background jobs below get /dev/null for theirs
+exec 4<&0
+
+stopping=
+shutdown() {
+    if [ -z "$stopping" ]; then
+        stopping=1
+        echo "Stopping: stop"
+        printf 'stop\n' >&3 2>/dev/null || true
+    fi
+}
+trap shutdown TERM INT
+
+memory="${MINECRAFT_MEMORY:-2G}"
+
+# MINECRAFT_JVM_ARGS is split on whitespace
+# shellcheck disable=SC2086
+set -- java -Xms"$memory" -Xmx"$memory" $MINECRAFT_JVM_ARGS -jar server.jar --nogui "$@"
+echo "Starting: $*"
+
+set +e
+
+# Opening the FIFO for reading waits for the first writer, which is fd 3 below
+"$@" < "$fifo" &
+server=$!
+exec 3> "$fifo"
+
+feeder=
+if [ "$(readlink /proc/self/fd/4)" != /dev/null ]; then
+    cat <&4 >&3 &
+    feeder=$!
+fi
+exec 4<&-
+
+# A trapped signal interrupts wait; keep waiting for the server to exit
+status=0
+while kill -0 "$server" 2>/dev/null; do
+    wait "$server"
+    status=$?
+done
+
+[ -n "$feeder" ] && kill "$feeder" 2>/dev/null
+exec 3>&-
+rm -f "$fifo"
+exit $status
