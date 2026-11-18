@@ -1,0 +1,44 @@
+#!/bin/sh
+# Start the Commandos: Behind Enemy Lines multiplayer server (START_EXE).
+#
+# mpserver.exe takes no options and has no config file: it listens on 4321/tcp and 4322/tcp, and
+# the players set up the game from the client. Any START_ARGS are passed on anyway.
+set -e
+
+root="${SERVER_ROOT:-/config/Merged}"
+
+if [ ! -f "$root/mpserver.exe" ]; then
+    echo "mpserver.exe not found in $root. Put it (from the game folder) in /config/Server, or set COMMANDOS_ARCHIVE_URL." >&2
+    exit 1
+fi
+
+set -- mpserver.exe "$@"
+
+echo "Starting: $*"
+
+# mpserver writes its console with WriteConsole only, so without a terminal nothing reaches
+# docker logs. script(1) gives it a pseudo-terminal, and the perl filter turns Wine's terminal
+# output back into plain lines: "ESC[K ESC[<n>C" is how it draws runs of spaces, the OSC
+# sequences are window title updates, the rest is cursor show/hide.
+cmd="stty cols 1000 rows 50 2>/dev/null;"
+cmd="$cmd exec wine-run"
+for arg in "$@"; do
+    cmd="$cmd '$(printf '%s' "$arg" | sed "s/'/'\\\\''/g")'"
+done
+
+status=$(mktemp)
+echo 0 > "$status"
+
+{ script -qefc "$cmd" /dev/null < /dev/null || echo $? > "$status"; } |
+    LC_ALL=C perl -ne '
+        BEGIN { $| = 1 }
+        s/\e\[K\e\[(\d*)C/" " x ($1 || 1)/ge;
+        s/\e\][^\a]*\a//g;
+        s/\e\[[0-9;?]*[A-Za-z]//g;
+        s/\r//g;
+        print if /\S/;
+    '
+
+code=$(cat "$status")
+rm -f "$status"
+exit "$code"
