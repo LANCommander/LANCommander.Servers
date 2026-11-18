@@ -53,6 +53,9 @@ RUN version="${IRONWAIL_VERSION}" && \
 # ----------------------------
 FROM ${BASE_IMAGE}
 
+LABEL org.opencontainers.image.title="Quake Dedicated Server" \
+      org.opencontainers.image.description="Dedicated server for Quake"
+
 # ----------------------------
 # Server settings
 #   - Quake needs the game data: id1/pak0.pak and id1/pak1.pak (registered) in /config/Server.

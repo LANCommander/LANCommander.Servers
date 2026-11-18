@@ -4,6 +4,9 @@
 ARG BASE_IMAGE=lancommander/wine:latest
 FROM ${BASE_IMAGE}
 
+LABEL org.opencontainers.image.title="Delta Force: Black Hawk Down Dedicated Server" \
+      org.opencontainers.image.description="Dedicated server for Delta Force: Black Hawk Down"
+
 # ----------------------------
 # Server settings
 #   - The game files are not downloadable; put a Delta Force: Black Hawk Down (+ Team Sabre)

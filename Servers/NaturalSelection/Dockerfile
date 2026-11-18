@@ -4,6 +4,9 @@
 ARG BASE_IMAGE=lancommander/halflife:latest
 FROM ${BASE_IMAGE}
 
+LABEL org.opencontainers.image.title="Natural Selection Dedicated Server" \
+      org.opencontainers.image.description="Dedicated server for Natural Selection"
+
 # Natural Selection runs on the stock Half-Life content (GAME_MOD=valve) and is
 # downloaded from the community ENSL builds on top of it.
 ENV NS_VERSION="v3.3b9"

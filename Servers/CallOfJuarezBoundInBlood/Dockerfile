@@ -4,6 +4,9 @@
 ARG BASE_IMAGE=lancommander/wine:latest
 FROM ${BASE_IMAGE}
 
+LABEL org.opencontainers.image.title="Call of Juarez: Bound in Blood Dedicated Server" \
+      org.opencontainers.image.description="Dedicated server for Call of Juarez: Bound in Blood"
+
 # Log files LANCommander shows as consoles under the server's Monitor
 LABEL app.lancommander.server.log.server-log="/config/Overlay/CoJ2/out/logs/crash.log"
 

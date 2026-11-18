@@ -4,6 +4,9 @@
 ARG BASE_IMAGE=lancommander/wine:latest
 FROM ${BASE_IMAGE}
 
+LABEL org.opencontainers.image.title="Deer Hunter 2005 Dedicated Server" \
+      org.opencontainers.image.description="Dedicated server for Deer Hunter 2005"
+
 # Log files LANCommander shows as consoles under the server's Monitor
 LABEL app.lancommander.server.log.server-log="/config/Overlay/Game/Game.LOG" \
       app.lancommander.server.log.patch-log="/config/Overlay/dh2005patch.log"

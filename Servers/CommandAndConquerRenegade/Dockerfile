@@ -4,6 +4,9 @@
 ARG BASE_IMAGE=lancommander/wine:latest
 FROM ${BASE_IMAGE}
 
+LABEL org.opencontainers.image.title="Command & Conquer: Renegade Dedicated Server" \
+      org.opencontainers.image.description="Dedicated server for Command & Conquer: Renegade"
+
 # ----------------------------
 # Server settings
 #   - The server is the Tiberian Technologies (TT) Renegade server, a Windows-only build of the

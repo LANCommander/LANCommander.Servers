@@ -4,6 +4,9 @@
 ARG BASE_IMAGE=lancommander/base:latest
 FROM ${BASE_IMAGE}
 
+LABEL org.opencontainers.image.title="Battlefield Vietnam Dedicated Server" \
+      org.opencontainers.image.description="Dedicated server for Battlefield Vietnam"
+
 # ----------------------------
 # Server settings
 #   - BFV_SERVER_URL is the official 1.21 Linux dedicated server (bfv_linded) with the community

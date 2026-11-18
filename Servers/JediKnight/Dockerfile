@@ -4,6 +4,9 @@
 ARG BASE_IMAGE=lancommander/wine:latest
 FROM ${BASE_IMAGE}
 
+LABEL org.opencontainers.image.title="Star Wars Jedi Knight: Dark Forces II Dedicated Server" \
+      org.opencontainers.image.description="Dedicated server for Star Wars Jedi Knight: Dark Forces II"
+
 # Log files LANCommander shows as consoles under the server's Monitor
 LABEL app.lancommander.server.log.debug-log="/config/Overlay/debug.log"
 

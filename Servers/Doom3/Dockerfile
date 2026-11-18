@@ -57,6 +57,9 @@ RUN version="${DHEWM3_VERSION}" && \
 # ----------------------------
 FROM ${BASE_IMAGE}
 
+LABEL org.opencontainers.image.title="Doom 3 Dedicated Server" \
+      org.opencontainers.image.description="Dedicated server for Doom 3"
+
 # ----------------------------
 # Server settings
 #   - Doom 3 needs the retail game data: base/pak000-008.pk4 (and d3xp/pak000-001.pk4 for

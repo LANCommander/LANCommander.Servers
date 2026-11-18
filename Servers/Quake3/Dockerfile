@@ -24,6 +24,9 @@ RUN git init -q qmm2 && git -C qmm2 fetch -q --depth 1 https://github.com/thecyb
 
 FROM lancommander/base:latest
 
+LABEL org.opencontainers.image.title="Quake 3 Server" \
+      org.opencontainers.image.description="A Docker container to host a Quake 3 game server"
+
 ENV IOQUAKE3_URL="https://files.ioquake3.org/Linux.zip"
 
 # Server settings

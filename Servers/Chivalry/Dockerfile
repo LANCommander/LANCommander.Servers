@@ -4,6 +4,9 @@
 ARG BASE_IMAGE=lancommander/steamcmd:latest
 FROM ${BASE_IMAGE}
 
+LABEL org.opencontainers.image.title="Chivalry: Medieval Warfare Game Server" \
+      org.opencontainers.image.description="Dedicated server for Chivalry: Medieval Warfare"
+
 # ----------------------------
 # Server settings
 #   - STEAM_*: Chivalry: Medieval Warfare Dedicated Server (app 220070, Linux depot, anonymous)

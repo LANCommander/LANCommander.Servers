@@ -4,6 +4,9 @@
 ARG BASE_IMAGE=lancommander/wine:latest
 FROM ${BASE_IMAGE}
 
+LABEL org.opencontainers.image.title="Double Action: Boogaloo Dedicated Server" \
+      org.opencontainers.image.description="Dedicated server for Double Action: Boogaloo"
+
 # Log files LANCommander shows as consoles under the server's Monitor
 LABEL app.lancommander.server.log.console="/config/Overlay/da_info/console.log"
 

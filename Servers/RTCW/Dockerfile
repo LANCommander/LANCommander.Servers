@@ -24,6 +24,9 @@ RUN git init -q qmm2 && git -C qmm2 fetch -q --depth 1 https://github.com/thecyb
 
 FROM lancommander/base:latest
 
+LABEL org.opencontainers.image.title="Return to Castle Wolfenstein Server" \
+      org.opencontainers.image.description="A Docker container to host a Return to Castle Wolfenstein game server"
+
 ENV IORTCW_URL="https://github.com/iortcw/iortcw/releases/download/1.51c/iortcw-1.51c-linux-x86_64.zip"
 
 # Server settings

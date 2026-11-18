@@ -4,6 +4,9 @@
 ARG BASE_IMAGE=lancommander/wine:latest
 FROM ${BASE_IMAGE}
 
+LABEL org.opencontainers.image.title="Serious Sam: The First Encounter Dedicated Server" \
+      org.opencontainers.image.description="Dedicated server for Serious Sam: The First Encounter"
+
 # Log files LANCommander shows as consoles under the server's Monitor
 LABEL app.lancommander.server.log.server-log="/config/Overlay/Dedicated_LANCommander.log"
 

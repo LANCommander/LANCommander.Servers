@@ -4,6 +4,9 @@
 ARG BASE_IMAGE=lancommander/wine:latest
 FROM ${BASE_IMAGE}
 
+LABEL org.opencontainers.image.title="Devastation Dedicated Server" \
+      org.opencontainers.image.description="Dedicated server for Devastation"
+
 # Log files LANCommander shows as consoles under the server's Monitor
 LABEL app.lancommander.server.log.server-log="/config/wineprefix/drive_c/users/lancommander/Documents/Devastation/server.log"
 

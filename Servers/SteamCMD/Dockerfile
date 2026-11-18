@@ -4,6 +4,9 @@
 ARG BASE_IMAGE=lancommander/base:latest
 FROM ${BASE_IMAGE}
 
+LABEL org.opencontainers.image.title="Generic SteamCMD Game Server" \
+      org.opencontainers.image.description="A Docker base image to host game servers via SteamCMD"
+
 USER root
 
 # SteamCMD settings

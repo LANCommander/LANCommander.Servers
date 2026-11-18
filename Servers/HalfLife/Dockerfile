@@ -4,6 +4,9 @@
 ARG BASE_IMAGE=lancommander/steamcmd:latest
 FROM ${BASE_IMAGE}
 
+LABEL org.opencontainers.image.title="Half-Life Dedicated Server" \
+      org.opencontainers.image.description="Dedicated server for Half-Life"
+
 # SteamCMD settings
 # App 90 is the shared GoldSrc dedicated server (HLDS). Other GoldSrc games use
 # the same app and select their content with GAME_MOD (cstrike, dod, tfc, ...).

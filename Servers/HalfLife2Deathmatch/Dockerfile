@@ -4,6 +4,9 @@
 ARG BASE_IMAGE=lancommander/steamcmd:latest
 FROM ${BASE_IMAGE}
 
+LABEL org.opencontainers.image.title="Half-Life 2: Deathmatch Game Server" \
+      org.opencontainers.image.description="Dedicated server for Half-Life 2: Deathmatch"
+
 # SteamCMD settings
 ENV STEAM_APP_ID="232370"
 ENV START_EXE="srcds_run"

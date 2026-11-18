@@ -65,6 +65,9 @@ RUN git clone https://github.com/yquake2/ctf.git /src/ctf && \
 # ----------------------------
 FROM ${BASE_IMAGE}
 
+LABEL org.opencontainers.image.title="Quake II Dedicated Server" \
+      org.opencontainers.image.description="Dedicated server for Quake II"
+
 # ----------------------------
 # Server settings
 #   - Quake II needs the game data: baseq2/pak0.pak (and pak1.pak, pak2.pak) in /config/Server,

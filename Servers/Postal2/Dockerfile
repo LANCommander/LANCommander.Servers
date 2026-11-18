@@ -4,6 +4,9 @@
 ARG BASE_IMAGE=lancommander/wine:latest
 FROM ${BASE_IMAGE}
 
+LABEL org.opencontainers.image.title="Postal 2 Dedicated Server" \
+      org.opencontainers.image.description="Dedicated server for Postal 2"
+
 # Log files LANCommander shows as consoles under the server's Monitor
 LABEL app.lancommander.server.log.server-log="/config/Overlay/System/server.log"
 

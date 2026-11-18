@@ -2,6 +2,9 @@
 
 FROM lancommander/base:latest
 
+LABEL org.opencontainers.image.title="Battlefield 1942 Server" \
+      org.opencontainers.image.description="A Docker container to host a Battlefield 1942 game server"
+
 ENV BF1942_SERVER_URL="https://github.com/LANCommander/LANCommander.Servers.Battlefield1942/releases/download/v1.61/bf1942_lnxded-1.61.zip"
 
 ENV START_EXE="./bf1942_lnxded"

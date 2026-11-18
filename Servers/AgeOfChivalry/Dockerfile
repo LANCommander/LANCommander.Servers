@@ -4,6 +4,9 @@
 ARG BASE_IMAGE=lancommander/steamcmd:latest
 FROM ${BASE_IMAGE}
 
+LABEL org.opencontainers.image.title="Age of Chivalry Game Server" \
+      org.opencontainers.image.description="Dedicated server for Age of Chivalry"
+
 # SteamCMD settings
 ENV STEAM_APP_ID="17515"
 ENV START_EXE="srcds_run"

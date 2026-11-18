@@ -43,6 +43,9 @@ RUN cmake -S /src/bridge -B /src/bridge/build -DCMAKE_BUILD_TYPE=Release \
 
 FROM ${BASE_IMAGE}
 
+LABEL org.opencontainers.image.title="Red Faction Dedicated Server" \
+      org.opencontainers.image.description="Dedicated server for Red Faction"
+
 # Alpine Faction release (GitHub tag without the leading "v")
 ARG AF_VERSION=1.4.0_Lupin
 

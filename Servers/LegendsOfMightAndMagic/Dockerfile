@@ -4,6 +4,9 @@
 ARG BASE_IMAGE=lancommander/wine:latest
 FROM ${BASE_IMAGE}
 
+LABEL org.opencontainers.image.title="Legends of Might and Magic Dedicated Server" \
+      org.opencontainers.image.description="Dedicated server for Legends of Might and Magic"
+
 # Native DirectPlay comes from the DirectX February 2010 redist. LegendServ.exe hosts through
 # DirectPlay's "Internet TCP/IP" service provider, which Wine's builtin dplayx can't load
 # (DPERR_UNAVAILABLE, and the server hangs at "Starting world.."). The redist is cached in the image

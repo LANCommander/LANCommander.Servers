@@ -2,6 +2,9 @@
 
 FROM lancommander/wine:latest-amd64
 
+LABEL org.opencontainers.image.title="Portal Knights Server" \
+      org.opencontainers.image.description="A Docker container to host a Portal Knights game server"
+
 # Server settings
 ENV START_EXE="wine64"
 ENV START_ARGS="pk_dedicated_server.exe"

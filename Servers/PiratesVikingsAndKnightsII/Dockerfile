@@ -4,6 +4,9 @@
 ARG BASE_IMAGE=lancommander/steamcmd:latest
 FROM ${BASE_IMAGE}
 
+LABEL org.opencontainers.image.title="Pirates, Vikings, and Knights II Game Server" \
+      org.opencontainers.image.description="Dedicated server for Pirates, Vikings, and Knights II"
+
 # SteamCMD settings
 ENV STEAM_APP_ID="17575"
 ENV START_EXE="srcds_run"

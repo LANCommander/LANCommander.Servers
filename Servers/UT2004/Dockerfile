@@ -33,6 +33,9 @@ RUN cmake -S /src/bridge -B /src/bridge/build -DCMAKE_BUILD_TYPE=Release \
 
 FROM lancommander/base:latest
 
+LABEL org.opencontainers.image.title="Unreal Tournament 2004 Server" \
+      org.opencontainers.image.description="A Docker container to host an Unreal Tournament 2004 game server"
+
 ENV SERVER_URL="https://s3.amazonaws.com/ut2004-files/dedicated-server-3339-bonuspack.tar.gz"
 
 ENV START_EXE="System/ucc-bin"

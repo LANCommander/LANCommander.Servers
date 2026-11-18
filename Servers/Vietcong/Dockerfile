@@ -4,6 +4,9 @@
 ARG BASE_IMAGE=lancommander/wine:latest
 FROM ${BASE_IMAGE}
 
+LABEL org.opencontainers.image.title="Vietcong Dedicated Server" \
+      org.opencontainers.image.description="Dedicated server for Vietcong"
+
 # Log files LANCommander shows as consoles under the server's Monitor
 LABEL app.lancommander.server.log.chat="/config/Overlay/dev/chatlog.txt"
 

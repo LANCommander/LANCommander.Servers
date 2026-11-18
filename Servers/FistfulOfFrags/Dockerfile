@@ -4,6 +4,9 @@
 ARG BASE_IMAGE=lancommander/steamcmd:latest
 FROM ${BASE_IMAGE}
 
+LABEL org.opencontainers.image.title="Fistful of Frags Game Server" \
+      org.opencontainers.image.description="Dedicated server for Fistful of Frags"
+
 # SteamCMD settings
 ENV STEAM_APP_ID="295230"
 ENV START_EXE="srcds_run"

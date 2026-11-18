@@ -4,6 +4,9 @@
 ARG BASE_IMAGE=lancommander/steamcmd:latest
 FROM ${BASE_IMAGE}
 
+LABEL org.opencontainers.image.title="Counter-Strike: Source Game Server" \
+      org.opencontainers.image.description="A Docker container to host a Counter-Strike: Source game server"
+
 # SteamCMD settings
 ENV STEAM_APP_ID="232330"
 ENV START_EXE="srcds_run"

@@ -2,6 +2,9 @@
 
 FROM lancommander/base:latest
 
+LABEL org.opencontainers.image.title="Zandronum Server" \
+      org.opencontainers.image.description="A Docker container to host a Zandronum game server"
+
 ENV ZANDRONUM_VERSION="3.2.1"
 ENV ZANDRONUM_URL=""
 

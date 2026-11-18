@@ -2,6 +2,9 @@
 
 FROM lancommander/base:latest
 
+LABEL org.opencontainers.image.title="Jedi Knight: Jedi Academy Server" \
+      org.opencontainers.image.description="A Docker container to host a Jedi Knight: Jedi Academy game server"
+
 ENV OPENJK_URL="https://github.com/JACoders/OpenJK/releases/download/latest/OpenJK-linux-x86_64.tar.gz"
 
 # Server settings

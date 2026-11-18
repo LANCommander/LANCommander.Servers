@@ -2,6 +2,9 @@
 
 FROM lancommander/base:latest
 
+LABEL org.opencontainers.image.title="Star Trek: Elite Force Server" \
+      org.opencontainers.image.description="A Docker container to host a Star Trek: Elite Force game server"
+
 ENV cMod_URL="https://github.com/Chomenor/ioef-cmod/releases/download/v1.30/ioEF-cMod_v1.30_linux_x86_64.zip"
 
 # Server settings

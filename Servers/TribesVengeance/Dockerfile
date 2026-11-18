@@ -2,6 +2,9 @@
 
 FROM lancommander/wine:latest-gui
 
+LABEL org.opencontainers.image.title="Tribes: Vengeance Server" \
+      org.opencontainers.image.description="A Docker container to host a Tribes: Vengeance game server"
+
 # Server settings
 ENV START_EXE="xvfb-run wine Beta_Dedicated_Server.exe"
 ENV START_ARGS="MP-Fort?game=GameClasses.ModeCTF?maxplayers=32"

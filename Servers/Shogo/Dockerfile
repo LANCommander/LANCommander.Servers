@@ -4,6 +4,9 @@
 ARG BASE_IMAGE=lancommander/wine:latest
 FROM ${BASE_IMAGE}
 
+LABEL org.opencontainers.image.title="Shogo: Mobile Armor Division Dedicated Server" \
+      org.opencontainers.image.description="Dedicated server for Shogo: Mobile Armor Division"
+
 # ----------------------------
 # Server settings
 #   - The game files are not downloadable; put a Shogo 2.2 install (ShogoSrv.exe, SHOGO.REZ ...) in

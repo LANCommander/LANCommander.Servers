@@ -4,6 +4,9 @@
 ARG BASE_IMAGE=lancommander/base:latest
 FROM ${BASE_IMAGE}
 
+LABEL org.opencontainers.image.title="Call of Duty 4: Modern Warfare Dedicated Server" \
+      org.opencontainers.image.description="Dedicated server for Call of Duty 4: Modern Warfare"
+
 # Log files LANCommander shows as consoles under the server's Monitor
 LABEL app.lancommander.server.log.games-log="/config/Overlay/main/games_mp.log"
 

@@ -1,6 +1,9 @@
 # syntax=docker/dockerfile:1.7
 FROM mcr.microsoft.com/powershell:debian-12
 
+LABEL org.opencontainers.image.title="LANCommander Game Server Base" \
+      org.opencontainers.image.description="A base image for LANCommander server Docker images"
+
 # ----------------------------
 # Runtime paths (mounted + immutable)
 # ----------------------------

@@ -4,6 +4,9 @@
 ARG BASE_IMAGE=lancommander/wine:latest
 FROM ${BASE_IMAGE}
 
+LABEL org.opencontainers.image.title="Aliens vs. Predator 2 Dedicated Server" \
+      org.opencontainers.image.description="Dedicated server for Aliens vs. Predator 2"
+
 # Log files LANCommander shows as consoles under the server's Monitor
 LABEL app.lancommander.server.log.chat="/config/Overlay/chatlog.txt"
 

@@ -2,6 +2,9 @@
 
 FROM lancommander/base:latest
 
+LABEL org.opencontainers.image.title="Call of Duty Server" \
+      org.opencontainers.image.description="A Docker container to host a Call of Duty game server"
+
 ENV COD_URL="https://github.com/LANCommander/LANCommander.Servers.CallOfDuty/releases/download/v1.5b/cod_lnxded-1.5b.zip"
 
 # Server settings

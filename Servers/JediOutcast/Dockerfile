@@ -2,6 +2,9 @@
 
 FROM lancommander/base:latest
 
+LABEL org.opencontainers.image.title="Jedi Knight II: Jedi Outcast Server" \
+      org.opencontainers.image.description="A Docker container to host a Jedi Knight II: Jedi Outcast game server"
+
 ENV JK2MV_URL="https://github.com/mvdevs/jk2mv/releases/download/1.4.1/jk2mv-v1.4.1-dedicated.zip"
 
 # Server settings

@@ -4,6 +4,9 @@
 ARG BASE_IMAGE=lancommander/base:latest
 FROM ${BASE_IMAGE}
 
+LABEL org.opencontainers.image.title="Generic WINE Runtime Image" \
+      org.opencontainers.image.description="WINE base image for headless game servers (includes Xvfb)."
+
 ARG WINETRICKS_VERSION=20260125
 
 ENV DEBIAN_FRONTEND=noninteractive

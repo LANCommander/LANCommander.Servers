@@ -4,6 +4,9 @@
 ARG BASE_IMAGE=lancommander/wine:latest
 FROM ${BASE_IMAGE}
 
+LABEL org.opencontainers.image.title="AquaNox Dedicated Server" \
+      org.opencontainers.image.description="Dedicated server for AquaNox"
+
 # Log files LANCommander shows as consoles under the server's Monitor
 LABEL app.lancommander.server.log.multiplayer-log="/config/Overlay/mp.log" \
       app.lancommander.server.log.error-log="/config/wineprefix/drive_c/users/lancommander/AppData/Roaming/AquaNox/log.txt"

@@ -4,6 +4,9 @@
 ARG BASE_IMAGE=lancommander/wine:latest
 FROM ${BASE_IMAGE}
 
+LABEL org.opencontainers.image.title="Far Cry Dedicated Server" \
+      org.opencontainers.image.description="Dedicated server for Far Cry"
+
 # Log files LANCommander shows as consoles under the server's Monitor
 LABEL app.lancommander.server.log.server-log="/config/Overlay/log_WinSV.txt"
 

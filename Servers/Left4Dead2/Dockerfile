@@ -4,6 +4,9 @@
 ARG BASE_IMAGE=lancommander/steamcmd:latest
 FROM ${BASE_IMAGE}
 
+LABEL org.opencontainers.image.title="Left 4 Dead 2 Game Server" \
+      org.opencontainers.image.description="Dedicated server for Left 4 Dead 2"
+
 # SteamCMD settings
 ENV STEAM_APP_ID="222860"
 ENV START_EXE="srcds_run"
