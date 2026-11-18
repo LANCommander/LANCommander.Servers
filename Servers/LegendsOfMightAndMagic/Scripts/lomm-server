@@ -1,0 +1,146 @@
+#!/bin/sh
+# Start the Legends of Might and Magic dedicated server (START_EXE).
+#
+# LegendServ.exe is a GUI program with no command-line settings. It opens a Host Settings dialog
+# filled from the registry and ROTATION.TXT (both written by the configure hook), and only hosts
+# once OK is pressed. This script runs it under Xvfb, waits for the dialog, types LOMM_PASSWORD
+# into it (the password isn't stored anywhere), and presses OK with xdotool. If the dialog
+# rejects a value it shows an error box titled with the field name, which is reported here.
+#
+# The server's console is a list box in its window, so nothing reaches stdout. Instead the script
+# polls the GameSpy status port and logs the current map and player count when they change.
+# Any START_ARGS are passed to LegendServ.exe (it only knows `+log <file>` and `+consolelog 1`).
+set -e
+
+root="${SERVER_ROOT:-/config/Merged}"
+: "${WINEPREFIX:=/config/wineprefix}"
+export WINEPREFIX
+
+# Re-run inside Xvfb; the script needs the display too, to find the dialog
+if [ -z "${LOMM_IN_XVFB:-}" ]; then
+    case "${WINE_XVFB:-true}" in
+        false|0|no) use_xvfb=0 ;;
+        auto) if [ -n "${DISPLAY:-}" ]; then use_xvfb=0; else use_xvfb=1; fi ;;
+        *) use_xvfb=1 ;;
+    esac
+    if [ "$use_xvfb" -eq 1 ]; then
+        export LOMM_IN_XVFB=1
+        exec xvfb-run --auto-servernum \
+            --server-args="-screen 0 ${WINE_XVFB_SCREEN:-1024x768x24}" \
+            "$0" "$@"
+    fi
+fi
+
+cd "$root"
+
+if [ ! -f LegendServ.exe ]; then
+    echo "LegendServ.exe not found in $root. Put a Legends of Might and Magic 1.1 install in /config/Server." >&2
+    exit 1
+fi
+
+# LegendServ leaves a Leg*.tmp file in the game folder on every run
+rm -f Leg*.tmp
+
+port="${LOMM_PORT:-29800}"
+query_port="${LOMM_GAMESPY_PORT:-29801}"
+
+printf 'Starting: LegendServ.exe %s\n' "$*"
+wine LegendServ.exe "$@" &
+game_pid=$!
+
+stop() {
+    wineserver -k 2>/dev/null || true
+    kill "$game_pid" 2>/dev/null || true
+}
+trap 'stop; exit 0' TERM INT
+
+fail() {
+    echo "$1" >&2
+    stop
+    exit 1
+}
+
+# Names of the server's top-level windows, without Wine's IME helpers
+windows() {
+    xdotool search --name '.' 2>/dev/null | while read -r id; do
+        xdotool getwindowname "$id" 2>/dev/null || true
+    done | grep -v -x -e 'Default IME' -e '' || true
+}
+
+dialog() {
+    xdotool search --name '^Host Settings$' 2>/dev/null | head -n 1
+}
+
+# --- Wait for the Host Settings dialog ---
+timeout="${LOMM_DIALOG_TIMEOUT:-120}"
+waited=0
+until [ -n "$(dialog)" ]; do
+    kill -0 "$game_pid" 2>/dev/null || fail "LegendServ.exe exited before showing its Host Settings dialog."
+    waited=$((waited + 1))
+    [ "$waited" -lt "$timeout" ] || fail "LegendServ.exe didn't show its Host Settings dialog within ${timeout}s. Windows: $(windows | tr '\n' ';')"
+    sleep 1
+done
+
+# Let the dialog finish filling in its controls
+sleep 2
+win="$(dialog)"
+
+# The dialog opens with the focus on OK. Its tab order is OK, Cancel, Server Name, Server
+# Password. Never type while the focus is on a button: letters are checkbox mnemonics there.
+if [ -n "${LOMM_PASSWORD:-}" ]; then
+    for _ in 1 2 3; do
+        xdotool key --window "$win" Tab 2>/dev/null
+        sleep 0.3
+    done
+    xdotool type --window "$win" --delay 50 -- "$LOMM_PASSWORD" 2>/dev/null
+    sleep 0.5
+fi
+
+xdotool key --window "$win" Return 2>/dev/null
+
+# --- Wait for the dialog to close ---
+waited=0
+while [ -n "$(dialog)" ]; do
+    kill -0 "$game_pid" 2>/dev/null || fail "LegendServ.exe exited from the Host Settings dialog."
+    waited=$((waited + 1))
+    if [ "$waited" -ge 30 ]; then
+        others="$(windows | grep -v -x 'Host Settings' | tr '\n' ' ')"
+        fail "LegendServ.exe didn't accept its Host Settings. Open windows: ${others:-none}. A window named after a field (e.g. 'Max Players:') means that LOMM_* value is out of range."
+    fi
+    sleep 1
+done
+
+echo "Host Settings accepted; game port ${port}/udp, GameSpy status on ${query_port}/udp"
+
+# --- Log status from the GameSpy port ---
+field() {
+    printf '%s' "$1" | awk -v key="$2" -F'\\' '{ for (i = 2; i < NF; i += 2) if ($i == key) { print $(i + 1); exit } }'
+}
+
+last=""
+up=0
+started=$(date +%s)
+while kill -0 "$game_pid" 2>/dev/null; do
+    reply="$(printf '\\status\\' | nc -u -w 1 127.0.0.1 "$query_port" 2>/dev/null || true)"
+    if [ -n "$reply" ]; then
+        if [ "$up" -eq 0 ]; then
+            echo "Server is up: $(field "$reply" hostname)"
+            up=1
+        fi
+        state="map $(field "$reply" mapname) ($(field "$reply" gametype)), $(field "$reply" numplayers)/$(field "$reply" maxplayers) players"
+        if [ "$state" != "$last" ]; then
+            echo "$state"
+            last="$state"
+        fi
+    elif [ "$up" -eq 0 ] && [ $(( $(date +%s) - started )) -gt 120 ]; then
+        echo "Warning: no GameSpy status reply on ${query_port}/udp after 120s; the world may have failed to load. Windows: $(windows | tr '\n' ';')" >&2
+        started=$(date +%s)
+    fi
+    sleep 15 &
+    wait $! || true
+done
+
+status=0
+wait "$game_pid" || status=$?
+echo "LegendServ.exe exited with status $status"
+exit "$status"
