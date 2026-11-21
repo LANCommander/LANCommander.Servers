@@ -1,0 +1,33 @@
+<meta>
+	<info author="LANCommander" type="script" description="LAN party rotation: votes between game modes and maps, with a few race maps in a row" version="1.0.0"/>
+	<!-- Replaces the stock mapcycler (same name, so the stock game modes report their round ends to it) -->
+	<include resource="mapmanager" />
+	<include resource="votemanager" />
+	<script src="party.lua" type="server"/>
+	<settings>
+		<setting name="*gamemodes" value="race,deathmatch,tdma,ctf,assault,stealth,briefcaserace,ctv,fallout,hay"
+			friendlyname="Game modes" group="Party rotation"
+			desc="Comma-separated game mode resources the vote picks from. Empty = every game mode except play."/>
+		<setting name="*start" value="race"
+			friendlyname="Start game mode" group="Party rotation"
+			desc="Game mode started (with a random map) when the server starts. Empty = a random one from the list."/>
+		<setting name="*vote_options" value="[6]"
+			friendlyname="Vote options" group="Party rotation" accept="2-8"
+			desc="How many mode + map choices each vote offers (Play again comes on top)."/>
+		<setting name="*race_maps" value="[3]"
+			friendlyname="Race maps in a row" group="Party rotation" accept="1-100"
+			desc="Race maps played (picked by the race map vote) before the next vote also offers the other game modes."/>
+		<setting name="*time_limit" value="[15]"
+			friendlyname="Time limit (minutes)" group="Party rotation" accept="0-600"
+			desc="Starts the vote when a non-race map has run this long without its round ending (modes like fallout, hay, tdma and ctv never end a round on their own). 0 = off."/>
+		<setting name="*vote_delay" value="[8]"
+			friendlyname="Vote delay (seconds)" group="Party rotation" accept="0-60"
+			desc="Seconds between a round ending and the vote, so players can see the scores."/>
+		<setting name="*recent_maps" value="[8]"
+			friendlyname="Recent maps" group="Party rotation" accept="0-50"
+			desc="Maps played this recently are left out of the vote when there are others."/>
+		<setting name="*color" value="#F0A830"
+			friendlyname="Chat color" group="Party rotation"
+			desc="Color of the rotation's chat messages."/>
+	</settings>
+</meta>

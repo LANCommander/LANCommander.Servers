@@ -1,0 +1,9 @@
+<meta>
+	<info author="LANCommander" type="script" description="Creates the admin account from MTA_ADMIN_USER / MTA_ADMIN_PASSWORD" version="1.0.0"/>
+	<!-- Needs resource.lancommander in the ACL's Admin group (the container's configure hook adds it) -->
+	<script src="lancommander.lua" type="server"/>
+	<settings>
+		<setting name="#admin_user" value="admin" desc="Admin account name"/>
+		<setting name="#admin_password" value="" desc="Admin account password; empty = no account is created"/>
+	</settings>
+</meta>

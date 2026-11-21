@@ -150,6 +150,7 @@ triage. Requests for new games use the **New server request** form.
 | Minecraft: Java Edition | [`lancommander/minecraft`](https://hub.docker.com/r/lancommander/minecraft) | [`Servers/Minecraft`](Servers/Minecraft) |
 | Mobile Forces | [`lancommander/mobileforces`](https://hub.docker.com/r/lancommander/mobileforces) | [`Servers/MobileForces`](Servers/MobileForces) |
 | The Elder Scrolls III: Morrowind | [`lancommander/morrowind`](https://hub.docker.com/r/lancommander/morrowind) | [`Servers/Morrowind`](Servers/Morrowind) |
+| Multi Theft Auto | [`lancommander/multitheftauto`](https://hub.docker.com/r/lancommander/multitheftauto) | [`Servers/MultiTheftAuto`](Servers/MultiTheftAuto) |
 | Natural Selection | [`lancommander/naturalselection`](https://hub.docker.com/r/lancommander/naturalselection) | [`Servers/NaturalSelection`](Servers/NaturalSelection) |
 | James Bond 007: Nightfire | [`lancommander/nightfire`](https://hub.docker.com/r/lancommander/nightfire) | [`Servers/Nightfire`](Servers/Nightfire) |
 | The Operative: No One Lives Forever | [`lancommander/noonelivesforever`](https://hub.docker.com/r/lancommander/noonelivesforever) | [`Servers/NoOneLivesForever`](Servers/NoOneLivesForever) |

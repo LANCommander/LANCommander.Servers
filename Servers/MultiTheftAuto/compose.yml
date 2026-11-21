@@ -1,0 +1,29 @@
+services:
+  multitheftauto:
+    image: lancommander/multitheftauto:latest
+    container_name: multitheftauto
+
+    ports:
+      - "22003:22003/udp"
+      - "22005:22005/tcp"
+      - "22126:22126/udp"
+      - "34219:34219/udp"
+
+    volumes:
+      - ./config:/config
+
+    environment:
+      MTA_SERVER_NAME: "My MTA Server"
+      MTA_MAX_PLAYERS: "32"
+      MTA_ADMIN_PASSWORD: "changeme"
+      MTA_PARTY_ROTATION: "true"
+
+    user: root
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+
+    stdin_open: true                   # console input through the container's stdin
+    stop_grace_period: 15s             # time for a clean shutdown on docker stop
+    restart: unless-stopped
